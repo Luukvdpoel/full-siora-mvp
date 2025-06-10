@@ -1,0 +1,3002 @@
+[
+  {
+    "id":"1",
+    "name":"Sophie Lee",
+    "handle":"sophie_lee36",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":962325,
+    "engagementRate":9.3,
+    "summary":"Parenting creator sharing deep dives.",
+    "tone":"Inspirational",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"2",
+    "name":"Tom Patel",
+    "handle":"tompatel38",
+    "niche":"Home & Plants",
+    "platform":"TikTok",
+    "followers":981462,
+    "engagementRate":6.5,
+    "summary":"Tech creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Creativity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"3",
+    "name":"Maya Patel",
+    "handle":"mayapatel91",
+    "niche":"Beauty",
+    "platform":"YouTube",
+    "followers":870765,
+    "engagementRate":2.0,
+    "summary":"Finance creator sharing behind-the-scenes.",
+    "tone":"Educational",
+    "tags":[
+      "Empowerment",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"4",
+    "name":"Luis Garcia",
+    "handle":"luisgarcia16",
+    "niche":"Parenting",
+    "platform":"TikTok",
+    "followers":746196,
+    "engagementRate":3.9,
+    "summary":"Fitness creator sharing behind-the-scenes.",
+    "tone":"Playful",
+    "tags":[
+      "Sustainability",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"5",
+    "name":"Sophie Brown",
+    "handle":"sophie.brown84",
+    "niche":"Food",
+    "platform":"Instagram",
+    "followers":950120,
+    "engagementRate":9.0,
+    "summary":"Travel creator sharing life hacks.",
+    "tone":"Inspirational",
+    "tags":[
+      "Freedom",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"6",
+    "name":"Maya Lee",
+    "handle":"maya_lee80",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":597188,
+    "engagementRate":4.5,
+    "summary":"Fitness creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"7",
+    "name":"Marc Nguyen",
+    "handle":"marcnguyen10",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":92949,
+    "engagementRate":9.4,
+    "summary":"Travel creator sharing behind-the-scenes.",
+    "tone":"Inspirational",
+    "tags":[
+      "Innovation",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"8",
+    "name":"Tom Smith",
+    "handle":"tom_smith10",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":364762,
+    "engagementRate":5.6,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Educational",
+    "tags":[
+      "Diversity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"9",
+    "name":"Nora Garcia",
+    "handle":"nora_garcia25",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":731256,
+    "engagementRate":2.0,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Creativity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"10",
+    "name":"Maya Garcia",
+    "handle":"mayagarcia44",
+    "niche":"Travel",
+    "platform":"TikTok",
+    "followers":799760,
+    "engagementRate":3.7,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Empathetic",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"11",
+    "name":"Maya Brown",
+    "handle":"maya_brown83",
+    "niche":"Finance",
+    "platform":"YouTube",
+    "followers":485143,
+    "engagementRate":6.6,
+    "summary":"Fitness creator sharing daily tips.",
+    "tone":"Educational",
+    "tags":[
+      "Authenticity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"12",
+    "name":"Sophie Mendes",
+    "handle":"sophiemendes57",
+    "niche":"Finance",
+    "platform":"YouTube",
+    "followers":224791,
+    "engagementRate":9.2,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Empathetic",
+    "tags":[
+      "Wellness",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"13",
+    "name":"Marc Garcia",
+    "handle":"marcgarcia96",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":862366,
+    "engagementRate":5.9,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Empathetic",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"14",
+    "name":"Tom Kim",
+    "handle":"tomkim5",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":990606,
+    "engagementRate":6.5,
+    "summary":"Finance creator sharing behind-the-scenes.",
+    "tone":"Inspirational",
+    "tags":[
+      "Diversity",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"15",
+    "name":"Sophie Mendes",
+    "handle":"sophiemendes11",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":785024,
+    "engagementRate":4.6,
+    "summary":"Finance creator sharing raw stories.",
+    "tone":"Playful",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"16",
+    "name":"Nora Patel",
+    "handle":"norapatel81",
+    "niche":"Fitness",
+    "platform":"YouTube",
+    "followers":250429,
+    "engagementRate":3.8,
+    "summary":"Parenting creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Wellness",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"17",
+    "name":"Lena Tan",
+    "handle":"lena.tan38",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":25492,
+    "engagementRate":4.4,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Playful",
+    "tags":[
+      "Creativity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"18",
+    "name":"Luis Garcia",
+    "handle":"luis_garcia41",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":10729,
+    "engagementRate":11.7,
+    "summary":"Gaming creator sharing raw stories.",
+    "tone":"Educational",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"19",
+    "name":"Tom Kim",
+    "handle":"tom_kim82",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":168305,
+    "engagementRate":11.0,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Playful",
+    "tags":[
+      "Diversity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"20",
+    "name":"Alex Brown",
+    "handle":"alex_brown33",
+    "niche":"Home & Plants",
+    "platform":"Instagram",
+    "followers":322307,
+    "engagementRate":11.9,
+    "summary":"Tech creator sharing raw stories.",
+    "tone":"Curious",
+    "tags":[
+      "Authenticity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"21",
+    "name":"Sophie Smith",
+    "handle":"sophie.smith51",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":992441,
+    "engagementRate":2.8,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Authenticity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"22",
+    "name":"Lena Smith",
+    "handle":"lena.smith76",
+    "niche":"Tech",
+    "platform":"YouTube",
+    "followers":562706,
+    "engagementRate":5.6,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Diversity",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"23",
+    "name":"Alex Kim",
+    "handle":"alex_kim1",
+    "niche":"Travel",
+    "platform":"TikTok",
+    "followers":547936,
+    "engagementRate":4.8,
+    "summary":"Home & Plants creator sharing raw stories.",
+    "tone":"Empathetic",
+    "tags":[
+      "Empowerment",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"24",
+    "name":"Chris Tan",
+    "handle":"christan84",
+    "niche":"Travel",
+    "platform":"YouTube",
+    "followers":614469,
+    "engagementRate":7.9,
+    "summary":"Travel creator sharing deep dives.",
+    "tone":"Educational",
+    "tags":[
+      "Freedom",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"25",
+    "name":"Luis Garcia",
+    "handle":"luis_garcia7",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":839120,
+    "engagementRate":3.0,
+    "summary":"Fashion creator sharing behind-the-scenes.",
+    "tone":"Inspirational",
+    "tags":[
+      "Diversity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"26",
+    "name":"Chris Patel",
+    "handle":"chris_patel88",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":764569,
+    "engagementRate":2.4,
+    "summary":"Home & Plants creator sharing raw stories.",
+    "tone":"Minimal",
+    "tags":[
+      "Creativity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"27",
+    "name":"Nora Kim",
+    "handle":"nora_kim43",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":349397,
+    "engagementRate":3.7,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Wellness",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"28",
+    "name":"Luis Brown",
+    "handle":"luis.brown66",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":283571,
+    "engagementRate":4.5,
+    "summary":"Beauty creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"29",
+    "name":"Nora Brown",
+    "handle":"nora_brown32",
+    "niche":"Fitness",
+    "platform":"YouTube",
+    "followers":502710,
+    "engagementRate":1.8,
+    "summary":"Fashion creator sharing life hacks.",
+    "tone":"Satirical",
+    "tags":[
+      "Authenticity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"30",
+    "name":"Alex Lee",
+    "handle":"alex.lee40",
+    "niche":"Tech",
+    "platform":"YouTube",
+    "followers":490718,
+    "engagementRate":6.3,
+    "summary":"Food creator sharing deep dives.",
+    "tone":"Curious",
+    "tags":[
+      "Wellness",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"31",
+    "name":"Alex Smith",
+    "handle":"alex.smith20",
+    "niche":"Home & Plants",
+    "platform":"TikTok",
+    "followers":592446,
+    "engagementRate":8.9,
+    "summary":"Parenting creator sharing daily tips.",
+    "tone":"Educational",
+    "tags":[
+      "Innovation",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"32",
+    "name":"Luis Nguyen",
+    "handle":"luis.nguyen46",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":710565,
+    "engagementRate":5.4,
+    "summary":"Fashion creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Wellness",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"33",
+    "name":"Chris Mendes",
+    "handle":"chrismendes45",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":640520,
+    "engagementRate":4.2,
+    "summary":"Travel creator sharing life hacks.",
+    "tone":"Satirical",
+    "tags":[
+      "Innovation",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"34",
+    "name":"Tom Tan",
+    "handle":"tom.tan63",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":925814,
+    "engagementRate":9.7,
+    "summary":"Beauty creator sharing life hacks.",
+    "tone":"Curious",
+    "tags":[
+      "Wellness",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"35",
+    "name":"Maya Kim",
+    "handle":"mayakim42",
+    "niche":"Finance",
+    "platform":"TikTok",
+    "followers":213556,
+    "engagementRate":7.8,
+    "summary":"Beauty creator sharing life hacks.",
+    "tone":"Minimal",
+    "tags":[
+      "Authenticity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"36",
+    "name":"Lena Venter",
+    "handle":"lenaventer11",
+    "niche":"Gaming",
+    "platform":"Instagram",
+    "followers":936925,
+    "engagementRate":8.5,
+    "summary":"Finance creator sharing raw stories.",
+    "tone":"Satirical",
+    "tags":[
+      "Innovation",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"37",
+    "name":"Tom Venter",
+    "handle":"tomventer95",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":611024,
+    "engagementRate":2.7,
+    "summary":"Fashion creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Creativity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"38",
+    "name":"Tom Mendes",
+    "handle":"tommendes17",
+    "niche":"Tech",
+    "platform":"YouTube",
+    "followers":625473,
+    "engagementRate":4.0,
+    "summary":"Food creator sharing raw stories.",
+    "tone":"Playful",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"39",
+    "name":"Marc Smith",
+    "handle":"marc_smith25",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":16677,
+    "engagementRate":3.2,
+    "summary":"Home & Plants creator sharing raw stories.",
+    "tone":"Curious",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"40",
+    "name":"Nora Tan",
+    "handle":"nora.tan79",
+    "niche":"Parenting",
+    "platform":"TikTok",
+    "followers":237057,
+    "engagementRate":8.6,
+    "summary":"Travel creator sharing deep dives.",
+    "tone":"Inspirational",
+    "tags":[
+      "Wellness",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"41",
+    "name":"Marc Smith",
+    "handle":"marc.smith44",
+    "niche":"Fitness",
+    "platform":"YouTube",
+    "followers":387399,
+    "engagementRate":9.3,
+    "summary":"Fashion creator sharing raw stories.",
+    "tone":"Curious",
+    "tags":[
+      "Innovation",
+      "Innovation"
+    ]
+  },
+  {
+    "id": "42",
+    "name":"Jade Brown",
+    "handle":"jadebrown92",
+    "niche":"Home & Plants",
+    "platform":"Instagram",
+    "followers":381546,
+    "engagementRate":6.4,
+    "summary":"Tech creator sharing daily tips.",
+    "tone":"Educational",
+    "tags":[
+      "Freedom",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"43",
+    "name":"Luis Nguyen",
+    "handle":"luis.nguyen49",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":142194,
+    "engagementRate":2.7,
+    "summary":"Tech creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Innovation",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"44",
+    "name":"Sophie Lee",
+    "handle":"sophielee2",
+    "niche":"Food",
+    "platform":"YouTube",
+    "followers":538260,
+    "engagementRate":7.7,
+    "summary":"Parenting creator sharing raw stories.",
+    "tone":"Empathetic",
+    "tags":[
+      "Diversity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"45",
+    "name":"Luis Smith",
+    "handle":"luis_smith23",
+    "niche":"Finance",
+    "platform":"TikTok",
+    "followers":801385,
+    "engagementRate":10.7,
+    "summary":"Tech creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Freedom",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"46",
+    "name":"Nora Tan",
+    "handle":"noratan42",
+    "niche":"Tech",
+    "platform":"TikTok",
+    "followers":375477,
+    "engagementRate":10.3,
+    "summary":"Finance creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Innovation",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"47",
+    "name":"Maya Patel",
+    "handle":"mayapatel9",
+    "niche":"Parenting",
+    "platform":"TikTok",
+    "followers":86582,
+    "engagementRate":2.5,
+    "summary":"Home & Plants creator sharing raw stories.",
+    "tone":"Minimal",
+    "tags":[
+      "Authenticity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"48",
+    "name":"Tom Lee",
+    "handle":"tom.lee42",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":667096,
+    "engagementRate":6.4,
+    "summary":"Food creator sharing behind-the-scenes.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"49",
+    "name":"Jade Smith",
+    "handle":"jade.smith53",
+    "niche":"Food",
+    "platform":"Instagram",
+    "followers":312497,
+    "engagementRate":10.3,
+    "summary":"Home & Plants creator sharing daily tips.",
+    "tone":"Empathetic",
+    "tags":[
+      "Diversity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"50",
+    "name":"Luis Brown",
+    "handle":"luis.brown24",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":499040,
+    "engagementRate":6.9,
+    "summary":"Parenting creator sharing deep dives.",
+    "tone":"Playful",
+    "tags":[
+      "Innovation",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"51",
+    "name":"Tom Tan",
+    "handle":"tomtan79",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":204778,
+    "engagementRate":7.7,
+    "summary":"Fitness creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Authenticity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"52",
+    "name":"Tom Nguyen",
+    "handle":"tom.nguyen41",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":779179,
+    "engagementRate":9.3,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Playful",
+    "tags":[
+      "Freedom",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"53",
+    "name":"Alex Kim",
+    "handle":"alex.kim73",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":923228,
+    "engagementRate":11.1,
+    "summary":"Parenting creator sharing behind-the-scenes.",
+    "tone":"Satirical",
+    "tags":[
+      "Sustainability",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"54",
+    "name":"Maya Venter",
+    "handle":"maya.venter13",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":995650,
+    "engagementRate":5.2,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Satirical",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"55",
+    "name":"Marc Tan",
+    "handle":"marctan85",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":747904,
+    "engagementRate":11.6,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Curious",
+    "tags":[
+      "Innovation",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"56",
+    "name":"Tom Venter",
+    "handle":"tomventer55",
+    "niche":"Finance",
+    "platform":"Instagram",
+    "followers":100017,
+    "engagementRate":10.9,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Playful",
+    "tags":[
+      "Wellness",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"57",
+    "name":"Lena Brown",
+    "handle":"lena_brown42",
+    "niche":"Gaming",
+    "platform":"Instagram",
+    "followers":116636,
+    "engagementRate":3.7,
+    "summary":"Parenting creator sharing life hacks.",
+    "tone":"Satirical",
+    "tags":[
+      "Creativity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"58",
+    "name":"Luis Brown",
+    "handle":"luis.brown4",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":353151,
+    "engagementRate":1.9,
+    "summary":"Finance creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Diversity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"59",
+    "name":"Jade Venter",
+    "handle":"jade_venter43",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":103062,
+    "engagementRate":2.9,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Wellness",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"60",
+    "name":"Jade Tan",
+    "handle":"jade.tan18",
+    "niche":"Gaming",
+    "platform":"Instagram",
+    "followers":622359,
+    "engagementRate":2.6,
+    "summary":"Fitness creator sharing raw stories.",
+    "tone":"Empathetic",
+    "tags":[
+      "Empowerment",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"61",
+    "name":"Maya Kim",
+    "handle":"mayakim87",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":780235,
+    "engagementRate":3.8,
+    "summary":"Travel creator sharing life hacks.",
+    "tone":"Empathetic",
+    "tags":[
+      "Empowerment",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"62",
+    "name":"Jade Mendes",
+    "handle":"jade.mendes20",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":640160,
+    "engagementRate":9.9,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Satirical",
+    "tags":[
+      "Innovation",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"63",
+    "name":"Lena Lee",
+    "handle":"lena_lee93",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":158330,
+    "engagementRate":9.5,
+    "summary":"Travel creator sharing raw stories.",
+    "tone":"Curious",
+    "tags":[
+      "Innovation",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"64",
+    "name":"Alex Mendes",
+    "handle":"alexmendes72",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":543587,
+    "engagementRate":6.4,
+    "summary":"Fashion creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"65",
+    "name":"Tom Patel",
+    "handle":"tompatel90",
+    "niche":"Food",
+    "platform":"Instagram",
+    "followers":557115,
+    "engagementRate":8.7,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Inspirational",
+    "tags":[
+      "Creativity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"66",
+    "name":"Lena Patel",
+    "handle":"lena_patel8",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":267624,
+    "engagementRate":9.7,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Sustainability",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"67",
+    "name":"Sophie Patel",
+    "handle":"sophie.patel93",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":142697,
+    "engagementRate":9.9,
+    "summary":"Food creator sharing daily tips.",
+    "tone":"Curious",
+    "tags":[
+      "Empowerment",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"68",
+    "name":"Tom Brown",
+    "handle":"tom.brown21",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":380371,
+    "engagementRate":5.5,
+    "summary":"Finance creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Empowerment",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"69",
+    "name":"Sophie Kim",
+    "handle":"sophiekim33",
+    "niche":"Finance",
+    "platform":"TikTok",
+    "followers":751342,
+    "engagementRate":9.8,
+    "summary":"Beauty creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"70",
+    "name":"Chris Garcia",
+    "handle":"chrisgarcia98",
+    "niche":"Tech",
+    "platform":"TikTok",
+    "followers":490455,
+    "engagementRate":9.3,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Minimal",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"71",
+    "name":"Lena Kim",
+    "handle":"lenakim63",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":909091,
+    "engagementRate":6.2,
+    "summary":"Food creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Creativity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"72",
+    "name":"Nora Lee",
+    "handle":"nora.lee75",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":447109,
+    "engagementRate":8.2,
+    "summary":"Fitness creator sharing daily tips.",
+    "tone":"Satirical",
+    "tags":[
+      "Freedom",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"73",
+    "name":"Luis Patel",
+    "handle":"luis_patel57",
+    "niche":"Travel",
+    "platform":"YouTube",
+    "followers":511567,
+    "engagementRate":6.7,
+    "summary":"Finance creator sharing behind-the-scenes.",
+    "tone":"Playful",
+    "tags":[
+      "Authenticity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"74",
+    "name":"Marc Patel",
+    "handle":"marc_patel35",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":91295,
+    "engagementRate":5.5,
+    "summary":"Fashion creator sharing life hacks.",
+    "tone":"Empathetic",
+    "tags":[
+      "Diversity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"75",
+    "name":"Lena Venter",
+    "handle":"lena.venter91",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":294705,
+    "engagementRate":3.3,
+    "summary":"Food creator sharing behind-the-scenes.",
+    "tone":"Playful",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"76",
+    "name":"Tom Nguyen",
+    "handle":"tom.nguyen69",
+    "niche":"Beauty",
+    "platform":"YouTube",
+    "followers":759407,
+    "engagementRate":3.2,
+    "summary":"Beauty creator sharing behind-the-scenes.",
+    "tone":"Minimal",
+    "tags":[
+      "Creativity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"77",
+    "name":"Luis Kim",
+    "handle":"luis_kim61",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":411981,
+    "engagementRate":9.8,
+    "summary":"Travel creator sharing deep dives.",
+    "tone":"Curious",
+    "tags":[
+      "Creativity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"78",
+    "name":"Lena Nguyen",
+    "handle":"lenanguyen15",
+    "niche":"Travel",
+    "platform":"YouTube",
+    "followers":222899,
+    "engagementRate":6.6,
+    "summary":"Home & Plants creator sharing deep dives.",
+    "tone":"Educational",
+    "tags":[
+      "Empowerment",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"79",
+    "name":"Alex Smith",
+    "handle":"alex_smith69",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":506353,
+    "engagementRate":4.0,
+    "summary":"Home & Plants creator sharing deep dives.",
+    "tone":"Bold",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"80",
+    "name":"Chris Garcia",
+    "handle":"chris.garcia89",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":915554,
+    "engagementRate":2.0,
+    "summary":"Parenting creator sharing life hacks.",
+    "tone":"Satirical",
+    "tags":[
+      "Freedom",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"81",
+    "name":"Jade Mendes",
+    "handle":"jademendes10",
+    "niche":"Gaming",
+    "platform":"Instagram",
+    "followers":185567,
+    "engagementRate":7.7,
+    "summary":"Fashion creator sharing deep dives.",
+    "tone":"Empathetic",
+    "tags":[
+      "Diversity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"82",
+    "name":"Tom Tan",
+    "handle":"tom.tan92",
+    "niche":"Travel",
+    "platform":"TikTok",
+    "followers":125178,
+    "engagementRate":11.6,
+    "summary":"Fitness creator sharing raw stories.",
+    "tone":"Bold",
+    "tags":[
+      "Sustainability",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"83",
+    "name":"Tom Patel",
+    "handle":"tom_patel94",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":218361,
+    "engagementRate":10.8,
+    "summary":"Travel creator sharing life hacks.",
+    "tone":"Playful",
+    "tags":[
+      "Creativity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"84",
+    "name":"Chris Venter",
+    "handle":"chris_venter66",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":251467,
+    "engagementRate":4.9,
+    "summary":"Beauty creator sharing daily tips.",
+    "tone":"Playful",
+    "tags":[
+      "Creativity",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"85",
+    "name":"Chris Garcia",
+    "handle":"chrisgarcia10",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":565895,
+    "engagementRate":2.8,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Satirical",
+    "tags":[
+      "Innovation",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"86",
+    "name":"Chris Lee",
+    "handle":"chris.lee36",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":250061,
+    "engagementRate":5.9,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"87",
+    "name":"Alex Garcia",
+    "handle":"alex_garcia37",
+    "niche":"Food",
+    "platform":"Instagram",
+    "followers":636171,
+    "engagementRate":7.4,
+    "summary":"Beauty creator sharing life hacks.",
+    "tone":"Playful",
+    "tags":[
+      "Innovation",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"88",
+    "name":"Jade Mendes",
+    "handle":"jademendes62",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":431732,
+    "engagementRate":3.8,
+    "summary":"Fitness creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Innovation",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"89",
+    "name":"Maya Mendes",
+    "handle":"maya.mendes57",
+    "niche":"Home & Plants",
+    "platform":"TikTok",
+    "followers":487361,
+    "engagementRate":9.9,
+    "summary":"Food creator sharing behind-the-scenes.",
+    "tone":"Minimal",
+    "tags":[
+      "Sustainability",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"90",
+    "name":"Tom Patel",
+    "handle":"tom.patel66",
+    "niche":"Tech",
+    "platform":"TikTok",
+    "followers":638697,
+    "engagementRate":9.2,
+    "summary":"Parenting creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Freedom",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"91",
+    "name":"Jade Smith",
+    "handle":"jade_smith38",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":400839,
+    "engagementRate":10.1,
+    "summary":"Food creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Diversity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"92",
+    "name":"Alex Lee",
+    "handle":"alexlee16",
+    "niche":"Home & Plants",
+    "platform":"TikTok",
+    "followers":248941,
+    "engagementRate":2.1,
+    "summary":"Home & Plants creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Diversity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"93",
+    "name":"Luis Nguyen",
+    "handle":"luis_nguyen38",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":525337,
+    "engagementRate":4.1,
+    "summary":"Fitness creator sharing behind-the-scenes.",
+    "tone":"Satirical",
+    "tags":[
+      "Creativity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"94",
+    "name":"Tom Venter",
+    "handle":"tom_venter43",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":978962,
+    "engagementRate":7.5,
+    "summary":"Travel creator sharing raw stories.",
+    "tone":"Educational",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"95",
+    "name":"Alex Mendes",
+    "handle":"alex_mendes45",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":745375,
+    "engagementRate":9.1,
+    "summary":"Fashion creator sharing behind-the-scenes.",
+    "tone":"Educational",
+    "tags":[
+      "Innovation",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"96",
+    "name":"Sophie Smith",
+    "handle":"sophie_smith40",
+    "niche":"Home & Plants",
+    "platform":"Instagram",
+    "followers":787487,
+    "engagementRate":6.4,
+    "summary":"Gaming creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"97",
+    "name":"Sophie Lee",
+    "handle":"sophie.lee17",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":355786,
+    "engagementRate":4.6,
+    "summary":"Finance creator sharing deep dives.",
+    "tone":"Inspirational",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"98",
+    "name":"Maya Tan",
+    "handle":"maya_tan68",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":459545,
+    "engagementRate":3.9,
+    "summary":"Gaming creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Freedom",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"99",
+    "name":"Luis Lee",
+    "handle":"luislee95",
+    "niche":"Gaming",
+    "platform":"Instagram",
+    "followers":159764,
+    "engagementRate":5.5,
+    "summary":"Tech creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"100",
+    "name":"Maya Venter",
+    "handle":"mayaventer59",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":762862,
+    "engagementRate":8.4,
+    "summary":"Beauty creator sharing behind-the-scenes.",
+    "tone":"Minimal",
+    "tags":[
+      "Authenticity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"101",
+    "name":"Sophie Tan",
+    "handle":"sophie.tan91",
+    "niche":"Tech",
+    "platform":"YouTube",
+    "followers":360913,
+    "engagementRate":5.6,
+    "summary":"Beauty creator sharing deep dives.",
+    "tone":"Empathetic",
+    "tags":[
+      "Sustainability",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"102",
+    "name":"Alex Mendes",
+    "handle":"alex_mendes30",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":961766,
+    "engagementRate":3.1,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Minimal",
+    "tags":[
+      "Empowerment",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"103",
+    "name":"Chris Venter",
+    "handle":"chrisventer34",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":824146,
+    "engagementRate":10.2,
+    "summary":"Tech creator sharing life hacks.",
+    "tone":"Satirical",
+    "tags":[
+      "Innovation",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"104",
+    "name":"Sophie Brown",
+    "handle":"sophie.brown80",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":796772,
+    "engagementRate":5.4,
+    "summary":"Beauty creator sharing raw stories.",
+    "tone":"Empathetic",
+    "tags":[
+      "Sustainability",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"105",
+    "name":"Maya Brown",
+    "handle":"maya_brown80",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":370639,
+    "engagementRate":3.6,
+    "summary":"Beauty creator sharing behind-the-scenes.",
+    "tone":"Educational",
+    "tags":[
+      "Empowerment",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"106",
+    "name":"Jade Patel",
+    "handle":"jade.patel42",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":412625,
+    "engagementRate":6.9,
+    "summary":"Home & Plants creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"107",
+    "name":"Tom Nguyen",
+    "handle":"tom_nguyen12",
+    "niche":"Travel",
+    "platform":"YouTube",
+    "followers":590216,
+    "engagementRate":5.8,
+    "summary":"Fitness creator sharing life hacks.",
+    "tone":"Empathetic",
+    "tags":[
+      "Sustainability",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"108",
+    "name":"Marc Garcia",
+    "handle":"marc_garcia22",
+    "niche":"Beauty",
+    "platform":"YouTube",
+    "followers":557707,
+    "engagementRate":5.2,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Empathetic",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"109",
+    "name":"Maya Patel",
+    "handle":"maya_patel53",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":141136,
+    "engagementRate":9.0,
+    "summary":"Parenting creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Freedom",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"110",
+    "name":"Jade Kim",
+    "handle":"jadekim12",
+    "niche":"Tech",
+    "platform":"TikTok",
+    "followers":180492,
+    "engagementRate":6.7,
+    "summary":"Food creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Empowerment",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"111",
+    "name":"Jade Brown",
+    "handle":"jade_brown24",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":548198,
+    "engagementRate":10.1,
+    "summary":"Parenting creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Authenticity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"112",
+    "name":"Jade Patel",
+    "handle":"jade.patel69",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":308562,
+    "engagementRate":10.1,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Curious",
+    "tags":[
+      "Authenticity",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"113",
+    "name":"Chris Nguyen",
+    "handle":"chris_nguyen32",
+    "niche":"Fitness",
+    "platform":"YouTube",
+    "followers":188967,
+    "engagementRate":8.0,
+    "summary":"Finance creator sharing daily tips.",
+    "tone":"Empathetic",
+    "tags":[
+      "Authenticity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"114",
+    "name":"Chris Brown",
+    "handle":"chris.brown11",
+    "niche":"Food",
+    "platform":"YouTube",
+    "followers":27806,
+    "engagementRate":6.2,
+    "summary":"Home & Plants creator sharing deep dives.",
+    "tone":"Educational",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"115",
+    "name":"Luis Kim",
+    "handle":"luis.kim32",
+    "niche":"Finance",
+    "platform":"YouTube",
+    "followers":565478,
+    "engagementRate":7.7,
+    "summary":"Tech creator sharing behind-the-scenes.",
+    "tone":"Educational",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"116",
+    "name":"Marc Patel",
+    "handle":"marcpatel97",
+    "niche":"Finance",
+    "platform":"Instagram",
+    "followers":248012,
+    "engagementRate":2.6,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Playful",
+    "tags":[
+      "Wellness",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"117",
+    "name":"Marc Lee",
+    "handle":"marc_lee25",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":667594,
+    "engagementRate":9.3,
+    "summary":"Finance creator sharing raw stories.",
+    "tone":"Satirical",
+    "tags":[
+      "Empowerment",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"118",
+    "name":"Lena Brown",
+    "handle":"lena.brown73",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":732344,
+    "engagementRate":8.4,
+    "summary":"Fashion creator sharing deep dives.",
+    "tone":"Inspirational",
+    "tags":[
+      "Empowerment",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"119",
+    "name":"Marc Tan",
+    "handle":"marc_tan60",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":546076,
+    "engagementRate":10.7,
+    "summary":"Fashion creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Empowerment",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"120",
+    "name":"Jade Garcia",
+    "handle":"jade_garcia28",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":74607,
+    "engagementRate":6.2,
+    "summary":"Food creator sharing raw stories.",
+    "tone":"Curious",
+    "tags":[
+      "Diversity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"121",
+    "name":"Marc Tan",
+    "handle":"marc_tan87",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":191290,
+    "engagementRate":10.6,
+    "summary":"Beauty creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Innovation",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"122",
+    "name":"Nora Garcia",
+    "handle":"noragarcia17",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":340142,
+    "engagementRate":5.7,
+    "summary":"Gaming creator sharing raw stories.",
+    "tone":"Minimal",
+    "tags":[
+      "Sustainability",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"123",
+    "name":"Sophie Brown",
+    "handle":"sophiebrown94",
+    "niche":"Finance",
+    "platform":"TikTok",
+    "followers":517851,
+    "engagementRate":3.5,
+    "summary":"Food creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"124",
+    "name":"Luis Kim",
+    "handle":"luiskim99",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":87189,
+    "engagementRate":9.2,
+    "summary":"Fashion creator sharing life hacks.",
+    "tone":"Minimal",
+    "tags":[
+      "Wellness",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"125",
+    "name":"Nora Kim",
+    "handle":"norakim36",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":712002,
+    "engagementRate":8.0,
+    "summary":"Finance creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Empowerment",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"126",
+    "name":"Sophie Nguyen",
+    "handle":"sophienguyen16",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":311468,
+    "engagementRate":3.9,
+    "summary":"Fashion creator sharing life hacks.",
+    "tone":"Minimal",
+    "tags":[
+      "Sustainability",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"127",
+    "name":"Chris Tan",
+    "handle":"chris.tan8",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":642415,
+    "engagementRate":11.9,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"128",
+    "name":"Luis Mendes",
+    "handle":"luis_mendes30",
+    "niche":"Food",
+    "platform":"YouTube",
+    "followers":61718,
+    "engagementRate":11.2,
+    "summary":"Beauty creator sharing raw stories.",
+    "tone":"Bold",
+    "tags":[
+      "Creativity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"129",
+    "name":"Lena Garcia",
+    "handle":"lena.garcia22",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":25117,
+    "engagementRate":2.3,
+    "summary":"Travel creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"130",
+    "name":"Lena Mendes",
+    "handle":"lena.mendes25",
+    "niche":"Finance",
+    "platform":"TikTok",
+    "followers":41545,
+    "engagementRate":5.5,
+    "summary":"Parenting creator sharing raw stories.",
+    "tone":"Bold",
+    "tags":[
+      "Sustainability",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"131",
+    "name":"Tom Venter",
+    "handle":"tomventer72",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":290076,
+    "engagementRate":10.4,
+    "summary":"Parenting creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"132",
+    "name":"Lena Patel",
+    "handle":"lena.patel42",
+    "niche":"Parenting",
+    "platform":"TikTok",
+    "followers":369662,
+    "engagementRate":7.2,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Innovation",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"133",
+    "name":"Lena Patel",
+    "handle":"lena.patel63",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":397371,
+    "engagementRate":2.0,
+    "summary":"Beauty creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Authenticity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"134",
+    "name":"Chris Venter",
+    "handle":"chris.venter36",
+    "niche":"Finance",
+    "platform":"Instagram",
+    "followers":103137,
+    "engagementRate":9.1,
+    "summary":"Fashion creator sharing raw stories.",
+    "tone":"Inspirational",
+    "tags":[
+      "Sustainability",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"135",
+    "name":"Marc Garcia",
+    "handle":"marc_garcia75",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":226079,
+    "engagementRate":11.6,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Sustainability",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"136",
+    "name":"Maya Tan",
+    "handle":"mayatan21",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":450959,
+    "engagementRate":8.4,
+    "summary":"Tech creator sharing deep dives.",
+    "tone":"Inspirational",
+    "tags":[
+      "Authenticity",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"137",
+    "name":"Marc Brown",
+    "handle":"marc_brown91",
+    "niche":"Parenting",
+    "platform":"TikTok",
+    "followers":214843,
+    "engagementRate":10.8,
+    "summary":"Food creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Authenticity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"138",
+    "name":"Maya Patel",
+    "handle":"maya_patel10",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":207074,
+    "engagementRate":3.1,
+    "summary":"Travel creator sharing behind-the-scenes.",
+    "tone":"Playful",
+    "tags":[
+      "Empowerment",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"139",
+    "name":"Marc Tan",
+    "handle":"marc_tan14",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":400672,
+    "engagementRate":2.4,
+    "summary":"Finance creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Empowerment",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"140",
+    "name":"Luis Kim",
+    "handle":"luis.kim20",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":859702,
+    "engagementRate":6.4,
+    "summary":"Fitness creator sharing daily tips.",
+    "tone":"Empathetic",
+    "tags":[
+      "Wellness",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"141",
+    "name":"Lena Nguyen",
+    "handle":"lenanguyen20",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":147441,
+    "engagementRate":8.5,
+    "summary":"Home & Plants creator sharing daily tips.",
+    "tone":"Empathetic",
+    "tags":[
+      "Innovation",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"142",
+    "name":"Maya Tan",
+    "handle":"mayatan24",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":242941,
+    "engagementRate":2.4,
+    "summary":"Travel creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Creativity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"143",
+    "name":"Jade Tan",
+    "handle":"jade.tan82",
+    "niche":"Finance",
+    "platform":"Instagram",
+    "followers":67707,
+    "engagementRate":7.6,
+    "summary":"Tech creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Sustainability",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"144",
+    "name":"Jade Nguyen",
+    "handle":"jade.nguyen28",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":854305,
+    "engagementRate":11.9,
+    "summary":"Tech creator sharing deep dives.",
+    "tone":"Bold",
+    "tags":[
+      "Authenticity",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"145",
+    "name":"Sophie Patel",
+    "handle":"sophiepatel7",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":222480,
+    "engagementRate":3.9,
+    "summary":"Gaming creator sharing life hacks.",
+    "tone":"Playful",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"146",
+    "name":"Tom Brown",
+    "handle":"tom.brown97",
+    "niche":"Fitness",
+    "platform":"YouTube",
+    "followers":811868,
+    "engagementRate":7.9,
+    "summary":"Tech creator sharing daily tips.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"147",
+    "name":"Tom Lee",
+    "handle":"tom.lee14",
+    "niche":"Tech",
+    "platform":"TikTok",
+    "followers":218531,
+    "engagementRate":7.3,
+    "summary":"Parenting creator sharing raw stories.",
+    "tone":"Educational",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"148",
+    "name":"Chris Lee",
+    "handle":"chris.lee80",
+    "niche":"Home & Plants",
+    "platform":"Instagram",
+    "followers":683371,
+    "engagementRate":11.1,
+    "summary":"Travel creator sharing behind-the-scenes.",
+    "tone":"Educational",
+    "tags":[
+      "Sustainability",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"149",
+    "name":"Luis Mendes",
+    "handle":"luis.mendes95",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":258027,
+    "engagementRate":7.9,
+    "summary":"Finance creator sharing life hacks.",
+    "tone":"Bold",
+    "tags":[
+      "Innovation",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"150",
+    "name":"Chris Lee",
+    "handle":"chris_lee89",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":289446,
+    "engagementRate":8.9,
+    "summary":"Parenting creator sharing life hacks.",
+    "tone":"Minimal",
+    "tags":[
+      "Sustainability",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"151",
+    "name":"Chris Lee",
+    "handle":"chris_lee95",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":402748,
+    "engagementRate":5.4,
+    "summary":"Parenting creator sharing daily tips.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"152",
+    "name":"Lena Patel",
+    "handle":"lenapatel29",
+    "niche":"Home & Plants",
+    "platform":"Instagram",
+    "followers":125396,
+    "engagementRate":7.2,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Satirical",
+    "tags":[
+      "Diversity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"153",
+    "name":"Alex Brown",
+    "handle":"alex.brown95",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":697669,
+    "engagementRate":4.5,
+    "summary":"Home & Plants creator sharing raw stories.",
+    "tone":"Inspirational",
+    "tags":[
+      "Diversity",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"154",
+    "name":"Maya Brown",
+    "handle":"maya_brown71",
+    "niche":"Finance",
+    "platform":"Instagram",
+    "followers":719500,
+    "engagementRate":6.8,
+    "summary":"Parenting creator sharing daily tips.",
+    "tone":"Educational",
+    "tags":[
+      "Wellness",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"155",
+    "name":"Tom Brown",
+    "handle":"tom.brown14",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":964890,
+    "engagementRate":11.1,
+    "summary":"Finance creator sharing daily tips.",
+    "tone":"Curious",
+    "tags":[
+      "Empowerment",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"156",
+    "name":"Marc Nguyen",
+    "handle":"marc_nguyen59",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":986501,
+    "engagementRate":10.0,
+    "summary":"Home & Plants creator sharing raw stories.",
+    "tone":"Satirical",
+    "tags":[
+      "Authenticity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"157",
+    "name":"Nora Mendes",
+    "handle":"nora.mendes57",
+    "niche":"Tech",
+    "platform":"YouTube",
+    "followers":74887,
+    "engagementRate":4.7,
+    "summary":"Fashion creator sharing deep dives.",
+    "tone":"Educational",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"158",
+    "name":"Luis Venter",
+    "handle":"luis_venter56",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":421292,
+    "engagementRate":1.7,
+    "summary":"Tech creator sharing raw stories.",
+    "tone":"Minimal",
+    "tags":[
+      "Freedom",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"159",
+    "name":"Maya Mendes",
+    "handle":"maya.mendes70",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":411340,
+    "engagementRate":9.2,
+    "summary":"Gaming creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Wellness",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"160",
+    "name":"Jade Nguyen",
+    "handle":"jadenguyen14",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":112622,
+    "engagementRate":10.0,
+    "summary":"Beauty creator sharing daily tips.",
+    "tone":"Curious",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"161",
+    "name":"Marc Brown",
+    "handle":"marc_brown14",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":77596,
+    "engagementRate":2.3,
+    "summary":"Parenting creator sharing raw stories.",
+    "tone":"Satirical",
+    "tags":[
+      "Authenticity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"162",
+    "name":"Maya Venter",
+    "handle":"maya_venter52",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":451815,
+    "engagementRate":10.1,
+    "summary":"Fitness creator sharing life hacks.",
+    "tone":"Playful",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"163",
+    "name":"Marc Patel",
+    "handle":"marcpatel64",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":646366,
+    "engagementRate":11.1,
+    "summary":"Finance creator sharing life hacks.",
+    "tone":"Curious",
+    "tags":[
+      "Creativity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"164",
+    "name":"Marc Mendes",
+    "handle":"marc.mendes1",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":144318,
+    "engagementRate":5.6,
+    "summary":"Finance creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Wellness",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"165",
+    "name":"Alex Tan",
+    "handle":"alex_tan1",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":722553,
+    "engagementRate":8.3,
+    "summary":"Travel creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Empowerment",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"166",
+    "name":"Maya Venter",
+    "handle":"mayaventer86",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":53273,
+    "engagementRate":2.5,
+    "summary":"Food creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Wellness",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"167",
+    "name":"Jade Mendes",
+    "handle":"jade_mendes89",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":980838,
+    "engagementRate":4.6,
+    "summary":"Beauty creator sharing behind-the-scenes.",
+    "tone":"Bold",
+    "tags":[
+      "Wellness",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"168",
+    "name":"Alex Kim",
+    "handle":"alex.kim74",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":63934,
+    "engagementRate":10.3,
+    "summary":"Gaming creator sharing deep dives.",
+    "tone":"Empathetic",
+    "tags":[
+      "Empowerment",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"169",
+    "name":"Luis Mendes",
+    "handle":"luis_mendes43",
+    "niche":"Finance",
+    "platform":"YouTube",
+    "followers":221715,
+    "engagementRate":4.2,
+    "summary":"Fashion creator sharing deep dives.",
+    "tone":"Minimal",
+    "tags":[
+      "Authenticity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"170",
+    "name":"Chris Brown",
+    "handle":"chrisbrown82",
+    "niche":"Fashion",
+    "platform":"TikTok",
+    "followers":697461,
+    "engagementRate":11.6,
+    "summary":"Fitness creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Empowerment",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"171",
+    "name":"Chris Lee",
+    "handle":"chris_lee54",
+    "niche":"Home & Plants",
+    "platform":"YouTube",
+    "followers":776318,
+    "engagementRate":2.0,
+    "summary":"Tech creator sharing deep dives.",
+    "tone":"Playful",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"172",
+    "name":"Maya Tan",
+    "handle":"maya.tan98",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":217429,
+    "engagementRate":4.8,
+    "summary":"Home & Plants creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"173",
+    "name":"Jade Kim",
+    "handle":"jadekim79",
+    "niche":"Travel",
+    "platform":"Instagram",
+    "followers":719803,
+    "engagementRate":4.4,
+    "summary":"Fitness creator sharing raw stories.",
+    "tone":"Empathetic",
+    "tags":[
+      "Creativity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"174",
+    "name":"Luis Mendes",
+    "handle":"luis_mendes69",
+    "niche":"Home & Plants",
+    "platform":"TikTok",
+    "followers":800311,
+    "engagementRate":11.5,
+    "summary":"Beauty creator sharing deep dives.",
+    "tone":"Bold",
+    "tags":[
+      "Creativity",
+      "Diversity"
+    ]
+  },
+  {
+    "id":"175",
+    "name":"Nora Kim",
+    "handle":"nora_kim59",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":888541,
+    "engagementRate":4.5,
+    "summary":"Gaming creator sharing daily tips.",
+    "tone":"Empathetic",
+    "tags":[
+      "Creativity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"176",
+    "name":"Alex Garcia",
+    "handle":"alex.garcia84",
+    "niche":"Tech",
+    "platform":"YouTube",
+    "followers":228305,
+    "engagementRate":10.2,
+    "summary":"Fashion creator sharing behind-the-scenes.",
+    "tone":"Empathetic",
+    "tags":[
+      "Sustainability",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"177",
+    "name":"Lena Smith",
+    "handle":"lena_smith73",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":639784,
+    "engagementRate":4.2,
+    "summary":"Tech creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Empowerment",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"178",
+    "name":"Chris Venter",
+    "handle":"chris_venter11",
+    "niche":"Finance",
+    "platform":"TikTok",
+    "followers":245336,
+    "engagementRate":11.1,
+    "summary":"Food creator sharing deep dives.",
+    "tone":"Curious",
+    "tags":[
+      "Diversity",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"179",
+    "name":"Chris Smith",
+    "handle":"chris_smith8",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":205033,
+    "engagementRate":5.5,
+    "summary":"Fitness creator sharing life hacks.",
+    "tone":"Inspirational",
+    "tags":[
+      "Authenticity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"180",
+    "name":"Marc Garcia",
+    "handle":"marcgarcia57",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":312176,
+    "engagementRate":5.6,
+    "summary":"Parenting creator sharing life hacks.",
+    "tone":"Satirical",
+    "tags":[
+      "Wellness",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"181",
+    "name":"Maya Venter",
+    "handle":"maya_venter89",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":519599,
+    "engagementRate":1.8,
+    "summary":"Beauty creator sharing raw stories.",
+    "tone":"Educational",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"182",
+    "name":"Alex Tan",
+    "handle":"alex_tan94",
+    "niche":"Fitness",
+    "platform":"Instagram",
+    "followers":998165,
+    "engagementRate":10.1,
+    "summary":"Gaming creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Wellness",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"183",
+    "name":"Chris Garcia",
+    "handle":"chris_garcia2",
+    "niche":"Food",
+    "platform":"TikTok",
+    "followers":625396,
+    "engagementRate":10.1,
+    "summary":"Fashion creator sharing life hacks.",
+    "tone":"Inspirational",
+    "tags":[
+      "Innovation",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"184",
+    "name":"Maya Venter",
+    "handle":"maya_venter63",
+    "niche":"Gaming",
+    "platform":"Instagram",
+    "followers":375198,
+    "engagementRate":2.7,
+    "summary":"Beauty creator sharing life hacks.",
+    "tone":"Educational",
+    "tags":[
+      "Diversity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"185",
+    "name":"Marc Nguyen",
+    "handle":"marc.nguyen48",
+    "niche":"Finance",
+    "platform":"YouTube",
+    "followers":221746,
+    "engagementRate":4.1,
+    "summary":"Tech creator sharing raw stories.",
+    "tone":"Educational",
+    "tags":[
+      "Innovation",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"186",
+    "name":"Marc Venter",
+    "handle":"marcventer56",
+    "niche":"Fashion",
+    "platform":"Instagram",
+    "followers":192388,
+    "engagementRate":9.3,
+    "summary":"Fitness creator sharing raw stories.",
+    "tone":"Curious",
+    "tags":[
+      "Freedom",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"187",
+    "name":"Tom Venter",
+    "handle":"tom.venter96",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":43260,
+    "engagementRate":8.0,
+    "summary":"Travel creator sharing deep dives.",
+    "tone":"Bold",
+    "tags":[
+      "Freedom",
+      "Innovation"
+    ]
+  },
+  {
+    "id":"188",
+    "name":"Luis Tan",
+    "handle":"luistan40",
+    "niche":"Travel",
+    "platform":"YouTube",
+    "followers":354736,
+    "engagementRate":5.6,
+    "summary":"Fashion creator sharing life hacks.",
+    "tone":"Bold",
+    "tags":[
+      "Sustainability",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"189",
+    "name":"Tom Venter",
+    "handle":"tom.venter78",
+    "niche":"Fitness",
+    "platform":"TikTok",
+    "followers":488047,
+    "engagementRate":6.3,
+    "summary":"Finance creator sharing daily tips.",
+    "tone":"Bold",
+    "tags":[
+      "Freedom",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"190",
+    "name":"Luis Brown",
+    "handle":"luis.brown33",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":933303,
+    "engagementRate":11.5,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Sustainability",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"191",
+    "name":"Nora Nguyen",
+    "handle":"nora.nguyen63",
+    "niche":"Fashion",
+    "platform":"YouTube",
+    "followers":548853,
+    "engagementRate":5.2,
+    "summary":"Beauty creator sharing deep dives.",
+    "tone":"Inspirational",
+    "tags":[
+      "Diversity",
+      "Wellness"
+    ]
+  },
+  {
+    "id":"192",
+    "name":"Luis Smith",
+    "handle":"luis_smith95",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":46513,
+    "engagementRate":5.2,
+    "summary":"Travel creator sharing daily tips.",
+    "tone":"Minimal",
+    "tags":[
+      "Innovation",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"193",
+    "name":"Nora Mendes",
+    "handle":"noramendes50",
+    "niche":"Beauty",
+    "platform":"Instagram",
+    "followers":501510,
+    "engagementRate":6.3,
+    "summary":"Travel creator sharing life hacks.",
+    "tone":"Empathetic",
+    "tags":[
+      "Authenticity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"194",
+    "name":"Jade Garcia",
+    "handle":"jade_garcia82",
+    "niche":"Parenting",
+    "platform":"YouTube",
+    "followers":255443,
+    "engagementRate":3.4,
+    "summary":"Food creator sharing life hacks.",
+    "tone":"Inspirational",
+    "tags":[
+      "Authenticity",
+      "Authenticity"
+    ]
+  },
+  {
+    "id":"195",
+    "name":"Luis Kim",
+    "handle":"luiskim74",
+    "niche":"Beauty",
+    "platform":"TikTok",
+    "followers":941222,
+    "engagementRate":10.6,
+    "summary":"Tech creator sharing behind-the-scenes.",
+    "tone":"Minimal",
+    "tags":[
+      "Diversity",
+      "Empowerment"
+    ]
+  },
+  {
+    "id":"196",
+    "name":"Lena Kim",
+    "handle":"lena_kim91",
+    "niche":"Gaming",
+    "platform":"TikTok",
+    "followers":236221,
+    "engagementRate":10.9,
+    "summary":"Tech creator sharing behind-the-scenes.",
+    "tone":"Empathetic",
+    "tags":[
+      "Wellness",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"197",
+    "name":"Alex Venter",
+    "handle":"alexventer76",
+    "niche":"Parenting",
+    "platform":"Instagram",
+    "followers":781984,
+    "engagementRate":7.2,
+    "summary":"Tech creator sharing behind-the-scenes.",
+    "tone":"Curious",
+    "tags":[
+      "Authenticity",
+      "Freedom"
+    ]
+  },
+  {
+    "id":"198",
+    "name":"Lena Garcia",
+    "handle":"lena.garcia15",
+    "niche":"Home & Plants",
+    "platform":"Instagram",
+    "followers":649336,
+    "engagementRate":4.6,
+    "summary":"Food creator sharing deep dives.",
+    "tone":"Curious",
+    "tags":[
+      "Diversity",
+      "Creativity"
+    ]
+  },
+  {
+    "id":"199",
+    "name":"Maya Venter",
+    "handle":"maya_venter94",
+    "niche":"Gaming",
+    "platform":"YouTube",
+    "followers":84346,
+    "engagementRate":8.2,
+    "summary":"Food creator sharing daily tips.",
+    "tone":"Inspirational",
+    "tags":[
+      "Creativity",
+      "Sustainability"
+    ]
+  },
+  {
+    "id":"200",
+    "name":"Tom Kim",
+    "handle":"tomkim87",
+    "niche":"Tech",
+    "platform":"Instagram",
+    "followers":962344,
+    "engagementRate":10.3,
+    "summary":"Tech creator sharing deep dives.",
+    "tone":"Satirical",
+    "tags":[
+      "Innovation",
+      "Diversity"
+    ]
+  }
+]
