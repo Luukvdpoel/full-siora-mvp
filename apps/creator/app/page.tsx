@@ -115,10 +115,10 @@ export default function Home() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.logoWrapper}>
-        <Image src="/nura-logo.png" alt="nura logo" width={140} height={140} className={styles.logo} />
+        <Image src="/Siora-logo.png" alt="Siora logo" width={140} height={140} className={styles.logo} />
         <h1 className={styles.title}>Your identity, illuminated.</h1>
         <p className={styles.subtitle}>
-          Nura helps creators shine online with AI-powered tools to discover, express, and grow their digital identity.
+          Siora helps creators shine online with AI-powered tools to discover, express, and grow their digital identity.
         </p>
       </div>
 
