@@ -8,15 +8,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "nura-dark": "#0f172a",       // deep navy/black
-        "nura-mid": "#1e293b",        // middle dark gray
-        "nura-light": "#334155",      // lighter slate
-        "nura-border": "#3f3f46",     // subtle border gray
-        "nura-accent": "#6366f1",     // indigo (Linear-style)
-        "nura-accent-soft": "#818cf8", // lighter indigo (hover state)
+        "Siora-dark": "#0f172a",       // deep navy/black
+        "Siora-mid": "#1e293b",        // middle dark gray
+        "Siora-light": "#334155",      // lighter slate
+        "Siora-border": "#3f3f46",     // subtle border gray
+        "Siora-accent": "#6366f1",     // indigo (Linear-style)
+        "Siora-accent-soft": "#818cf8", // lighter indigo (hover state)
       },
       boxShadow: {
-        "nura-hover": "0 8px 24px rgba(99, 102, 241, 0.2)", // purple shadow
+        "Siora-hover": "0 8px 24px rgba(99, 102, 241, 0.2)", // purple shadow
       },
       borderRadius: {
         DEFAULT: "0.5rem",

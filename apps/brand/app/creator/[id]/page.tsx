@@ -13,11 +13,11 @@ export default function CreatorProfile({ params }: Props) {
   if (!creator) return notFound();
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-nura-dark via-nura-mid to-nura-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-3xl mx-auto space-y-6">
         <h1 className="text-3xl font-bold">
           {creator.name}{" "}
-          <span className="text-nura-accent">@{creator.handle}</span>
+          <span className="text-Siora-accent">@{creator.handle}</span>
         </h1>
 
         <p className="text-zinc-400 text-sm">
@@ -39,7 +39,7 @@ export default function CreatorProfile({ params }: Props) {
               {creator.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-nura-light text-xs px-3 py-1 rounded-full text-white border border-nura-border"
+                  className="bg-Siora-light text-xs px-3 py-1 rounded-full text-white border border-Siora-border"
                 >
                   {tag}
                 </span>

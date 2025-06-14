@@ -46,7 +46,7 @@ export default function Dashboard() {
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-nura-dark via-nura-mid to-nura-light text-white px-6 md:px-10 py-12">
+    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 md:px-10 py-12">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Brand Dashboard</h1>
 
@@ -54,7 +54,7 @@ export default function Dashboard() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search creators..."
-          className="w-full p-3 rounded-lg bg-nura-light text-white placeholder-zinc-400 border border-nura-border focus:outline-none focus:ring-2 focus:ring-nura-accent"
+          className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
         />
 
         <FilterBar onFilter={setFilters} onSort={setSortBy} />
@@ -69,7 +69,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 pt-8 border-t border-nura-border mt-12">
+        <div className="flex flex-wrap justify-center gap-2 pt-8 border-t border-Siora-border mt-12">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
@@ -77,10 +77,10 @@ export default function Dashboard() {
                 setCurrentPage(page);
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className={`px-3 py-1 rounded-md border border-nura-border text-sm transition ${
+              className={`px-3 py-1 rounded-md border border-Siora-border text-sm transition ${
                 page === currentPage
-                  ? "bg-nura-accent text-white font-semibold"
-                  : "text-zinc-300 hover:bg-nura-accent hover:text-white"
+                  ? "bg-Siora-accent text-white font-semibold"
+                  : "text-zinc-300 hover:bg-Siora-accent hover:text-white"
               }`}
             >
               {page}
