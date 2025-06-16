@@ -67,6 +67,19 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+
+  const handleSave = () => {
+    if (!persona) return;
+    try {
+      const stored = localStorage.getItem("savedPersonas");
+      const list = stored ? JSON.parse(stored) : [];
+      const personas = Array.isArray(list) ? list : [list];
+      personas.push(persona);
+      localStorage.setItem("savedPersonas", JSON.stringify(personas));
+    } catch (err) {
+      console.error("Failed to save persona", err);
+    }
+  };
   
   {!advancedMode ? (
     <button
@@ -182,8 +195,15 @@ export default function Home() {
       </form>
 
       {persona && (
-  <div className="prose prose-invert max-w-3xl mx-auto mt-12">
+  <div className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
     <ReactMarkdown>{persona}</ReactMarkdown>
+    <button
+      type="button"
+      onClick={handleSave}
+      className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
+    >
+      Save Persona
+    </button>
   </div>
 )}
     </div>
