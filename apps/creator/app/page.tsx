@@ -15,6 +15,7 @@ export default function Home() {
   const [tone, setTone] = useState('');
   const [platforms, setPlatforms] = useState('');
   const [persona, setPersona] = useState<string | null>(null);
+  const [storedPersona, setStoredPersona] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [advancedMode, setAdvancedMode] = useState(false);
   const [struggles, setStruggles] = useState('');
@@ -83,8 +84,21 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (persona && resultRef.current) {
+    if (typeof window === "undefined") return;
+    const saved = localStorage.getItem("lastPersona");
+    if (saved) setStoredPersona(saved);
+  }, []);
+
+  useEffect(() => {
+    if (!persona) return;
+    if (resultRef.current) {
       resultRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    try {
+      localStorage.setItem("lastPersona", persona);
+      setStoredPersona(persona);
+    } catch (err) {
+      console.error("Failed to persist persona", err);
     }
   }, [persona]);
   
@@ -200,6 +214,16 @@ export default function Home() {
 
         <p className={styles.stepIndicator}>Step {step + 1} of {questions.length}</p>
       </form>
+
+      {storedPersona && !persona && (
+        <button
+          type="button"
+          onClick={() => setPersona(storedPersona)}
+          className="mt-4 bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
+        >
+          View My Saved Persona
+        </button>
+      )}
 
       {isLoading && (
         <div className="flex items-center justify-center gap-2 mt-4 text-zinc-300">
