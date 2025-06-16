@@ -17,6 +17,8 @@ export default function Home() {
   const [persona, setPersona] = useState<string | null>(null);
   const [storedPersona, setStoredPersona] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showSlowMessage, setShowSlowMessage] = useState(false);
+  const slowTimer = useRef<NodeJS.Timeout | null>(null);
   const [advancedMode, setAdvancedMode] = useState(false);
   const [struggles, setStruggles] = useState('');
   const [dreamBrands, setDreamBrands] = useState('');
@@ -102,6 +104,26 @@ export default function Home() {
       console.error("Failed to persist persona", err);
     }
   }, [persona]);
+
+  useEffect(() => {
+    if (isLoading) {
+      slowTimer.current = setTimeout(() => {
+        setShowSlowMessage(true);
+      }, 30000);
+    } else {
+      setShowSlowMessage(false);
+      if (slowTimer.current) {
+        clearTimeout(slowTimer.current);
+        slowTimer.current = null;
+      }
+    }
+    return () => {
+      if (slowTimer.current) {
+        clearTimeout(slowTimer.current);
+        slowTimer.current = null;
+      }
+    };
+  }, [isLoading]);
   
   const advancedFields = !advancedMode ? (
     <button
@@ -227,15 +249,6 @@ export default function Home() {
         </button>
       )}
 
-      {isLoading && (
-        <div className="flex items-center justify-center gap-2 mt-4 text-zinc-300">
-          <svg className="animate-spin h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-          </svg>
-          <span>Crafting your identity…</span>
-        </div>
-      )}
 
       {persona && (
   <div ref={resultRef} className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
@@ -249,6 +262,18 @@ export default function Home() {
     </button>
   </div>
 )}
+
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
+          <svg className="animate-spin h-10 w-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+          </svg>
+          {showSlowMessage && (
+            <p className="mt-4 text-sm text-white">Still cooking up your persona...</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
