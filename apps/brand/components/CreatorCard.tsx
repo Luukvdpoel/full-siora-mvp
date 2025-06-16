@@ -23,10 +23,10 @@ export default function CreatorCard({ creator }: { creator: Creator }) {
     <span>{creator.engagementRate}% ER</span>
   </div>
   <Link
-    href={`/creator/${creator.id}`}
+    href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
     className="inline-block text-sm mt-4 text-Siora-accent underline hover:text-indigo-400"
   >
-    View Profile
+    View
   </Link>
 </motion.div>
   );
