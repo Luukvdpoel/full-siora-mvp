@@ -3,8 +3,35 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
+import { useState } from "react";
 
 export default function CreatorCard({ creator }: { creator: Creator }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleContact = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          creatorId: creator.id,
+          brandName: process.env.NEXT_PUBLIC_BRAND_NAME || 'Demo Brand',
+        }),
+      });
+      const data = await res.json();
+      if (data.message) {
+        alert(data.message);
+      } else {
+        alert('Failed to generate message');
+      }
+    } catch {
+      alert('Server error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -36,6 +63,13 @@ export default function CreatorCard({ creator }: { creator: Creator }) {
       >
         View
       </Link>
+      <button
+        onClick={handleContact}
+        disabled={loading}
+        className="ml-4 inline-block text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 disabled:opacity-50"
+      >
+        {loading ? 'Contacting...' : 'Contact'}
+      </button>
     </motion.div>
   );
 }
