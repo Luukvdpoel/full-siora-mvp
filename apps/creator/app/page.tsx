@@ -148,7 +148,7 @@ export default function Home() {
   
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} px-4 py-8 sm:p-12 space-y-6`}>
       <div className={styles.logoWrapper}>
         <Image src="/Siora-logo.png" alt="Siora logo" width={140} height={140} className={styles.logo} />
         <h1 className={styles.title}>Your identity, illuminated.</h1>
@@ -157,7 +157,7 @@ export default function Home() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className={styles.formBox}>
+      <form onSubmit={handleSubmit} className={`${styles.formBox} space-y-6 p-6 sm:p-8`}>
         <label className={styles.label}>{questions[step].label}</label>
         <input
           type="text"
@@ -181,17 +181,21 @@ export default function Home() {
             </button>
           )}
           {step < questions.length - 1 ? (
-  <button type="button" onClick={() => setStep(step + 1)} className="bg-zinc-700 text-white px-4 py-2 rounded-md">
+  <button
+    type="button"
+    onClick={() => setStep(step + 1)}
+    className="rounded-md bg-zinc-700 px-4 py-2 text-white transition hover:bg-zinc-600"
+  >
     Next
   </button>
 ) : (
   <button
     type="submit"
-    className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-50"
+    className="rounded-md bg-indigo-600 px-4 py-2 text-white transition hover:bg-indigo-500 disabled:opacity-50"
     disabled={
       !handle || !niche || !audience || !goal || !tone || !platforms || isLoading ||
       (advancedMode && (!struggles || !dreamBrands || !favFormats))
-    }    
+    }
   >
     {isLoading ? (
       <span className="flex items-center gap-2">
@@ -221,7 +225,7 @@ export default function Home() {
         <button
           type="button"
           onClick={() => setPersona(storedPersona)}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
+          className="mt-4 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-500"
         >
           View My Saved Persona
         </button>
@@ -238,12 +242,15 @@ export default function Home() {
       )}
 
       {persona && (
-  <div ref={resultRef} className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
+  <div
+    ref={resultRef}
+    className="prose prose-invert mx-auto mt-12 flex max-w-3xl flex-col items-center gap-4 rounded-xl border border-white/10 bg-zinc-900 p-6 sm:p-8"
+  >
     <ReactMarkdown>{persona}</ReactMarkdown>
     <button
       type="button"
       onClick={handleSave}
-      className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
+      className="rounded-md bg-green-600 px-4 py-2 font-semibold text-white transition hover:bg-green-500"
     >
       Save Persona
     </button>

@@ -84,7 +84,7 @@ export default function PersonaPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground p-6 flex flex-col items-center gap-6 md:flex-row md:items-start">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-zinc-800 to-black p-6 text-white sm:p-10 flex flex-col items-center gap-8 md:flex-row md:items-start">
       {profile ? (
         <>
           <PersonaCard profile={profile} />
@@ -92,7 +92,7 @@ export default function PersonaPage() {
           <button
             type="button"
             onClick={handleCopy}
-            className="bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 px-4 rounded-md"
+            className="rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white transition hover:bg-indigo-500"
           >
             Copy link
           </button>

@@ -179,7 +179,7 @@ export default function AnalyzePage() {
     .filter((c) => c.length > 0);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-zinc-800 to-black text-white flex flex-col items-center justify-center p-6 space-y-6">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-zinc-800 to-black p-6 text-white sm:p-10 flex flex-col items-center justify-center space-y-6">
       {history.length > 0 && (
         <div className="w-full max-w-md space-y-2">
           <h3 className="text-sm font-semibold">Recent Caption Sets</h3>
@@ -201,7 +201,7 @@ export default function AnalyzePage() {
       )}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white/5 border border-white/10 rounded-lg p-6 space-y-4 backdrop-blur"
+        className="w-full max-w-md space-y-4 rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8"
       >
         <label className="block text-sm font-semibold">Paste up to 5 captions</label>
         <textarea
@@ -213,7 +213,7 @@ export default function AnalyzePage() {
         />
         <button
           type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 rounded-md disabled:opacity-50"
+          className="w-full rounded-md bg-indigo-600 py-2 font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50"
           disabled={loading || captionList.length === 0}
         >
           {loading ? (
@@ -251,21 +251,21 @@ export default function AnalyzePage() {
       )}
 
       {result && (
-        <div className="space-y-4 flex flex-col items-center md:flex-row md:space-x-6 md:space-y-0">
+        <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-8 md:space-y-0">
           <PersonaCard profile={result} />
           <InsightsSidebar profile={result} />
           <div className="flex gap-4">
             <button
               type="button"
               onClick={handleSave}
-              className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
+              className="rounded-md bg-green-600 px-4 py-2 font-semibold text-white transition hover:bg-green-500"
             >
               Save Persona
             </button>
             <button
               type="button"
               onClick={handleDownloadPdf}
-              className="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
+              className="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-500"
             >
               Download as PDF
             </button>

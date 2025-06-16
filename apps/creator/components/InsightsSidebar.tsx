@@ -4,7 +4,7 @@ export default function InsightsSidebar({ profile }: { profile: PersonaProfile }
   if (!profile) return null;
 
   return (
-    <aside className="border border-gray-300 dark:border-zinc-700 p-4 rounded-xl shadow-md bg-white text-black dark:bg-zinc-800 dark:text-white space-y-2 w-full max-w-xs">
+    <aside className="w-full max-w-xs space-y-2 rounded-xl border border-white/10 bg-white p-4 shadow sm:p-6 dark:bg-zinc-900 dark:text-white">
       <h3 className="text-lg font-bold">Insights</h3>
       <div>
         <span className="font-semibold">Posting:</span> {profile.postingFrequency ?? 'N/A'}
