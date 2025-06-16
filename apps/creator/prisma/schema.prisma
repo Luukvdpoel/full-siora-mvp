@@ -16,6 +16,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  personas      Persona[]
 }
 
 model Account {
@@ -50,4 +51,17 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Persona {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
