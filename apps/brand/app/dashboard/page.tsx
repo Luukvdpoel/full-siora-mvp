@@ -4,6 +4,8 @@ import { useState } from "react";
 import creators from "@/app/data/mock_creators_200.json";
 import FilterBar from "@/components/FilterBar";
 import CreatorCard from "@/components/CreatorCard";
+import { useAuth } from "@/lib/auth";
+import { useShortlist } from "@/lib/shortlist";
 
 export default function Dashboard() {
   const [query, setQuery] = useState("");
@@ -11,6 +13,8 @@ export default function Dashboard() {
   const [sortBy, setSortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 12;
+  const { user } = useAuth();
+  const { toggle, inShortlist } = useShortlist(user);
 
   const filtered = creators
     .filter((c) => {
@@ -64,7 +68,12 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {paginated.map((c) => (
-            <CreatorCard key={c.id} creator={c} />
+            <CreatorCard
+              key={c.id}
+              creator={c}
+              onShortlist={toggle}
+              shortlisted={inShortlist(c.id)}
+            />
           ))}
         </div>
 
