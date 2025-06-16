@@ -1,7 +1,31 @@
 import type { PersonaProfile } from "@/types/persona";
+import { getServerSession } from "next-auth";
+import { authOptions, prisma } from "@/lib/auth";
+
+const DAILY_LIMIT = 3;
 
 export async function POST(req: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+    const used = await prisma.persona.count({
+      where: { userId: session.user.id, createdAt: { gte: start } },
+    });
+    if (used >= DAILY_LIMIT) {
+      return new Response(JSON.stringify({ error: "limit" }), {
+        status: 429,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     const { captions } = await req.json();
 
     if (!Array.isArray(captions) || !captions.every((c) => typeof c === "string")) {
