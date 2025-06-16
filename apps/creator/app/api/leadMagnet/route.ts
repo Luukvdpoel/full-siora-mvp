@@ -1,10 +1,15 @@
 export async function POST(req: Request) {
   try {
-    const { niche, persona } = await req.json();
+    const { niche, audience } = await req.json();
 
-    if (!niche || typeof niche !== 'string' || !persona || typeof persona !== 'string') {
+    if (
+      !niche ||
+      typeof niche !== 'string' ||
+      !audience ||
+      typeof audience !== 'string'
+    ) {
       return new Response(
-        JSON.stringify({ error: 'Provide both niche and persona strings.' }),
+        JSON.stringify({ error: 'Provide both niche and audience strings.' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -14,10 +19,11 @@ export async function POST(req: Request) {
         role: 'system',
         content: [
           'You generate concise ideas for downloadable resources that creators can offer as lead magnets to grow their email list.',
-          'Respond ONLY with JSON in the form { "idea": string } describing one resource idea.'
+          'Each idea should include a short title, a one-sentence description, a clear benefit statement, and a compelling call-to-action.',
+          'Respond ONLY with JSON in the form { "title": string; "description": string; "benefit": string; "cta": string }.'
         ].join('\n')
       },
-      { role: 'user', content: `Niche: ${niche}\nPersona: ${persona}` }
+      { role: 'user', content: `Niche: ${niche}\nAudience: ${audience}` }
     ];
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -39,7 +45,12 @@ export async function POST(req: Request) {
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content ?? '{}';
-    const result = JSON.parse(content) as { idea: string };
+    const result = JSON.parse(content) as {
+      title: string;
+      description: string;
+      benefit: string;
+      cta: string;
+    };
 
     return new Response(JSON.stringify(result), {
       status: 200,
