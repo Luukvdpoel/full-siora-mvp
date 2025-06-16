@@ -8,7 +8,22 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 1rem;
   }
+  .formBox {
+    padding: 1.5rem;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.875rem;
+  }
+}
   
   .logoWrapper {
     text-align: center;
