@@ -31,6 +31,11 @@ Update `.env.local` with the following variables:
 npm run dev:creator
 ```
 
+## Authentication
+
+Magic link sign-in is handled with [NextAuth.js](https://next-auth.js.org/).
+Configure `EMAIL_SERVER` and `EMAIL_FROM` then visit `/signin` to request your login link.
+
 ## Useful commands
 
 - `npm run dev:creator` – start the dev server
