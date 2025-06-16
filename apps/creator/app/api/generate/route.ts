@@ -1,4 +1,3 @@
-import type { PersonaProfile } from "@/types/persona";
 import { getServerSession } from "next-auth";
 import { authOptions, prisma } from "@/lib/auth";
 
@@ -26,54 +25,129 @@ export async function POST(req: Request) {
       });
     }
 
-    const { captions } = await req.json();
+    const {
+      handle,
+      vibe,
+      goal,
+      audience,
+      contentPreference,
+      platform,
+      struggles,
+      dreamBrands,
+      favFormats,
+    } = await req.json();
 
-    if (!Array.isArray(captions) || !captions.every((c) => typeof c === "string")) {
+    if (
+      !handle ||
+      !vibe ||
+      !goal ||
+      !audience ||
+      !contentPreference ||
+      !platform
+    ) {
       return new Response(
-        JSON.stringify({ error: "Invalid input: captions must be an array of strings." }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "Missing required fields." }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
-    const messages = [
+    const rawData = {
+      handle,
+      vibe,
+      goal,
+      audience,
+      niche: contentPreference,
+      platform,
+      struggles,
+      dreamBrands,
+      favFormats,
+    };
+
+    const extractMessages = [
       {
         role: "system",
         content: [
-          "You are a branding expert. Given 3–5 social media captions, infer a creator’s persona in the following JSON format:",
-          "{",
-          "  name: string,",
-          "  personality: string,",
-          "  interests: string[],",
-          "  summary: string",
-          "}",
-          "Only return valid JSON.",
+          "Standardize the creator's answers. Return ONLY JSON in this format:",
+          "{ handle: string; vibe: string; goal: string; audience: string; niche: string; platform: string; struggles?: string; dreamBrands?: string; favFormats?: string }",
         ].join("\n"),
       },
-      { role: "user", content: captions.join("\n") },
+      { role: "user", content: JSON.stringify(rawData) },
     ];
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    const extractRes = await fetch(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4",
+          messages: extractMessages,
+          temperature: 0,
+        }),
       },
-      body: JSON.stringify({ model: "gpt-4", messages, temperature: 0.7 }),
-    });
+    );
 
-    if (!response.ok) {
-      const errorText = await response.text();
+    if (!extractRes.ok) {
+      const errorText = await extractRes.text();
       return new Response(
         JSON.stringify({ error: "OpenAI error", details: errorText }),
-        { status: response.status, headers: { "Content-Type": "application/json" } }
+        {
+          status: extractRes.status,
+          headers: { "Content-Type": "application/json" },
+        },
       );
     }
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content ?? "{}";
-    const persona: PersonaProfile = JSON.parse(content);
+    const extractData = await extractRes.json();
+    const cleaned = JSON.parse(
+      extractData.choices?.[0]?.message?.content ?? "{}",
+    );
 
-    return new Response(JSON.stringify(persona), {
+    const personaMessages = [
+      {
+        role: "system",
+        content: [
+          "You are a branding expert who crafts short creator persona bios in Markdown.",
+          "Use the structured data provided to write 2-3 concise paragraphs about the creator's style and goals.",
+        ].join("\n"),
+      },
+      { role: "user", content: JSON.stringify(cleaned) },
+    ];
+
+    const personaRes = await fetch(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4",
+          messages: personaMessages,
+          temperature: 0.7,
+        }),
+      },
+    );
+
+    if (!personaRes.ok) {
+      const errorText = await personaRes.text();
+      return new Response(
+        JSON.stringify({ error: "OpenAI error", details: errorText }),
+        {
+          status: personaRes.status,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    const personaData = await personaRes.json();
+    const content = personaData.choices?.[0]?.message?.content ?? "";
+
+    return new Response(JSON.stringify({ result: content }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
@@ -82,7 +156,7 @@ export async function POST(req: Request) {
     console.error("Unexpected error:", error);
     return new Response(
       JSON.stringify({ error: "Unexpected error", details: message }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 }
