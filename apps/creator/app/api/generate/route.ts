@@ -1,4 +1,4 @@
-import { PersonaProfile } from "@/components/PersonaCard";
+import type { PersonaProfile } from "@/types/persona";
 
 export async function POST(req: Request) {
   try {

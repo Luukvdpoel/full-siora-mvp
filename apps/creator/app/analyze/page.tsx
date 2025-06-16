@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PersonaCard, { type PersonaProfile } from "@/components/PersonaCard";
+import { jsPDF } from "jspdf";
+import PersonaCard from "@/components/PersonaCard";
+import type { PersonaProfile } from "@/types/persona";
 
 type Persona = PersonaProfile;
 
@@ -84,6 +86,19 @@ export default function AnalyzePage() {
     } catch (err) {
       console.error("Failed to save persona", err);
     }
+  };
+
+  const handleDownloadPdf = () => {
+    if (!result) return;
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text(result.name, 10, 20);
+    doc.setFontSize(12);
+    doc.text(result.personality, 10, 30);
+    doc.text(`Interests: ${result.interests.join(", ")}`, 10, 40);
+    const summaryLines = doc.splitTextToSize(result.summary, 180);
+    doc.text(summaryLines, 10, 50);
+    doc.save(`${result.name || "persona"}.pdf`);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -182,6 +197,13 @@ export default function AnalyzePage() {
             className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
           >
             Save Persona
+          </button>
+          <button
+            type="button"
+            onClick={handleDownloadPdf}
+            className="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
+          >
+            Download as PDF
           </button>
         </div>
       )}

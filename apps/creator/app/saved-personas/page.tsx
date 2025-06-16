@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PersonaCard, { PersonaProfile } from "@/components/PersonaCard";
+import PersonaCard from "@/components/PersonaCard";
+import type { PersonaProfile } from "@/types/persona";
 
 export default function SavedPersonasPage() {
   const [profiles, setProfiles] = useState<PersonaProfile[]>([]);

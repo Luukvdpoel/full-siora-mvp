@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import PersonaCard, { PersonaProfile } from "@/components/PersonaCard";
+import PersonaCard from "@/components/PersonaCard";
+import type { PersonaProfile } from "@/types/persona";
 
 export default function PersonaPage() {
   const params = useParams();
