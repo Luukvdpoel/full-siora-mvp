@@ -1,2 +1,6 @@
 .DS_Store
 .turbo/
+
+/app/generated/prisma
+prisma/dev.db
+.env

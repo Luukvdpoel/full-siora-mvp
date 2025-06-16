@@ -64,6 +64,7 @@ export default function Home() {
       const data = await res.json();
       setPersona(data.result);
     } catch (error) {
+      console.error(error);
       setPersona("Oops, something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
