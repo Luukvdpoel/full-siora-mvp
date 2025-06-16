@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PersonaCard, { type PersonaProfile } from "@/components/PersonaCard";
 
 type Persona = PersonaProfile;
@@ -10,6 +10,19 @@ export default function AnalyzePage() {
   const [result, setResult] = useState<Persona | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [savedPersona, setSavedPersona] = useState<Persona | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const stored = localStorage.getItem("lastPersonaProfile");
+      if (stored) {
+        setSavedPersona(JSON.parse(stored));
+      }
+    } catch (err) {
+      console.error("Failed to load saved persona", err);
+    }
+  }, []);
 
   const handleSave = () => {
     if (!result) return;
@@ -44,6 +57,12 @@ export default function AnalyzePage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
       setResult(data);
+      try {
+        localStorage.setItem("lastPersonaProfile", JSON.stringify(data));
+        setSavedPersona(data);
+      } catch (err) {
+        console.error("Failed to store persona", err);
+      }
     } catch (err: any) {
       setError(err.message || "Something went wrong");
     } finally {
@@ -74,6 +93,16 @@ export default function AnalyzePage() {
           {loading ? "Analyzing..." : "Analyze"}
         </button>
       </form>
+
+      {!result && savedPersona && (
+        <button
+          type="button"
+          onClick={() => setResult(savedPersona)}
+          className="bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 px-4 rounded-md"
+        >
+          View My Saved Persona
+        </button>
+      )}
 
       {error && <p className="text-red-500">{error}</p>}
 

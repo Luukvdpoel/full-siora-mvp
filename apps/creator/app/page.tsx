@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import ReactMarkdown from "react-markdown";
 
@@ -20,6 +20,19 @@ export default function Home() {
   const [struggles, setStruggles] = useState('');
   const [dreamBrands, setDreamBrands] = useState('');
   const [favFormats, setFavFormats] = useState('');
+  const [savedPersona, setSavedPersona] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const stored = localStorage.getItem('lastPersona');
+      if (stored) {
+        setSavedPersona(JSON.parse(stored));
+      }
+    } catch (err) {
+      console.error('Failed to load saved persona', err);
+    }
+  }, []);
 
 
 
@@ -61,6 +74,12 @@ export default function Home() {
   
       const data = await res.json();
       setPersona(data.result);
+      try {
+        localStorage.setItem('lastPersona', JSON.stringify(data.result));
+        setSavedPersona(data.result);
+      } catch (err) {
+        console.error('Failed to store persona', err);
+      }
     } catch (error) {
       setPersona("Oops, something went wrong. Please try again.");
     } finally {
@@ -193,6 +212,16 @@ export default function Home() {
 
         <p className={styles.stepIndicator}>Step {step + 1} of {questions.length}</p>
       </form>
+
+      {!persona && savedPersona && (
+        <button
+          type="button"
+          onClick={() => setPersona(savedPersona)}
+          className="bg-indigo-600 hover:bg-indigo-700 transition text-white px-4 py-2 rounded-md"
+        >
+          View My Saved Persona
+        </button>
+      )}
 
       {persona && (
   <div className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
