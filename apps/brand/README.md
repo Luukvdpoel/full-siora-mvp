@@ -29,3 +29,5 @@ This app does not require any environment variables by default.
 ## Dashboard
 
 Visit `/dashboard` in the brand app to search saved creator personas. You can filter by niche, tone and platform. Matches are shown using the `CreatorCard` component.
+
+Visit `/personas` to search personas by tone, platform or vibe.
