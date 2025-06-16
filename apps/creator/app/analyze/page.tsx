@@ -2,17 +2,11 @@
 
 import { useState } from "react";
 import styles from "../styles.module.css";
-
-interface Persona {
-  name: string;
-  personality: string;
-  interests: string[];
-  summary: string;
-}
+import type { PersonaProfile } from "../api/generatePersona/route";
 
 export default function AnalyzePage() {
   const [captions, setCaptions] = useState("");
-  const [result, setResult] = useState<Persona | null>(null);
+  const [result, setResult] = useState<PersonaProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 

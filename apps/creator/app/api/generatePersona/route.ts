@@ -1,3 +1,10 @@
+export interface PersonaProfile {
+  name: string;
+  personality: string;
+  interests: string[];
+  summary: string;
+}
+
 export async function POST(req: Request) {
   try {
     const { captions } = await req.json();
@@ -39,7 +46,21 @@ export async function POST(req: Request) {
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content ?? "{}";
 
-    return new Response(content, { status: 200, headers: { "Content-Type": "application/json" } });
+    let persona: PersonaProfile;
+    try {
+      persona = JSON.parse(content) as PersonaProfile;
+    } catch (e) {
+      console.error("Failed to parse persona JSON", e);
+      return new Response(
+        JSON.stringify({ error: "Invalid response from OpenAI" }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    return new Response(JSON.stringify(persona), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error: any) {
     console.error("Unexpected error:", error);
     return new Response(
