@@ -71,14 +71,14 @@ export default function Home() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!persona) return;
     try {
-      const stored = localStorage.getItem("savedPersonas");
-      const list = stored ? JSON.parse(stored) : [];
-      const personas = Array.isArray(list) ? list : [list];
-      personas.push(persona);
-      localStorage.setItem("savedPersonas", JSON.stringify(personas));
+      await fetch("/api/personas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: handle || "Persona", persona }),
+      });
     } catch (err) {
       console.error("Failed to save persona", err);
     }

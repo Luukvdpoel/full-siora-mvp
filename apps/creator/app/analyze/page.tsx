@@ -77,13 +77,14 @@ export default function AnalyzePage() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!result) return;
     try {
-      const stored = localStorage.getItem("savedPersonaProfiles");
-      const profiles: Persona[] = stored ? JSON.parse(stored) : [];
-      profiles.push(result);
-      localStorage.setItem("savedPersonaProfiles", JSON.stringify(profiles));
+      await fetch("/api/personas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: result.name, persona: result }),
+      });
     } catch (err) {
       console.error("Failed to save persona", err);
     }
