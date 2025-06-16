@@ -40,7 +40,7 @@ export default function CaptionInsightsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-zinc-800 to-black text-white flex flex-col items-center justify-center p-6 space-y-6">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-zinc-800 to-black text-white flex flex-col items-center justify-center p-6 md:p-10 space-y-6">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white/5 border border-white/10 rounded-lg p-6 space-y-4 backdrop-blur"
@@ -55,7 +55,7 @@ export default function CaptionInsightsPage() {
         />
         <button
           type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 rounded-md disabled:opacity-50"
+          className="w-full bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 rounded-md disabled:opacity-50"
           disabled={loading || captionList.length < 3}
         >
           {loading ? (

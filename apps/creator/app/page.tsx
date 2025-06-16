@@ -203,13 +203,13 @@ export default function Home() {
             </button>
           )}
           {step < questions.length - 1 ? (
-  <button type="button" onClick={() => setStep(step + 1)} className="bg-zinc-700 text-white px-4 py-2 rounded-md">
+  <button type="button" onClick={() => setStep(step + 1)} className="bg-zinc-700 hover:bg-zinc-600 transition-colors duration-200 text-white px-4 py-2 rounded-md">
     Next
   </button>
 ) : (
   <button
     type="submit"
-    className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-50"
+    className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
     disabled={
       !handle || !niche || !audience || !goal || !tone || !platforms || isLoading ||
       (advancedMode && (!struggles || !dreamBrands || !favFormats))
@@ -243,7 +243,7 @@ export default function Home() {
         <button
           type="button"
           onClick={() => setPersona(storedPersona)}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
+          className="mt-4 bg-blue-600 hover:bg-blue-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
         >
           View My Saved Persona
         </button>
@@ -251,12 +251,12 @@ export default function Home() {
 
 
       {persona && (
-  <div ref={resultRef} className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
+  <div ref={resultRef} className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4 border border-white/10 bg-background p-6 sm:p-8 rounded-xl">
     <ReactMarkdown>{persona}</ReactMarkdown>
     <button
       type="button"
       onClick={handleSave}
-      className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
+      className="bg-green-600 hover:bg-green-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
     >
       Save Persona
     </button>

@@ -24,6 +24,15 @@
     font-size: 0.875rem;
   }
 }
+
+@media (min-width: 768px) {
+  .wrapper {
+    padding: 4rem;
+  }
+  .formBox {
+    padding: 3rem;
+  }
+}
   
   .logoWrapper {
     text-align: center;
@@ -48,7 +57,7 @@
   
   .formBox {
     background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     padding: 2rem;
     max-width: 500px;
@@ -93,7 +102,7 @@
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
   }
   
   .navButton:hover {
