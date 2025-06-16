@@ -6,6 +6,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import PersonaCard from "@/components/PersonaCard";
 import InsightsSidebar from "@/components/InsightsSidebar";
 import PersonaPDF from "@/components/PersonaPDF";
+import CopyLinkButton from "@/components/CopyLinkButton";
 import type { PersonaProfile } from "@/types/persona";
 
 export default function PersonaPage() {
@@ -78,12 +79,6 @@ export default function PersonaPage() {
     }
   }, [idParam]);
 
-  const handleCopy = () => {
-    if (typeof window === "undefined") return;
-    navigator.clipboard.writeText(window.location.href).catch((err) => {
-      console.error("Failed to copy", err);
-    });
-  };
 
   const toMarkdown = (p: PersonaProfile): string => {
     return `# ${p.name}\n\n` +
@@ -142,13 +137,7 @@ export default function PersonaPage() {
                 </button>
               )}
             </PDFDownloadLink>
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
-            >
-              Copy link
-            </button>
+            <CopyLinkButton />
           </div>
         </>
       ) : (
