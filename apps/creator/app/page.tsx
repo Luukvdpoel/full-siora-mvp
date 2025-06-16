@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './styles.module.css';
 import ReactMarkdown from "react-markdown";
 
@@ -20,6 +20,7 @@ export default function Home() {
   const [struggles, setStruggles] = useState('');
   const [dreamBrands, setDreamBrands] = useState('');
   const [favFormats, setFavFormats] = useState('');
+  const resultRef = useRef<HTMLDivElement | null>(null);
 
 
 
@@ -80,6 +81,12 @@ export default function Home() {
       console.error("Failed to save persona", err);
     }
   };
+
+  useEffect(() => {
+    if (persona && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [persona]);
   
   {!advancedMode ? (
     <button
@@ -177,7 +184,7 @@ export default function Home() {
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
         </svg>
-        Generating...
+        Crafting your identity…
       </span>
     ) : (
       "Generate My Persona"
@@ -194,8 +201,18 @@ export default function Home() {
         <p className={styles.stepIndicator}>Step {step + 1} of {questions.length}</p>
       </form>
 
+      {isLoading && (
+        <div className="flex items-center justify-center gap-2 mt-4 text-zinc-300">
+          <svg className="animate-spin h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span>Crafting your identity…</span>
+        </div>
+      )}
+
       {persona && (
-  <div className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
+  <div ref={resultRef} className="prose prose-invert max-w-3xl mx-auto mt-12 flex flex-col items-center gap-4">
     <ReactMarkdown>{persona}</ReactMarkdown>
     <button
       type="button"
