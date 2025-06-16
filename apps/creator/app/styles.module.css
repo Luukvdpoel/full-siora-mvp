@@ -112,4 +112,16 @@
     color: rgba(255, 255, 255, 0.6);
   }
 
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 1rem;
+  }
+  .formBox {
+    padding: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}
+
   
