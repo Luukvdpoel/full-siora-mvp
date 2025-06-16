@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { jsPDF } from "jspdf";
 import PersonaCard from "@/components/PersonaCard";
 import InsightsSidebar from "@/components/InsightsSidebar";
 import type { PersonaProfile } from "@/types/persona";
@@ -83,19 +84,75 @@ export default function PersonaPage() {
     });
   };
 
+  const toMarkdown = (p: PersonaProfile): string => {
+    return `# ${p.name}\n\n` +
+      `**Personality:** ${p.personality}\n\n` +
+      `**Interests:** ${p.interests.join(", ")}\n\n` +
+      `**Summary:** ${p.summary}\n\n` +
+      `## Insights\n` +
+      `- Posting Frequency: ${p.postingFrequency ?? "N/A"}\n` +
+      `- Tone Confidence: ${p.toneConfidence ?? "N/A"}\n` +
+      `- Brand Fit: ${p.brandFit ?? "N/A"}\n` +
+      `- Growth Suggestions: ${p.growthSuggestions ?? "N/A"}\n`;
+  };
+
+  const downloadMarkdown = () => {
+    if (!profile) return;
+    const md = toMarkdown(profile);
+    const blob = new Blob([md], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${profile.name.replace(/\s+/g, "_").toLowerCase()}.md`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const downloadPdf = () => {
+    if (!profile) return;
+    const element = document.getElementById("persona-content");
+    if (!element) return;
+    const doc = new jsPDF();
+    doc.html(element, {
+      callback: () =>
+        doc.save(`${profile.name.replace(/\s+/g, "_").toLowerCase()}.pdf`),
+      html2canvas: { scale: 0.6 },
+    });
+  };
+
   return (
-    <main className="min-h-screen bg-background text-foreground p-6 sm:p-10 flex flex-col items-center gap-6 sm:gap-8 md:flex-row md:items-start">
+    <main className="min-h-screen bg-background text-foreground p-6 sm:p-10 space-y-6">
       {profile ? (
         <>
-          <PersonaCard profile={profile} />
-          <InsightsSidebar profile={profile} />
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
-          >
-            Copy link
-          </button>
+          <div id="persona-content" className="flex flex-col items-center gap-6 sm:gap-8 md:flex-row md:items-start">
+            <PersonaCard profile={profile} />
+            <InsightsSidebar profile={profile} />
+          </div>
+          <div className="flex gap-4">
+            <button
+              type="button"
+              onClick={downloadMarkdown}
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
+            >
+              Download .md
+            </button>
+            <button
+              type="button"
+              onClick={downloadPdf}
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
+            >
+              Download .pdf
+            </button>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
+            >
+              Copy link
+            </button>
+          </div>
         </>
       ) : (
         <p>Persona not found.</p>
