@@ -9,6 +9,7 @@ export type Creator = {
   engagementRate: number;
   tags: string[];
   tone: string;
+  markdown?: string;
 };
 
 export const creators = [
