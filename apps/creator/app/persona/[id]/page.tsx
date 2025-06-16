@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { jsPDF } from "jspdf";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import PersonaCard from "@/components/PersonaCard";
 import InsightsSidebar from "@/components/InsightsSidebar";
+import PersonaPDF from "@/components/PersonaPDF";
 import type { PersonaProfile } from "@/types/persona";
 
 export default function PersonaPage() {
@@ -110,17 +111,6 @@ export default function PersonaPage() {
     URL.revokeObjectURL(url);
   };
 
-  const downloadPdf = () => {
-    if (!profile) return;
-    const element = document.getElementById("persona-content");
-    if (!element) return;
-    const doc = new jsPDF();
-    doc.html(element, {
-      callback: () =>
-        doc.save(`${profile.name.replace(/\s+/g, "_").toLowerCase()}.pdf`),
-      html2canvas: { scale: 0.6 },
-    });
-  };
 
   return (
     <main className="min-h-screen bg-background text-foreground p-6 sm:p-10 space-y-6">
@@ -138,13 +128,20 @@ export default function PersonaPage() {
             >
               Download .md
             </button>
-            <button
-              type="button"
-              onClick={downloadPdf}
-              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
+            <PDFDownloadLink
+              document={<PersonaPDF profile={profile} />}
+              fileName={`${profile.name.replace(/\s+/g, "_").toLowerCase()}.pdf`}
             >
-              Download .pdf
-            </button>
+              {({ loading }) => (
+                <button
+                  type="button"
+                  className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md"
+                  disabled={loading}
+                >
+                  {loading ? "Preparing..." : "Download as PDF"}
+                </button>
+              )}
+            </PDFDownloadLink>
             <button
               type="button"
               onClick={handleCopy}
