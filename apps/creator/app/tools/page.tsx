@@ -6,6 +6,7 @@ const tabs = [
   { id: "hook", label: "Hook Generator" },
   { id: "rewrite", label: "Caption Rewriter" },
   { id: "ideas", label: "Content Brainstormer" },
+  { id: "magnet", label: "Lead Magnet Idea" },
 ];
 
 export default function ToolsPage() {
@@ -28,6 +29,13 @@ export default function ToolsPage() {
   const [ideas, setIdeas] = useState<string[]>([]);
   const [ideaLoading, setIdeaLoading] = useState(false);
   const [ideaError, setIdeaError] = useState("");
+
+  // Lead Magnet Idea state
+  const [magnetNiche, setMagnetNiche] = useState("");
+  const [magnetPersona, setMagnetPersona] = useState("");
+  const [magnetIdea, setMagnetIdea] = useState("");
+  const [magnetLoading, setMagnetLoading] = useState(false);
+  const [magnetError, setMagnetError] = useState("");
 
   const runHookGen = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,6 +100,28 @@ export default function ToolsPage() {
       setIdeaError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setIdeaLoading(false);
+    }
+  };
+
+  const runLeadMagnet = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!magnetNiche.trim() || !magnetPersona.trim()) return;
+    setMagnetLoading(true);
+    setMagnetIdea("");
+    setMagnetError("");
+    try {
+      const res = await fetch("/api/leadMagnet", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ niche: magnetNiche, persona: magnetPersona }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Request failed");
+      setMagnetIdea(data.idea as string);
+    } catch (err) {
+      setMagnetError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setMagnetLoading(false);
     }
   };
 
@@ -171,6 +201,36 @@ export default function ToolsPage() {
     </form>
   );
 
+  const renderLeadMagnet = () => (
+    <form onSubmit={runLeadMagnet} className="space-y-4 max-w-md w-full">
+      <input
+        type="text"
+        className="w-full p-2 rounded-md bg-zinc-800 text-white"
+        placeholder="Your niche"
+        value={magnetNiche}
+        onChange={(e) => setMagnetNiche(e.target.value)}
+      />
+      <input
+        type="text"
+        className="w-full p-2 rounded-md bg-zinc-800 text-white"
+        placeholder="Describe your persona"
+        value={magnetPersona}
+        onChange={(e) => setMagnetPersona(e.target.value)}
+      />
+      <button
+        type="submit"
+        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-md disabled:opacity-50"
+        disabled={magnetLoading || !magnetNiche.trim() || !magnetPersona.trim()}
+      >
+        {magnetLoading ? "Generating..." : "Generate idea"}
+      </button>
+      {magnetError && <p className="text-red-500 text-sm">{magnetError}</p>}
+      {magnetIdea && (
+        <p className="text-sm text-zinc-300 border-t border-white/10 pt-2">{magnetIdea}</p>
+      )}
+    </form>
+  );
+
   return (
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6">
       <div className="flex gap-4">
@@ -192,6 +252,7 @@ export default function ToolsPage() {
         {active === "hook" && renderHookGen()}
         {active === "rewrite" && renderRewrite()}
         {active === "ideas" && renderIdeas()}
+        {active === "magnet" && renderLeadMagnet()}
       </div>
     </main>
   );
