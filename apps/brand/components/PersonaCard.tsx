@@ -4,7 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
 
-export default function PersonaCard({ persona }: { persona: Creator }) {
+type Props = {
+  persona: Creator;
+  onToggle?: (id: string) => void;
+  inShortlist?: boolean;
+};
+
+export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,6 +39,14 @@ export default function PersonaCard({ persona }: { persona: Creator }) {
       >
         View Persona
       </Link>
+      {onToggle && (
+        <button
+          onClick={() => onToggle(persona.id)}
+          className="ml-4 text-sm text-Siora-accent underline"
+        >
+          {inShortlist ? "Remove" : "Save"}
+        </button>
+      )}
     </motion.div>
   );
 }
