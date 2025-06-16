@@ -45,10 +45,11 @@ export async function POST(req: Request) {
     const content = data.choices?.[0]?.message?.content ?? "{}";
 
     return new Response(content, { status: 200, headers: { "Content-Type": "application/json" } });
-  } catch (error: any) {
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unexpected error";
     console.error("Unexpected error:", error);
     return new Response(
-      JSON.stringify({ error: "Unexpected error", details: error.message }),
+      JSON.stringify({ error: "Unexpected error", details: message }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

@@ -15,10 +15,12 @@ export default function PersonaPage() {
       const stored = localStorage.getItem("savedPersonas");
       if (stored) {
         const parsed = JSON.parse(stored);
-        const profiles = Array.isArray(parsed) ? parsed : [parsed];
-        const index = parseInt(idParam, 10);
-        const selected = Number.isNaN(index) ? profiles.find((p: any) => p.id === idParam) : profiles[index];
-        if (selected) setProfile(selected as PersonaProfile);
+      const profiles = Array.isArray(parsed) ? (parsed as PersonaProfile[]) : [parsed as PersonaProfile];
+      const index = parseInt(idParam, 10);
+      const selected = Number.isNaN(index)
+        ? profiles.find((p) => (p as unknown as { id?: string }).id === idParam)
+        : profiles[index];
+      if (selected) setProfile(selected);
       }
     } catch (err) {
       console.error("Failed to load persona", err);
