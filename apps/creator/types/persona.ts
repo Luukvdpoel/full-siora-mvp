@@ -3,4 +3,8 @@ export type PersonaProfile = {
   personality: string
   interests: string[]
   summary: string
+  postingFrequency?: string
+  toneConfidence?: number
+  brandFit?: string
+  growthSuggestions?: string
 }

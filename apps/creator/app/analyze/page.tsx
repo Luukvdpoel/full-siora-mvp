@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import PersonaCard from "@/components/PersonaCard";
+import InsightsSidebar from "@/components/InsightsSidebar";
 import type { PersonaProfile } from "@/types/persona";
 
 type Persona = PersonaProfile;
@@ -45,6 +46,48 @@ export default function AnalyzePage() {
     }
   };
 
+  const computeBrandFit = (interests: string[]): string => {
+    const lower = interests.map((i) => i.toLowerCase());
+    const fitness = ["fitness", "workout", "health", "wellness"];
+    const fashion = ["fashion", "style", "beauty", "clothing"];
+    if (lower.some((i) => fitness.some((k) => i.includes(k)))) return "fitness";
+    if (lower.some((i) => fashion.some((k) => i.includes(k)))) return "fashion";
+    return "business";
+  };
+
+  const computePostingFrequency = (fit: string): string => {
+    switch (fit) {
+      case "fitness":
+        return "5 posts/week";
+      case "fashion":
+        return "3 posts/week";
+      case "business":
+        return "2 posts/week";
+      default:
+        return "3 posts/week";
+    }
+  };
+
+  const computeGrowthSuggestions = (fit: string): string => {
+    switch (fit) {
+      case "fitness":
+        return "Share workout tips daily and track progress with before/after posts.";
+      case "fashion":
+        return "Post seasonal lookbooks and tag the brands you wear.";
+      case "business":
+        return "Publish case studies and network on LinkedIn.";
+      default:
+        return "Collaborate with peers and experiment with short-form video.";
+    }
+  };
+
+  const computeToneConfidence = (caps: string[], personality: string): number => {
+    const text = caps.join(" ").toLowerCase();
+    const words = personality.toLowerCase().split(/\W+/);
+    const matches = words.filter((w) => w && text.includes(w)).length;
+    return Math.min(100, 50 + matches * 10);
+  };
+
   const analyzeCaptions = async (capStr: string) => {
     const list = capStr
       .split(/\n+/)
@@ -68,7 +111,17 @@ export default function AnalyzePage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
-      setResult(data);
+
+      const fit = computeBrandFit(data.interests ?? []);
+      const enhanced: Persona = {
+        ...data,
+        brandFit: fit,
+        postingFrequency: computePostingFrequency(fit),
+        toneConfidence: computeToneConfidence(list, data.personality ?? ""),
+        growthSuggestions: computeGrowthSuggestions(fit),
+      };
+
+      setResult(enhanced);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Something went wrong";
       setError(message);
@@ -99,6 +152,11 @@ export default function AnalyzePage() {
     doc.text(`Interests: ${result.interests.join(", ")}`, 10, 40);
     const summaryLines = doc.splitTextToSize(result.summary, 180);
     doc.text(summaryLines, 10, 50);
+    doc.text(`Posting: ${result.postingFrequency ?? "-"}`, 10, 70);
+    doc.text(`Tone Confidence: ${result.toneConfidence ?? "-"}%`, 10, 80);
+    doc.text(`Brand Fit: ${result.brandFit ?? "-"}`, 10, 90);
+    const growth = doc.splitTextToSize(result.growthSuggestions ?? "", 180);
+    doc.text(growth, 10, 100);
     doc.save(`${result.name || "persona"}.pdf`);
   };
 
@@ -190,22 +248,25 @@ export default function AnalyzePage() {
       )}
 
       {result && (
-        <div className="space-y-4 flex flex-col items-center">
+        <div className="space-y-4 flex flex-col items-center md:flex-row md:space-x-6 md:space-y-0">
           <PersonaCard profile={result} />
-          <button
-            type="button"
-            onClick={handleSave}
-            className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
-          >
-            Save Persona
-          </button>
-          <button
-            type="button"
-            onClick={handleDownloadPdf}
-            className="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
-          >
-            Download as PDF
-          </button>
+          <InsightsSidebar profile={result} />
+          <div className="flex gap-4">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
+            >
+              Save Persona
+            </button>
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              className="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 px-4 rounded-md"
+            >
+              Download as PDF
+            </button>
+          </div>
         </div>
       )}
     </main>
