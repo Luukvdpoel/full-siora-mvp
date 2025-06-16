@@ -25,7 +25,7 @@ export default function SavedPersonasPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-background text-foreground p-6 space-y-6">
+    <main className="min-h-screen bg-background text-foreground p-6 sm:p-10 space-y-6">
       <h1 className="text-2xl font-bold">Saved Personas</h1>
       {profiles.length === 0 ? (
         <p className="text-foreground/60">No saved personas found.</p>
