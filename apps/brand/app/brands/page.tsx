@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import personas from "@/app/data/mock_creators_200.json";
 import PersonaCard from "@/components/PersonaCard";
-import { useAuth } from "@/lib/auth";
+import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";
 
 type Persona = (typeof personas)[number];
 
 export default function BrandsDashboard() {
-  const { user } = useAuth();
+  const { data: session, status } = useSession();
+  const user = session?.user?.email ?? null;
   const router = useRouter();
   const { toggle, inShortlist } = useShortlist(user);
 
@@ -19,10 +20,10 @@ export default function BrandsDashboard() {
   const [vibe, setVibe] = useState("");
 
   useEffect(() => {
-    if (!user) router.replace('/signin');
-  }, [user, router]);
+    if (status === 'unauthenticated') router.replace('/signin');
+  }, [status, router]);
 
-  if (!user) {
+  if (status === 'loading') {
     return null;
   }
 

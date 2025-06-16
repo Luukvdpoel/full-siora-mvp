@@ -4,7 +4,7 @@ import { useState } from "react";
 import creators from "@/app/data/mock_creators_200.json";
 import FilterBar from "@/components/FilterBar";
 import CreatorCard from "@/components/CreatorCard";
-import { useAuth } from "@/lib/auth";
+import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";
 
 export default function Dashboard() {
@@ -13,7 +13,8 @@ export default function Dashboard() {
   const [sortBy, setSortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 12;
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user?.email ?? null;
   const { toggle, inShortlist } = useShortlist(user);
 
   const filtered = creators
