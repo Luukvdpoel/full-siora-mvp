@@ -13,8 +13,19 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
+  pages: {
+    signIn: "/signin",
+  },
   session: {
     strategy: "database",
+  },
+  callbacks: {
+    async session({ session, user }) {
+      if (session.user) {
+        (session.user as { id?: string }).id = user.id;
+      }
+      return session;
+    },
   },
 };
 
