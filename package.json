@@ -5,7 +5,13 @@
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "dev:creator": "npm run dev -w apps/creator",
+    "dev:brand": "npm run dev -w apps/brand",
+    "build:creator": "npm run build -w apps/creator",
+    "build:brand": "npm run build -w apps/brand",
+    "lint": "turbo run lint",
+    "start": "turbo run start"
   },
   "devDependencies": {
     "turbo": "latest"
