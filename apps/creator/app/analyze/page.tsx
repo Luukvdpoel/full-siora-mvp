@@ -45,7 +45,7 @@ export default function AnalyzePage() {
       if (!res.ok) throw new Error(data.error || "Request failed");
       setResult(data);
     } catch (err: any) {
-      setError(err.message || "Something went wrong");
+      setError(err.message || "Failed to analyze captions. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -57,11 +57,10 @@ export default function AnalyzePage() {
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white/5 border border-white/10 rounded-lg p-6 space-y-4 backdrop-blur"
       >
-        <label className="block text-sm font-semibold">
-          Paste several recent Instagram captions (one per line):
-        </label>
+        <label className="block text-sm font-semibold">Paste up to 5 captions</label>
         <textarea
-          className="w-full h-40 p-3 rounded-md bg-zinc-800 text-white resize-none placeholder-zinc-400"
+          rows={5}
+          className="w-full p-3 rounded-md bg-zinc-800 text-white resize-none placeholder-zinc-400"
           value={captions}
           onChange={(e) => setCaptions(e.target.value)}
           placeholder={"First caption\nSecond caption"}
@@ -71,7 +70,33 @@ export default function AnalyzePage() {
           className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 rounded-md disabled:opacity-50"
           disabled={loading || captionList.length === 0}
         >
-          {loading ? "Analyzing..." : "Analyze"}
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg
+                className="animate-spin h-4 w-4 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8z"
+                ></path>
+              </svg>
+              Analyzing...
+            </span>
+          ) : (
+            "Analyze"
+          )}
         </button>
       </form>
 
