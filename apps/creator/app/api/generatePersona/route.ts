@@ -2,75 +2,49 @@ export async function POST(req: Request) {
   try {
     const { captions } = await req.json();
 
-    if (!captions || !Array.isArray(captions)) {
+    // Validate that captions is an array of strings
+    if (!Array.isArray(captions) || !captions.every((c) => typeof c === "string")) {
       return new Response(
-        JSON.stringify({
-          error:
-            "Invalid input: expected captions as an array of strings.",
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
+        JSON.stringify({ error: "Invalid input: captions must be an array of strings." }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    const prompt = `
-You are a branding expert. Based on the Instagram captions below, infer a persona for the creator.
-
-Respond ONLY with valid JSON in the following structure:
-{
-  "name": string,
-  "personality": string,
-  "interests": string[],
-  "summary": string
-}
-
-Captions:
-${captions.join("\n")}
-`;
-
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
+    const messages = [
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-4",
-          messages: [{ role: "user", content: prompt }],
-          temperature: 0.7,
-        }),
-      }
-    );
+        role: "system",
+        content:
+          "You are a branding expert. Based on the following captions, infer a persona and respond ONLY with valid JSON using keys name, personality, interests and summary.",
+      },
+      { role: "user", content: captions.join("\n") },
+    ];
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({ model: "gpt-4", messages, temperature: 0.7 }),
+    });
 
     if (!response.ok) {
-      const error = await response.text();
+      const errorText = await response.text();
       return new Response(
-        JSON.stringify({ error: "OpenAI error", details: error }),
-        {
-          status: response.status,
-          headers: { "Content-Type": "application/json" },
-        }
+        JSON.stringify({ error: "OpenAI error", details: errorText }),
+        { status: response.status, headers: { "Content-Type": "application/json" } }
       );
     }
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content ?? "{}";
 
-    return new Response(content, {
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(content, { status: 200, headers: { "Content-Type": "application/json" } });
   } catch (error: any) {
     console.error("Unexpected error:", error);
     return new Response(
       JSON.stringify({ error: "Unexpected error", details: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
