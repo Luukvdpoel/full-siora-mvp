@@ -1,4 +1,4 @@
-import { PersonaProfile } from '../types/persona';
+import { PersonaProfile } from '../types/persona'
 
 export default function PersonaCard({ profile }: { profile: PersonaProfile }) {
   return (
