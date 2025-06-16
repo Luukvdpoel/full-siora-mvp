@@ -25,3 +25,7 @@ This app does not require any environment variables by default.
 - `npm run dev:brand` – start the dev server with Turborepo
 - `npm run build -w apps/brand` – create a production build
 - `npm run lint -w apps/brand` – run ESLint
+
+## Dashboard
+
+Visit `/dashboard` in the brand app to search saved creator personas. You can filter by niche, tone and platform. Matches are shown using the `CreatorCard` component.
