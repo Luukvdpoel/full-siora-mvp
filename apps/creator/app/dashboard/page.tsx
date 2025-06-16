@@ -57,8 +57,8 @@ export default function DashboardPage() {
                 <Link href={`/persona/${item.id}`} className="text-indigo-600 underline">
                   View
                 </Link>
-                <Link href={`/persona/${item.id}?edit=1`} className="text-indigo-600 underline">
-                  Edit
+                <Link href={`/persona/${item.id}/edit`} className="text-indigo-600 underline">
+                  Edit Persona
                 </Link>
                 <button onClick={() => handleDelete(item.id)} className="text-red-600 underline">
                   Delete
