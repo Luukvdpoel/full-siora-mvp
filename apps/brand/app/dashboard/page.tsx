@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import creators from "@/app/data/mock_creators_200.json";
-import Link from "next/link";
 import FilterBar from "@/components/FilterBar";
 import CreatorCard from "@/components/CreatorCard";
 
