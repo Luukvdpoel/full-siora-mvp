@@ -5,6 +5,7 @@ import { jsPDF } from "jspdf";
 import PersonaCard from "@/components/PersonaCard";
 import InsightsSidebar from "@/components/InsightsSidebar";
 import type { PersonaProfile } from "@/types/persona";
+import { savePersonaToLocal } from "@/lib/localPersonas";
 
 type Persona = PersonaProfile;
 
@@ -132,6 +133,7 @@ export default function AnalyzePage() {
 
   const handleSave = async () => {
     if (!result) return;
+    savePersonaToLocal(result);
     try {
       await fetch("/api/personas", {
         method: "POST",

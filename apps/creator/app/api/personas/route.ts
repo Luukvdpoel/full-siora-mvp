@@ -6,7 +6,7 @@ import { randomUUID } from 'crypto';
 
 const DB_PATH = join(process.cwd(), '..', '..', 'db', 'personas.json');
 
-async function readDB(): Promise<Record<string, any[]>> {
+async function readDB(): Promise<Record<string, unknown[]>> {
   try {
     const data = await fs.readFile(DB_PATH, 'utf8');
     return JSON.parse(data || '{}');
@@ -20,7 +20,7 @@ async function readDB(): Promise<Record<string, any[]>> {
   }
 }
 
-async function writeDB(data: Record<string, any[]>) {
+async function writeDB(data: Record<string, unknown[]>) {
   await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
 }
 
