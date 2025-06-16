@@ -59,7 +59,7 @@ export default function Page() {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 md:px-10 py-12">
+    <main className="min-h-screen bg-white text-black dark:bg-gradient-radial dark:from-Siora-dark dark:via-Siora-mid dark:to-Siora-light dark:text-white px-6 md:px-10 py-12">
       <div className="max-w-3xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Find Creators</h1>
 
@@ -67,7 +67,7 @@ export default function Page() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="I'm looking for creators who are..."
-          className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-3 rounded-lg bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white placeholder-zinc-400 border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
         />
 
         {filtered.length === 0 && (
