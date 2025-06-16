@@ -2,7 +2,7 @@ import { PersonaProfile } from '../types/persona'
 
 export default function PersonaCard({ profile }: { profile: PersonaProfile }) {
   return (
-    <div className="border p-4 rounded-xl shadow-md bg-white text-black space-y-2">
+    <div className="border border-gray-300 dark:border-zinc-700 p-4 rounded-xl shadow-md bg-white text-black dark:bg-zinc-800 dark:text-white space-y-2">
       <h2 className="text-xl font-bold">{profile.name}</h2>
       <p className="italic">{profile.personality}</p>
       <div className="flex flex-wrap gap-2">
@@ -12,7 +12,7 @@ export default function PersonaCard({ profile }: { profile: PersonaProfile }) {
           </span>
         ))}
       </div>
-      <p className="text-sm text-gray-700">{profile.summary}</p>
+      <p className="text-sm text-gray-700 dark:text-gray-300">{profile.summary}</p>
     </div>
   )
 }
