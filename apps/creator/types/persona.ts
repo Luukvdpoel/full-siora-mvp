@@ -8,3 +8,10 @@ export type PersonaProfile = {
   brandFit?: string
   growthSuggestions?: string
 }
+
+export interface FullPersona extends PersonaProfile {
+  vibe?: string;
+  tone?: string;
+  goals?: string[];
+  platforms?: string[];
+}
