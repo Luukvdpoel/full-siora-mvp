@@ -10,15 +10,15 @@ export default function CreatorCard({ creator }: { creator: Creator }) {
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.3 }}
-  className="bg-Siora-mid border border-Siora-border rounded-2xl p-6 shadow-Siora-hover hover:-translate-y-1 transition-all"
+  className="bg-white text-gray-900 border border-gray-200 rounded-2xl p-6 shadow-Siora-hover hover:-translate-y-1 transition-all dark:bg-Siora-mid dark:border-Siora-border dark:text-white"
 >
-  <h2 className="text-lg font-semibold text-white mb-1">
+  <h2 className="text-lg font-semibold mb-1">
     {creator.name}{" "}
     <span className="text-Siora-accent">@{creator.handle}</span>
   </h2>
-  <p className="text-sm text-zinc-400 mb-2">{creator.niche} • {creator.platform}</p>
-  <p className="text-sm text-zinc-300 mb-4">{creator.summary}</p>
-  <div className="flex items-center text-xs text-zinc-400 space-x-4">
+  <p className="text-sm text-gray-600 dark:text-zinc-400 mb-2">{creator.niche} • {creator.platform}</p>
+  <p className="text-sm text-gray-800 dark:text-zinc-300 mb-4">{creator.summary}</p>
+  <div className="flex items-center text-xs text-gray-500 dark:text-zinc-400 space-x-4">
     <span>{creator.followers.toLocaleString()} followers</span>
     <span>{creator.engagementRate}% ER</span>
   </div>

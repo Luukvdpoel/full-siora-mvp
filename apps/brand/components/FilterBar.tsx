@@ -24,7 +24,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
       <select
         value={niche}
         onChange={(e) => setNiche(e.target.value)}
-        className="bg-Siora-light text-white p-2 rounded-lg border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-white text-gray-900 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-Siora-accent transition dark:bg-Siora-light dark:text-white dark:border-Siora-border"
       >
         <option value="">All Niches</option>
         <option value="Beauty">Beauty</option>
@@ -40,7 +40,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
       <select
         value={platform}
         onChange={(e) => setPlatform(e.target.value)}
-        className="bg-Siora-light text-white p-2 rounded-lg border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-white text-gray-900 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-Siora-accent transition dark:bg-Siora-light dark:text-white dark:border-Siora-border"
       >
         <option value="">All Platforms</option>
         <option value="Instagram">Instagram</option>
@@ -53,7 +53,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         placeholder="Min Followers"
         value={minFollowers}
         onChange={(e) => setMinFollowers(e.target.value)}
-        className="bg-Siora-light text-white p-2 rounded-lg border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-white text-gray-900 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-Siora-accent transition dark:bg-Siora-light dark:text-white dark:border-Siora-border"
       />
 
       <input
@@ -61,14 +61,14 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         placeholder="Max Followers"
         value={maxFollowers}
         onChange={(e) => setMaxFollowers(e.target.value)}
-        className="bg-Siora-light text-white p-2 rounded-lg border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-white text-gray-900 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-Siora-accent transition dark:bg-Siora-light dark:text-white dark:border-Siora-border"
       />
 
       <div className="flex flex-col sm:flex-row gap-2">
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value)}
-          className="flex-1 bg-Siora-light text-white p-2 rounded-lg border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+          className="flex-1 bg-white text-gray-900 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-Siora-accent transition dark:bg-Siora-light dark:text-white dark:border-Siora-border"
         >
           <option value="">Sort by</option>
           <option value="followers-desc">Followers ↓</option>

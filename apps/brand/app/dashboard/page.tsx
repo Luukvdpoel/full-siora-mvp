@@ -46,7 +46,7 @@ export default function Dashboard() {
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 md:px-10 py-12">
+    <main className="min-h-screen bg-white text-gray-900 dark:bg-gradient-radial dark:from-Siora-dark dark:via-Siora-mid dark:to-Siora-light dark:text-white px-6 md:px-10 py-12">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Brand Dashboard</h1>
 
@@ -54,7 +54,7 @@ export default function Dashboard() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search creators..."
-          className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-3 rounded-lg bg-white text-gray-900 border border-gray-300 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-Siora-accent dark:bg-Siora-light dark:text-white dark:border-Siora-border"
         />
 
         <FilterBar onFilter={setFilters} onSort={setSortBy} />
