@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Logger</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    label { display:block; margin-top:1rem; }
+    input, textarea, select { width:100%; padding:0.5rem; margin-top:0.25rem; }
+    table { width:100%; border-collapse: collapse; margin-top:2rem; }
+    th, td { border:1px solid #ccc; padding:0.5rem; text-align:left; }
+  </style>
+</head>
+<body>
+  <h1>Log Content</h1>
+  <form id="logForm">
+    <label>
+      Content Type
+      <input type="text" id="contentType" required>
+    </label>
+    <label>
+      Caption
+      <textarea id="caption" rows="3" required></textarea>
+    </label>
+    <label>
+      Platform
+      <input type="text" id="platform" required>
+    </label>
+    <label>
+      Performance
+      <input type="text" id="performance" required>
+    </label>
+    <button type="submit">Save</button>
+  </form>
+
+  <table id="logTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>Content Type</th>
+        <th>Caption</th>
+        <th>Platform</th>
+        <th>Performance</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('logForm');
+    const table = document.getElementById('logTable');
+    const tbody = table.querySelector('tbody');
+
+    function loadLogs() {
+      const logs = JSON.parse(localStorage.getItem('contentLogs') || '[]');
+      tbody.innerHTML = '';
+      logs.forEach(log => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${log.type}</td><td>${log.caption}</td><td>${log.platform}</td><td>${log.performance}</td>`;
+        tbody.appendChild(row);
+      });
+      table.style.display = logs.length ? '' : 'none';
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const log = {
+        type: document.getElementById('contentType').value,
+        caption: document.getElementById('caption').value,
+        platform: document.getElementById('platform').value,
+        performance: document.getElementById('performance').value
+      };
+      const logs = JSON.parse(localStorage.getItem('contentLogs') || '[]');
+      logs.push(log);
+      localStorage.setItem('contentLogs', JSON.stringify(logs));
+      form.reset();
+      loadLogs();
+    });
+
+    loadLogs();
+  </script>
+</body>
+</html>
