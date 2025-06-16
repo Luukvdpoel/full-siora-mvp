@@ -1,36 +1,29 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { randomUUID } from 'crypto';
 
-const DB_PATH = join(process.cwd(), '..', '..', 'db', 'personas.json');
+const PERSONAS_DIR = join(process.cwd(), '..', '..', 'data', 'personas');
 
-async function readDB(): Promise<Record<string, unknown[]>> {
+async function readPersonas(): Promise<Record<string, unknown>[]> {
   try {
-    const data = await fs.readFile(DB_PATH, 'utf8');
-    return JSON.parse(data || '{}');
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
-      await fs.mkdir(join(process.cwd(), '..', '..', 'db'), { recursive: true });
-      await fs.writeFile(DB_PATH, '{}', 'utf8');
-      return {};
+    await fs.mkdir(PERSONAS_DIR, { recursive: true });
+    const files = await fs.readdir(PERSONAS_DIR);
+    const personas: Record<string, unknown>[] = [];
+    for (const f of files) {
+      if (f.endsWith('.json')) {
+        const content = await fs.readFile(join(PERSONAS_DIR, f), 'utf8');
+        personas.push(JSON.parse(content));
+      }
     }
-    throw err;
+    return personas;
+  } catch {
+    return [];
   }
-}
-
-async function writeDB(data: Record<string, unknown[]>) {
-  await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
 }
 
 export async function GET() {
-  const sessionId = cookies().get('sessionId')?.value;
-  if (!sessionId) {
-    return NextResponse.json([]);
-  }
-  const db = await readDB();
-  return NextResponse.json(db[sessionId] || []);
+  const personas = await readPersonas();
+  return NextResponse.json(personas);
 }
 
 export async function POST(req: Request) {
@@ -38,15 +31,10 @@ export async function POST(req: Request) {
   if (!title || !persona) {
     return NextResponse.json({ error: 'Missing title or persona' }, { status: 400 });
   }
-  const cookieStore = cookies();
-  let session = cookieStore.get('sessionId')?.value;
-  if (!session) {
-    session = randomUUID();
-    cookieStore.set('sessionId', session, { path: '/' });
-  }
-  const db = await readDB();
-  if (!Array.isArray(db[session])) db[session] = [];
-  db[session].push({ title, persona, timestamp: new Date().toISOString() });
-  await writeDB(db);
+  await fs.mkdir(PERSONAS_DIR, { recursive: true });
+  const iso = new Date().toISOString();
+  const datePart = iso.slice(0, 10).replace(/-/g, '');
+  const filePath = join(PERSONAS_DIR, `persona-${datePart}.json`);
+  await fs.writeFile(filePath, JSON.stringify({ title, persona, timestamp: iso }, null, 2), 'utf8');
   return NextResponse.json({ success: true });
 }
