@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const tabs = [
   { id: "hook", label: "Hook Generator" },
@@ -10,6 +12,16 @@ const tabs = [
 ];
 
 export default function ToolsPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "loading") return;
+    if (!session || session.user?.plan === "free") {
+      router.replace("/subscribe");
+    }
+  }, [status, session, router]);
+
   const [active, setActive] = useState("hook");
 
   // Hook Generator state
