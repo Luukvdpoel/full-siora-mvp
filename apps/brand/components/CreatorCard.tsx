@@ -5,7 +5,12 @@ import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
 import { useState } from "react";
 
-export default function CreatorCard({ creator }: { creator: Creator }) {
+type Props = {
+  creator: Creator;
+  onShortlist?: (id: string) => void;
+  shortlisted?: boolean;
+};
+export default function CreatorCard({ creator, onShortlist, shortlisted }: Props) {
   const [loading, setLoading] = useState(false);
 
   const handleContact = async () => {
@@ -70,6 +75,14 @@ export default function CreatorCard({ creator }: { creator: Creator }) {
       >
         {loading ? 'Contacting...' : 'Contact'}
       </button>
+      {onShortlist && (
+        <button
+          onClick={() => onShortlist(creator.id)}
+          className="ml-4 text-sm mt-4 text-Siora-accent underline"
+        >
+          {shortlisted ? 'Remove' : 'Shortlist'}
+        </button>
+      )}
     </motion.div>
   );
 }
