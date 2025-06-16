@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import PersonaCard, { type PersonaProfile } from "@/components/PersonaCard";
 
-interface Persona {
-  name: string;
-  personality: string;
-  interests: string[];
-  summary: string;
-}
+type Persona = PersonaProfile;
 
 export default function AnalyzePage() {
   const [captions, setCaptions] = useState("");
@@ -69,18 +65,7 @@ export default function AnalyzePage() {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {result && (
-        <div className="max-w-xl text-center space-y-3">
-          <h2 className="text-2xl font-bold">{result.name}</h2>
-          <p>
-            <span className="font-semibold">Personality:</span> {result.personality}
-          </p>
-          <p>
-            <span className="font-semibold">Interests:</span> {result.interests.join(", ")}
-          </p>
-          <p className="text-zinc-300">{result.summary}</p>
-        </div>
-      )}
+      {result && <PersonaCard profile={result} />}
     </main>
   );
 }
