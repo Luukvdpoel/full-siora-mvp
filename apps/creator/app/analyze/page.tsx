@@ -35,7 +35,7 @@ export default function AnalyzePage() {
     setError("");
 
     try {
-      const res = await fetch("/api/generatePersona", {
+      const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ captions: captionList }),
