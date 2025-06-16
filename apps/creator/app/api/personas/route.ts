@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions, prisma } from '@/lib/auth'
 
+const DAILY_LIMIT = 3
+
 export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session?.user?.id) {
@@ -20,6 +22,18 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
   if (!session?.user?.id) {
     return new NextResponse('Unauthorized', { status: 401 })
+  }
+
+  const start = new Date()
+  start.setHours(0, 0, 0, 0)
+  const used = await prisma.persona.count({
+    where: { userId: session.user.id, createdAt: { gte: start } }
+  })
+  if (used >= DAILY_LIMIT) {
+    return NextResponse.json(
+      { error: 'limit' },
+      { status: 429 }
+    )
   }
 
   const { title, persona } = await req.json()

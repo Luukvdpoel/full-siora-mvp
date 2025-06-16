@@ -17,6 +17,7 @@ export default function Home() {
   const [persona, setPersona] = useState<string | null>(null);
   const [storedPersona, setStoredPersona] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
   const [showSlowMessage, setShowSlowMessage] = useState(false);
   const slowTimer = useRef<NodeJS.Timeout | null>(null);
   const [advancedMode, setAdvancedMode] = useState(false);
@@ -39,6 +40,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    setLimitReached(false);
     setPersona(null); // Optional: clear last result while loading
   
     const payload = {
@@ -62,9 +64,13 @@ export default function Home() {
         },
         body: JSON.stringify(payload),
       });
-  
-      const data = await res.json();
-      setPersona(data.result);
+      if (res.status === 429) {
+        setLimitReached(true);
+        setPersona(null);
+      } else {
+        const data = await res.json();
+        setPersona(data.result);
+      }
     } catch (error) {
       console.error(error);
       setPersona("Oops, something went wrong. Please try again.");
@@ -76,11 +82,14 @@ export default function Home() {
   const handleSave = async () => {
     if (!persona) return;
     try {
-      await fetch("/api/personas", {
+      const res = await fetch("/api/personas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: handle || "Persona", persona }),
       });
+      if (res.status === 429) {
+        setLimitReached(true);
+      }
     } catch (err) {
       console.error("Failed to save persona", err);
     }
@@ -178,6 +187,12 @@ export default function Home() {
           Siora helps creators shine online with AI-powered tools to discover, express, and grow their digital identity.
         </p>
       </div>
+
+      {limitReached && (
+        <div className="mb-4 rounded-md bg-red-600 text-white p-3 text-center">
+          Limit reached. Upgrade for unlimited personas.
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className={styles.formBox}>
         <label className={styles.label}>{questions[step].label}</label>
