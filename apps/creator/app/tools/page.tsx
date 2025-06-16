@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import type { LeadMagnetIdea } from "@/types/leadMagnet";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -45,7 +46,7 @@ export default function ToolsPage() {
   // Lead Magnet Idea state
   const [magnetNiche, setMagnetNiche] = useState("");
   const [magnetPersona, setMagnetPersona] = useState("");
-  const [magnetIdea, setMagnetIdea] = useState("");
+  const [magnetIdea, setMagnetIdea] = useState<LeadMagnetIdea | null>(null);
   const [magnetLoading, setMagnetLoading] = useState(false);
   const [magnetError, setMagnetError] = useState("");
 
@@ -119,17 +120,17 @@ export default function ToolsPage() {
     e.preventDefault();
     if (!magnetNiche.trim() || !magnetPersona.trim()) return;
     setMagnetLoading(true);
-    setMagnetIdea("");
+    setMagnetIdea(null);
     setMagnetError("");
     try {
       const res = await fetch("/api/leadMagnet", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ niche: magnetNiche, persona: magnetPersona }),
+        body: JSON.stringify({ niche: magnetNiche, audience: magnetPersona }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
-      setMagnetIdea(data.idea as string);
+      setMagnetIdea(data as LeadMagnetIdea);
     } catch (err) {
       setMagnetError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -238,7 +239,12 @@ export default function ToolsPage() {
       </button>
       {magnetError && <p className="text-red-500 text-sm">{magnetError}</p>}
       {magnetIdea && (
-        <p className="text-sm text-zinc-300 border-t border-white/10 pt-2">{magnetIdea}</p>
+        <div className="text-sm text-zinc-300 border-t border-white/10 pt-2 space-y-1">
+          <p className="font-semibold">{magnetIdea.title}</p>
+          <p>{magnetIdea.description}</p>
+          <p>Benefit: {magnetIdea.benefit}</p>
+          <p className="font-semibold">CTA: {magnetIdea.cta}</p>
+        </div>
       )}
     </form>
   );
