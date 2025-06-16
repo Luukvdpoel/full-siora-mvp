@@ -1,15 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import personas from "@/app/data/mock_creators_200.json";
 import PersonaCard from "@/components/PersonaCard";
+import { useAuth } from "@/lib/auth";
+import { useShortlist } from "@/lib/shortlist";
 
 type Persona = (typeof personas)[number];
 
 export default function BrandsDashboard() {
+  const { user } = useAuth();
+  const router = useRouter();
+  const { toggle, inShortlist } = useShortlist(user);
+
   const [tone, setTone] = useState("");
   const [platform, setPlatform] = useState("");
   const [vibe, setVibe] = useState("");
+
+  useEffect(() => {
+    if (!user) router.replace('/signin');
+  }, [user, router]);
+
+  if (!user) {
+    return null;
+  }
 
   const filtered = personas.filter((p: Persona) => {
     const matchTone = !tone || p.tone.toLowerCase().includes(tone.toLowerCase());
@@ -53,7 +68,12 @@ export default function BrandsDashboard() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((p: Persona) => (
-              <PersonaCard key={p.id} persona={p} />
+              <PersonaCard
+                key={p.id}
+                persona={p}
+                onToggle={toggle}
+                inShortlist={inShortlist(p.id)}
+              />
             ))}
           </div>
         )}
