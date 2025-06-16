@@ -32,15 +32,30 @@ const personas: PersonaProfile[] = [
     summary:
       "Shares daily mindfulness tips and motivational thoughts to keep followers grounded.",
   },
+  {
+    name: "Eco Ellie",
+    personality: "environmentally conscious and creative",
+    interests: ["sustainability", "DIY", "nature"],
+    summary:
+      "Creates eco-friendly projects and tips that inspire followers to live greener.",
+  },
+  {
+    name: "Techy Theo",
+    personality: "geeky and insightful",
+    interests: ["technology", "gaming", "innovation"],
+    summary:
+      "Reviews gadgets and explores the future of tech with a fun spin.",
+  },
 ];
 
 export default function Page() {
   const [query, setQuery] = useState("");
 
-  const filtered = personas.filter((p) =>
-    `${p.name} ${p.personality} ${p.interests.join(" ")} ${p.summary}`
-      .toLowerCase()
-      .includes(query.toLowerCase())
+  const q = query.toLowerCase().trim();
+  const filtered = personas.filter(
+    (p) =>
+      p.personality.toLowerCase().includes(q) ||
+      p.interests.some((interest) => interest.toLowerCase().includes(q))
   );
 
   return (
@@ -51,7 +66,7 @@ export default function Page() {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Describe the vibe you're seeking..."
+          placeholder="I'm looking for creators who are..."
           className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
         />
 
@@ -59,7 +74,7 @@ export default function Page() {
           <p className="text-center text-zinc-400 mt-10">No matching personas found.</p>
         )}
 
-        <div className="grid gap-6">
+        <div className="grid gap-6 sm:grid-cols-2">
           {filtered.map((profile) => (
             <PersonaCard key={profile.name} profile={profile} />
           ))}
