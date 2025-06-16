@@ -14,6 +14,7 @@ export interface CreatorPersona {
 }
 
 export interface BrandProfile {
+  name?: string;
   targetAgeRange?: AgeRange;
   niches?: string[];
   tone?: string;
