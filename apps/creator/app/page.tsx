@@ -103,7 +103,7 @@ export default function Home() {
     }
   }, [persona]);
   
-  {!advancedMode ? (
+  const advancedFields = !advancedMode ? (
     <button
       type="button"
       className="text-sm underline text-zinc-400 hover:text-white mt-4"
@@ -144,7 +144,7 @@ export default function Home() {
         />
       </div>
     </div>
-  )}
+  );
   
 
   return (
@@ -213,8 +213,9 @@ export default function Home() {
           <div className={styles.progressBar} style={{ width: `${((step + 1) / questions.length) * 100}%` }}></div>
         </div>
 
-        <p className={styles.stepIndicator}>Step {step + 1} of {questions.length}</p>
-      </form>
+          <p className={styles.stepIndicator}>Step {step + 1} of {questions.length}</p>
+          {advancedFields}
+        </form>
 
       {storedPersona && !persona && (
         <button
