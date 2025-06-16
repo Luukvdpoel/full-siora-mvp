@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import PersonaCard, { type PersonaProfile } from "@/components/PersonaCard";
+import PersonaCard from "@/components/PersonaCard";
+import type { PersonaProfile } from "@/types/persona";
 
 type Persona = PersonaProfile;
 
