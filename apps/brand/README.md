@@ -31,3 +31,5 @@ This app does not require any environment variables by default.
 Visit `/signin` to log in. After signing in, head to `/brands` to search creator personas. Results can be filtered by tone, platform and vibe. Each profile can be saved to your personal shortlist which is stored in your browser.
 
 `/dashboard` and `/personas` remain available for exploring personas without authentication.
+
+You can also try `/intent` for a quick campaign intent form that returns creators sorted by audience and tone fit.
