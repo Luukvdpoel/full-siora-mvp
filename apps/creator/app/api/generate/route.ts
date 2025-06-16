@@ -1,3 +1,10 @@
+export interface PersonaProfile {
+  name: string;
+  personality: string;
+  interests: string[];
+  summary: string;
+}
+
 export async function POST(req: Request) {
   const {
     handle,
@@ -116,21 +123,25 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         model: "gpt-4",
-        messages: [{ role: "user", content: prompt }],
+        messages: [
+          {
+            role: "system",
+            content:
+              "Respond ONLY with valid JSON using keys name, personality, interests and summary.",
+          },
+          { role: "user", content: prompt },
+        ],
         temperature: 0.85,
       }),
     });
-  
+
     const data = await response.json();
-  
-    return new Response(
-      JSON.stringify({
-        result: data.choices[0].message.content,
-      }),
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const content = data.choices?.[0]?.message?.content ?? "{}";
+    const persona: PersonaProfile = JSON.parse(content);
+
+    return new Response(JSON.stringify(persona), {
+      headers: { "Content-Type": "application/json" },
+    });
   }
   
   
