@@ -14,6 +14,7 @@ export default function AnalyzePage() {
   const [result, setResult] = useState<Persona | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [saveStatus, setSaveStatus] = useState("");
 
   const captionList = captions
     .split(/\n+/)
@@ -40,6 +41,24 @@ export default function AnalyzePage() {
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSave = () => {
+    if (!result) return;
+    try {
+      const existing = JSON.parse(
+        window.localStorage.getItem("savedPersonaProfiles") || "[]"
+      );
+      existing.push(result);
+      window.localStorage.setItem(
+        "savedPersonaProfiles",
+        JSON.stringify(existing)
+      );
+      setSaveStatus("Persona saved!");
+    } catch (err) {
+      console.error(err);
+      setSaveStatus("Failed to save persona");
     }
   };
 
@@ -79,6 +98,13 @@ export default function AnalyzePage() {
             <span className="font-semibold">Interests:</span> {result.interests.join(", ")}
           </p>
           <p className="text-zinc-300">{result.summary}</p>
+          <button
+            onClick={handleSave}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 rounded-md"
+          >
+            Save Persona
+          </button>
+          {saveStatus && <p className="text-green-500">{saveStatus}</p>}
         </div>
       )}
     </main>
