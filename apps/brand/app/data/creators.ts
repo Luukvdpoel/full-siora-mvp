@@ -9,6 +9,9 @@ export type Creator = {
   engagementRate: number;
   tags: string[];
   tone: string;
+  vibe?: string;
+  formats?: string[];
+  fitScore?: number;
   markdown?: string;
 };
 
@@ -24,6 +27,9 @@ export const creators = [
     summary: "Beauty creator focused on skincare and wellness for Gen Z.",
     followers: 120000,
     engagementRate: 3.8,
+    vibe: "cozy wellness",
+    formats: ["Reels", "Stories"],
+    fitScore: 85,
     brandFit: "High",
     location: "Los Angeles, USA",
     language: "English",
@@ -57,6 +63,9 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
     summary: "Web3 content creator breaking down trends for normies.",
     followers: 45000,
     engagementRate: 6.2,
+    vibe: "analytical tech",
+    formats: ["Long-form video", "Short clips"],
+    fitScore: 70,
     brandFit: "Medium",
     location: "Berlin, Germany",
     language: "English, German",
@@ -91,6 +100,9 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
     summary: "Urban jungle queen helping you green your home, one reel at a time.",
     followers: 82000,
     engagementRate: 4.7,
+    vibe: "aesthetic nature",
+    formats: ["Reels", "Tutorials"],
+    fitScore: 90,
     brandFit: "High",
     location: "São Paulo, Brazil",
     language: "Portuguese, English",
