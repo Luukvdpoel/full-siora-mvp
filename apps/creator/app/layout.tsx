@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import Providers from './providers';
 import AuthStatus from '@/components/AuthStatus';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <Providers>
-          <div className="p-4 text-right">
+          <div className="p-4 flex justify-between items-center">
+            <ThemeToggle />
             <AuthStatus />
           </div>
           {children}
