@@ -14,7 +14,12 @@ export async function POST(req: Request) {
       {
         role: "system",
         content:
-          "You are a branding expert. Based on the following captions, infer a persona and respond ONLY with valid JSON using keys name, personality, interests and summary.",
+          [
+            "You are a branding expert helping analyze a creator's content.",
+            "Review the captions provided and identify the overall tone, recurring themes, and values expressed.",
+            "Infer what type of creator they are and highlight their strengths.",
+            "Respond ONLY with valid JSON that matches the PersonaProfile interface (name, personality, interests, summary).",
+          ].join(" "),
       },
       { role: "user", content: captions.join("\n") },
     ];
