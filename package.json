@@ -2,7 +2,10 @@
   "name": "full-Siora-mvp",
   "private": true,
   "packageManager": "npm@10.5.0",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -11,11 +14,13 @@
     "build:creator": "npm run build -w apps/creator",
     "build:brand": "npm run build -w apps/brand",
     "lint": "turbo run lint",
-    "start": "turbo run start"
+    "start": "turbo run start",
+    "generate:campaign": "node tools/campaign_flow.mjs"
   },
   "devDependencies": {
     "turbo": "latest"
+  },
+  "dependencies": {
+    "pdfkit": "^0.15.2"
   }
 }
-
-  

@@ -1,1 +1,23 @@
-{}
+[
+  {
+    "id": 1,
+    "name": "Eco Emily",
+    "category": "Sustainability",
+    "audience": "Eco-conscious millennials",
+    "description": "Lifestyle creator focusing on zero-waste living and eco-friendly products."
+  },
+  {
+    "id": 2,
+    "name": "Tech Tim",
+    "category": "Gadgets",
+    "audience": "Early adopters and tech enthusiasts",
+    "description": "Reviews the latest gadgets and shares practical tech tips across channels."
+  },
+  {
+    "id": 3,
+    "name": "Lifestyle Lily",
+    "category": "Fashion & Wellness",
+    "audience": "Young urban professionals",
+    "description": "Combines minimalist fashion advice with wellness routines and healthy living."
+  }
+]
