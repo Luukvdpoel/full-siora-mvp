@@ -11,6 +11,18 @@ export default function AnalyzePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const handleSave = () => {
+    if (!result) return;
+    try {
+      const stored = localStorage.getItem("savedPersonaProfiles");
+      const profiles: Persona[] = stored ? JSON.parse(stored) : [];
+      profiles.push(result);
+      localStorage.setItem("savedPersonaProfiles", JSON.stringify(profiles));
+    } catch (err) {
+      console.error("Failed to save persona", err);
+    }
+  };
+
   const captionList = captions
     .split(/\n+/)
     .map((c) => c.trim())
@@ -65,7 +77,18 @@ export default function AnalyzePage() {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {result && <PersonaCard profile={result} />}
+      {result && (
+        <div className="space-y-4 flex flex-col items-center">
+          <PersonaCard profile={result} />
+          <button
+            type="button"
+            onClick={handleSave}
+            className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-2 px-4 rounded-md"
+          >
+            Save Persona
+          </button>
+        </div>
+      )}
     </main>
   );
 }
