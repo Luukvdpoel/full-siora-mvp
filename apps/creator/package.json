@@ -27,7 +27,8 @@
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "stripe": "^18.2.1",
-    "shared-utils": "workspace:*"
+    "shared-utils": "workspace:*",
+    "shared-ui": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.3",
