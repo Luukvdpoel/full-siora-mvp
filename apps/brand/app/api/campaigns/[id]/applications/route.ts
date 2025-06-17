@@ -9,6 +9,7 @@ interface Application {
   pitch: string;
   personaSummary: string;
   timestamp: string;
+  status?: 'pending' | 'accepted' | 'declined';
 }
 
 const dbPath = path.join(process.cwd(), '..', '..', 'db', 'campaign_applications.json');

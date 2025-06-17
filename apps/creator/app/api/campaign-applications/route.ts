@@ -15,6 +15,7 @@ interface ApplicationEntry extends ApplicationRequest {
   id: string;
   userId: string;
   timestamp: string;
+  status?: 'pending' | 'accepted' | 'declined';
 }
 
 const dbPath = path.join(process.cwd(), '..', '..', 'db', 'campaign_applications.json');
@@ -58,6 +59,7 @@ export async function POST(req: Request) {
       pitch,
       personaSummary,
       timestamp: new Date().toISOString(),
+      status: 'pending',
     };
     data.push(entry);
     await fs.writeFile(dbPath, JSON.stringify(data, null, 2));

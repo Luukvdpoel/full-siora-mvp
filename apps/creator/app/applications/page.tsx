@@ -8,6 +8,7 @@ interface Application {
   pitch: string;
   personaSummary: string;
   timestamp: string;
+  status?: 'pending' | 'accepted' | 'declined';
 }
 
 export default function ApplicationsPage() {
@@ -43,6 +44,7 @@ export default function ApplicationsPage() {
                 <h2 className="text-lg font-semibold">{c?.title ?? a.campaignId}</h2>
                 <p className="text-sm text-foreground/80">{c?.brand}</p>
                 <p className="text-sm">{a.pitch}</p>
+                <p className="text-sm">Status: {a.status ?? 'pending'}</p>
                 <p className="text-xs text-foreground/60">{new Date(a.timestamp).toLocaleString()}</p>
               </div>
             );
