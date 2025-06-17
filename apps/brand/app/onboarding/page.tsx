@@ -3,10 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { BrandOnboardResult } from "@/types/onboard";
+import {
+  campaignTemplates,
+  type CampaignTemplate,
+} from "@/app/data/campaignTemplates";
 
 export default function BrandOnboarding() {
   const router = useRouter();
   const [step, setStep] = useState(0);
+  const [selectedTemplate, setSelectedTemplate] = useState<CampaignTemplate | null>(null);
   const [form, setForm] = useState({
     name: "",
     goals: "",
@@ -16,6 +21,18 @@ export default function BrandOnboarding() {
   });
   const [summary, setSummary] = useState<BrandOnboardResult | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const applyTemplate = (template: CampaignTemplate) => {
+    setSelectedTemplate(template);
+    setForm({
+      name: template.name,
+      goals: template.goals,
+      product: template.product,
+      creators: template.creators,
+      budget: template.budget,
+    });
+    setStep(1);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,7 +57,7 @@ export default function BrandOnboarding() {
       });
       const data = await res.json();
       setSummary(data);
-      setStep(5);
+      setStep(6);
     } catch (err) {
       console.error(err);
     } finally {
@@ -52,7 +69,7 @@ export default function BrandOnboarding() {
     if (!summary) return;
     setLoading(true);
     try {
-      await fetch("/api/campaign-brief", {
+      await fetch("/api/campaign-draft", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -73,7 +90,7 @@ export default function BrandOnboarding() {
   };
 
   const next = () => {
-    if (step === 4) {
+    if (step === 5) {
       generateBrief();
     } else {
       setStep((s) => s + 1);
@@ -89,6 +106,26 @@ export default function BrandOnboarding() {
       <div className="max-w-xl mx-auto bg-Siora-mid p-6 rounded-2xl space-y-4">
         <h1 className="text-2xl font-bold mb-2">Brand Onboarding</h1>
         {step === 0 && (
+          <div className="space-y-3">
+            {campaignTemplates.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => applyTemplate(t)}
+                className="w-full text-left p-3 rounded-lg bg-Siora-light hover:bg-Siora-accent/20 border border-Siora-border"
+              >
+                <h3 className="font-semibold">{t.label}</h3>
+                <p className="text-sm opacity-80">{t.goals}</p>
+              </button>
+            ))}
+            <button
+              onClick={() => setStep(1)}
+              className="w-full p-3 rounded-lg bg-gray-700 border border-Siora-border"
+            >
+              Start from Scratch
+            </button>
+          </div>
+        )}
+        {step === 1 && (
           <input
             name="name"
             value={form.name}
@@ -97,7 +134,7 @@ export default function BrandOnboarding() {
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
         )}
-        {step === 1 && (
+        {step === 2 && (
           <textarea
             name="goals"
             value={form.goals}
@@ -106,7 +143,7 @@ export default function BrandOnboarding() {
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
         )}
-        {step === 2 && (
+        {step === 3 && (
           <textarea
             name="product"
             value={form.product}
@@ -115,7 +152,7 @@ export default function BrandOnboarding() {
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
         )}
-        {step === 3 && (
+        {step === 4 && (
           <input
             name="creators"
             value={form.creators}
@@ -124,7 +161,7 @@ export default function BrandOnboarding() {
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
         )}
-        {step === 4 && (
+        {step === 5 && (
           <input
             name="budget"
             value={form.budget}
@@ -133,7 +170,7 @@ export default function BrandOnboarding() {
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
         )}
-        {step === 5 && summary && (
+        {step === 6 && summary && (
           <div className="space-y-3">
             <textarea
               value={summary.mission}
@@ -163,21 +200,21 @@ export default function BrandOnboarding() {
           </div>
         )}
         <div className="flex justify-between pt-4">
-          {step > 0 && step < 5 && (
+          {step > 0 && step < 6 && (
             <button onClick={prev} className="px-4 py-2 bg-gray-700 rounded">
               Back
             </button>
           )}
-          {step < 5 && (
+          {step < 6 && (
             <button
               onClick={next}
               disabled={loading}
               className="ml-auto px-4 py-2 bg-Siora-accent rounded disabled:opacity-50"
             >
-              {step === 4 ? (loading ? "Generating..." : "Generate Brief") : "Next"}
+              {step === 5 ? (loading ? "Generating..." : "Generate Brief") : "Next"}
             </button>
           )}
-          {step === 5 && (
+          {step === 6 && (
             <button
               onClick={saveBrief}
               disabled={loading}
