@@ -19,15 +19,20 @@ export default function Dashboard() {
 
   const filtered = creators
     .filter((c) => {
-      const matchesQuery = `${c.name} ${c.handle} ${c.niche} ${c.tags.join(" ")} ${c.tone}`
+      const matchesQuery = `${c.name} ${c.handle} ${c.niche} ${c.tags.join(" ")} ${c.tone} ${c.summary}`
         .toLowerCase()
         .includes(query.toLowerCase());
 
       const matchesFilters =
-        (!filters.niche || c.niche.toLowerCase().includes(filters.niche.toLowerCase())) &&
         (!filters.platform || c.platform.toLowerCase().includes(filters.platform.toLowerCase())) &&
+        (!filters.tone || c.tone.toLowerCase().includes(filters.tone.toLowerCase())) &&
+        (!filters.audience ||
+          c.summary.toLowerCase().includes(filters.audience.toLowerCase()) ||
+          c.tags.some((t) => t.toLowerCase().includes(filters.audience.toLowerCase()))) &&
         (!filters.minFollowers || c.followers >= parseInt(filters.minFollowers)) &&
-        (!filters.maxFollowers || c.followers <= parseInt(filters.maxFollowers));
+        (!filters.maxFollowers || c.followers <= parseInt(filters.maxFollowers)) &&
+        (!filters.minEngagement || c.engagementRate >= parseFloat(filters.minEngagement)) &&
+        (!filters.maxEngagement || c.engagementRate <= parseFloat(filters.maxEngagement));
 
       return matchesQuery && matchesFilters;
     })
