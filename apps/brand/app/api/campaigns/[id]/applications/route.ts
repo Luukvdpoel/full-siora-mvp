@@ -6,8 +6,9 @@ interface Application {
   id: string;
   userId: string;
   campaignId: string;
-  pitch: string;
-  personaSummary: string;
+  pitch?: string;
+  personaSummary?: string;
+  status: string;
   timestamp: string;
 }
 

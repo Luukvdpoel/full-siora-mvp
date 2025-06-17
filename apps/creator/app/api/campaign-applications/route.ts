@@ -7,13 +7,14 @@ import { randomUUID } from 'crypto';
 
 interface ApplicationRequest {
   campaignId: string;
-  pitch: string;
-  personaSummary: string;
+  pitch?: string;
+  personaSummary?: string;
 }
 
 interface ApplicationEntry extends ApplicationRequest {
   id: string;
   userId: string;
+  status: 'pending';
   timestamp: string;
 }
 
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
 
   try {
     const { campaignId, pitch, personaSummary } = (await req.json()) as ApplicationRequest;
-    if (!campaignId || !pitch) {
+    if (!campaignId) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
     const data = await readData();
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
       campaignId,
       pitch,
       personaSummary,
+      status: 'pending',
       timestamp: new Date().toISOString(),
     };
     data.push(entry);

@@ -10,6 +10,8 @@ interface Application {
   userId: string;
   campaignId: string;
   personaSummary: string;
+  pitch?: string;
+  status: string;
   timestamp: string;
 }
 
@@ -79,7 +81,9 @@ export default function ApplicationsPage() {
                       app.userId
                     )}
                   </h2>
+                  {app.pitch && <p className="text-sm mb-2">{app.pitch}</p>}
                   <p className="text-sm text-zinc-300 mb-2">{app.personaSummary}</p>
+                  <p className="text-sm text-zinc-400 mb-1">Status: {app.status}</p>
                   <p className="text-sm text-zinc-400 mb-4">{new Date(app.timestamp).toLocaleString()}</p>
                   <div className="flex gap-4">
                     <button onClick={() => accept(app)} className="px-3 py-1 text-sm rounded bg-green-600 text-white">Accept</button>
