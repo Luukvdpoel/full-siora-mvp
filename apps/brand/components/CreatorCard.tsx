@@ -80,7 +80,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted }: Props
           onClick={() => onShortlist(creator.id)}
           className="ml-4 text-sm mt-4 text-Siora-accent underline"
         >
-          {shortlisted ? 'Remove' : 'Shortlist'}
+          {shortlisted ? 'Remove from Shortlist' : 'Save to Shortlist'}
         </button>
       )}
     </motion.div>

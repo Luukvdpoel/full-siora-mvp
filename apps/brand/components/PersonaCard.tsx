@@ -44,7 +44,7 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
           onClick={() => onToggle(persona.id)}
           className="ml-4 text-sm text-Siora-accent underline"
         >
-          {inShortlist ? "Remove" : "Save"}
+          {inShortlist ? "Remove from Shortlist" : "Save to Shortlist"}
         </button>
       )}
     </motion.div>
