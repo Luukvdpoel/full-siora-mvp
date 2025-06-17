@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { DiscoveryBrand } from '@/data/discoveryBrands'
 import { Badge } from 'shared-ui'
-import { getBrandBadges } from 'shared-utils'
+import { getBrandBadges, getBrandTrustScore } from 'shared-utils'
 
 interface Props {
   brand: DiscoveryBrand
@@ -13,6 +13,14 @@ export default function BrandDiscoveryCard({ brand, onAction }: Props) {
     verified: brand.verified,
     pastCampaigns: brand.pastCampaigns.length,
   })
+  const trust = getBrandTrustScore({
+    rating: brand.rating,
+    responseHours: brand.responseHours,
+    paymentDays: brand.paymentDays,
+    completionRate: brand.completionRate,
+  })
+  const trustColor =
+    trust.score >= 80 ? 'bg-green-600' : trust.score >= 50 ? 'bg-yellow-500' : 'bg-red-600'
 
   return (
     <div className="p-4 rounded-lg border border-white/10 bg-background space-y-2">
@@ -33,6 +41,12 @@ export default function BrandDiscoveryCard({ brand, onAction }: Props) {
             ))}
           </h3>
           <p className="text-sm text-foreground/70">{brand.tagline}</p>
+          <span
+            className={`mt-1 inline-block px-2 py-0.5 text-xs rounded text-white ${trustColor}`}
+            title={`Reviews: ${trust.breakdown.rating}/40\nResponse: ${trust.breakdown.response}/20\nPayment: ${trust.breakdown.payment}/20\nCompletion: ${trust.breakdown.completion}/20`}
+          >
+            Trust {trust.score}
+          </span>
         </div>
       </div>
       <p className="text-sm">Industry: {brand.industry}</p>
@@ -43,13 +57,13 @@ export default function BrandDiscoveryCard({ brand, onAction }: Props) {
           </span>
         ))}
       </div>
-      <button
-        type="button"
+      <a
+        href={`/brand-discovery/${brand.id}`}
         onClick={onAction}
-        className="mt-2 px-3 py-1 bg-indigo-600 text-white rounded"
+        className="mt-2 inline-block px-3 py-1 bg-indigo-600 text-white rounded"
       >
         View Brand
-      </button>
+      </a>
     </div>
   )
 }
