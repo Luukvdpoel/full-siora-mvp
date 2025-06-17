@@ -57,6 +57,9 @@ export default function DashboardPage() {
         <Link href="/applications" className="underline">
           My Applications
         </Link>
+        <Link href="/collabs" className="underline">
+          Collabs
+        </Link>
       </nav>
       <PerformanceMetrics />
       {items.length === 0 ? (
