@@ -6,12 +6,15 @@ import creators from "@/app/data/mock_creators_200.json";
 import CreatorCard from "@/components/CreatorCard";
 import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";
+import Link from "next/link";
+import { useCreatorMeta } from "@/lib/creatorMeta";
 
 export default function ShortlistPage() {
   const { data: session, status } = useSession();
   const user = session?.user?.email ?? null;
   const router = useRouter();
   const { ids, toggle } = useShortlist(user);
+  const { status: collabStatus } = useCreatorMeta(user);
 
   useEffect(() => {
     if (status === "unauthenticated") router.replace("/signin");
@@ -30,7 +33,13 @@ export default function ShortlistPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {saved.map((c) => (
-              <CreatorCard key={c.id} creator={c} onShortlist={toggle} shortlisted={true} />
+              <CreatorCard key={c.id} creator={c} onShortlist={toggle} shortlisted={true}>
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                  <Link href={`/creator/${c.id}/profile`} className="text-Siora-accent underline">Profile</Link>
+                  <Link href={`/creator/${c.id}/notes`} className="text-Siora-accent underline">Notes</Link>
+                  <span className="text-zinc-400 ml-auto">Status: {collabStatus[c.id] ?? "not_contacted"}</span>
+                </div>
+              </CreatorCard>
             ))}
           </div>
         )}

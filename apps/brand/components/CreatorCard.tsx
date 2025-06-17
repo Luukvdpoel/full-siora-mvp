@@ -5,12 +5,15 @@ import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
 import { useState } from "react";
 
+import { ReactNode } from "react";
+
 type Props = {
   creator: Creator;
   onShortlist?: (id: string) => void;
   shortlisted?: boolean;
+  children?: ReactNode;
 };
-export default function CreatorCard({ creator, onShortlist, shortlisted }: Props) {
+export default function CreatorCard({ creator, onShortlist, shortlisted, children }: Props) {
   const [loading, setLoading] = useState(false);
 
   const handleContact = async () => {
@@ -83,6 +86,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted }: Props
           {shortlisted ? 'Remove from Shortlist' : 'Save to Shortlist'}
         </button>
       )}
+      {children}
     </motion.div>
   );
 }
