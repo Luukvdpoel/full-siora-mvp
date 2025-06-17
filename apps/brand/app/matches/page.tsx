@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import CollabRequestModal from "@/components/CollabRequestModal";
 import creators from "@/app/data/mock_creators_200.json";
 import { useShortlist } from "@/lib/shortlist";
 import { useSession } from "next-auth/react";
@@ -12,6 +13,8 @@ export default function MatchesPage() {
   const user = session?.user?.email ?? null;
   const { toggle, inShortlist } = useShortlist(user);
   const [brand, setBrand] = useState<BrandProfile | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCreator, setSelectedCreator] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -43,7 +46,8 @@ export default function MatchesPage() {
   }, [brand]);
 
   const requestCollab = (name: string) => {
-    alert(`Collab request for ${name}`);
+    setSelectedCreator(name);
+    setShowModal(true);
   };
 
   if (!brand) {
@@ -55,6 +59,7 @@ export default function MatchesPage() {
   }
 
   return (
+    <>
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-extrabold">Your Top Matches</h1>
@@ -85,5 +90,11 @@ export default function MatchesPage() {
         </div>
       </div>
     </main>
+    <CollabRequestModal
+      open={showModal}
+      onClose={() => setShowModal(false)}
+      creator={selectedCreator}
+    />
+    </>
   );
 }
