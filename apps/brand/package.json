@@ -15,6 +15,7 @@
     "react-markdown": "^10.1.0",
     "framer-motion": "^12.6.3",
     "jspdf": "^3.0.1",
+    "markdown-pdf": "^11.0.0",
     "fuse.js": "^7.1.0",
     "next-auth": "^4.24.11",
     "@next-auth/prisma-adapter": "^1.0.7",
