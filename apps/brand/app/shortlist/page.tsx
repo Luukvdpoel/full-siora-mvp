@@ -23,10 +23,52 @@ export default function ShortlistPage() {
 
   const saved = creators.filter((c) => ids.includes(c.id));
 
+  const exportPdf = async () => {
+    const placeholder = "https://placehold.co/80x80";
+    const lines: string[] = ["# Shortlist\n"];
+    for (const c of saved) {
+      lines.push(`## ${c.name} (@${c.handle})`);
+      lines.push(`![${c.name}](${(c as any).image || placeholder})`);
+      lines.push(`- Followers: ${c.followers.toLocaleString()}`);
+      lines.push(`- Engagement: ${c.engagementRate}%`);
+      if (c.fitScore !== undefined) lines.push(`- Fit Score: ${c.fitScore}`);
+      lines.push("");
+    }
+    const res = await fetch("/api/export-shortlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ markdown: lines.join("\n") }),
+    });
+    if (!res.ok) {
+      alert("Failed to generate PDF");
+      return;
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "shortlist.pdf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl font-extrabold tracking-tight">My Shortlist</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl font-extrabold tracking-tight">My Shortlist</h1>
+          {saved.length > 0 && (
+            <button
+              type="button"
+              onClick={exportPdf}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+            >
+              Export PDF
+            </button>
+          )}
+        </div>
         {saved.length === 0 ? (
           <p className="text-center text-zinc-400 mt-10">No creators saved.</p>
         ) : (
