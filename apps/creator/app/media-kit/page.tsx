@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
-import type { PersonaProfile } from "@/types/persona";
+import type { PersonaProfile, FullPersona } from "@/types/persona";
 
 export default function MediaKitPage() {
   const [personas, setPersonas] = useState<StoredPersona[]>([]);
@@ -100,7 +100,7 @@ export default function MediaKitPage() {
           {"vibe" in persona && (
             <div>
               <h3 className="font-semibold">Vibe</h3>
-              <p className="text-sm text-foreground/80">{(persona as any).vibe}</p>
+              <p className="text-sm text-foreground/80">{(persona as FullPersona).vibe}</p>
             </div>
           )}
         </section>
