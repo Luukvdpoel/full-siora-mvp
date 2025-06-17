@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useAuth } from "../providers";
 
 export default function BrandSignup() {
+  const { login } = useAuth();
   const [form, setForm] = useState({
     companyName: "",
     industry: "",
@@ -18,6 +20,10 @@ export default function BrandSignup() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("brandPrefs", JSON.stringify(form));
+    }
+    login(form.companyName || "Brand");
     setSaved(true);
   };
 

@@ -3,13 +3,12 @@
 import { useEffect, useState, useMemo } from "react";
 import creators from "@/app/data/mock_creators_200.json";
 import { useShortlist } from "@/lib/shortlist";
-import { useSession } from "next-auth/react";
+import { useAuth } from "../providers";
 import type { BrandProfile, CreatorPersona } from "../../../../packages/shared-utils/src/fitScoreEngine";
 import { getFitScore } from "../../../../packages/shared-utils/src/fitScoreEngine";
 
 export default function MatchesPage() {
-  const { data: session } = useSession();
-  const user = session?.user?.email ?? null;
+  const { user } = useAuth();
   const { toggle, inShortlist } = useShortlist(user);
   const [brand, setBrand] = useState<BrandProfile | null>(null);
 

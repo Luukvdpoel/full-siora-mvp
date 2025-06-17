@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import creators from "@/app/data/mock_creators_200.json";
-import { useAuth } from "@/lib/auth";
+import { useAuth } from "../../providers";
 
 type Message = {
   id: string;

@@ -1,23 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import creators from "@/app/data/mock_creators_200.json";
 import CreatorCard from "@/components/CreatorCard";
-import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";
+import { useAuth } from "../providers";
 
 export default function ShortlistPage() {
-  const { data: session, status } = useSession();
-  const user = session?.user?.email ?? null;
-  const router = useRouter();
+  const { user } = useAuth();
   const { ids, toggle } = useShortlist(user);
-
-  useEffect(() => {
-    if (status === "unauthenticated") router.replace("/signin");
-  }, [status, router]);
-
-  if (status === "loading") return null;
 
   const saved = creators.filter((c) => ids.includes(c.id));
 
