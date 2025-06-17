@@ -1,21 +1,20 @@
 "use client";
 import { useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useBrandUser } from "@/lib/brandUser";
 import { useRouter } from "next/navigation";
 import creators from "@/app/data/mock_creators_200.json";
 import { useCreatorMeta } from "@/lib/creatorMeta";
 
 export default function CreatorNotesPage({ params }: { params: { id: string } }) {
-  const { data: session, status } = useSession();
-  const user = session?.user?.email ?? null;
+  const { user } = useBrandUser();
   const router = useRouter();
-  const { notes, updateNote, status: collab, updateStatus } = useCreatorMeta(user);
+  const { notes, updateNote, status: collab, updateStatus } = useCreatorMeta(user?.email ?? null);
 
   useEffect(() => {
-    if (status === "unauthenticated") router.replace("/signin");
-  }, [status, router]);
+    if (!user) router.replace("/signin");
+  }, [user, router]);
 
-  if (status === "loading") return null;
+  if (!user) return null;
 
   const creator = creators.find((c) => c.id.toString() === params.id);
   if (!creator) return <p className="p-6">Creator not found</p>;
