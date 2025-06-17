@@ -71,7 +71,7 @@ export default function MatchesPage() {
                   onClick={() => toggle(creator.id)}
                   className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
                 >
-                  {inShortlist(creator.id) ? "Saved" : "Save"}
+                  {inShortlist(creator.id) ? "Remove from Shortlist" : "Save to Shortlist"}
                 </button>
                 <button
                   onClick={() => requestCollab(creator.name)}
