@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "match1",
+    "campaignId": "1",
+    "creatorId": "1",
+    "timestamp": "2024-05-01T12:00:00.000Z",
+    "applicationId": "app1"
+  }
+]
