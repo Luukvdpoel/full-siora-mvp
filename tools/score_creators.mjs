@@ -1,4 +1,4 @@
-import { rankCreators } from '../packages/shared-utils/src/creatorRanking.ts';
+import { rankCreators } from 'shared-utils';
 import creators from '../apps/brand/app/data/mock_creators_200.json' assert { type: 'json' };
 
 const brand = {
