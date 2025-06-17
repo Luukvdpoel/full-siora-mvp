@@ -5,11 +5,18 @@ type Props = {
   creatorId: string;
 };
 
+interface TopPost {
+  type: string;
+  title: string;
+  link: string;
+  stats: string;
+}
+
 interface PerfData {
-  followers: number;
+  avgReach: number;
   engagementRate: number;
-  avgViews: number;
-  growth: number;
+  followerGrowth: number;
+  topPosts: TopPost[];
 }
 
 export default function PerformanceTab({ creatorId }: Props) {
@@ -34,27 +41,38 @@ export default function PerformanceTab({ creatorId }: Props) {
     return <p className="text-sm text-zinc-400">Loading performance...</p>;
   }
 
-  const trendUp = data.growth >= 0;
-  const trendPercent = Math.round(Math.abs(data.growth * 100));
+  const trendUp = data.followerGrowth >= 0;
+  const trendPercent = Math.round(Math.abs(data.followerGrowth));
 
   return (
     <div className="mt-6 space-y-2 text-sm text-zinc-300">
       <div>
-        <strong>Followers:</strong> {data.followers.toLocaleString()}
+        <strong>Avg Reach:</strong> {data.avgReach.toLocaleString()}
       </div>
       <div>
         <strong>Engagement Rate:</strong> {data.engagementRate}%
       </div>
-      <div>
-        <strong>Avg Views:</strong> {data.avgViews.toLocaleString()}
-      </div>
       <div className="flex items-center gap-1">
-        <strong>Growth:</strong>
+        <strong>Follower Growth:</strong>
         <span className={trendUp ? "text-green-400" : "text-red-400"}>
           {trendUp ? "▲" : "▼"}
         </span>
         <span>{trendPercent}%</span>
       </div>
+      {data.topPosts && (
+        <div>
+          <strong>Top Posts:</strong>
+          <ul className="list-disc list-inside space-y-1 mt-1">
+            {data.topPosts.map((p) => (
+              <li key={p.link}>
+                <a href={p.link} target="_blank" rel="noreferrer" className="underline">
+                  {p.title}
+                </a>{" "}- {p.stats}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

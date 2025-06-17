@@ -1,4 +1,4 @@
-import data from '@/app/data/performanceData.json';
+import data from '@/app/data/performanceMetrics.json';
 
 export async function GET(
   _req: Request,
