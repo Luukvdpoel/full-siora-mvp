@@ -1,5 +1,6 @@
 import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
+import CreatorPerformance from "@/components/CreatorPerformance";
 
 type Props = {
   params: {
@@ -54,6 +55,11 @@ export default function CreatorProfile({ params }: Props) {
             <p className="text-zinc-300">{creator.tone}</p>
           </div>
         )}
+
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Performance</h2>
+          <CreatorPerformance creatorId={creator.id} />
+        </div>
       </div>
     </main>
   );

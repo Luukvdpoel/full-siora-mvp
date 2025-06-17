@@ -1,5 +1,65 @@
 {
-  "1": {"followers": 120000, "engagementRate": 3.8, "avgViews": 5500, "growth": 0.04},
-  "2": {"followers": 45000, "engagementRate": 6.2, "avgViews": 15000, "growth": 0.02},
-  "3": {"followers": 82000, "engagementRate": 4.7, "avgViews": 9000, "growth": -0.01}
+  "1": {
+    "followers": 120000,
+    "engagementRate": 3.8,
+    "avgViews": 5500,
+    "growth": 0.04,
+    "posts": [
+      {
+        "id": "1a",
+        "image": "https://placekitten.com/300/300?image=1",
+        "likes": 2300,
+        "comments": 150
+      },
+      {
+        "id": "1b",
+        "image": "https://placekitten.com/300/300?image=2",
+        "likes": 1800,
+        "comments": 80
+      }
+    ],
+    "engagementBreakdown": { "likes": 70, "comments": 20, "shares": 10 }
+  },
+  "2": {
+    "followers": 45000,
+    "engagementRate": 6.2,
+    "avgViews": 15000,
+    "growth": 0.02,
+    "posts": [
+      {
+        "id": "2a",
+        "image": "https://placekitten.com/300/300?image=3",
+        "likes": 3500,
+        "comments": 190
+      },
+      {
+        "id": "2b",
+        "image": "https://placekitten.com/300/300?image=4",
+        "likes": 4200,
+        "comments": 260
+      }
+    ],
+    "engagementBreakdown": { "likes": 60, "comments": 25, "shares": 15 }
+  },
+  "3": {
+    "followers": 82000,
+    "engagementRate": 4.7,
+    "avgViews": 9000,
+    "growth": -0.01,
+    "posts": [
+      {
+        "id": "3a",
+        "image": "https://placekitten.com/300/300?image=5",
+        "likes": 2100,
+        "comments": 95
+      },
+      {
+        "id": "3b",
+        "image": "https://placekitten.com/300/300?image=6",
+        "likes": 1950,
+        "comments": 120
+      }
+    ],
+    "engagementBreakdown": { "likes": 65, "comments": 20, "shares": 15 }
+  }
 }
