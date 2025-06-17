@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import PersonaCard from "@/components/PersonaCard";
+import PerformanceMetrics from "@/components/PerformanceMetrics";
 import type { PersonaProfile } from "@/types/persona";
 
 interface PersonaRecord {
@@ -57,6 +58,7 @@ export default function DashboardPage() {
           My Applications
         </Link>
       </nav>
+      <PerformanceMetrics />
       {items.length === 0 ? (
         <p className="text-foreground/60">{loading ? "Loading..." : "No personas found."}</p>
       ) : (
