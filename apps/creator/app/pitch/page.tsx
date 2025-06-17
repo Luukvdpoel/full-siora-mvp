@@ -95,8 +95,12 @@ export default function PitchPage() {
 
       {result && (
         <div className="space-y-4 border border-white/10 p-4 rounded-md">
-          <h2 className="text-lg font-semibold">Why You&apos;re a Fit</h2>
-          <p className="text-sm text-foreground/80">{result.reasoning}</p>
+          {result.reasoning && (
+            <>
+              <h2 className="text-lg font-semibold">Why You&apos;re a Fit</h2>
+              <p className="text-sm text-foreground/80">{result.reasoning}</p>
+            </>
+          )}
           <h2 className="text-lg font-semibold">Pitch</h2>
           <pre className="whitespace-pre-wrap bg-zinc-800 text-white p-3 rounded-md text-sm">{result.pitch}</pre>
           <button

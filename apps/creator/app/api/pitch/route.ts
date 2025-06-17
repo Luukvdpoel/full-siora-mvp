@@ -9,9 +9,17 @@ export async function POST(req: Request) {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    if (!persona || typeof persona !== "object") {
+    if (
+      !persona ||
+      typeof persona !== "object" ||
+      !persona.name ||
+      !persona.vibe ||
+      !persona.goal ||
+      !persona.audience ||
+      !Array.isArray(persona.dreamBrands)
+    ) {
       return new Response(
-        JSON.stringify({ error: "Persona data is required" }),
+        JSON.stringify({ error: "Incomplete persona data" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -20,10 +28,11 @@ export async function POST(req: Request) {
       {
         role: "system",
         content: [
-          "You craft short brand collaboration pitches for creators.",
-          "Given the creator persona and target brand, explain briefly why the fit makes sense and then provide a copy-paste pitch email.",
+          "You write short, persuasive outreach emails for creators who want to work with brands.",
+          "Use a confident, friendly and professional tone.",
+          "Always personalize the email using the brand name when it is provided.",
           "Respond ONLY with JSON that matches this TypeScript interface:",
-          "{ reasoning: string; pitch: string }",
+          "{ pitch: string }",
         ].join(" \n"),
       },
       {
