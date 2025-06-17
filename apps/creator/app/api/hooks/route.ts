@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         role: 'system',
         content: [
           'You are a copywriting assistant who crafts short, punchy hooks for social media.',
-          'Return ONLY JSON in the form { "hooks": string[] } with three hooks.'
+          'Return ONLY JSON in the form { "hooks": string[] } with five hooks.'
         ].join('\n')
       },
       { role: 'user', content: topic }
