@@ -155,7 +155,7 @@ export default function EditPersonaPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.logoWrapper}>
-        <Image src="/Siora-logo.png" alt="Siora logo" width={140} height={140} className={styles.logo} />
+        <Image src="/siora-logo.svg" alt="Siora logo" width={140} height={140} className={styles.logo} />
         <h1 className={styles.title}>Edit your persona</h1>
       </div>
 
