@@ -1,26 +1,38 @@
 [
   {
     "id": "1",
-    "brand": "Glow Cosmetics",
-    "name": "Summer Glow Launch",
-    "description": "Seeking beauty creators to promote our new dewy foundation line.",
+    "brand": "GlowUp Cosmetics",
+    "title": "Spring Skincare Launch",
+    "description": "Instagram Reels and Stories demoing the new skincare line",
     "deliverables": "1 IG Reel and 3 Story frames highlighting product benefits",
-    "deadline": "2025-12-31"
+    "deadline": "2025-12-31",
+    "platform": "Instagram",
+    "niche": "Beauty",
+    "budgetMin": 500,
+    "budgetMax": 1000
   },
   {
     "id": "2",
-    "brand": "FitFuel",
-    "name": "Fall Fitness Push",
-    "description": "Looking for energetic influencers to showcase our workout gear.",
-    "deliverables": "2 posts wearing gear, 1 short testimonial video",
-    "deadline": "2025-11-15"
+    "brand": "Plantify",
+    "title": "Urban Jungle Challenge",
+    "description": "TikTok video showing a plant makeover or styling tip",
+    "deliverables": "2 posts showcasing plants, 1 short testimonial video",
+    "deadline": "2025-11-15",
+    "platform": "TikTok",
+    "niche": "Home & Plants",
+    "budgetMin": 300,
+    "budgetMax": 800
   },
   {
     "id": "3",
-    "brand": "EcoHome",
-    "name": "Green Living Tips",
-    "description": "Creators passionate about sustainability to share our eco products.",
+    "brand": "Techify",
+    "title": "AI Gadget Review",
+    "description": "YouTube review of our latest AI gadget",
     "deliverables": "Blog article or video review and 5 social shares",
-    "deadline": "2025-10-01"
+    "deadline": "2025-10-01",
+    "platform": "YouTube",
+    "niche": "Tech",
+    "budgetMin": 700,
+    "budgetMax": 1500
   }
 ]

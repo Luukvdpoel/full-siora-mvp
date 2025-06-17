@@ -3,26 +3,50 @@ export type Campaign = {
   brand: string;
   title: string;
   description: string;
+  platform: string;
+  niche: string;
+  budgetMin: number;
+  budgetMax: number;
+  deliverables?: string;
+  deadline?: string;
 };
 
 const campaigns: Campaign[] = [
   {
     id: '1',
-    brand: 'Glowify Cosmetics',
-    title: 'Summer Glow Launch',
-    description: 'Seeking beauty creators to promote our new dewy foundation line.',
+    brand: 'GlowUp Cosmetics',
+    title: 'Spring Skincare Launch',
+    description: 'Instagram Reels and Stories demoing the new skincare line',
+    platform: 'Instagram',
+    niche: 'Beauty',
+    budgetMin: 500,
+    budgetMax: 1000,
+    deliverables: '1 IG Reel and 3 Story frames highlighting product benefits',
+    deadline: '2025-12-31',
   },
   {
     id: '2',
-    brand: 'FitGear',
-    title: 'Fall Fitness Push',
-    description: 'Looking for energetic influencers to showcase our workout gear.',
+    brand: 'Plantify',
+    title: 'Urban Jungle Challenge',
+    description: 'TikTok video showing a plant makeover or styling tip',
+    platform: 'TikTok',
+    niche: 'Home & Plants',
+    budgetMin: 300,
+    budgetMax: 800,
+    deliverables: '2 posts showcasing plants, 1 short testimonial video',
+    deadline: '2025-11-15',
   },
   {
     id: '3',
-    brand: 'EcoHome',
-    title: 'Green Living Tips',
-    description: 'Creators passionate about sustainability to share our eco products.',
+    brand: 'Techify',
+    title: 'AI Gadget Review',
+    description: 'YouTube review of our latest AI gadget',
+    platform: 'YouTube',
+    niche: 'Tech',
+    budgetMin: 700,
+    budgetMax: 1500,
+    deliverables: 'Blog article or video review and 5 social shares',
+    deadline: '2025-10-01',
   },
 ];
 
