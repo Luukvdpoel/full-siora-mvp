@@ -4,14 +4,13 @@ import { useEffect, useState, useMemo } from "react";
 import CollabRequestModal from "@/components/CollabRequestModal";
 import creators from "@/app/data/mock_creators_200.json";
 import { useShortlist } from "@/lib/shortlist";
-import { useSession } from "next-auth/react";
+import { useBrandUser } from "@/lib/brandUser";
 import type { BrandProfile, CreatorPersona } from "../../../../packages/shared-utils/src/fitScoreEngine";
 import { getFitScore } from "../../../../packages/shared-utils/src/fitScoreEngine";
 
 export default function MatchesPage() {
-  const { data: session } = useSession();
-  const user = session?.user?.email ?? null;
-  const { toggle, inShortlist } = useShortlist(user);
+  const { user } = useBrandUser();
+  const { toggle, inShortlist } = useShortlist(user?.email ?? null);
   const [brand, setBrand] = useState<BrandProfile | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedCreator, setSelectedCreator] = useState<string | null>(null);
@@ -27,6 +26,14 @@ export default function MatchesPage() {
       }
     }
   }, []);
+
+  if (!user) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-zinc-400">Please sign in.</p>
+      </main>
+    );
+  }
 
   const top = useMemo(() => {
     if (!brand) return [];
