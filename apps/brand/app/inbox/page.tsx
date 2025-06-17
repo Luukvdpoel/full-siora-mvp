@@ -2,90 +2,102 @@
 
 import { useState } from "react";
 import { creators } from "@/app/data/creators";
-import CreatorCard from "@/components/CreatorCard";
-import ReactMarkdown from "react-markdown";
-import { AnimatePresence, motion } from "framer-motion";
+import { useShortlist } from "@/lib/shortlist";
+import { useBrandUser } from "@/lib/brandUser";
+import SavedCreatorCard from "@/components/SavedCreatorCard";
 
 export default function InboxPage() {
-  const [selected, setSelected] = useState<typeof creators[0] | null>(null);
-  const [tab, setTab] = useState<"persona" | "performance" | "pitch">("persona");
+  const { user } = useBrandUser();
+  const { ids } = useShortlist(user?.email ?? null);
+
+  const [niche, setNiche] = useState("");
+  const [vibe, setVibe] = useState("");
+  const [minER, setMinER] = useState("");
+  const [maxER, setMaxER] = useState("");
+
+  const savedCreators = creators.filter((c) => ids.includes(c.id));
+
+  const niches = Array.from(new Set(savedCreators.map((c) => c.niche)));
+  const vibes = Array.from(new Set(savedCreators.map((c) => c.vibe).filter(Boolean)));
+
+  const filtered = savedCreators.filter((c) => {
+    const nicheOk = niche ? c.niche === niche : true;
+    const vibeOk = vibe ? c.vibe === vibe : true;
+    const minOk = minER ? c.engagementRate >= parseFloat(minER) : true;
+    const maxOk = maxER ? c.engagementRate <= parseFloat(maxER) : true;
+    return nicheOk && vibeOk && minOk && maxOk;
+  });
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold">Inbox</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {creators.slice(0, 9).map((c) => (
-            <CreatorCard key={c.id} creator={c}>
-              <button
-                className="mt-4 text-sm text-Siora-accent underline"
-                onClick={() => {
-                  setSelected(c);
-                  setTab("persona");
-                }}
-              >
-                View Profile
-              </button>
-            </CreatorCard>
-          ))}
-        </div>
-      </div>
 
-      <AnimatePresence>
-        {selected && (
-          <motion.aside
-            key="drawer"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-0 right-0 w-full sm:w-96 h-full bg-Siora-mid text-white shadow-2xl z-50 overflow-y-auto"
-          >
-            <div className="flex items-center justify-between p-4 border-b border-Siora-border">
-              <h2 className="text-xl font-semibold">{selected.name}</h2>
-              <button onClick={() => setSelected(null)} className="text-sm underline">
-                Close
-              </button>
-            </div>
-            <div className="border-b border-Siora-border flex">
-              {[
-                ["persona", "Persona"],
-                ["performance", "Performance"],
-                ["pitch", "Pitch"],
-              ].map(([key, label]) => (
-                <button
-                  key={key}
-                  onClick={() => setTab(key as any)}
-                  className={`flex-1 p-3 text-sm border-b-2 ${
-                    tab === key ? "border-Siora-accent text-white" : "border-transparent text-zinc-400"
-                  }`}
-                >
-                  {label}
-                </button>
+        <div className="bg-Siora-mid p-4 rounded-xl shadow-Siora-hover space-y-4 sm:space-y-0 sm:flex sm:items-end sm:gap-4">
+          <div className="flex-1">
+            <label className="block text-sm mb-1">Niche</label>
+            <select
+              value={niche}
+              onChange={(e) => setNiche(e.target.value)}
+              className="w-full bg-Siora-light text-white border border-Siora-border p-2 rounded-md"
+            >
+              <option value="">All</option>
+              {niches.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
               ))}
-            </div>
-            <div className="p-4 text-sm space-y-4">
-              {tab === "persona" && (
-                <ReactMarkdown className="prose prose-invert max-w-none">
-                  {selected.markdown || "No persona available."}
-                </ReactMarkdown>
-              )}
-              {tab === "performance" && (
-                <ul className="space-y-2">
-                  <li>Reach: {selected.followers.toLocaleString()}</li>
-                  <li>Engagement Rate: {selected.engagementRate}%</li>
-                  <li>Follower Growth: 5% MoM</li>
-                </ul>
-              )}
-              {tab === "pitch" && (
-                <p>
-                  Hi {selected.name}, we think your style aligns perfectly with our brand. Let's discuss a potential collaboration!
-                </p>
-              )}
-            </div>
-          </motion.aside>
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm mb-1">Vibe</label>
+            <select
+              value={vibe}
+              onChange={(e) => setVibe(e.target.value)}
+              className="w-full bg-Siora-light text-white border border-Siora-border p-2 rounded-md"
+            >
+              <option value="">All</option>
+              {vibes.map((v) => (
+                <option key={v} value={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm mb-1">Min ER%</label>
+            <input
+              type="number"
+              step="0.1"
+              value={minER}
+              onChange={(e) => setMinER(e.target.value)}
+              placeholder="Any"
+              className="w-full bg-Siora-light text-white border border-Siora-border p-2 rounded-md"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm mb-1">Max ER%</label>
+            <input
+              type="number"
+              step="0.1"
+              value={maxER}
+              onChange={(e) => setMaxER(e.target.value)}
+              placeholder="Any"
+              className="w-full bg-Siora-light text-white border border-Siora-border p-2 rounded-md"
+            />
+          </div>
+        </div>
+
+        {filtered.length === 0 ? (
+          <p className="text-center text-zinc-400">No creators saved.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((c) => (
+              <SavedCreatorCard key={c.id} creator={c} />
+            ))}
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </main>
   );
 }
