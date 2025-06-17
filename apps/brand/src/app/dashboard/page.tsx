@@ -6,6 +6,7 @@ import { creators as mockCreators, type Creator } from "@/app/data/creators";
 
 export default function Dashboard() {
   const [creators, setCreators] = useState<Creator[]>([]);
+  const [query, setQuery] = useState("");
   const [platform, setPlatform] = useState("");
   const [vibe, setVibe] = useState("");
   const [format, setFormat] = useState("");
@@ -32,6 +33,16 @@ export default function Dashboard() {
   // apply filters whenever options change
   useEffect(() => {
     let result = creators;
+    if (query) {
+      const q = query.toLowerCase();
+      result = result.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          c.handle.toLowerCase().includes(q) ||
+          c.summary.toLowerCase().includes(q) ||
+          c.tags.some((t) => t.toLowerCase().includes(q))
+      );
+    }
     if (platform) {
       result = result.filter((c) =>
         c.platform.toLowerCase().includes(platform.toLowerCase())
@@ -60,11 +71,17 @@ export default function Dashboard() {
       }
     }
     setFiltered(result);
-  }, [platform, vibe, format, minScore, maxScore, creators]);
+  }, [query, platform, vibe, format, minScore, maxScore, creators]);
 
   return (
     <div className="p-8 space-y-6">
       <h1 className="text-2xl font-semibold">Creator Personas</h1>
+      <input
+        className="p-2 w-full border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+        placeholder="Search creators"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
         <select
           className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
