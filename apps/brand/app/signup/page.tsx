@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function BrandSignup() {
   const [form, setForm] = useState({
@@ -10,6 +11,7 @@ export default function BrandSignup() {
     collabGoals: "",
   });
   const [saved, setSaved] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -18,7 +20,11 @@ export default function BrandSignup() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("brandSignup", JSON.stringify(form));
+    }
     setSaved(true);
+    router.push("/onboarding");
   };
 
   return (
