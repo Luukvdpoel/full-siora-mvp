@@ -7,16 +7,18 @@ interface Props {
   creator: Creator;
   score?: number;
   reason?: string;
+  onClick?: () => void;
 }
 
-export default function SavedCreatorCard({ creator, score, reason }: Props) {
+export default function SavedCreatorCard({ creator, score, reason, onClick }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
+      onClick={onClick}
+      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover cursor-pointer"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
         {creator.name}

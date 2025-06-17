@@ -2,9 +2,11 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { creators } from "@/app/data/creators";
+import type { Creator } from "@/app/data/creators";
 import { useShortlist } from "@/lib/shortlist";
 import { useBrandUser } from "@/lib/brandUser";
 import SavedCreatorCard from "@/components/SavedCreatorCard";
+import ChatSidebar from "@/components/ChatSidebar";
 
 interface Application {
   id: string;
@@ -24,6 +26,8 @@ export default function InboxPage() {
 
   const [tab, setTab] = useState<'shortlist' | 'applications'>('shortlist');
   const [applications, setApplications] = useState<Application[]>([]);
+
+  const [chatCreator, setChatCreator] = useState<Creator | null>(null);
 
   const [niche, setNiche] = useState("");
   const [vibe, setVibe] = useState("");
@@ -218,6 +222,7 @@ export default function InboxPage() {
                     creator={creator}
                     score={Math.round(score)}
                     reason={reason}
+                    onClick={() => setChatCreator(creator)}
                   />
                 ))}
               </div>
@@ -257,6 +262,9 @@ export default function InboxPage() {
           </div>
         )}
       </div>
+      {chatCreator && (
+        <ChatSidebar creator={chatCreator} onClose={() => setChatCreator(null)} />
+      )}
     </main>
   );
 }
