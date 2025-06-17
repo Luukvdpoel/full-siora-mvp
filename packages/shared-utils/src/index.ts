@@ -3,3 +3,4 @@ export * from './generateSmartPitch';
 export * from './matchScore';
 export * from './creatorRanking';
 export * from './campaignFitScore';
+export * from './badges';

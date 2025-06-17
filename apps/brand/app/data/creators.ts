@@ -13,6 +13,9 @@ export type Creator = {
   formats?: string[];
   fitScore?: number;
   markdown?: string;
+  verified?: boolean;
+  completedCollabs?: number;
+  avgResponseMinutes?: number;
 };
 
 export const creators = [
@@ -50,7 +53,10 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
 - Clean beauty
 - Wellness supplements
 - Cozy fashion brands
-    `
+    `,
+    verified: true,
+    completedCollabs: 4,
+    avgResponseMinutes: 30,
   },
   {
     id: "2",
@@ -87,7 +93,10 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
 - AI-powered tools
 - Tech startups
 - Secure wallet brands
-    `
+    `,
+    verified: true,
+    completedCollabs: 3,
+    avgResponseMinutes: 45,
   },
   {
     id: "3",
@@ -123,7 +132,10 @@ I teach aesthetic plant care, budget-friendly home decor, and cozy vibes — all
 ## 🌍 Followers
 - Mostly Brazil, but US & Spain growing!
 - Strong LGBTQ+ & design community
-    `
+    `,
+    verified: false,
+    completedCollabs: 2,
+    avgResponseMinutes: 90,
   }
 ];
 

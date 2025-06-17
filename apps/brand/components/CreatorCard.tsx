@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
 import { useState } from "react";
+import { Badge } from "shared-ui";
+import { getCreatorBadges } from "shared-utils";
 
 import { ReactNode } from "react";
 
@@ -15,6 +17,11 @@ type Props = {
 };
 export default function CreatorCard({ creator, onShortlist, shortlisted, children }: Props) {
   const [loading, setLoading] = useState(false);
+  const badges = getCreatorBadges({
+    verified: creator.verified,
+    completedCollabs: creator.completedCollabs,
+    avgResponseMinutes: creator.avgResponseMinutes,
+  });
 
   const handleContact = async () => {
     setLoading(true);
@@ -49,11 +56,14 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       transition={{ duration: 0.3 }}
       className="group bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
     >
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
         {creator.name}{" "}
         <span className="text-Siora-accent group-hover:text-Siora-accent-soft">
           @{creator.handle}
         </span>
+        {badges.map((b) => (
+          <Badge key={b.id} label={b.label} />
+        ))}
       </h2>
       <p className="text-sm text-gray-500 dark:text-zinc-400 mb-2">
         {creator.niche} • {creator.platform}

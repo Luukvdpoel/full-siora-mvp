@@ -7,6 +7,7 @@ export interface DiscoveryBrand {
   vibes: string[];
   values: string[];
   pastCampaigns: string[];
+  verified?: boolean;
 }
 
 export const discoveryBrands: DiscoveryBrand[] = [
@@ -18,7 +19,8 @@ export const discoveryBrands: DiscoveryBrand[] = [
     industry: 'Beauty',
     vibes: ['vibrant', 'youthful'],
     values: ['cruelty-free', 'sustainable'],
-    pastCampaigns: ['GlowSummer', 'SPFLaunch'],
+    pastCampaigns: ['GlowSummer', 'SPFLaunch', 'HolidayGlow'],
+    verified: true,
   },
   {
     id: 'b2',
@@ -29,6 +31,7 @@ export const discoveryBrands: DiscoveryBrand[] = [
     vibes: ['energetic', 'bold'],
     values: ['vegan', 'health'],
     pastCampaigns: ['ProteinBar2024'],
+    verified: true,
   },
   {
     id: 'b3',

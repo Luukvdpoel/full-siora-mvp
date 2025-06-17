@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import { DiscoveryBrand } from '@/data/discoveryBrands'
+import { Badge } from 'shared-ui'
+import { getBrandBadges } from 'shared-utils'
 
 interface Props {
   brand: DiscoveryBrand
@@ -7,6 +9,11 @@ interface Props {
 }
 
 export default function BrandDiscoveryCard({ brand, onAction }: Props) {
+  const badges = getBrandBadges({
+    verified: brand.verified,
+    pastCampaigns: brand.pastCampaigns.length,
+  })
+
   return (
     <div className="p-4 rounded-lg border border-white/10 bg-background space-y-2">
       <div className="flex items-center space-x-3">
@@ -19,7 +26,12 @@ export default function BrandDiscoveryCard({ brand, onAction }: Props) {
           className="rounded-full"
         />
         <div>
-          <h3 className="font-semibold">{brand.name}</h3>
+          <h3 className="font-semibold flex items-center gap-2">
+            {brand.name}
+            {badges.map((b) => (
+              <Badge key={b.id} label={b.label} />
+            ))}
+          </h3>
           <p className="text-sm text-foreground/70">{brand.tagline}</p>
         </div>
       </div>
