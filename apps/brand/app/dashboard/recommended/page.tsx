@@ -1,9 +1,6 @@
 import { creators, type Creator } from "@/app/data/creators";
-import type {
-  BrandProfile,
-  CreatorPersona,
-} from "../../../../../packages/shared-utils/src/fitScoreEngine";
-import { getFitScore } from "../../../../../packages/shared-utils/src/fitScoreEngine";
+import type { BrandProfile, CreatorPersona } from "shared-utils";
+import { getFitScore } from "shared-utils";
 
 export const dynamic = "force-static";
 
