@@ -10,6 +10,8 @@ export interface CreatorPersona {
   vibe?: string;
   platforms?: string[];
   formats?: string[];
+  /** Goals or aspirations of the creator */
+  goals?: string[];
   pastCollabs?: string[];
 }
 
