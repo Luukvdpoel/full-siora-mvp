@@ -13,6 +13,9 @@ export default function PersonaPage() {
   const params = useParams();
   const idParam = typeof params?.id === "string" ? params.id : Array.isArray(params?.id) ? params.id[0] : "";
   const [profile, setProfile] = useState<PersonaProfile | null>(null);
+  const [rating, setRating] = useState(0);
+  const [notes, setNotes] = useState('');
+  const [generating, setGenerating] = useState(false);
 
   const computeBrandFit = (interests: string[]): string => {
     const lower = interests.map((i) => i.toLowerCase());
@@ -106,6 +109,26 @@ export default function PersonaPage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleImprove = async () => {
+    if (!profile || rating < 1) return;
+    setGenerating(true);
+    try {
+      const res = await fetch('/api/personaFeedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ persona: profile, rating, notes }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.improved) setProfile(data.improved as PersonaProfile);
+      }
+    } catch (err) {
+      console.error('Failed to improve persona', err);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
 
   return (
     <main className="min-h-screen bg-background text-foreground p-6 sm:p-10 space-y-6">
@@ -138,6 +161,36 @@ export default function PersonaPage() {
               )}
             </PDFDownloadLink>
             <CopyLinkButton />
+          </div>
+          <div className="mt-6 space-y-4 max-w-md">
+            <h3 className="font-semibold">How accurate is this?</h3>
+            <div className="flex gap-1">
+              {[1,2,3,4,5].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  className={`text-2xl ${n <= rating ? 'text-yellow-400' : 'text-gray-400'}`}
+                  onClick={() => setRating(n)}
+                >
+                  \u2605
+                </button>
+              ))}
+            </div>
+            <textarea
+              className="w-full p-2 rounded-md bg-zinc-800 text-white"
+              rows={3}
+              placeholder="What's missing or off?"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={handleImprove}
+              disabled={generating || rating < 1}
+              className="bg-green-600 hover:bg-green-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md disabled:opacity-50"
+            >
+              {generating ? 'Generating...' : 'Generate Improved Version'}
+            </button>
           </div>
         </>
       ) : (
