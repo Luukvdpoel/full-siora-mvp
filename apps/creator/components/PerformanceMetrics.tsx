@@ -1,56 +1,39 @@
-import React from "react";
-
-const mockData = {
-  followers: {
-    instagram: 12000,
-    tiktok: 15000,
-    youtube: 8000,
-  },
-  avgViews: 5000,
-  engagementRate: 4.8,
-  recentTopContent: [
-    { title: "How to style activewear", views: 12000 },
-    { title: "Daily workout routine", views: 11000 },
-    { title: "Healthy meal prep ideas", views: 10500 },
-  ],
-};
+"use client";
+import { useEffect, useState } from "react";
+import { loadPerformance } from "@/lib/localPerformance";
+import type { PerformanceData } from "@/types/performance";
 
 export default function PerformanceMetrics() {
-  const { followers, avgViews, engagementRate, recentTopContent } = mockData;
+  const [data, setData] = useState<PerformanceData | null>(null);
+
+  useEffect(() => {
+    setData(loadPerformance());
+  }, []);
+
+  if (!data) {
+    return (
+      <div className="border border-white/10 bg-background p-4 rounded-xl shadow-sm space-y-2">
+        <h2 className="text-lg font-bold">Performance Metrics</h2>
+        <p className="text-sm text-foreground/60">No metrics saved.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="border border-white/10 bg-background p-4 rounded-xl shadow-sm space-y-4">
+    <div className="border border-white/10 bg-background p-4 rounded-xl shadow-sm space-y-2">
       <h2 className="text-lg font-bold">Performance Metrics</h2>
-      <div>
-        <h3 className="font-semibold text-sm mb-1">Total Followers</h3>
-        <ul className="text-sm space-y-1">
-          {Object.entries(followers).map(([platform, count]) => (
-            <li key={platform} className="flex justify-between">
-              <span className="capitalize">{platform}</span>
-              <span>{count.toLocaleString()}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="text-sm space-y-1">
-        <p>
-          <span className="font-semibold">Avg Views per Post:</span>{" "}
-          {avgViews.toLocaleString()}
-        </p>
-        <p>
-          <span className="font-semibold">Engagement Rate:</span>{" "}
-          {engagementRate}%
-        </p>
-      </div>
-      <div>
-        <h3 className="font-semibold text-sm mb-1">Recent Top Content</h3>
-        <ul className="list-disc list-inside text-sm space-y-1">
-          {recentTopContent.map((post, i) => (
-            <li key={i}>
-              {post.title} - {post.views.toLocaleString()} views
-            </li>
-          ))}
-        </ul>
-      </div>
+      <p className="text-sm">
+        <span className="font-semibold">Follower Count:</span> {data.followerCount.toLocaleString()}
+      </p>
+      <p className="text-sm">
+        <span className="font-semibold">Avg Views per Post:</span> {data.avgViews.toLocaleString()}
+      </p>
+      <p className="text-sm">
+        <span className="font-semibold">Engagement Rate:</span> {data.engagementRate}%
+      </p>
+      <p className="text-sm">
+        <span className="font-semibold">Growth Trend:</span> {data.growthTrend || "N/A"}
+      </p>
     </div>
   );
 }

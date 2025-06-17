@@ -60,6 +60,9 @@ export default function DashboardPage() {
         <Link href="/collabs" className="underline">
           Collabs
         </Link>
+        <Link href="/performance" className="underline">
+          Performance
+        </Link>
       </nav>
       <PerformanceMetrics />
       {items.length === 0 ? (
