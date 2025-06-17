@@ -34,14 +34,14 @@ export default function CampaignsPage() {
   }, []);
 
   async function apply(id: string) {
+    const pitch = prompt("Add a short pitch (optional):") || "";
     try {
       await fetch("/api/campaign-applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           campaignId: id,
-          pitch: "Excited to collaborate!",
-          personaSummary: "",
+          pitch,
         }),
       });
       setToast("Application submitted!");

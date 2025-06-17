@@ -5,8 +5,9 @@ import campaigns from "@/app/data/campaigns";
 interface Application {
   id: string;
   campaignId: string;
-  pitch: string;
-  personaSummary: string;
+  pitch?: string;
+  personaSummary?: string;
+  status: string;
   timestamp: string;
 }
 
@@ -43,6 +44,7 @@ export default function ApplicationsPage() {
                 <h2 className="text-lg font-semibold">{c?.title ?? a.campaignId}</h2>
                 <p className="text-sm text-foreground/80">{c?.brand}</p>
                 <p className="text-sm">{a.pitch}</p>
+                <p className="text-xs text-foreground/60">Status: {a.status}</p>
                 <p className="text-xs text-foreground/60">{new Date(a.timestamp).toLocaleString()}</p>
               </div>
             );
