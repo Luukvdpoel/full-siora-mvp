@@ -5,9 +5,11 @@ import type { Creator } from "@/app/data/creators";
 
 interface Props {
   creator: Creator;
+  score?: number;
+  reason?: string;
 }
 
-export default function SavedCreatorCard({ creator }: Props) {
+export default function SavedCreatorCard({ creator, score, reason }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -19,6 +21,16 @@ export default function SavedCreatorCard({ creator }: Props) {
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
         {creator.name}
       </h3>
+      {typeof score === "number" && (
+        <p className="text-sm text-gray-500 dark:text-zinc-400">
+          Match Score: {score}/100
+        </p>
+      )}
+      {reason && (
+        <p className="text-sm text-gray-500 dark:text-zinc-400 mb-1">
+          {reason}
+        </p>
+      )}
       <p className="text-sm text-gray-500 dark:text-zinc-400 mb-1">
         {creator.platform}
       </p>
