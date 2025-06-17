@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import campaigns from "@/app/data/campaigns";
 
 interface Application {
@@ -84,7 +85,25 @@ export default function MyCampaignsPage() {
             const c = campaigns.find((c) => c.id === item.campaignId);
             return (
               <div key={item.id} className="border border-white/10 p-4 rounded-lg space-y-2">
-                <h2 className="text-lg font-semibold">{c?.title ?? item.campaignId}</h2>
+                <h2 className="text-lg font-semibold flex items-center gap-2">
+                  {c?.title ?? item.campaignId}
+                  {item.status === "Matched" && (
+                    <Link
+                      href={`/campaigns/${item.campaignId}/messages`}
+                      className="text-indigo-600 hover:text-indigo-400"
+                      aria-label="Message brand"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path d="M4 4h16v10H7l-4 4V4z" />
+                      </svg>
+                    </Link>
+                  )}
+                </h2>
                 <p className="text-sm text-foreground/80">{c?.brand}</p>
                 <p className="text-sm capitalize">Status: {item.status}</p>
                 <p className="text-xs text-foreground/60">
