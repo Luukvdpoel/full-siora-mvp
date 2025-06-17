@@ -46,6 +46,17 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-background text-foreground p-6 sm:p-10 space-y-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
+      <nav className="flex gap-4 text-sm">
+        <Link href="/dashboard" className="underline">
+          Personas
+        </Link>
+        <Link href="/campaigns" className="underline">
+          Campaigns
+        </Link>
+        <Link href="/applications" className="underline">
+          My Applications
+        </Link>
+      </nav>
       {items.length === 0 ? (
         <p className="text-foreground/60">{loading ? "Loading..." : "No personas found."}</p>
       ) : (
