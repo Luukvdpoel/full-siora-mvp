@@ -1,20 +1,18 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
-import creators from "@/app/data/mock_creators_200.json";
-import { useAuth } from "@/lib/auth";
+import { useEffect, useRef, useState } from "react";
+import brands from "@/app/data/mock_brands.json";
 
-type Message = {
+interface Message {
   id: string;
   creatorId: string;
   sender: 'brand' | 'creator';
   text: string;
   campaign?: string;
   timestamp: string;
-};
+}
 
 export default function ChatPage({ params }: { params: { id: string } }) {
-  const { user } = useAuth();
-  const creator = creators.find((c) => c.id === params.id);
+  const brand = brands.find((b) => b.id === params.id);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [campaign, setCampaign] = useState("");
@@ -41,11 +39,11 @@ export default function ChatPage({ params }: { params: { id: string } }) {
     if (!input.trim()) return;
     setSending(true);
     try {
-        const res = await fetch('/api/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ creatorId: params.id, sender: 'brand', text: input, campaign }),
-        });
+      const res = await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ creatorId: params.id, sender: 'creator', text: input, campaign }),
+      });
       if (res.ok) {
         const data = await res.json();
         setMessages((prev) => [...prev, data.message]);
@@ -60,7 +58,7 @@ export default function ChatPage({ params }: { params: { id: string } }) {
   return (
     <main className="min-h-screen p-6">
       <div className="max-w-xl mx-auto flex flex-col space-y-4">
-        <h1 className="text-2xl font-bold">Chat with {creator?.name ?? 'Creator'}</h1>
+        <h1 className="text-2xl font-bold">Chat with {brand?.name ?? 'Brand'}</h1>
         <input
           className="p-2 border border-Siora-border rounded text-black"
           placeholder="Campaign"
@@ -69,14 +67,14 @@ export default function ChatPage({ params }: { params: { id: string } }) {
         />
         <div className="border border-Siora-border rounded-lg p-4 bg-Siora-mid text-white h-96 overflow-y-auto">
           {messages.map((m) => (
-            <div key={m.id} className={`mb-3 ${m.sender === 'brand' ? 'text-right' : 'text-left'}`}>\
+            <div key={m.id} className={`mb-3 ${m.sender === 'creator' ? 'text-right' : 'text-left'}`}>\
               <div className="text-xs text-zinc-400 mb-1">
-                {m.sender === 'brand' ? (user ?? 'Brand') : creator?.name ?? 'Creator'} - {m.campaign ?? 'General'}
+                {m.sender === 'creator' ? 'You' : brand?.name ?? 'Brand'} - {m.campaign ?? 'General'}
               </div>
-              <div className={`inline-block px-3 py-1 rounded ${m.sender === 'brand' ? 'bg-Siora-accent' : 'bg-gray-700'}`}>{m.text}</div>
+              <div className={`inline-block px-3 py-1 rounded ${m.sender === 'creator' ? 'bg-Siora-accent' : 'bg-gray-700'}`}>{m.text}</div>
             </div>
           ))}
-          {input && <div className="text-xs text-zinc-400">{user ?? 'Brand'} typing...</div>}
+          {input && <div className="text-xs text-zinc-400">You typing...</div>}
           <div ref={bottomRef} />
         </div>
         <div className="flex gap-2">
