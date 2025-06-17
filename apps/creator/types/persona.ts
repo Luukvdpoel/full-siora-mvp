@@ -7,6 +7,9 @@ export type PersonaProfile = {
   toneConfidence?: number
   brandFit?: string
   growthSuggestions?: string
+  verified?: boolean
+  completedCollabs?: number
+  avgResponseMinutes?: number
 }
 
 export interface FullPersona extends PersonaProfile {

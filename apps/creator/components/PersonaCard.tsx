@@ -1,9 +1,22 @@
 import { PersonaProfile } from '../types/persona'
+import { Badge } from 'shared-ui'
+import { getCreatorBadges } from 'shared-utils'
 
 export default function PersonaCard({ profile }: { profile: PersonaProfile }) {
+  const badges = getCreatorBadges({
+    verified: profile.verified,
+    completedCollabs: profile.completedCollabs,
+    avgResponseMinutes: profile.avgResponseMinutes,
+  })
+
   return (
     <div className="border border-white/10 bg-background text-foreground p-4 sm:p-6 rounded-xl shadow-sm space-y-2">
-      <h2 className="text-xl font-bold">{profile.name}</h2>
+      <div className="flex items-center gap-2">
+        <h2 className="text-xl font-bold">{profile.name}</h2>
+        {badges.map((b) => (
+          <Badge key={b.id} label={b.label} />
+        ))}
+      </div>
       <p className="italic">{profile.personality}</p>
       <div className="flex flex-wrap gap-2">
         {profile.interests.map((tag, i) => (
