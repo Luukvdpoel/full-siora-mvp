@@ -1,16 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import creators from "@/app/data/mock_creators_200.json";
-import FilterBar from "@/components/FilterBar";
+import { creators } from "@/app/data/creators";
+import AdvancedFilterBar, { Filters } from "@/components/AdvancedFilterBar";
 import CreatorCard from "@/components/CreatorCard";
 import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";
 
 export default function Dashboard() {
   const [query, setQuery] = useState("");
-  const [filters, setFilters] = useState<Record<string, string>>({});
-  const [sortBy, setSortBy] = useState("");
+  const [filters, setFilters] = useState<Filters>({
+    platforms: [],
+    tones: [],
+    vibes: [],
+    niches: [],
+    formats: [],
+    values: [],
+    minEngagement: 0,
+    maxEngagement: 10,
+    minCollabs: 0,
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 12;
   const { data: session } = useSession();
@@ -23,32 +32,34 @@ export default function Dashboard() {
         .toLowerCase()
         .includes(query.toLowerCase());
 
-      const matchesFilters =
-        (!filters.platform || c.platform.toLowerCase().includes(filters.platform.toLowerCase())) &&
-        (!filters.tone || c.tone.toLowerCase().includes(filters.tone.toLowerCase())) &&
-        (!filters.audience ||
-          c.summary.toLowerCase().includes(filters.audience.toLowerCase()) ||
-          c.tags.some((t) => t.toLowerCase().includes(filters.audience.toLowerCase()))) &&
-        (!filters.minFollowers || c.followers >= parseInt(filters.minFollowers)) &&
-        (!filters.maxFollowers || c.followers <= parseInt(filters.maxFollowers)) &&
-        (!filters.minEngagement || c.engagementRate >= parseFloat(filters.minEngagement)) &&
-        (!filters.maxEngagement || c.engagementRate <= parseFloat(filters.maxEngagement));
+      const platformMatch =
+        filters.platforms.length === 0 || filters.platforms.includes(c.platform);
+      const toneMatch =
+        filters.tones.length === 0 || filters.tones.includes(c.tone);
+      const vibeMatch =
+        filters.vibes.length === 0 || (c.vibe && filters.vibes.includes(c.vibe));
+      const nicheMatch =
+        filters.niches.length === 0 || filters.niches.includes(c.niche);
+      const formatMatch =
+        filters.formats.length === 0 || (c.formats?.some((f) => filters.formats.includes(f)) ?? false);
+      const valuesMatch =
+        filters.values.length === 0 || filters.values.some((v) => c.tags.includes(v));
+      const erMatch =
+        c.engagementRate >= filters.minEngagement && c.engagementRate <= filters.maxEngagement;
+      const collabMatch =
+        (c.completedCollabs ?? 0) >= filters.minCollabs;
 
-      return matchesQuery && matchesFilters;
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case "followers-asc":
-          return a.followers - b.followers;
-        case "followers-desc":
-          return b.followers - a.followers;
-        case "engagement-asc":
-          return a.engagementRate - b.engagementRate;
-        case "engagement-desc":
-          return b.engagementRate - a.engagementRate;
-        default:
-          return 0;
-      }
+      return (
+        matchesQuery &&
+        platformMatch &&
+        toneMatch &&
+        vibeMatch &&
+        nicheMatch &&
+        formatMatch &&
+        valuesMatch &&
+        erMatch &&
+        collabMatch
+      );
     });
 
   const totalPages = Math.ceil(filtered.length / perPage);
@@ -66,7 +77,7 @@ export default function Dashboard() {
           className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
         />
 
-        <FilterBar onFilter={setFilters} onSort={setSortBy} />
+        <AdvancedFilterBar onFilter={setFilters} />
 
         {paginated.length === 0 && (
           <p className="text-center text-zinc-400 mt-10">No creators match your filters.</p>
