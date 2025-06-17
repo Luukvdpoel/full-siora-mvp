@@ -47,6 +47,7 @@ export default function ApplicationsPage() {
       });
       setApps((prev) => prev.filter((a) => a.id !== application.id));
       setToast('Application accepted');
+      window.location.href = `/campaigns/${campaignId}/messages/${application.userId}`;
     } catch {
       setToast('Failed to accept');
     }
