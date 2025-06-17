@@ -12,10 +12,9 @@ interface MatchResult {
 
 export default function NewCampaignPage() {
   const [name, setName] = useState("");
-  const [focus, setFocus] = useState("");
+  const [niche, setNiche] = useState("");
   const [platform, setPlatform] = useState("");
   const [tone, setTone] = useState("");
-  const [audience, setAudience] = useState("");
   const [budget, setBudget] = useState("");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -26,7 +25,7 @@ export default function NewCampaignPage() {
       const res = await fetch("/api/campaign-match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, focus, platform, tone, audience, budget }),
+        body: JSON.stringify({ name, niche, platform, tone, budget }),
       });
       const data = await res.json();
       setResults(data.results || []);
@@ -49,9 +48,9 @@ export default function NewCampaignPage() {
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
           <input
-            value={focus}
-            onChange={(e) => setFocus(e.target.value)}
-            placeholder="Campaign focus"
+            value={niche}
+            onChange={(e) => setNiche(e.target.value)}
+            placeholder="Campaign niche"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
           <input
@@ -64,12 +63,6 @@ export default function NewCampaignPage() {
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             placeholder="Desired tone"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
-          />
-          <input
-            value={audience}
-            onChange={(e) => setAudience(e.target.value)}
-            placeholder="Target audience"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
           <input
