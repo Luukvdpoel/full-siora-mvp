@@ -1,18 +1,18 @@
-[
-  {
-    "id": "msg1",
-    "creatorId": "1",
-    "sender": "brand",
-    "text": "Welcome to the campaign!",
-    "campaign": "1",
-    "timestamp": "2024-05-01T12:10:00.000Z"
-  },
-  {
-    "id": "msg2",
-    "creatorId": "1",
-    "sender": "creator",
-    "text": "Thanks, excited to work together!",
-    "campaign": "1",
-    "timestamp": "2024-05-01T12:12:00.000Z"
-  }
-]
+{
+  "brand1_1": [
+    {
+      "senderId": "brand1",
+      "receiverId": "1",
+      "message": "Welcome to the campaign!",
+      "timestamp": "2024-05-01T12:10:00.000Z",
+      "read": true
+    },
+    {
+      "senderId": "1",
+      "receiverId": "brand1",
+      "message": "Thanks, excited to work together!",
+      "timestamp": "2024-05-01T12:12:00.000Z",
+      "read": false
+    }
+  ]
+}
