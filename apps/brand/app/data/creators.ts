@@ -1,3 +1,17 @@
+export type TopPost = {
+  type: string;
+  title: string;
+  link: string;
+  stats: string;
+};
+
+export type CreatorPerformance = {
+  avgReach: number;
+  engagementRate: number;
+  followerGrowth: number;
+  topPosts: TopPost[];
+};
+
 export type Creator = {
   id: string;
   name: string;
@@ -16,6 +30,7 @@ export type Creator = {
   verified?: boolean;
   completedCollabs?: number;
   avgResponseMinutes?: number;
+  performance?: CreatorPerformance;
 };
 
 export const creators = [
@@ -57,6 +72,15 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
     verified: true,
     completedCollabs: 4,
     avgResponseMinutes: 30,
+    performance: {
+      avgReach: 5500,
+      engagementRate: 3.8,
+      followerGrowth: 4.0,
+      topPosts: [
+        { type: 'Reel', title: 'Glow routine', link: 'https://example.com/post1', stats: '8k views' },
+        { type: 'Story', title: 'Skincare Q&A', link: 'https://example.com/post2', stats: '5k views' },
+      ],
+    },
   },
   {
     id: "2",
@@ -97,6 +121,15 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
     verified: true,
     completedCollabs: 3,
     avgResponseMinutes: 45,
+    performance: {
+      avgReach: 15000,
+      engagementRate: 6.2,
+      followerGrowth: 2.0,
+      topPosts: [
+        { type: 'Video', title: 'AI Gadgets Review', link: 'https://example.com/post3', stats: '20k views' },
+        { type: 'Short', title: 'Crypto Basics', link: 'https://example.com/post4', stats: '15k views' },
+      ],
+    },
   },
   {
     id: "3",
@@ -136,6 +169,15 @@ I teach aesthetic plant care, budget-friendly home decor, and cozy vibes — all
     verified: false,
     completedCollabs: 2,
     avgResponseMinutes: 90,
+    performance: {
+      avgReach: 9000,
+      engagementRate: 4.7,
+      followerGrowth: -1.0,
+      topPosts: [
+        { type: 'Reel', title: 'Plant Shelf Tour', link: 'https://example.com/post5', stats: '11k views' },
+        { type: 'Tutorial', title: 'Potting Basics', link: 'https://example.com/post6', stats: '8k views' },
+      ],
+    },
   }
 ];
 
