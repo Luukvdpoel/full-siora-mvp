@@ -1,5 +1,6 @@
 import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
+import PerformanceTab from "@/components/PerformanceTab";
 
 type Props = {
   params: {
@@ -55,6 +56,8 @@ export default function CreatorProfile({ params }: Props) {
               </div>
             </div>
           )}
+
+          <PerformanceTab creatorId={creator.id.toString()} />
         </div>
       </div>
     </main>
