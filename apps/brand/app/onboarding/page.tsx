@@ -2,19 +2,20 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import CreatorCard from "@/components/CreatorCard";
-import type { Creator } from "@/app/data/creators";
+import type { BrandOnboardResult } from "@/types/onboard";
 
 export default function BrandOnboarding() {
   const router = useRouter();
+  const [step, setStep] = useState(0);
   const [form, setForm] = useState({
+    name: "",
     goals: "",
-    platforms: "",
-    tone: "",
-    audience: "",
+    product: "",
+    creators: "",
+    budget: "",
   });
+  const [summary, setSummary] = useState<BrandOnboardResult | null>(null);
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<Creator[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,38 +24,23 @@ export default function BrandOnboarding() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const prefs = {
-      tone: form.tone || undefined,
-      desiredFormats: form.platforms
-        .split(/,|\n/)
-        .map((s) => s.trim())
-        .filter(Boolean),
-      values: form.goals
-        .split(/,|\n/)
-        .map((s) => s.trim())
-        .filter(Boolean),
-      niches: form.audience
-        .split(/,|\n/)
-        .map((s) => s.trim())
-        .filter(Boolean),
-    };
-    if (typeof window !== "undefined") {
-      localStorage.setItem("brandPrefs", JSON.stringify(prefs));
-    }
+  const generateBrief = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/intent", {
+      const res = await fetch("/api/brand-onboard", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          intent: `${form.goals} ${form.audience}`.trim(),
-          tone: form.tone,
+          name: form.name,
+          goals: form.goals,
+          productInfo: form.product,
+          idealCreators: form.creators,
+          budget: form.budget,
         }),
       });
       const data = await res.json();
-      setResults(Array.isArray(data.results) ? data.results : []);
+      setSummary(data);
+      setStep(5);
     } catch (err) {
       console.error(err);
     } finally {
@@ -62,11 +48,56 @@ export default function BrandOnboarding() {
     }
   };
 
+  const saveBrief = async () => {
+    if (!summary) return;
+    setLoading(true);
+    try {
+      await fetch("/api/campaign-brief", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          goals: form.goals,
+          productInfo: form.product,
+          idealCreators: form.creators,
+          budget: form.budget,
+          summary,
+        }),
+      });
+      router.push("/dashboard");
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const next = () => {
+    if (step === 4) {
+      generateBrief();
+    } else {
+      setStep((s) => s + 1);
+    }
+  };
+
+  const prev = () => {
+    setStep((s) => Math.max(0, s - 1));
+  };
+
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
-      <div className="max-w-xl mx-auto">
-        <form onSubmit={handleSubmit} className="bg-Siora-mid p-6 rounded-2xl space-y-4">
-          <h1 className="text-2xl font-bold">Brand Onboarding</h1>
+      <div className="max-w-xl mx-auto bg-Siora-mid p-6 rounded-2xl space-y-4">
+        <h1 className="text-2xl font-bold mb-2">Brand Onboarding</h1>
+        {step === 0 && (
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Brand name"
+            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          />
+        )}
+        {step === 1 && (
           <textarea
             name="goals"
             value={form.goals}
@@ -74,54 +105,89 @@ export default function BrandOnboarding() {
             placeholder="Campaign goals"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
-          <input
-            name="platforms"
-            value={form.platforms}
+        )}
+        {step === 2 && (
+          <textarea
+            name="product"
+            value={form.product}
             onChange={handleChange}
-            placeholder="Preferred platforms (comma separated)"
+            placeholder="Product information"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+        )}
+        {step === 3 && (
           <input
-            name="tone"
-            value={form.tone}
+            name="creators"
+            value={form.creators}
             onChange={handleChange}
-            placeholder="Brand tone"
+            placeholder="Ideal creator type"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+        )}
+        {step === 4 && (
           <input
-            name="audience"
-            value={form.audience}
+            name="budget"
+            value={form.budget}
             onChange={handleChange}
-            placeholder="Target audience"
+            placeholder="Budget range"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
-          <button
-            type="submit"
-            className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold w-full"
-          >
-            {loading ? "Finding Matches..." : "Save & Find Matches"}
-          </button>
-        </form>
-      </div>
-
-      {results.length > 0 && (
-        <div className="max-w-5xl mx-auto mt-10 space-y-6">
-          <h2 className="text-2xl font-semibold">Suggested Creators</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.map((c) => (
-              <CreatorCard key={c.id} creator={c} />
-            ))}
+        )}
+        {step === 5 && summary && (
+          <div className="space-y-3">
+            <textarea
+              value={summary.mission}
+              onChange={(e) => setSummary({ ...summary, mission: e.target.value })}
+              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+            />
+            <input
+              value={summary.creatorTraits.join(", ")}
+              onChange={(e) =>
+                setSummary({
+                  ...summary,
+                  creatorTraits: e.target.value.split(/,|\n/).map((s) => s.trim()).filter(Boolean),
+                })
+              }
+              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+            />
+            <input
+              value={summary.platformFormat}
+              onChange={(e) => setSummary({ ...summary, platformFormat: e.target.value })}
+              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+            />
+            <textarea
+              value={summary.pitch}
+              onChange={(e) => setSummary({ ...summary, pitch: e.target.value })}
+              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+            />
           </div>
-          <div className="text-center">
-            <button
-              onClick={() => router.push('/dashboard')}
-              className="mt-6 bg-Siora-accent hover:bg-Siora-accent-soft text-white px-4 py-2 rounded-lg"
-            >
-              Go to Dashboard
+        )}
+        <div className="flex justify-between pt-4">
+          {step > 0 && step < 5 && (
+            <button onClick={prev} className="px-4 py-2 bg-gray-700 rounded">
+              Back
             </button>
-          </div>
+          )}
+          {step < 5 && (
+            <button
+              onClick={next}
+              disabled={loading}
+              className="ml-auto px-4 py-2 bg-Siora-accent rounded disabled:opacity-50"
+            >
+              {step === 4 ? (loading ? "Generating..." : "Generate Brief") : "Next"}
+            </button>
+          )}
+          {step === 5 && (
+            <button
+              onClick={saveBrief}
+              disabled={loading}
+              className="ml-auto px-4 py-2 bg-Siora-accent rounded disabled:opacity-50"
+            >
+              {loading ? "Saving..." : "Confirm & Save"}
+            </button>
+          )}
         </div>
-      )}
+      </div>
     </main>
   );
 }

@@ -1,6 +1,14 @@
 export async function POST(req: Request) {
   try {
-    const { name, goals, campaignFocus, targetAudience, idealCreators } = await req.json();
+    const {
+      name,
+      goals,
+      productInfo,
+      idealCreators,
+      budget,
+      campaignFocus,
+      targetAudience,
+    } = await req.json();
 
     if (!name || typeof name !== "string") {
       return new Response(
@@ -12,6 +20,8 @@ export async function POST(req: Request) {
     const details = [
       `Name: ${name}`,
       goals ? `Goals: ${goals}` : undefined,
+      productInfo ? `Product: ${productInfo}` : undefined,
+      budget ? `Budget: ${budget}` : undefined,
       campaignFocus ? `Campaign focus: ${campaignFocus}` : undefined,
       targetAudience ? `Target audience: ${targetAudience}` : undefined,
       idealCreators ? `Ideal creators: ${idealCreators}` : undefined,
