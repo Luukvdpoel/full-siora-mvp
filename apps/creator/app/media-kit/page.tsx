@@ -100,7 +100,7 @@ export default function MediaKitPage() {
           {"vibe" in persona && (
             <div>
               <h3 className="font-semibold">Vibe</h3>
-              <p className="text-sm text-foreground/80">{(persona as any).vibe}</p>
+              <p className="text-sm text-foreground/80">{(persona as unknown as { vibe?: string }).vibe}</p>
             </div>
           )}
         </section>

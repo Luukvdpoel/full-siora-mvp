@@ -8,11 +8,15 @@ import InsightsSidebar from "@/components/InsightsSidebar";
 import PersonaPDF from "@/components/PersonaPDF";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import type { PersonaProfile } from "@/types/persona";
+import { savePersonaToLocal } from "@/lib/localPersonas";
 
 export default function PersonaPage() {
   const params = useParams();
   const idParam = typeof params?.id === "string" ? params.id : Array.isArray(params?.id) ? params.id[0] : "";
   const [profile, setProfile] = useState<PersonaProfile | null>(null);
+  const [rating, setRating] = useState(0);
+  const [notes, setNotes] = useState("");
+  const [improveLoading, setImproveLoading] = useState(false);
 
   const computeBrandFit = (interests: string[]): string => {
     const lower = interests.map((i) => i.toLowerCase());
@@ -77,6 +81,7 @@ export default function PersonaPage() {
     } catch (err) {
       console.error("Failed to load persona", err);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idParam]);
 
 
@@ -104,6 +109,26 @@ export default function PersonaPage() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+  };
+
+  const handleImprove = async () => {
+    if (!profile || rating === 0) return;
+    setImproveLoading(true);
+    try {
+      const res = await fetch("/api/improvePersona", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ persona: profile, rating, notes }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed");
+      setProfile(ensureInsights(data as PersonaProfile));
+      savePersonaToLocal(data as PersonaProfile);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setImproveLoading(false);
+    }
   };
 
 
@@ -138,6 +163,40 @@ export default function PersonaPage() {
               )}
             </PDFDownloadLink>
             <CopyLinkButton />
+          </div>
+          <div className="border border-white/10 p-4 rounded-md max-w-md space-y-4">
+            <div>
+              <p className="font-semibold">How accurate is this?</p>
+              <div className="flex gap-1 mt-1">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setRating(s)}
+                    className="text-2xl leading-none"
+                  >
+                    <span className={s <= rating ? "text-yellow-400" : "text-gray-500"}>★</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">What&apos;s missing or off?</label>
+              <textarea
+                className="w-full p-2 rounded-md bg-background border border-white/10"
+                rows={3}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={handleImprove}
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md disabled:opacity-50"
+              disabled={improveLoading || rating === 0}
+            >
+              {improveLoading ? "Improving..." : "Generate Improved Version"}
+            </button>
           </div>
         </>
       ) : (
