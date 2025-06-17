@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Props = {
   onFilter: (filters: Record<string, string>) => void;
@@ -17,7 +17,8 @@ export default function FilterBar({ onFilter, onSort }: Props) {
   const [maxEngagement, setMaxEngagement] = useState("");
   const [sort, setSort] = useState("");
 
-  const handleApply = () => {
+  // automatically push filter updates up to the parent
+  useEffect(() => {
     onFilter({
       platform,
       tone,
@@ -27,8 +28,11 @@ export default function FilterBar({ onFilter, onSort }: Props) {
       minEngagement,
       maxEngagement,
     });
+  }, [platform, tone, audience, minFollowers, maxFollowers, minEngagement, maxEngagement, onFilter]);
+
+  useEffect(() => {
     onSort?.(sort);
-  };
+  }, [sort, onSort]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
@@ -104,13 +108,6 @@ export default function FilterBar({ onFilter, onSort }: Props) {
           <option value="engagement-desc">Engagement ↓</option>
           <option value="engagement-asc">Engagement ↑</option>
         </select>
-
-        <button
-          onClick={handleApply}
-          className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold transition"
-        >
-          Apply Filters
-        </button>
       </div>
     </div>
   );
