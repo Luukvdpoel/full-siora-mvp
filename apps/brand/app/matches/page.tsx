@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import CollabRequestModal from "@/components/CollabRequestModal";
+import Link from "next/link";
 import creators from "@/app/data/mock_creators_200.json";
 import { useShortlist } from "@/lib/shortlist";
 import { useBrandUser } from "@/lib/brandUser";
@@ -12,8 +12,6 @@ export default function MatchesPage() {
   const { user } = useBrandUser();
   const { toggle, inShortlist } = useShortlist(user?.email ?? null);
   const [brand, setBrand] = useState<BrandProfile | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCreator, setSelectedCreator] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -49,13 +47,8 @@ export default function MatchesPage() {
         return { creator: c, score };
       })
       .sort((a, b) => b.score - a.score)
-      .slice(0, 5);
+      .slice(0, 10);
   }, [brand]);
-
-  const requestCollab = (name: string) => {
-    setSelectedCreator(name);
-    setShowModal(true);
-  };
 
   if (!brand) {
     return (
@@ -76,32 +69,33 @@ export default function MatchesPage() {
               <h2 className="text-xl font-semibold">
                 {creator.name} <span className="text-Siora-accent">@{creator.handle}</span>
               </h2>
-              <p className="text-sm text-zinc-400 mb-2">Fit Score: {Math.round(score)}/100</p>
+              <p className="text-sm text-zinc-400 mb-2">{Math.round(score)}% match</p>
               <p className="text-sm text-zinc-300 mb-4">{creator.summary}</p>
               <div className="flex gap-4">
                 <button
                   onClick={() => toggle(creator.id)}
                   className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
                 >
-                  {inShortlist(creator.id) ? "Remove from Shortlist" : "Save to Shortlist"}
+                  {inShortlist(creator.id) ? "Remove from Shortlist" : "Add to Shortlist"}
                 </button>
-                <button
-                  onClick={() => requestCollab(creator.name)}
+                <Link
+                  href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
                   className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
                 >
-                  Request Collab
-                </button>
+                  View Persona
+                </Link>
+                <Link
+                  href={`/messages/${creator.id}`}
+                  className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
+                >
+                  Send Message
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </div>
     </main>
-    <CollabRequestModal
-      open={showModal}
-      onClose={() => setShowModal(false)}
-      creator={selectedCreator}
-    />
     </>
   );
 }
