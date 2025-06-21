@@ -7,6 +7,23 @@ import {
   loadLeadMagnetIdea,
 } from "@/lib/localLeadMagnet";
 
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 10-1.414 1.414L9 13.414l4.707-4.707z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
 export default function LeadMagnetPage() {
   const [niche, setNiche] = useState("");
   const [audience, setAudience] = useState("");
@@ -76,11 +93,22 @@ export default function LeadMagnetPage() {
       </form>
       {error && <p className="text-red-500">{error}</p>}
       {idea && (
-        <div className="space-y-2 border border-white/10 p-4 rounded-md">
-          <h2 className="text-lg font-semibold">{idea.title}</h2>
-          <p className="text-sm text-foreground/80">{idea.description}</p>
-          <p className="text-sm">Benefit: {idea.benefit}</p>
-          <p className="text-sm font-semibold">CTA: {idea.cta}</p>
+        <div className="space-y-4 border border-white/10 p-6 rounded-md bg-background">
+          <h2 className="text-xl font-bold">{idea.title}</h2>
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2">
+              <CheckIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+              <span className="text-sm text-foreground/80">{idea.description}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+              <span className="text-sm text-foreground/80">Benefit: {idea.benefit}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+              <span className="text-sm font-semibold">CTA: {idea.cta}</span>
+            </li>
+          </ul>
         </div>
       )}
     </main>

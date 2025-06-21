@@ -6,6 +6,23 @@ import {
   saveLeadMagnetIdea,
   loadLeadMagnetIdea,
 } from "@/lib/localLeadMagnet";
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 10-1.414 1.414L9 13.414l4.707-4.707z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -249,11 +266,22 @@ export default function ToolsPage() {
       </button>
       {magnetError && <p className="text-red-500 text-sm">{magnetError}</p>}
       {magnetIdea && (
-        <div className="text-sm text-zinc-300 border-t border-white/10 pt-2 space-y-1">
-          <p className="font-semibold">{magnetIdea.title}</p>
-          <p>{magnetIdea.description}</p>
-          <p>Benefit: {magnetIdea.benefit}</p>
-          <p className="font-semibold">CTA: {magnetIdea.cta}</p>
+        <div className="text-sm text-zinc-300 border-t border-white/10 pt-2 space-y-2">
+          <p className="font-semibold text-base text-foreground">{magnetIdea.title}</p>
+          <ul className="space-y-1">
+            <li className="flex items-start gap-2">
+              <CheckIcon className="w-3 h-3 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+              <span className="text-foreground/80">{magnetIdea.description}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckIcon className="w-3 h-3 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+              <span className="text-foreground/80">Benefit: {magnetIdea.benefit}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckIcon className="w-3 h-3 text-indigo-600 dark:text-indigo-400 mt-0.5" />
+              <span className="font-semibold">CTA: {magnetIdea.cta}</span>
+            </li>
+          </ul>
         </div>
       )}
     </form>
