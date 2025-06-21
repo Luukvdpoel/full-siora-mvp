@@ -41,3 +41,14 @@ Configure `EMAIL_SERVER` and `EMAIL_FROM` then visit `/signin` to request your l
 - `npm run dev:creator` – start the dev server
 - `npm run build -w apps/creator` – build for production
 - `npm run lint -w apps/creator` – run ESLint
+
+## Onboarding Drafts
+
+Use `/api/onboarding-draft` to save or load onboarding progress for a creator.
+
+- `POST /api/onboarding-draft` – body `{ userId: string, progress: object }` saves a draft
+- `GET /api/onboarding-draft?userId=123` – retrieves saved progress if available
+
+For local persistence during onboarding, `lib/localOnboarding.ts` exposes
+`saveOnboardingDraft(progress)` and `loadOnboardingDraft()` which store the
+progress in `localStorage`.
