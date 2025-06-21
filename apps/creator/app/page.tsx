@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import ReactMarkdown from "react-markdown";
 import { saveProfileSettings } from "@/lib/profileSettings";
@@ -26,6 +27,7 @@ export default function Home() {
   const [dreamBrands, setDreamBrands] = useState('');
   const [favFormats, setFavFormats] = useState('');
   const resultRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
 
 
@@ -71,6 +73,10 @@ export default function Home() {
       } else {
         const data = await res.json();
         setPersona(data.result);
+        const saved = await handleSave(data.result);
+        if (saved) {
+          router.push('/dashboard');
+        }
       }
     } catch (error) {
       console.error(error);
@@ -80,16 +86,18 @@ export default function Home() {
     }
   };
 
-  const handleSave = async () => {
-    if (!persona) return;
+  const handleSave = async (p?: string): Promise<boolean> => {
+    const dataToSave = p ?? persona;
+    if (!dataToSave) return false;
     try {
       const res = await fetch("/api/personas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: handle || "Persona", persona }),
+        body: JSON.stringify({ title: handle || "Persona", persona: dataToSave }),
       });
       if (res.status === 429) {
         setLimitReached(true);
+        return false;
       } else if (res.ok) {
         const data = await res.json();
         if (data?.id) {
@@ -112,10 +120,12 @@ export default function Home() {
             console.error('Failed to store inputs', err);
           }
         }
+        return true;
       }
     } catch (err) {
       console.error("Failed to save persona", err);
     }
+    return false;
   };
 
   useEffect(() => {
