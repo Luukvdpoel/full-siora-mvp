@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { jsPDF } from "jspdf";
+import html2pdf from "html2pdf.js";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PersonaProfile, FullPersona } from "@/types/persona";
 
@@ -19,11 +19,14 @@ export default function MediaKitPage() {
     if (!persona) return;
     const element = document.getElementById("media-kit");
     if (!element) return;
-    const doc = new jsPDF();
-    doc.html(element, {
-      callback: () => doc.save(`${persona.name || "media-kit"}.pdf`),
-      html2canvas: { scale: 0.6 },
-    });
+    const opt = {
+      margin: 0.5,
+      filename: `${persona.name || "media-kit"}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    } as const;
+    html2pdf().set(opt).from(element).save();
   };
 
   if (personas.length === 0) {
