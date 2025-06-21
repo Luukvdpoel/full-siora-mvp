@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import brands from "@/app/data/mock_brands.json";
+import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
 interface Message extends ChatMessage {
@@ -15,33 +16,30 @@ export default function ChatPage({ params }: { params: { id: string } }) {
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`/api/messages?creatorId=${params.id}`);
-        if (res.ok) {
-          const data = await res.json();
-          setMessages(data.messages);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    load();
+    const stored = (mockMessages[params.id] ?? []) as StoredMessage[];
+    const mapped = stored.map((m, i) => ({
+      id: `${params.id}-${i}`,
+      creatorId: params.id,
+      sender: m.sender,
+      text: m.content,
+      timestamp: m.timestamp,
+    }));
+    setMessages(mapped);
   }, [params.id]);
 
   const send = async (text: string) => {
     if (!text.trim()) return;
     setSending(true);
     try {
-      const res = await fetch('/api/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ creatorId: params.id, sender: 'creator', text, campaign }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setMessages((prev) => [...prev, data.message]);
-      }
+      const newMessage: Message = {
+        id: `local-${Date.now()}`,
+        creatorId: params.id,
+        sender: 'creator',
+        text,
+        timestamp: new Date().toISOString(),
+        campaign,
+      };
+      setMessages((prev) => [...prev, newMessage]);
     } finally {
       setSending(false);
     }

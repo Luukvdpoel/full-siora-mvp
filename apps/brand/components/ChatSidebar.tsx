@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import type { Creator } from "@/app/data/creators";
 import { ChatPanel, ChatMessage } from "shared-ui";
+import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 
 interface Message extends ChatMessage {
   creatorId: string;
@@ -19,36 +20,31 @@ export default function ChatSidebar({ creator, onClose }: Props) {
 
   useEffect(() => {
     if (!creator) return;
-    async function load() {
-      try {
-        const res = await fetch(`/api/messages?creatorId=${creator.id}`);
-        if (res.ok) {
-          const data = await res.json();
-          const sorted = (data.messages as Message[]).sort(
-            (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-          );
-          setMessages(sorted);
-        }
-      } catch (err) {
-        console.error('failed to load messages', err);
-      }
-    }
-    load();
+    const stored = (mockMessages[creator.id] ?? []) as StoredMessage[];
+    const sorted = stored
+      .map((m, i) => ({
+        id: `${creator.id}-${i}`,
+        creatorId: creator.id,
+        sender: m.sender,
+        text: m.content,
+        timestamp: m.timestamp,
+      }))
+      .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+    setMessages(sorted);
   }, [creator]);
 
   const send = async (text: string) => {
     if (!creator) return;
     setSending(true);
     try {
-      const res = await fetch('/api/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ creatorId: creator.id, sender: 'brand', text }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setMessages((prev) => [...prev, data.message]);
-      }
+      const newMessage: Message = {
+        id: `local-${Date.now()}`,
+        creatorId: creator.id,
+        sender: 'brand',
+        text,
+        timestamp: new Date().toISOString(),
+      };
+      setMessages((prev) => [...prev, newMessage]);
     } finally {
       setSending(false);
     }

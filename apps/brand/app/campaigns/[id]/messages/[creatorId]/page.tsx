@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import creators from "@/app/data/mock_creators_200.json";
 import { ChatPanel, ChatMessage } from "shared-ui";
+import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 
 interface Message extends ChatMessage {
   creatorId: string;
@@ -15,33 +16,31 @@ export default function CampaignChatPage({ params }: { params: { creatorId: stri
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`/api/messages?creatorId=${params.creatorId}&campaign=${params.id}`);
-        if (res.ok) {
-          const data = await res.json();
-          setMessages(data.messages);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    load();
+    const stored = (mockMessages[params.creatorId] ?? []) as StoredMessage[];
+    const mapped = stored.map((m, i) => ({
+      id: `${params.creatorId}-${i}`,
+      creatorId: params.creatorId,
+      sender: m.sender,
+      text: m.content,
+      timestamp: m.timestamp,
+      campaign: params.id,
+    }));
+    setMessages(mapped);
   }, [params.creatorId, params.id]);
 
   const send = async (text: string) => {
     if (!text.trim()) return;
     setSending(true);
     try {
-      const res = await fetch('/api/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ creatorId: params.creatorId, sender: 'brand', text, campaign: params.id }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setMessages((prev) => [...prev, data.message]);
-      }
+      const newMessage: Message = {
+        id: `local-${Date.now()}`,
+        creatorId: params.creatorId,
+        sender: 'brand',
+        text,
+        timestamp: new Date().toISOString(),
+        campaign: params.id,
+      };
+      setMessages((prev) => [...prev, newMessage]);
     } finally {
       setSending(false);
     }
