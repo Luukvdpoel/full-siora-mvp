@@ -9,6 +9,11 @@ export type CreatorPerformance = {
   avgReach: number;
   engagementRate: number;
   followerGrowth: number;
+  engagementBreakdown: {
+    likes: number;
+    comments: number;
+    shares: number;
+  };
   topPosts: TopPost[];
 };
 
@@ -76,6 +81,7 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
       avgReach: 5500,
       engagementRate: 3.8,
       followerGrowth: 4.0,
+      engagementBreakdown: { likes: 60, comments: 25, shares: 15 },
       topPosts: [
         { type: 'Reel', title: 'Glow routine', link: 'https://example.com/post1', stats: '8k views' },
         { type: 'Story', title: 'Skincare Q&A', link: 'https://example.com/post2', stats: '5k views' },
@@ -125,6 +131,7 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
       avgReach: 15000,
       engagementRate: 6.2,
       followerGrowth: 2.0,
+      engagementBreakdown: { likes: 50, comments: 30, shares: 20 },
       topPosts: [
         { type: 'Video', title: 'AI Gadgets Review', link: 'https://example.com/post3', stats: '20k views' },
         { type: 'Short', title: 'Crypto Basics', link: 'https://example.com/post4', stats: '15k views' },
@@ -173,6 +180,7 @@ I teach aesthetic plant care, budget-friendly home decor, and cozy vibes — all
       avgReach: 9000,
       engagementRate: 4.7,
       followerGrowth: -1.0,
+      engagementBreakdown: { likes: 55, comments: 20, shares: 25 },
       topPosts: [
         { type: 'Reel', title: 'Plant Shelf Tour', link: 'https://example.com/post5', stats: '11k views' },
         { type: 'Tutorial', title: 'Potting Basics', link: 'https://example.com/post6', stats: '8k views' },
