@@ -7,6 +7,8 @@ import { useState } from "react";
 import { Badge } from "shared-ui";
 import { getCreatorBadges } from "shared-utils";
 
+import { FaEnvelope } from "react-icons/fa";
+
 import { ReactNode } from "react";
 
 type Props = {
@@ -80,6 +82,12 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
         className="inline-block text-sm mt-4 text-Siora-accent underline group-hover:text-Siora-accent-soft"
       >
         View
+      </Link>
+      <Link
+        href={`/messages/${creator.id}`}
+        className="ml-4 inline-flex items-center text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 hover:bg-Siora-accent-soft"
+      >
+        <FaEnvelope className="mr-1" /> Message
       </Link>
       <button
         onClick={handleContact}
