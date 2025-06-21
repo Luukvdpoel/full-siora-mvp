@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChatPanel, ChatMessage } from "shared-ui";
 import creators from "@/app/data/mock_creators_200.json";
+import inboxThreads from "@/app/data/inboxThreads";
 
 interface Creator {
   id: string;
@@ -14,36 +15,6 @@ const contacts: Creator[] = creators.slice(0, 5).map((c: any) => ({
   name: c.name,
 }));
 
-const mockThreads: Record<string, ChatMessage[]> = {
-  "1": [
-    {
-      id: "m1",
-      sender: "creator",
-      text: "Hey there! Thanks for reaching out.",
-      timestamp: new Date().toISOString(),
-    },
-    {
-      id: "m2",
-      sender: "brand",
-      text: "Excited to chat about a potential collab!",
-      timestamp: new Date().toISOString(),
-    },
-  ],
-  "2": [
-    {
-      id: "m3",
-      sender: "creator",
-      text: "I'd love to hear more about your campaign.",
-      timestamp: new Date().toISOString(),
-    },
-    {
-      id: "m4",
-      sender: "brand",
-      text: "I'll send you the details shortly.",
-      timestamp: new Date().toISOString(),
-    },
-  ],
-};
 
 export default function InboxPage() {
   const [selected, setSelected] = useState<Creator | null>(null);
@@ -51,7 +22,14 @@ export default function InboxPage() {
 
   const openChat = (c: Creator) => {
     setSelected(c);
-    setMessages(mockThreads[c.id] ?? []);
+    const thread = inboxThreads[c.id] ?? [];
+    const mapped = thread.map((m) => ({
+      id: m.id,
+      sender: m.direction === 'fromBrand' ? 'brand' : 'creator',
+      text: m.text,
+      timestamp: m.timestamp,
+    }));
+    setMessages(mapped);
   };
 
   const send = async (text: string) => {
