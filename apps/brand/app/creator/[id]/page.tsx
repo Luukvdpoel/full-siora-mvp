@@ -1,5 +1,8 @@
+"use client";
+import { useState } from "react";
 import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
+import ContractModal from "@/components/ContractModal";
 
 type Props = {
   params: {
@@ -9,6 +12,7 @@ type Props = {
 
 export default function CreatorProfile({ params }: Props) {
   const creator = creators.find((c) => c.id === params.id);
+  const [showModal, setShowModal] = useState(false);
 
   if (!creator) return notFound();
 
@@ -54,7 +58,19 @@ export default function CreatorProfile({ params }: Props) {
             <p className="text-zinc-300">{creator.tone}</p>
           </div>
         )}
+
+        <button
+          onClick={() => setShowModal(true)}
+          className="mt-4 bg-Siora-accent hover:bg-Siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold"
+        >
+          Generate Contract
+        </button>
       </div>
     </main>
+    <ContractModal
+      open={showModal}
+      onClose={() => setShowModal(false)}
+      creator={creator.name}
+    />
   );
 }
