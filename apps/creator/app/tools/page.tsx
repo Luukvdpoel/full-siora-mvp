@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from "react";
 import type { LeadMagnetIdea } from "@/types/leadMagnet";
+import {
+  saveLeadMagnetIdea,
+  loadLeadMagnetIdea,
+} from "@/lib/localLeadMagnet";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -49,6 +53,11 @@ export default function ToolsPage() {
   const [magnetIdea, setMagnetIdea] = useState<LeadMagnetIdea | null>(null);
   const [magnetLoading, setMagnetLoading] = useState(false);
   const [magnetError, setMagnetError] = useState("");
+
+  useEffect(() => {
+    const stored = loadLeadMagnetIdea();
+    if (stored) setMagnetIdea(stored);
+  }, []);
 
   const runHookGen = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -131,6 +140,7 @@ export default function ToolsPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
       setMagnetIdea(data as LeadMagnetIdea);
+      saveLeadMagnetIdea(data as LeadMagnetIdea);
     } catch (err) {
       setMagnetError(err instanceof Error ? err.message : "Something went wrong");
     } finally {

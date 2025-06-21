@@ -1,7 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { LeadMagnetIdea } from "@/types/leadMagnet";
+import {
+  saveLeadMagnetIdea,
+  loadLeadMagnetIdea,
+} from "@/lib/localLeadMagnet";
 
 export default function LeadMagnetPage() {
   const [niche, setNiche] = useState("");
@@ -9,6 +13,11 @@ export default function LeadMagnetPage() {
   const [idea, setIdea] = useState<LeadMagnetIdea | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const stored = loadLeadMagnetIdea();
+    if (stored) setIdea(stored);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +34,7 @@ export default function LeadMagnetPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
       setIdea(data as LeadMagnetIdea);
+      saveLeadMagnetIdea(data as LeadMagnetIdea);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
