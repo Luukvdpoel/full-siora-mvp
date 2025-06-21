@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import brands from "@/app/data/mock_brands.json";
-import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
 interface Message extends ChatMessage {
@@ -11,21 +10,40 @@ interface Message extends ChatMessage {
 
 export default function ChatPage({ params }: { params: { id: string } }) {
   const brand = brands.find((b) => b.id === params.id);
+  const creatorId = "1"; // demo user
+  const brandId = "brand1"; // temporary until auth wiring
   const [messages, setMessages] = useState<Message[]>([]);
   const [campaign, setCampaign] = useState("");
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    const stored = (mockMessages[params.id] ?? []) as StoredMessage[];
-    const mapped = stored.map((m, i) => ({
-      id: `${params.id}-${i}`,
-      creatorId: params.id,
-      sender: m.sender,
-      text: m.content,
-      timestamp: m.timestamp,
-    }));
-    setMessages(mapped);
-  }, [params.id]);
+    async function load() {
+      try {
+        const res = await fetch(
+          `/api/messages?brandId=${brandId}&creatorId=${creatorId}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.messages)) {
+            const mapped = data.messages.map((m: any, i: number) => ({
+              id: `${brandId}-${creatorId}-${i}`,
+              creatorId,
+              sender: m.senderId === brandId ? "brand" : "creator",
+              text: m.message,
+              timestamp: m.timestamp,
+            }));
+            setMessages(mapped);
+          }
+        }
+      } catch (err) {
+        console.error("failed to load messages", err);
+      }
+    }
+    load();
+    // simple polling until real-time WebSocket integration is added
+    const interval = setInterval(load, 15000);
+    return () => clearInterval(interval);
+  }, [brandId, creatorId]);
 
   const send = async (text: string) => {
     if (!text.trim()) return;
@@ -33,7 +51,7 @@ export default function ChatPage({ params }: { params: { id: string } }) {
     try {
       const newMessage: Message = {
         id: `local-${Date.now()}`,
-        creatorId: params.id,
+        creatorId,
         sender: 'creator',
         text,
         timestamp: new Date().toISOString(),

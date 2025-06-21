@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import creators from "@/app/data/mock_creators_200.json";
-import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
 type Message = ChatMessage & { creatorId: string; campaign?: string };
@@ -12,20 +11,38 @@ export default function ChatPage({
   params: { creatorId: string };
 }) {
   const creator = creators.find((c) => c.id === params.creatorId);
+  const brandId = "brand1"; // demo brand id until auth
   const [messages, setMessages] = useState<Message[]>([]);
   const [campaign, setCampaign] = useState("");
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    const stored = (mockMessages[params.creatorId] ?? []) as StoredMessage[];
-    const mapped = stored.map((m, i) => ({
-      id: `${params.creatorId}-${i}`,
-      creatorId: params.creatorId,
-      sender: m.sender,
-      text: m.content,
-      timestamp: m.timestamp,
-    }));
-    setMessages(mapped);
+    async function load() {
+      try {
+        const res = await fetch(
+          `/api/messages?brandId=${brandId}&creatorId=${params.creatorId}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.messages)) {
+            const mapped = data.messages.map((m: any, i: number) => ({
+              id: `${brandId}-${params.creatorId}-${i}`,
+              creatorId: params.creatorId,
+              sender: m.senderId === brandId ? "brand" : "creator",
+              text: m.message,
+              timestamp: m.timestamp,
+            }));
+            setMessages(mapped);
+          }
+        }
+      } catch (err) {
+        console.error("failed to load messages", err);
+      }
+    }
+    load();
+    // simple polling until real-time WebSocket integration is added
+    const interval = setInterval(load, 15000);
+    return () => clearInterval(interval);
   }, [params.creatorId]);
 
   const send = async (text: string) => {
