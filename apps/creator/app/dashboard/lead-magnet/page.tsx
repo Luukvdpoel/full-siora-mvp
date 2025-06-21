@@ -56,8 +56,26 @@ export default function LeadMagnetDashboard() {
     }
   };
 
-  const downloadPdf = () => {
-    alert("PDF download coming soon!");
+  const downloadPdf = async () => {
+    if (!idea) return;
+    const markdown = `# ${idea.title}\n\n- ${idea.description}\n- Benefit: ${idea.benefit}\n- CTA: ${idea.cta}`;
+    try {
+      const res = await fetch("/api/export-lead-magnet", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ markdown })
+      });
+      if (!res.ok) throw new Error("Request failed");
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "lead-magnet.pdf";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert("PDF generation failed");
+    }
   };
 
   return (
