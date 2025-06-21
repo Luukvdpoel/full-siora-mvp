@@ -10,6 +10,7 @@ import { getCreatorBadges } from "shared-utils";
 import { FaEnvelope } from "react-icons/fa";
 
 import { ReactNode } from "react";
+import EvaluationChecklistModal from "./EvaluationChecklistModal";
 
 type Props = {
   creator: Creator;
@@ -19,6 +20,7 @@ type Props = {
 };
 export default function CreatorCard({ creator, onShortlist, shortlisted, children }: Props) {
   const [loading, setLoading] = useState(false);
+  const [checklistOpen, setChecklistOpen] = useState(false);
   const badges = getCreatorBadges({
     verified: creator.verified,
     completedCollabs: creator.completedCollabs,
@@ -96,6 +98,12 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       >
         {loading ? 'Contacting...' : 'Contact'}
       </button>
+      <button
+        onClick={() => setChecklistOpen(true)}
+        className="ml-4 text-sm mt-4 text-Siora-accent underline"
+      >
+        Generate Evaluation Checklist
+      </button>
       {onShortlist && (
         <button
           onClick={() => onShortlist(creator.id)}
@@ -105,6 +113,12 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
         </button>
       )}
       {children}
+      <EvaluationChecklistModal
+        open={checklistOpen}
+        onClose={() => setChecklistOpen(false)}
+        creatorId={creator.id}
+        creatorName={creator.name}
+      />
     </motion.div>
   );
 }
