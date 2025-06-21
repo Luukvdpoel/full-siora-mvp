@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import ReactMarkdown from "react-markdown";
+import { saveProfileSettings } from "@/lib/profileSettings";
 import styles from '../../../styles.module.css';
 
 export default function EditPersonaPage() {
@@ -88,6 +89,12 @@ export default function EditPersonaPage() {
       } else {
         const data = await res.json();
         setPersona(data.result);
+        saveProfileSettings({
+          bio: data.result,
+          tone,
+          formats: favFormats.split(',').map(f => f.trim()).filter(Boolean),
+          collabTypes: dreamBrands.split(',').map(b => b.trim()).filter(Boolean)
+        });
       }
     } catch (error) {
       console.error(error);

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import styles from './styles.module.css';
 import ReactMarkdown from "react-markdown";
+import { saveProfileSettings } from "@/lib/profileSettings";
 
 
 export default function Home() {
@@ -131,10 +132,16 @@ export default function Home() {
     try {
       localStorage.setItem("lastPersona", persona);
       setStoredPersona(persona);
+      saveProfileSettings({
+        bio: persona,
+        tone,
+        formats: favFormats.split(',').map(f => f.trim()).filter(Boolean),
+        collabTypes: dreamBrands.split(',').map(b => b.trim()).filter(Boolean)
+      });
     } catch (err) {
       console.error("Failed to persist persona", err);
     }
-  }, [persona]);
+  }, [persona, tone, favFormats, dreamBrands]);
 
   useEffect(() => {
     if (isLoading) {
