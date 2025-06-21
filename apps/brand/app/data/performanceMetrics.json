@@ -7,7 +7,13 @@
     "topPosts": [
       {"type": "Reel", "title": "Glow routine", "link": "https://example.com/post1", "stats": "8k views"},
       {"type": "Story", "title": "Skincare Q&A", "link": "https://example.com/post2", "stats": "5k views"}
-    ]
+    ],
+    "avgEngagementRate": 3.8,
+    "followerGrowthRate": 4.0,
+    "topContentType": "Reels",
+    "postFrequency": "5 posts/week",
+    "estimatedReachPerPost": 5000,
+    "audienceOverlap": 68
   },
   "2": {
     "avgReach": 15000,
@@ -17,7 +23,13 @@
     "topPosts": [
       {"type": "Video", "title": "AI Gadgets Review", "link": "https://example.com/post3", "stats": "20k views"},
       {"type": "Short", "title": "Crypto Basics", "link": "https://example.com/post4", "stats": "15k views"}
-    ]
+    ],
+    "avgEngagementRate": 6.2,
+    "followerGrowthRate": 2.5,
+    "topContentType": "Long-form video",
+    "postFrequency": "2 videos/week",
+    "estimatedReachPerPost": 15000,
+    "audienceOverlap": 72
   },
   "3": {
     "avgReach": 9000,
@@ -27,6 +39,12 @@
     "topPosts": [
       {"type": "Reel", "title": "Plant Shelf Tour", "link": "https://example.com/post5", "stats": "11k views"},
       {"type": "Tutorial", "title": "Potting Basics", "link": "https://example.com/post6", "stats": "8k views"}
-    ]
+    ],
+    "avgEngagementRate": 4.7,
+    "followerGrowthRate": -1.0,
+    "topContentType": "Reels",
+    "postFrequency": "3 posts/week",
+    "estimatedReachPerPost": 9000,
+    "audienceOverlap": 55
   }
 }
