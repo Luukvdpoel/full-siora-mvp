@@ -5,8 +5,12 @@ import { ChatPanel, ChatMessage } from "shared-ui";
 
 type Message = ChatMessage & { creatorId: string; campaign?: string };
 
-export default function ChatPage({ params }: { params: { id: string } }) {
-  const creator = creators.find((c) => c.id === params.id);
+export default function ChatPage({
+  params,
+}: {
+  params: { creatorId: string };
+}) {
+  const creator = creators.find((c) => c.id === params.creatorId);
   const [messages, setMessages] = useState<Message[]>([]);
   const [campaign, setCampaign] = useState("");
   const [sending, setSending] = useState(false);
@@ -14,7 +18,7 @@ export default function ChatPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch(`/api/messages?creatorId=${params.id}`);
+        const res = await fetch(`/api/messages?creatorId=${params.creatorId}`);
         if (res.ok) {
           const data = await res.json();
           setMessages(data.messages);
@@ -24,17 +28,22 @@ export default function ChatPage({ params }: { params: { id: string } }) {
       }
     }
     load();
-  }, [params.id]);
+  }, [params.creatorId]);
 
   const send = async (text: string) => {
     if (!text.trim()) return;
     setSending(true);
     try {
-      const res = await fetch('/api/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ creatorId: params.id, sender: 'brand', text, campaign }),
-      });
+        const res = await fetch("/api/messages", {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            creatorId: params.creatorId,
+            sender: "brand",
+            text,
+            campaign,
+          }),
+        });
       if (res.ok) {
         const data = await res.json();
         setMessages((prev) => [...prev, data.message]);
