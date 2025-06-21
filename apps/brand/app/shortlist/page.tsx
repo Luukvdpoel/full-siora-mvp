@@ -54,6 +54,41 @@ export default function ShortlistPage() {
     URL.revokeObjectURL(url);
   };
 
+  const exportCsv = () => {
+    if (saved.length === 0) return;
+    const headers = [
+      "id",
+      "name",
+      "handle",
+      "platform",
+      "followers",
+      "engagementRate",
+      "fitScore",
+    ];
+    const lines = [headers.join(",")];
+    for (const c of saved) {
+      const row = [
+        c.id,
+        c.name,
+        c.handle,
+        c.platform,
+        c.followers.toString(),
+        c.engagementRate.toString(),
+        c.fitScore !== undefined ? String(c.fitScore) : "",
+      ];
+      lines.push(row.map((v) => `"${v.replace(/"/g, '""')}"`).join(","));
+    }
+    const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "shortlist.csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -61,13 +96,22 @@ export default function ShortlistPage() {
           <h1 className="text-4xl font-extrabold tracking-tight">My Shortlist</h1>
           <div className="flex items-center gap-4">
             {saved.length > 0 && (
-              <button
-                type="button"
-                onClick={exportPdf}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
-              >
-                Export PDF
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={exportPdf}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+                >
+                  Export PDF
+                </button>
+                <button
+                  type="button"
+                  onClick={exportCsv}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+                >
+                  Export CSV
+                </button>
+              </>
             )}
             <label className="flex items-center gap-2 text-sm">
               <input
