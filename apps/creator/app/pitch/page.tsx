@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PitchResult } from "@/types/pitch";
 
@@ -16,13 +17,11 @@ export default function PitchPage() {
     setPersonas(loadPersonasFromLocal());
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const generatePitch = async () => {
     if (!personas[selectedIndex]) return;
 
     setLoading(true);
     setError("");
-    setResult(null);
 
     try {
       const res = await fetch("/api/pitch", {
@@ -39,6 +38,12 @@ export default function PitchPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setResult(null);
+    await generatePitch();
   };
 
   const copyPitch = () => {
@@ -94,22 +99,36 @@ export default function PitchPage() {
       {error && <p className="text-red-500">{error}</p>}
 
       {result && (
-        <div className="space-y-4 border border-white/10 p-4 rounded-md">
+        <div className="space-y-4 border border-white/10 p-4 rounded-md bg-background">
           {result.reasoning && (
             <>
               <h2 className="text-lg font-semibold">Why You&apos;re a Fit</h2>
-              <p className="text-sm text-foreground/80">{result.reasoning}</p>
+              <div className="prose prose-invert text-sm">
+                <ReactMarkdown>{result.reasoning}</ReactMarkdown>
+              </div>
             </>
           )}
           <h2 className="text-lg font-semibold">Pitch</h2>
-          <pre className="whitespace-pre-wrap bg-zinc-800 text-white p-3 rounded-md text-sm">{result.pitch}</pre>
-          <button
-            type="button"
-            onClick={copyPitch}
-            className="bg-green-600 hover:bg-green-500 transition-colors duration-200 text-white px-4 py-2 rounded-md"
-          >
-            Copy Pitch
-          </button>
+          <div className="prose prose-invert bg-zinc-800 p-3 rounded-md text-sm">
+            <ReactMarkdown>{result.pitch}</ReactMarkdown>
+          </div>
+          <div className="flex gap-4">
+            <button
+              type="button"
+              onClick={generatePitch}
+              disabled={loading}
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            >
+              {loading ? "Generating..." : "Regenerate Pitch"}
+            </button>
+            <button
+              type="button"
+              onClick={copyPitch}
+              className="bg-green-600 hover:bg-green-500 transition-colors duration-200 text-white px-4 py-2 rounded-md"
+            >
+              Copy to Clipboard
+            </button>
+          </div>
         </div>
       )}
     </main>
