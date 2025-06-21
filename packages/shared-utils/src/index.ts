@@ -5,3 +5,4 @@ export * from './creatorRanking';
 export * from './campaignFitScore';
 export * from './badges';
 export * from './trustScore';
+export * from './briefPersonaMatch';
