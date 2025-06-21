@@ -53,8 +53,9 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
         <div ref={bottomRef} />
       </div>
       <div className="flex gap-2">
-        <input
-          className="flex-1 p-2 rounded border border-Siora-border text-black"
+        <textarea
+          rows={3}
+          className="flex-1 p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border resize-none"
           placeholder="Type a message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
