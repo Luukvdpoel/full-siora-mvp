@@ -2,17 +2,29 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useBrandUser } from "@/lib/brandUser";
+import Toast from "@/components/Toast";
 
 export default function SignInPage() {
   const { setUser } = useBrandUser();
   const [email, setEmail] = useState("");
+  const [toast, setToast] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const handleGoogle = () => {
     signIn("google", { callbackUrl: "/select-role" });
   };
 
   const handleTemp = () => {
-    if (email) setUser({ email });
+    if (submitting) return;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setToast("Please enter a valid email");
+      return;
+    }
+    setSubmitting(true);
+    setUser({ email });
+    setToast("Signed in!");
+    setTimeout(() => setSubmitting(false), 1000);
   };
 
   return (
@@ -32,11 +44,13 @@ export default function SignInPage() {
         />
         <button
           onClick={handleTemp}
-          className="bg-Siora-accent text-white px-3 py-1 rounded"
+          className="bg-Siora-accent text-white px-3 py-1 rounded disabled:opacity-50"
+          disabled={submitting}
         >
           Continue
         </button>
       </div>
+      {toast && <Toast message={toast} onClose={() => setToast("")} />}
     </main>
   );
 }
