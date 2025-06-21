@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { useState } from "react";
 import PerformanceTab from "@/components/PerformanceTab";
 import ContractModal from "@/components/ContractModal";
+import EvaluationChecklistModal from "@/components/EvaluationChecklistModal";
 
 type Props = {
   params: {
@@ -15,6 +16,7 @@ export default function CreatorProfile({ params }: Props) {
   if (!creator) return notFound();
 
   const [contractOpen, setContractOpen] = useState(false);
+  const [checklistOpen, setChecklistOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
@@ -68,11 +70,23 @@ export default function CreatorProfile({ params }: Props) {
           >
             Generate Contract
           </button>
+          <button
+            onClick={() => setChecklistOpen(true)}
+            className="ml-4 mt-4 px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+          >
+            Generate Evaluation Checklist
+          </button>
         </div>
       </div>
       <ContractModal
         open={contractOpen}
         onClose={() => setContractOpen(false)}
+        creatorName={creator.name}
+      />
+      <EvaluationChecklistModal
+        open={checklistOpen}
+        onClose={() => setChecklistOpen(false)}
+        creatorId={creator.id.toString()}
         creatorName={creator.name}
       />
     </main>
