@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { jsPDF } from "jspdf";
 
 export default function ContractPage() {
   const [handle, setHandle] = useState("");
@@ -26,6 +27,16 @@ export default function ContractPage() {
     a.download = `contract-summary.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const downloadPdf = () => {
+    const element = document.getElementById("contract-content");
+    if (!element) return;
+    const doc = new jsPDF();
+    doc.html(element, {
+      callback: () => doc.save("contract-summary.pdf"),
+      html2canvas: { scale: 0.6 },
+    });
   };
 
   const copy = async () => {
@@ -87,7 +98,9 @@ export default function ContractPage() {
 
         {markdown && (
           <div className="space-y-4">
-            <ReactMarkdown className="prose prose-invert max-w-none bg-Siora-mid p-4 rounded-lg" >{markdown}</ReactMarkdown>
+            <div id="contract-content">
+              <ReactMarkdown className="prose prose-invert max-w-none bg-Siora-mid p-4 rounded-lg">{markdown}</ReactMarkdown>
+            </div>
             <div className="flex gap-2">
               <button
                 onClick={() => download("txt")}
@@ -100,6 +113,12 @@ export default function ContractPage() {
                 className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-3 py-1 rounded"
               >
                 Export .md
+              </button>
+              <button
+                onClick={downloadPdf}
+                className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-3 py-1 rounded"
+              >
+                Export .pdf
               </button>
               <button
                 onClick={copy}
