@@ -57,6 +57,8 @@ export default function ToolsPage() {
   const [captionResult, setCaptionResult] = useState("");
   const [rewriteLoading, setRewriteLoading] = useState(false);
   const [rewriteError, setRewriteError] = useState("");
+  const toneOptions = ["Confident", "Playful", "Professional", "Witty"];
+  const [rewriteTone, setRewriteTone] = useState(toneOptions[0]);
 
   // Content Ideas state
   const [ideaTopic, setIdeaTopic] = useState("");
@@ -108,7 +110,7 @@ export default function ToolsPage() {
       const res = await fetch("/api/rewriteCaption", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ caption: captionInput }),
+        body: JSON.stringify({ caption: captionInput, tone: rewriteTone }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
@@ -200,6 +202,20 @@ export default function ToolsPage() {
         onChange={(e) => setCaptionInput(e.target.value)}
         placeholder="Original caption"
       />
+      <div>
+        <label className="block text-sm font-semibold mb-1">Tone</label>
+        <select
+          className="w-full p-2 rounded-md bg-zinc-800 text-white"
+          value={rewriteTone}
+          onChange={(e) => setRewriteTone(e.target.value)}
+        >
+          {toneOptions.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+      </div>
       <button
         type="submit"
         className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-md disabled:opacity-50"

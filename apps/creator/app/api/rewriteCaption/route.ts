@@ -1,6 +1,6 @@
 export async function POST(req: Request) {
   try {
-    const { caption } = await req.json();
+    const { caption, tone } = await req.json();
     if (!caption || typeof caption !== 'string') {
       return new Response(
         JSON.stringify({ error: 'Provide a caption string.' }),
@@ -8,11 +8,17 @@ export async function POST(req: Request) {
       );
     }
 
+    const allowedTones = ['confident', 'playful', 'professional', 'witty'];
+    const toneLower =
+      typeof tone === 'string' && allowedTones.includes(tone.toLowerCase())
+        ? tone.toLowerCase()
+        : 'confident';
+
     const messages = [
       {
         role: 'system',
         content: [
-          'You help rewrite social media captions in a catchy, friendly tone.',
+          `You help rewrite social media captions in a ${toneLower} tone.`,
           'Return ONLY JSON in the form { "caption": string }.'
         ].join('\n')
       },
