@@ -1,0 +1,26 @@
+{
+  "1": {
+    "totalFollowers": 120000,
+    "engagementRate": 3.8,
+    "avgLikes": 2800,
+    "avgComments": 350,
+    "monthlyGrowthRate": 4.0,
+    "topContent": ["Glow routine - Reel", "Skincare Q&A - Story"]
+  },
+  "2": {
+    "totalFollowers": 45000,
+    "engagementRate": 6.2,
+    "avgLikes": 3100,
+    "avgComments": 500,
+    "monthlyGrowthRate": 2.5,
+    "topContent": ["AI Gadgets Review - Video", "Crypto Basics - Short"]
+  },
+  "3": {
+    "totalFollowers": 82000,
+    "engagementRate": 4.7,
+    "avgLikes": 2500,
+    "avgComments": 400,
+    "monthlyGrowthRate": -1.0,
+    "topContent": ["Plant Shelf Tour - Reel", "Potting Basics - Tutorial"]
+  }
+}

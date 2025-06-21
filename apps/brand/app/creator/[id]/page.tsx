@@ -1,6 +1,7 @@
 import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
+import CreatorMetrics from "@/components/CreatorMetrics";
 
 type Props = {
   params: {
@@ -58,6 +59,7 @@ export default function CreatorProfile({ params }: Props) {
 
         <div>
           <h2 className="text-lg font-semibold mb-2">Performance</h2>
+          <CreatorMetrics creatorId={creator.id} />
           <PerformanceTab creatorId={creator.id} />
         </div>
       </div>
