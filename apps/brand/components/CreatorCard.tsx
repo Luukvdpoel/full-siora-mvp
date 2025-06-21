@@ -55,21 +55,12 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     if (onShortlist) onShortlist(creator.id);
     if (shortlisted) {
       setToast('Removed from shortlist');
-      return;
-    }
-    try {
-      await fetch('/api/shortlist/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ brandId: user?.email, creatorId: creator.id }),
-      });
+    } else {
       setToast('Creator saved to shortlist');
-    } catch {
-      setToast('Failed to save');
     }
   };
 
