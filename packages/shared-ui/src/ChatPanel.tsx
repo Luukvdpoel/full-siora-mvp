@@ -32,11 +32,22 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
 
   return (
     <div className="flex flex-col h-96">
-      <div className="flex-1 overflow-y-auto border border-Siora-border rounded-lg p-4 bg-Siora-mid text-white mb-2">
+      <div className="flex-1 overflow-y-auto border border-Siora-border rounded-xl p-4 bg-Siora-mid text-white mb-2 space-y-3">
         {messages.map((m) => (
-          <div key={m.id} className={`mb-3 ${m.sender === currentUser ? 'text-right' : 'text-left'}`}>\
-            <div className="text-xs text-zinc-400 mb-1">{new Date(m.timestamp).toLocaleString()}</div>
-            <div className={`inline-block px-3 py-1 rounded ${m.sender === currentUser ? 'bg-Siora-accent' : 'bg-gray-700'}`}>{m.text}</div>
+          <div
+            key={m.id}
+            className={`flex ${m.sender === currentUser ? 'justify-end' : 'justify-start'}`}
+          >
+            <div>
+              <div className="text-xs text-zinc-400 mb-1">
+                {new Date(m.timestamp).toLocaleString()}
+              </div>
+              <div
+                className={`inline-block px-4 py-2 rounded-2xl border border-Siora-border ${m.sender === currentUser ? 'bg-Siora-accent' : 'bg-gray-700'}`}
+              >
+                {m.text}
+              </div>
+            </div>
           </div>
         ))}
         <div ref={bottomRef} />
