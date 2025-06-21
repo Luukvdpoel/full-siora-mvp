@@ -20,10 +20,9 @@ export async function POST(req: Request) {
       {
         role: 'system',
         content: [
-          "You craft concise but high-value lead magnet ideas for online creators.",
-          "Use the creator's tone, niche and preferred format to keep suggestions on-brand.",
-          "Respond ONLY with JSON matching: { title: string; subtitle: string; description: string; format: string; tips: string[] }.",
-          "The tips array must contain 3-5 short bullet points."
+          'You create concise lead magnet ideas for online creators.',
+          'Use the provided tone, niche and preferred format to keep suggestions on-brand.',
+          'Respond in Markdown with a title as a heading, a short section of three bullet benefits, and a brief content outline.'
         ].join('\n')
       },
       { role: 'user', content: `Tone: ${tone}\nNiche: ${niche}\nFormat: ${format}` }
@@ -47,18 +46,11 @@ export async function POST(req: Request) {
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content ?? '{}';
-    const result = JSON.parse(content) as {
-      title: string;
-      subtitle: string;
-      description: string;
-      format: string;
-      tips: string[];
-    };
+    const content = data.choices?.[0]?.message?.content ?? '';
 
-    return new Response(JSON.stringify(result), {
+    return new Response(content, {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'text/markdown' }
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unexpected error';
