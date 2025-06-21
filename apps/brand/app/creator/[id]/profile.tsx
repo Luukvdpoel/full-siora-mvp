@@ -1,6 +1,8 @@
 import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
+import { useState } from "react";
 import PerformanceTab from "@/components/PerformanceTab";
+import ContractModal from "@/components/ContractModal";
 
 type Props = {
   params: {
@@ -11,6 +13,8 @@ type Props = {
 export default function CreatorProfile({ params }: Props) {
   const creator = creators.find((c) => c.id.toString() === params.id);
   if (!creator) return notFound();
+
+  const [contractOpen, setContractOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
@@ -58,8 +62,19 @@ export default function CreatorProfile({ params }: Props) {
           )}
 
           <PerformanceTab creatorId={creator.id.toString()} />
+          <button
+            onClick={() => setContractOpen(true)}
+            className="mt-4 px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+          >
+            Generate Contract
+          </button>
         </div>
       </div>
+      <ContractModal
+        open={contractOpen}
+        onClose={() => setContractOpen(false)}
+        creatorName={creator.name}
+      />
     </main>
   );
 }
