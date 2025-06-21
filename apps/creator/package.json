@@ -19,6 +19,7 @@
     "@tailwindcss/vite": "^4.1.3",
     "framer-motion": "^12.6.3",
     "jspdf": "^3.0.1",
+    "html2pdf.js": "^0.10.3",
     "markdown-pdf": "^11.0.0",
     "marked": "^12.0.2",
     "puppeteer": "^21.9.0",
