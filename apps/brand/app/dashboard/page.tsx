@@ -26,6 +26,17 @@ export default function Dashboard() {
   const user = session?.user?.email ?? null;
   const { toggle, inShortlist } = useShortlist(user);
 
+  const unique = (arr: (string | undefined)[]) =>
+    Array.from(new Set(arr.filter(Boolean))) as string[];
+
+  const platforms = unique(creators.map((c) => c.platform));
+  const tones = unique(creators.map((c) => c.tone));
+  const niches = unique(creators.map((c) => c.niche));
+
+  const [platformFilter, setPlatformFilter] = useState("");
+  const [toneFilter, setToneFilter] = useState("");
+  const [nicheFilter, setNicheFilter] = useState("");
+
   const filtered = creators
     .filter((c) => {
       const matchesQuery = `${c.name} ${c.handle} ${c.niche} ${c.tags.join(" ")} ${c.tone} ${c.summary}`
@@ -49,6 +60,10 @@ export default function Dashboard() {
       const collabMatch =
         (c.completedCollabs ?? 0) >= filters.minCollabs;
 
+      const extraPlatform = !platformFilter || c.platform === platformFilter;
+      const extraTone = !toneFilter || c.tone === toneFilter;
+      const extraNiche = !nicheFilter || c.niche === nicheFilter;
+
       return (
         matchesQuery &&
         platformMatch &&
@@ -58,7 +73,10 @@ export default function Dashboard() {
         formatMatch &&
         valuesMatch &&
         erMatch &&
-        collabMatch
+        collabMatch &&
+        extraPlatform &&
+        extraTone &&
+        extraNiche
       );
     });
 
@@ -76,6 +94,45 @@ export default function Dashboard() {
           placeholder="Search creators..."
           className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
         />
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <select
+            value={platformFilter}
+            onChange={(e) => setPlatformFilter(e.target.value)}
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          >
+            <option value="">All Platforms</option>
+            {platforms.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+          <select
+            value={toneFilter}
+            onChange={(e) => setToneFilter(e.target.value)}
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          >
+            <option value="">All Tones</option>
+            {tones.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+          <select
+            value={nicheFilter}
+            onChange={(e) => setNicheFilter(e.target.value)}
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          >
+            <option value="">All Niches</option>
+            {niches.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <AdvancedFilterBar onFilter={setFilters} />
 

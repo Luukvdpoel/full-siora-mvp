@@ -28,11 +28,18 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
       <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
         {persona.summary}
       </p>
-      <div className="flex items-center text-xs text-gray-500 dark:text-zinc-400 space-x-4">
-        {persona.tags && (
-          <span>{persona.tags.join(", ")}</span>
-        )}
-      </div>
+      {persona.tags && (
+        <div className="flex flex-wrap gap-1 text-xs text-gray-500 dark:text-zinc-400 mb-2">
+          {persona.tags.map((tag) => (
+            <span
+              key={tag}
+              className="bg-Siora-light dark:bg-Siora-dark px-2 py-0.5 rounded"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <Link
         href={`/brands/${persona.id}`}
         className="inline-block text-sm mt-4 text-Siora-accent underline hover:text-indigo-400"

@@ -88,6 +88,18 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
         {creator.summary}
       </p>
+      {creator.tags && (
+        <div className="flex flex-wrap gap-1 text-xs text-gray-500 dark:text-zinc-400 mb-2">
+          {creator.tags.map((tag) => (
+            <span
+              key={tag}
+              className="bg-Siora-light dark:bg-Siora-dark px-2 py-0.5 rounded"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="flex items-center text-xs text-gray-500 dark:text-zinc-400 space-x-4">
         <span>{creator.followers.toLocaleString()} followers</span>
         <span>{creator.engagementRate}% ER</span>

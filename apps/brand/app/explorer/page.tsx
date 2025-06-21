@@ -14,11 +14,17 @@ export default function ExplorerPage() {
   const [platform, setPlatform] = useState("");
   const [niche, setNiche] = useState("");
 
+  const unique = (arr: (string | undefined)[]) =>
+    Array.from(new Set(arr.filter(Boolean))) as string[];
+
+  const tones = unique(samplePersonas.map((p) => p.tone));
+  const platforms = unique(samplePersonas.map((p) => p.platform));
+  const niches = unique(samplePersonas.map((p) => p.niche));
+
   const filtered = samplePersonas.filter((p) => {
-    const matchTone = !tone || p.tone.toLowerCase().includes(tone.toLowerCase());
-    const matchPlatform =
-      !platform || p.platform.toLowerCase().includes(platform.toLowerCase());
-    const matchNiche = !niche || p.niche.toLowerCase().includes(niche.toLowerCase());
+    const matchTone = !tone || p.tone === tone;
+    const matchPlatform = !platform || p.platform === platform;
+    const matchNiche = !niche || p.niche === niche;
     return matchTone && matchPlatform && matchNiche;
   });
 
@@ -35,24 +41,42 @@ export default function ExplorerPage() {
         </motion.h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <input
+          <select
             value={tone}
             onChange={(e) => setTone(e.target.value)}
-            placeholder="Filter by tone"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
-          />
-          <input
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          >
+            <option value="">All Tones</option>
+            {tones.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+          <select
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
-            placeholder="Filter by platform"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
-          />
-          <input
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          >
+            <option value="">All Platforms</option>
+            {platforms.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+          <select
             value={niche}
             onChange={(e) => setNiche(e.target.value)}
-            placeholder="Filter by niche"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
-          />
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          >
+            <option value="">All Niches</option>
+            {niches.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
         </div>
 
         {filtered.length === 0 ? (
