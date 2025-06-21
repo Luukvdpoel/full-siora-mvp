@@ -1,18 +1,21 @@
 [
   {
     "id": "1",
+    "userId": "1",
     "title": "Sophie Tan",
     "handle": "@livelaughluxe",
     "tone": "Warm & Aspirational"
   },
   {
     "id": "2",
+    "userId": "2",
     "title": "Marc Venter",
     "handle": "@techdad.eth",
     "tone": "Witty & Analytical"
   },
   {
     "id": "3",
+    "userId": "3",
     "title": "Paola Mendes",
     "handle": "@plantgirlpaola",
     "tone": "Soft & Visual"
