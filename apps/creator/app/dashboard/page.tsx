@@ -66,6 +66,9 @@ export default function DashboardPage() {
         <Link href="/performance" className="underline">
           Performance
         </Link>
+        <Link href="/pitch" className="underline">
+          Pitch
+        </Link>
         <Link href="/dashboard/lead-magnet" className="underline">
           Lead Magnet
         </Link>
