@@ -8,6 +8,8 @@ import { Badge } from "shared-ui";
 import { getCreatorBadges } from "shared-utils";
 
 import { FaEnvelope } from "react-icons/fa";
+import { useBrandUser } from "@/lib/brandUser";
+import Toast from "./Toast";
 
 import { ReactNode } from "react";
 import EvaluationChecklistModal from "./EvaluationChecklistModal";
@@ -21,6 +23,8 @@ type Props = {
 export default function CreatorCard({ creator, onShortlist, shortlisted, children }: Props) {
   const [loading, setLoading] = useState(false);
   const [checklistOpen, setChecklistOpen] = useState(false);
+  const [toast, setToast] = useState("");
+  const { user } = useBrandUser();
   const badges = getCreatorBadges({
     verified: creator.verified,
     completedCollabs: creator.completedCollabs,
@@ -48,6 +52,24 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       alert('Server error');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (onShortlist) onShortlist(creator.id);
+    if (shortlisted) {
+      setToast('Removed from shortlist');
+      return;
+    }
+    try {
+      await fetch('/api/shortlist/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ brandId: user?.email, creatorId: creator.id }),
+      });
+      setToast('Creator saved to shortlist');
+    } catch {
+      setToast('Failed to save');
     }
   };
 
@@ -104,14 +126,12 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       >
         Generate Evaluation Checklist
       </button>
-      {onShortlist && (
-        <button
-          onClick={() => onShortlist(creator.id)}
-          className="ml-4 text-sm mt-4 text-Siora-accent underline"
-        >
-          {shortlisted ? 'Remove from Shortlist' : 'Save to Shortlist'}
-        </button>
-      )}
+      <button
+        onClick={handleSave}
+        className="ml-4 text-sm mt-4 text-Siora-accent underline"
+      >
+        {shortlisted ? '✅ Saved' : '💾 Save to Shortlist'}
+      </button>
       {children}
       <EvaluationChecklistModal
         open={checklistOpen}
@@ -119,6 +139,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
         creatorId={creator.id}
         creatorName={creator.name}
       />
+      {toast && <Toast message={toast} onClose={() => setToast('')} />}
     </motion.div>
   );
 }
