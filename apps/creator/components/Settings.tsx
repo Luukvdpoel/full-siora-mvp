@@ -7,6 +7,7 @@ export interface ExtendedPersona extends FullPersona {
   tagline?: string
   contentPreference?: string
   favFormats?: string
+  preferredCollabs?: string
 }
 
 interface Props {
@@ -21,6 +22,7 @@ export default function Settings({ persona, onChange }: Props) {
   const [formats, setFormats] = useState<string[]>(
     persona.favFormats ? persona.favFormats.split(',').map((f) => f.trim()) : []
   )
+  const [collabs, setCollabs] = useState<string>(persona.preferredCollabs || '')
 
   useEffect(() => {
     const updated: ExtendedPersona = {
@@ -28,10 +30,11 @@ export default function Settings({ persona, onChange }: Props) {
       summary: bio,
       tagline,
       contentPreference: contentPref,
-      favFormats: formats.join(',')
+      favFormats: formats.join(','),
+      preferredCollabs: collabs
     }
     onChange?.(updated)
-  }, [tagline, bio, contentPref, formats, onChange, persona])
+  }, [tagline, bio, contentPref, formats, collabs, onChange, persona])
 
   const toggleFormat = (f: string) => {
     setFormats((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]))
@@ -83,6 +86,15 @@ export default function Settings({ persona, onChange }: Props) {
           ))}
         </div>
       </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Preferred Collaborations</label>
+        <input
+          type="text"
+          value={collabs}
+          onChange={(e) => setCollabs(e.target.value)}
+          className="w-full p-2 rounded-md bg-background text-foreground border border-white/10"
+        />
+      </div>
       <div className="border border-white/10 rounded-lg p-4 bg-background">
         <h3 className="text-lg font-semibold">Preview</h3>
         <p className="mt-2 text-xl font-bold">{persona.name}</p>
@@ -95,6 +107,9 @@ export default function Settings({ persona, onChange }: Props) {
               <li key={f}>{f}</li>
             ))}
           </ul>
+        )}
+        {collabs && (
+          <p className="mt-2 text-sm text-foreground/80">Collabs: {collabs}</p>
         )}
       </div>
     </div>
