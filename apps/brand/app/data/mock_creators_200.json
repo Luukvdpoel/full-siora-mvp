@@ -12,6 +12,10 @@
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs",
+      "Livestreams"
     ]
   },
   {
@@ -27,6 +31,9 @@
     "tags":[
       "Creativity",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -36,12 +43,15 @@
     "niche":"Beauty",
     "platform":"YouTube",
     "followers":870765,
-    "engagementRate":2.0,
+    "engagementRate":2,
     "summary":"Finance creator sharing behind-the-scenes.",
     "tone":"Educational",
     "tags":[
       "Empowerment",
       "Diversity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -57,6 +67,9 @@
     "tags":[
       "Sustainability",
       "Diversity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -66,12 +79,16 @@
     "niche":"Food",
     "platform":"Instagram",
     "followers":950120,
-    "engagementRate":9.0,
+    "engagementRate":9,
     "summary":"Travel creator sharing life hacks.",
     "tone":"Inspirational",
     "tags":[
       "Freedom",
       "Sustainability"
+    ],
+    "formats":[
+      "Blogs",
+      "Short Videos"
     ]
   },
   {
@@ -87,6 +104,10 @@
     "tags":[
       "Diversity",
       "Authenticity"
+    ],
+    "formats":[
+      "Long Videos",
+      "Blogs"
     ]
   },
   {
@@ -102,6 +123,9 @@
     "tags":[
       "Innovation",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -117,6 +141,9 @@
     "tags":[
       "Diversity",
       "Creativity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -126,12 +153,15 @@
     "niche":"Gaming",
     "platform":"TikTok",
     "followers":731256,
-    "engagementRate":2.0,
+    "engagementRate":2,
     "summary":"Travel creator sharing daily tips.",
     "tone":"Bold",
     "tags":[
       "Creativity",
       "Freedom"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -147,6 +177,10 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Photos",
+      "Long Videos"
     ]
   },
   {
@@ -162,6 +196,10 @@
     "tags":[
       "Authenticity",
       "Wellness"
+    ],
+    "formats":[
+      "Blogs",
+      "Long Videos"
     ]
   },
   {
@@ -177,6 +215,10 @@
     "tags":[
       "Wellness",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs",
+      "Short Videos"
     ]
   },
   {
@@ -192,6 +234,10 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Photos",
+      "Livestreams"
     ]
   },
   {
@@ -207,6 +253,9 @@
     "tags":[
       "Diversity",
       "Empowerment"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -222,6 +271,9 @@
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -237,6 +289,10 @@
     "tags":[
       "Wellness",
       "Sustainability"
+    ],
+    "formats":[
+      "Long Videos",
+      "Short Videos"
     ]
   },
   {
@@ -252,6 +308,10 @@
     "tags":[
       "Creativity",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs",
+      "Stories"
     ]
   },
   {
@@ -267,6 +327,9 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -276,12 +339,16 @@
     "niche":"Fashion",
     "platform":"Instagram",
     "followers":168305,
-    "engagementRate":11.0,
+    "engagementRate":11,
     "summary":"Gaming creator sharing daily tips.",
     "tone":"Playful",
     "tags":[
       "Diversity",
       "Wellness"
+    ],
+    "formats":[
+      "Livestreams",
+      "Blogs"
     ]
   },
   {
@@ -297,6 +364,10 @@
     "tags":[
       "Authenticity",
       "Diversity"
+    ],
+    "formats":[
+      "Stories",
+      "Short Videos"
     ]
   },
   {
@@ -312,6 +383,9 @@
     "tags":[
       "Authenticity",
       "Diversity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -327,6 +401,9 @@
     "tags":[
       "Diversity",
       "Innovation"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -342,6 +419,10 @@
     "tags":[
       "Empowerment",
       "Diversity"
+    ],
+    "formats":[
+      "Stories",
+      "Short Videos"
     ]
   },
   {
@@ -357,6 +438,10 @@
     "tags":[
       "Freedom",
       "Freedom"
+    ],
+    "formats":[
+      "Blogs",
+      "Stories"
     ]
   },
   {
@@ -366,12 +451,15 @@
     "niche":"Fitness",
     "platform":"TikTok",
     "followers":839120,
-    "engagementRate":3.0,
+    "engagementRate":3,
     "summary":"Fashion creator sharing behind-the-scenes.",
     "tone":"Inspirational",
     "tags":[
       "Diversity",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -387,6 +475,10 @@
     "tags":[
       "Creativity",
       "Authenticity"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -402,6 +494,10 @@
     "tags":[
       "Wellness",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos",
+      "Photos"
     ]
   },
   {
@@ -417,6 +513,10 @@
     "tags":[
       "Diversity",
       "Freedom"
+    ],
+    "formats":[
+      "Blogs",
+      "Short Videos"
     ]
   },
   {
@@ -432,6 +532,10 @@
     "tags":[
       "Authenticity",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs",
+      "Photos"
     ]
   },
   {
@@ -447,6 +551,9 @@
     "tags":[
       "Wellness",
       "Innovation"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -462,6 +569,10 @@
     "tags":[
       "Innovation",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Short Videos"
     ]
   },
   {
@@ -477,6 +588,9 @@
     "tags":[
       "Wellness",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -492,6 +606,10 @@
     "tags":[
       "Innovation",
       "Diversity"
+    ],
+    "formats":[
+      "Short Videos",
+      "Livestreams"
     ]
   },
   {
@@ -507,6 +625,9 @@
     "tags":[
       "Wellness",
       "Empowerment"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -522,6 +643,10 @@
     "tags":[
       "Authenticity",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Photos"
     ]
   },
   {
@@ -537,6 +662,9 @@
     "tags":[
       "Innovation",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -552,6 +680,10 @@
     "tags":[
       "Creativity",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams",
+      "Short Videos"
     ]
   },
   {
@@ -561,12 +693,16 @@
     "niche":"Tech",
     "platform":"YouTube",
     "followers":625473,
-    "engagementRate":4.0,
+    "engagementRate":4,
     "summary":"Food creator sharing raw stories.",
     "tone":"Playful",
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Long Videos"
     ]
   },
   {
@@ -582,6 +718,10 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs",
+      "Photos"
     ]
   },
   {
@@ -597,6 +737,9 @@
     "tags":[
       "Wellness",
       "Sustainability"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -612,10 +755,13 @@
     "tags":[
       "Innovation",
       "Innovation"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
-    "id": "42",
+    "id":"42",
     "name":"Jade Brown",
     "handle":"jadebrown92",
     "niche":"Home & Plants",
@@ -627,6 +773,9 @@
     "tags":[
       "Freedom",
       "Creativity"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -642,6 +791,9 @@
     "tags":[
       "Innovation",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -657,6 +809,9 @@
     "tags":[
       "Diversity",
       "Diversity"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -672,6 +827,9 @@
     "tags":[
       "Freedom",
       "Freedom"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -687,6 +845,10 @@
     "tags":[
       "Innovation",
       "Diversity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Photos"
     ]
   },
   {
@@ -702,6 +864,9 @@
     "tags":[
       "Authenticity",
       "Creativity"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -717,6 +882,10 @@
     "tags":[
       "Diversity",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos",
+      "Blogs"
     ]
   },
   {
@@ -732,6 +901,10 @@
     "tags":[
       "Diversity",
       "Creativity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Photos"
     ]
   },
   {
@@ -747,6 +920,10 @@
     "tags":[
       "Innovation",
       "Creativity"
+    ],
+    "formats":[
+      "Stories",
+      "Photos"
     ]
   },
   {
@@ -762,6 +939,10 @@
     "tags":[
       "Authenticity",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs",
+      "Stories"
     ]
   },
   {
@@ -777,6 +958,10 @@
     "tags":[
       "Freedom",
       "Freedom"
+    ],
+    "formats":[
+      "Livestreams",
+      "Short Videos"
     ]
   },
   {
@@ -792,6 +977,10 @@
     "tags":[
       "Sustainability",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs",
+      "Photos"
     ]
   },
   {
@@ -807,6 +996,9 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -822,6 +1014,9 @@
     "tags":[
       "Innovation",
       "Innovation"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -837,6 +1032,10 @@
     "tags":[
       "Wellness",
       "Sustainability"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -852,6 +1051,9 @@
     "tags":[
       "Creativity",
       "Authenticity"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -867,6 +1069,9 @@
     "tags":[
       "Diversity",
       "Wellness"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -882,6 +1087,10 @@
     "tags":[
       "Wellness",
       "Empowerment"
+    ],
+    "formats":[
+      "Stories",
+      "Blogs"
     ]
   },
   {
@@ -897,6 +1106,9 @@
     "tags":[
       "Empowerment",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -912,6 +1124,9 @@
     "tags":[
       "Empowerment",
       "Wellness"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -927,6 +1142,10 @@
     "tags":[
       "Innovation",
       "Sustainability"
+    ],
+    "formats":[
+      "Stories",
+      "Livestreams"
     ]
   },
   {
@@ -942,6 +1161,10 @@
     "tags":[
       "Innovation",
       "Wellness"
+    ],
+    "formats":[
+      "Blogs",
+      "Livestreams"
     ]
   },
   {
@@ -957,6 +1180,10 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Photos",
+      "Stories"
     ]
   },
   {
@@ -972,6 +1199,10 @@
     "tags":[
       "Creativity",
       "Wellness"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -987,6 +1218,10 @@
     "tags":[
       "Sustainability",
       "Empowerment"
+    ],
+    "formats":[
+      "Livestreams",
+      "Long Videos"
     ]
   },
   {
@@ -1002,6 +1237,9 @@
     "tags":[
       "Empowerment",
       "Authenticity"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -1017,6 +1255,10 @@
     "tags":[
       "Empowerment",
       "Wellness"
+    ],
+    "formats":[
+      "Stories",
+      "Photos"
     ]
   },
   {
@@ -1032,6 +1274,9 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -1047,6 +1292,10 @@
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs",
+      "Photos"
     ]
   },
   {
@@ -1062,6 +1311,10 @@
     "tags":[
       "Creativity",
       "Sustainability"
+    ],
+    "formats":[
+      "Stories",
+      "Livestreams"
     ]
   },
   {
@@ -1077,6 +1330,10 @@
     "tags":[
       "Freedom",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs",
+      "Short Videos"
     ]
   },
   {
@@ -1092,6 +1349,10 @@
     "tags":[
       "Authenticity",
       "Creativity"
+    ],
+    "formats":[
+      "Photos",
+      "Long Videos"
     ]
   },
   {
@@ -1107,6 +1368,10 @@
     "tags":[
       "Diversity",
       "Freedom"
+    ],
+    "formats":[
+      "Photos",
+      "Short Videos"
     ]
   },
   {
@@ -1122,6 +1387,10 @@
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs",
+      "Long Videos"
     ]
   },
   {
@@ -1137,6 +1406,9 @@
     "tags":[
       "Creativity",
       "Diversity"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -1152,6 +1424,9 @@
     "tags":[
       "Creativity",
       "Authenticity"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -1167,6 +1442,9 @@
     "tags":[
       "Empowerment",
       "Freedom"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -1176,12 +1454,15 @@
     "niche":"Tech",
     "platform":"Instagram",
     "followers":506353,
-    "engagementRate":4.0,
+    "engagementRate":4,
     "summary":"Home & Plants creator sharing deep dives.",
     "tone":"Bold",
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1191,12 +1472,15 @@
     "niche":"Fashion",
     "platform":"YouTube",
     "followers":915554,
-    "engagementRate":2.0,
+    "engagementRate":2,
     "summary":"Parenting creator sharing life hacks.",
     "tone":"Satirical",
     "tags":[
       "Freedom",
       "Wellness"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -1212,6 +1496,9 @@
     "tags":[
       "Diversity",
       "Freedom"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1227,6 +1514,9 @@
     "tags":[
       "Sustainability",
       "Creativity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -1242,6 +1532,9 @@
     "tags":[
       "Creativity",
       "Wellness"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1257,6 +1550,9 @@
     "tags":[
       "Creativity",
       "Empowerment"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1272,6 +1568,9 @@
     "tags":[
       "Innovation",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1287,6 +1586,10 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Photos",
+      "Stories"
     ]
   },
   {
@@ -1302,6 +1605,9 @@
     "tags":[
       "Innovation",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1317,6 +1623,9 @@
     "tags":[
       "Innovation",
       "Authenticity"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -1332,6 +1641,10 @@
     "tags":[
       "Sustainability",
       "Empowerment"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -1347,6 +1660,9 @@
     "tags":[
       "Freedom",
       "Empowerment"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -1362,6 +1678,9 @@
     "tags":[
       "Diversity",
       "Freedom"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -1377,6 +1696,10 @@
     "tags":[
       "Diversity",
       "Wellness"
+    ],
+    "formats":[
+      "Livestreams",
+      "Photos"
     ]
   },
   {
@@ -1392,6 +1715,9 @@
     "tags":[
       "Creativity",
       "Diversity"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -1407,6 +1733,10 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos",
+      "Livestreams"
     ]
   },
   {
@@ -1422,6 +1752,9 @@
     "tags":[
       "Innovation",
       "Freedom"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -1437,6 +1770,9 @@
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1452,6 +1788,9 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -1467,6 +1806,10 @@
     "tags":[
       "Freedom",
       "Wellness"
+    ],
+    "formats":[
+      "Long Videos",
+      "Photos"
     ]
   },
   {
@@ -1482,6 +1825,9 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -1497,6 +1843,9 @@
     "tags":[
       "Authenticity",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -1512,6 +1861,10 @@
     "tags":[
       "Sustainability",
       "Sustainability"
+    ],
+    "formats":[
+      "Short Videos",
+      "Stories"
     ]
   },
   {
@@ -1527,6 +1880,10 @@
     "tags":[
       "Empowerment",
       "Innovation"
+    ],
+    "formats":[
+      "Blogs",
+      "Stories"
     ]
   },
   {
@@ -1542,6 +1899,10 @@
     "tags":[
       "Innovation",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams",
+      "Photos"
     ]
   },
   {
@@ -1557,6 +1918,9 @@
     "tags":[
       "Sustainability",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1572,6 +1936,9 @@
     "tags":[
       "Empowerment",
       "Diversity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1587,6 +1954,10 @@
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Photos",
+      "Long Videos"
     ]
   },
   {
@@ -1602,6 +1973,10 @@
     "tags":[
       "Sustainability",
       "Empowerment"
+    ],
+    "formats":[
+      "Short Videos",
+      "Photos"
     ]
   },
   {
@@ -1617,6 +1992,10 @@
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Photos",
+      "Stories"
     ]
   },
   {
@@ -1626,12 +2005,15 @@
     "niche":"Home & Plants",
     "platform":"YouTube",
     "followers":141136,
-    "engagementRate":9.0,
+    "engagementRate":9,
     "summary":"Parenting creator sharing daily tips.",
     "tone":"Inspirational",
     "tags":[
       "Freedom",
       "Sustainability"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1647,6 +2029,9 @@
     "tags":[
       "Empowerment",
       "Sustainability"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -1662,6 +2047,10 @@
     "tags":[
       "Authenticity",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs",
+      "Long Videos"
     ]
   },
   {
@@ -1677,6 +2066,9 @@
     "tags":[
       "Authenticity",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1686,12 +2078,15 @@
     "niche":"Fitness",
     "platform":"YouTube",
     "followers":188967,
-    "engagementRate":8.0,
+    "engagementRate":8,
     "summary":"Finance creator sharing daily tips.",
     "tone":"Empathetic",
     "tags":[
       "Authenticity",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1707,6 +2102,10 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Long Videos",
+      "Photos"
     ]
   },
   {
@@ -1722,6 +2121,10 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Long Videos",
+      "Short Videos"
     ]
   },
   {
@@ -1737,6 +2140,10 @@
     "tags":[
       "Wellness",
       "Sustainability"
+    ],
+    "formats":[
+      "Photos",
+      "Long Videos"
     ]
   },
   {
@@ -1752,6 +2159,9 @@
     "tags":[
       "Empowerment",
       "Freedom"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1767,6 +2177,9 @@
     "tags":[
       "Empowerment",
       "Wellness"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -1782,6 +2195,10 @@
     "tags":[
       "Empowerment",
       "Innovation"
+    ],
+    "formats":[
+      "Long Videos",
+      "Stories"
     ]
   },
   {
@@ -1797,6 +2214,10 @@
     "tags":[
       "Diversity",
       "Creativity"
+    ],
+    "formats":[
+      "Photos",
+      "Livestreams"
     ]
   },
   {
@@ -1812,6 +2233,10 @@
     "tags":[
       "Innovation",
       "Wellness"
+    ],
+    "formats":[
+      "Short Videos",
+      "Stories"
     ]
   },
   {
@@ -1827,6 +2252,9 @@
     "tags":[
       "Sustainability",
       "Wellness"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1842,6 +2270,10 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos",
+      "Long Videos"
     ]
   },
   {
@@ -1857,6 +2289,10 @@
     "tags":[
       "Wellness",
       "Freedom"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -1866,12 +2302,15 @@
     "niche":"Tech",
     "platform":"Instagram",
     "followers":712002,
-    "engagementRate":8.0,
+    "engagementRate":8,
     "summary":"Finance creator sharing deep dives.",
     "tone":"Satirical",
     "tags":[
       "Empowerment",
       "Freedom"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -1887,6 +2326,9 @@
     "tags":[
       "Sustainability",
       "Innovation"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -1902,6 +2344,9 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -1917,6 +2362,10 @@
     "tags":[
       "Creativity",
       "Sustainability"
+    ],
+    "formats":[
+      "Blogs",
+      "Photos"
     ]
   },
   {
@@ -1932,6 +2381,10 @@
     "tags":[
       "Diversity",
       "Sustainability"
+    ],
+    "formats":[
+      "Photos",
+      "Short Videos"
     ]
   },
   {
@@ -1947,6 +2400,9 @@
     "tags":[
       "Sustainability",
       "Innovation"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -1962,6 +2418,10 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Stories"
     ]
   },
   {
@@ -1977,6 +2437,9 @@
     "tags":[
       "Innovation",
       "Wellness"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -1986,12 +2449,16 @@
     "niche":"Fitness",
     "platform":"Instagram",
     "followers":397371,
-    "engagementRate":2.0,
+    "engagementRate":2,
     "summary":"Beauty creator sharing daily tips.",
     "tone":"Inspirational",
     "tags":[
       "Authenticity",
       "Diversity"
+    ],
+    "formats":[
+      "Long Videos",
+      "Livestreams"
     ]
   },
   {
@@ -2007,6 +2474,9 @@
     "tags":[
       "Sustainability",
       "Innovation"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -2022,6 +2492,10 @@
     "tags":[
       "Sustainability",
       "Diversity"
+    ],
+    "formats":[
+      "Short Videos",
+      "Photos"
     ]
   },
   {
@@ -2037,6 +2511,10 @@
     "tags":[
       "Authenticity",
       "Empowerment"
+    ],
+    "formats":[
+      "Stories",
+      "Blogs"
     ]
   },
   {
@@ -2052,6 +2530,10 @@
     "tags":[
       "Authenticity",
       "Creativity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Blogs"
     ]
   },
   {
@@ -2067,6 +2549,9 @@
     "tags":[
       "Empowerment",
       "Creativity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2082,6 +2567,10 @@
     "tags":[
       "Empowerment",
       "Wellness"
+    ],
+    "formats":[
+      "Stories",
+      "Short Videos"
     ]
   },
   {
@@ -2097,6 +2586,10 @@
     "tags":[
       "Wellness",
       "Creativity"
+    ],
+    "formats":[
+      "Stories",
+      "Livestreams"
     ]
   },
   {
@@ -2112,6 +2605,9 @@
     "tags":[
       "Innovation",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2127,6 +2623,10 @@
     "tags":[
       "Creativity",
       "Wellness"
+    ],
+    "formats":[
+      "Photos",
+      "Stories"
     ]
   },
   {
@@ -2142,6 +2642,9 @@
     "tags":[
       "Sustainability",
       "Empowerment"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -2157,6 +2660,10 @@
     "tags":[
       "Authenticity",
       "Empowerment"
+    ],
+    "formats":[
+      "Long Videos",
+      "Photos"
     ]
   },
   {
@@ -2172,6 +2679,9 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2187,6 +2697,10 @@
     "tags":[
       "Diversity",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Stories"
     ]
   },
   {
@@ -2202,6 +2716,9 @@
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -2217,6 +2734,10 @@
     "tags":[
       "Sustainability",
       "Wellness"
+    ],
+    "formats":[
+      "Stories",
+      "Blogs"
     ]
   },
   {
@@ -2232,6 +2753,10 @@
     "tags":[
       "Innovation",
       "Empowerment"
+    ],
+    "formats":[
+      "Long Videos",
+      "Photos"
     ]
   },
   {
@@ -2247,6 +2772,9 @@
     "tags":[
       "Sustainability",
       "Innovation"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2262,6 +2790,9 @@
     "tags":[
       "Diversity",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2277,6 +2808,10 @@
     "tags":[
       "Diversity",
       "Freedom"
+    ],
+    "formats":[
+      "Short Videos",
+      "Livestreams"
     ]
   },
   {
@@ -2292,6 +2827,9 @@
     "tags":[
       "Diversity",
       "Innovation"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -2307,6 +2845,10 @@
     "tags":[
       "Wellness",
       "Wellness"
+    ],
+    "formats":[
+      "Short Videos",
+      "Long Videos"
     ]
   },
   {
@@ -2322,6 +2864,9 @@
     "tags":[
       "Empowerment",
       "Empowerment"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2331,12 +2876,16 @@
     "niche":"Parenting",
     "platform":"Instagram",
     "followers":986501,
-    "engagementRate":10.0,
+    "engagementRate":10,
     "summary":"Home & Plants creator sharing raw stories.",
     "tone":"Satirical",
     "tags":[
       "Authenticity",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams",
+      "Long Videos"
     ]
   },
   {
@@ -2352,6 +2901,9 @@
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2367,6 +2919,10 @@
     "tags":[
       "Freedom",
       "Diversity"
+    ],
+    "formats":[
+      "Long Videos",
+      "Stories"
     ]
   },
   {
@@ -2382,6 +2938,10 @@
     "tags":[
       "Wellness",
       "Empowerment"
+    ],
+    "formats":[
+      "Long Videos",
+      "Stories"
     ]
   },
   {
@@ -2391,12 +2951,16 @@
     "niche":"Beauty",
     "platform":"Instagram",
     "followers":112622,
-    "engagementRate":10.0,
+    "engagementRate":10,
     "summary":"Beauty creator sharing daily tips.",
     "tone":"Curious",
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Short Videos"
     ]
   },
   {
@@ -2412,6 +2976,9 @@
     "tags":[
       "Authenticity",
       "Wellness"
+    ],
+    "formats":[
+      "Stories"
     ]
   },
   {
@@ -2427,6 +2994,10 @@
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Stories",
+      "Photos"
     ]
   },
   {
@@ -2442,6 +3013,9 @@
     "tags":[
       "Creativity",
       "Authenticity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -2457,6 +3031,10 @@
     "tags":[
       "Wellness",
       "Freedom"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -2472,6 +3050,9 @@
     "tags":[
       "Empowerment",
       "Sustainability"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2487,6 +3068,9 @@
     "tags":[
       "Wellness",
       "Diversity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2502,6 +3086,9 @@
     "tags":[
       "Wellness",
       "Empowerment"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2517,6 +3104,9 @@
     "tags":[
       "Empowerment",
       "Innovation"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2532,6 +3122,10 @@
     "tags":[
       "Authenticity",
       "Diversity"
+    ],
+    "formats":[
+      "Stories",
+      "Photos"
     ]
   },
   {
@@ -2547,6 +3141,9 @@
     "tags":[
       "Empowerment",
       "Innovation"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2556,12 +3153,15 @@
     "niche":"Home & Plants",
     "platform":"YouTube",
     "followers":776318,
-    "engagementRate":2.0,
+    "engagementRate":2,
     "summary":"Tech creator sharing deep dives.",
     "tone":"Playful",
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2577,6 +3177,10 @@
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Photos",
+      "Short Videos"
     ]
   },
   {
@@ -2592,6 +3196,9 @@
     "tags":[
       "Creativity",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -2607,6 +3214,9 @@
     "tags":[
       "Creativity",
       "Diversity"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2622,6 +3232,9 @@
     "tags":[
       "Creativity",
       "Sustainability"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2637,6 +3250,10 @@
     "tags":[
       "Sustainability",
       "Sustainability"
+    ],
+    "formats":[
+      "Long Videos",
+      "Photos"
     ]
   },
   {
@@ -2652,6 +3269,10 @@
     "tags":[
       "Empowerment",
       "Innovation"
+    ],
+    "formats":[
+      "Photos",
+      "Long Videos"
     ]
   },
   {
@@ -2667,6 +3288,9 @@
     "tags":[
       "Diversity",
       "Innovation"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2682,6 +3306,9 @@
     "tags":[
       "Authenticity",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2697,6 +3324,9 @@
     "tags":[
       "Wellness",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2712,6 +3342,9 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2727,6 +3360,9 @@
     "tags":[
       "Wellness",
       "Creativity"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2742,6 +3378,10 @@
     "tags":[
       "Innovation",
       "Creativity"
+    ],
+    "formats":[
+      "Photos",
+      "Long Videos"
     ]
   },
   {
@@ -2757,6 +3397,9 @@
     "tags":[
       "Diversity",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -2772,6 +3415,10 @@
     "tags":[
       "Innovation",
       "Empowerment"
+    ],
+    "formats":[
+      "Blogs",
+      "Short Videos"
     ]
   },
   {
@@ -2787,6 +3434,10 @@
     "tags":[
       "Freedom",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs",
+      "Stories"
     ]
   },
   {
@@ -2796,12 +3447,16 @@
     "niche":"Fitness",
     "platform":"TikTok",
     "followers":43260,
-    "engagementRate":8.0,
+    "engagementRate":8,
     "summary":"Travel creator sharing deep dives.",
     "tone":"Bold",
     "tags":[
       "Freedom",
       "Innovation"
+    ],
+    "formats":[
+      "Blogs",
+      "Livestreams"
     ]
   },
   {
@@ -2817,6 +3472,9 @@
     "tags":[
       "Sustainability",
       "Empowerment"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2832,6 +3490,10 @@
     "tags":[
       "Freedom",
       "Creativity"
+    ],
+    "formats":[
+      "Stories",
+      "Long Videos"
     ]
   },
   {
@@ -2847,6 +3509,10 @@
     "tags":[
       "Sustainability",
       "Authenticity"
+    ],
+    "formats":[
+      "Stories",
+      "Livestreams"
     ]
   },
   {
@@ -2862,6 +3528,10 @@
     "tags":[
       "Diversity",
       "Wellness"
+    ],
+    "formats":[
+      "Photos",
+      "Stories"
     ]
   },
   {
@@ -2877,6 +3547,9 @@
     "tags":[
       "Innovation",
       "Sustainability"
+    ],
+    "formats":[
+      "Long Videos"
     ]
   },
   {
@@ -2892,6 +3565,9 @@
     "tags":[
       "Authenticity",
       "Freedom"
+    ],
+    "formats":[
+      "Photos"
     ]
   },
   {
@@ -2907,6 +3583,9 @@
     "tags":[
       "Authenticity",
       "Authenticity"
+    ],
+    "formats":[
+      "Blogs"
     ]
   },
   {
@@ -2922,6 +3601,10 @@
     "tags":[
       "Diversity",
       "Empowerment"
+    ],
+    "formats":[
+      "Long Videos",
+      "Photos"
     ]
   },
   {
@@ -2937,6 +3620,9 @@
     "tags":[
       "Wellness",
       "Creativity"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -2952,6 +3638,9 @@
     "tags":[
       "Authenticity",
       "Freedom"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2967,6 +3656,9 @@
     "tags":[
       "Diversity",
       "Creativity"
+    ],
+    "formats":[
+      "Short Videos"
     ]
   },
   {
@@ -2982,6 +3674,9 @@
     "tags":[
       "Creativity",
       "Sustainability"
+    ],
+    "formats":[
+      "Livestreams"
     ]
   },
   {
@@ -2997,6 +3692,10 @@
     "tags":[
       "Innovation",
       "Diversity"
+    ],
+    "formats":[
+      "Livestreams",
+      "Long Videos"
     ]
   }
 ]
