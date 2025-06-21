@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Badge } from "shared-ui";
 import { getCreatorBadges } from "shared-utils";
 
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaRegStar, FaStar } from "react-icons/fa";
 import { useBrandUser } from "@/lib/brandUser";
 import Toast from "./Toast";
 
@@ -128,9 +128,11 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       </button>
       <button
         onClick={handleSave}
-        className="ml-4 text-sm mt-4 text-Siora-accent underline"
+        className={`ml-4 mt-4 text-sm flex items-center gap-1 underline ${
+          shortlisted ? 'text-yellow-400' : 'text-Siora-accent'
+        }`}
       >
-        {shortlisted ? '✅ Saved' : '💾 Save to Shortlist'}
+        {shortlisted ? <FaStar /> : <FaRegStar />} {shortlisted ? 'Saved' : 'Save'}
       </button>
       {children}
       <EvaluationChecklistModal
