@@ -59,6 +59,10 @@ export default function PerformanceTab({ creatorId }: Props) {
   const trendUp = data.followerGrowth >= 0;
   const trendPercent = Math.round(Math.abs(data.followerGrowth));
 
+  const reachPct = Math.min(100, Math.round((data.avgReach / 20000) * 100));
+  const engagePct = Math.min(100, Math.round((data.engagementRate / 10) * 100));
+  const growthPct = Math.min(100, Math.round((Math.abs(data.followerGrowth) / 10) * 100));
+
   const chartData = {
     labels: ["Likes", "Comments", "Shares"],
     datasets: [
@@ -77,25 +81,49 @@ export default function PerformanceTab({ creatorId }: Props) {
   return (
     <div className="mt-6 space-y-6 text-sm text-zinc-300">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="flex items-center gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border">
-          <FaUsers className="text-Siora-accent" />
-          <div>
-            <div className="text-xs uppercase tracking-wide">Avg Reach</div>
-            <div className="text-base font-semibold">{data.avgReach.toLocaleString()}</div>
+        <div
+          className="flex flex-col gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border"
+          title="Average number of people each post reaches"
+        >
+          <div className="flex items-center gap-2">
+            <FaUsers className="text-Siora-accent" />
+            <div>
+              <div className="text-xs uppercase tracking-wide">Avg Reach</div>
+              <div className="text-base font-semibold">{data.avgReach.toLocaleString()}</div>
+            </div>
+          </div>
+          <div className="w-full h-2 bg-zinc-700/50 rounded">
+            <div className="h-2 bg-Siora-accent rounded" style={{ width: `${reachPct}%` }} />
           </div>
         </div>
-        <div className="flex items-center gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border">
-          <FaHeart className="text-Siora-accent" />
-          <div>
-            <div className="text-xs uppercase tracking-wide">Engagement Rate</div>
-            <div className="text-base font-semibold">{data.engagementRate}%</div>
+        <div
+          className="flex flex-col gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border"
+          title="Percentage of followers who interact with posts"
+        >
+          <div className="flex items-center gap-2">
+            <FaHeart className="text-Siora-accent" />
+            <div>
+              <div className="text-xs uppercase tracking-wide">Engagement Rate</div>
+              <div className="text-base font-semibold">{data.engagementRate}%</div>
+            </div>
+          </div>
+          <div className="w-full h-2 bg-zinc-700/50 rounded">
+            <div className="h-2 bg-green-400 rounded" style={{ width: `${engagePct}%` }} />
           </div>
         </div>
-        <div className="flex items-center gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border">
-          <FaChartLine className="text-Siora-accent" />
-          <div>
-            <div className="text-xs uppercase tracking-wide">Follower Growth</div>
-            <div className={`text-base font-semibold ${trendUp ? "text-green-400" : "text-red-400"}`}>{trendUp ? "▲" : "▼"} {trendPercent}%</div>
+        <div
+          className="flex flex-col gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border"
+          title="Change in followers over the last month"
+        >
+          <div className="flex items-center gap-2">
+            <FaChartLine className="text-Siora-accent" />
+            <div>
+              <div className="text-xs uppercase tracking-wide">Follower Growth</div>
+              <div className={`text-base font-semibold ${trendUp ? "text-green-400" : "text-red-400"}`}>{trendUp ? "▲" : "▼"} {trendPercent}%</div>
+            </div>
+          </div>
+          <div className="w-full h-2 bg-zinc-700/50 rounded">
+            <div className={`h-2 rounded ${trendUp ? "bg-green-400" : "bg-red-400"}`} style={{ width: `${growthPct}%` }} />
           </div>
         </div>
       </div>
