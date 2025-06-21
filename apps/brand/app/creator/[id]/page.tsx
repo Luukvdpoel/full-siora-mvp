@@ -1,5 +1,6 @@
 import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
+import PerformanceTab from "@/components/PerformanceTab";
 
 type Props = {
   params: {
@@ -54,6 +55,8 @@ export default function CreatorProfile({ params }: Props) {
             <p className="text-zinc-300">{creator.tone}</p>
           </div>
         )}
+
+        <PerformanceTab creatorId={creator.id} />
       </div>
     </main>
   );
