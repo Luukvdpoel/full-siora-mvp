@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import LeadMagnetDownloadModal from "@/components/LeadMagnetDownloadModal";
 import type { LeadMagnetIdea } from "@/types/leadMagnet";
 import {
   loadLeadMagnetIdea,
@@ -29,6 +30,7 @@ export default function LeadMagnetDashboard() {
   const [idea, setIdea] = useState<LeadMagnetIdea | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const stored = loadLeadMagnetIdea();
@@ -57,6 +59,12 @@ export default function LeadMagnetDashboard() {
   };
 
   const downloadPdf = () => {
+    setShowModal(true);
+  };
+
+  const handleDownload = (email: string) => {
+    setShowModal(false);
+    console.log("Download PDF for", email);
     alert("PDF download coming soon!");
   };
 
@@ -106,5 +114,10 @@ export default function LeadMagnetDashboard() {
         Generate new idea
       </Link>
     </main>
+    <LeadMagnetDownloadModal
+      open={showModal}
+      onClose={() => setShowModal(false)}
+      onDownload={handleDownload}
+    />
   );
 }
