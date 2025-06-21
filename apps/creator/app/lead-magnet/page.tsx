@@ -11,6 +11,8 @@ export default function LeadMagnetPage() {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,6 +48,15 @@ export default function LeadMagnetPage() {
       callback: () => doc.save("lead-magnet.pdf"),
       html2canvas: { scale: 0.6 },
     });
+  };
+
+  const handleDownloadClick = () => {
+    setShowModal(true);
+  };
+
+  const confirmDownload = () => {
+    downloadPdf();
+    setShowModal(false);
   };
 
   return (
@@ -99,7 +110,7 @@ export default function LeadMagnetPage() {
           </div>
           <button
             type="button"
-            onClick={downloadPdf}
+            onClick={handleDownloadClick}
             className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md"
           >
             Download PDF
@@ -107,5 +118,25 @@ export default function LeadMagnetPage() {
         </div>
       )}
     </main>
+    {showModal && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="bg-background text-foreground border border-white/10 rounded-lg p-6 w-80 space-y-4">
+          <p className="text-center text-sm">Enter your email to download your personalized lead magnet</p>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-2 rounded-md bg-zinc-800 text-white"
+          />
+          <button
+            onClick={confirmDownload}
+            className="w-full bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md"
+          >
+            Download Now
+          </button>
+        </div>
+      </div>
+    )}
   );
 }
