@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import campaigns from "@/app/data/campaigns";
-import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
 interface Message extends ChatMessage {
@@ -11,6 +10,7 @@ interface Message extends ChatMessage {
 }
 
 const creatorId = "1"; // demo user
+const brandId = "brand1"; // temporary until auth wiring
 
 export default function CreatorCampaignChat() {
   const params = useParams<{ id: string }>();
@@ -20,16 +20,33 @@ export default function CreatorCampaignChat() {
 
   useEffect(() => {
     if (!params.id) return;
-    const stored = (mockMessages[creatorId] ?? []) as StoredMessage[];
-    const mapped = stored.map((m, i) => ({
-      id: `${creatorId}-${i}`,
-      creatorId,
-      sender: m.sender,
-      text: m.content,
-      timestamp: m.timestamp,
-      campaign: params.id,
-    }));
-    setMessages(mapped);
+    async function load() {
+      try {
+        const res = await fetch(
+          `/api/messages?brandId=${brandId}&creatorId=${creatorId}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.messages)) {
+            const mapped = data.messages.map((m: any, i: number) => ({
+              id: `${brandId}-${creatorId}-${i}`,
+              creatorId,
+              sender: m.senderId === brandId ? "brand" : "creator",
+              text: m.message,
+              timestamp: m.timestamp,
+              campaign: params.id,
+            }));
+            setMessages(mapped);
+          }
+        }
+      } catch (err) {
+        console.error("failed to load messages", err);
+      }
+    }
+    load();
+    // simple polling until real-time WebSocket integration is added
+    const interval = setInterval(load, 15000);
+    return () => clearInterval(interval);
   }, [params.id]);
 
   const send = async (text: string) => {

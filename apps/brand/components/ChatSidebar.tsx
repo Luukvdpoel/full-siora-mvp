@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import type { Creator } from "@/app/data/creators";
 import { ChatPanel, ChatMessage } from "shared-ui";
-import mockMessages, { StoredMessage } from "@/app/data/mock_messages";
 
 interface Message extends ChatMessage {
   creatorId: string;
@@ -15,22 +14,44 @@ interface Props {
 }
 
 export default function ChatSidebar({ creator, onClose }: Props) {
+  const brandId = "brand1"; // demo brand id until auth
   const [messages, setMessages] = useState<Message[]>([]);
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
     if (!creator) return;
-    const stored = (mockMessages[creator.id] ?? []) as StoredMessage[];
-    const sorted = stored
-      .map((m, i) => ({
-        id: `${creator.id}-${i}`,
-        creatorId: creator.id,
-        sender: m.sender,
-        text: m.content,
-        timestamp: m.timestamp,
-      }))
-      .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
-    setMessages(sorted);
+    async function load() {
+      try {
+        const res = await fetch(
+          `/api/messages?brandId=${brandId}&creatorId=${creator.id}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.messages)) {
+            const sorted = data.messages
+              .map((m: any, i: number) => ({
+                id: `${brandId}-${creator.id}-${i}`,
+                creatorId: creator.id,
+                sender: m.senderId === brandId ? "brand" : "creator",
+                text: m.message,
+                timestamp: m.timestamp,
+              }))
+              .sort(
+                (a, b) =>
+                  new Date(a.timestamp).getTime() -
+                  new Date(b.timestamp).getTime()
+              );
+            setMessages(sorted);
+          }
+        }
+      } catch (err) {
+        console.error("failed to load messages", err);
+      }
+    }
+    load();
+    // simple polling until real-time WebSocket integration is added
+    const interval = setInterval(load, 15000);
+    return () => clearInterval(interval);
   }, [creator]);
 
   const send = async (text: string) => {
