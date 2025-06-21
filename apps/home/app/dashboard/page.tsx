@@ -1,15 +1,30 @@
 import Link from 'next/link';
-import personas from '../../../../data/personas.json';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '../../lib/auth';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 interface Persona {
   id: string | number;
+  userId: string;
   title: string;
   handle: string;
   tone: string;
 }
 
-export default function DashboardPage() {
-  const list = personas as Persona[];
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    redirect('/signin');
+  }
+
+  const file = await fs.readFile(
+    path.join(process.cwd(), '..', '..', 'data', 'personas.json'),
+    'utf8'
+  );
+  const data = JSON.parse(file) as Persona[];
+  const list = data.filter((p) => p.userId === session!.user!.id);
   return (
     <main className="min-h-screen bg-white text-gray-900 p-6 space-y-6">
       <h1 className="text-3xl font-bold">Personas</h1>
