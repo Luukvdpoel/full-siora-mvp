@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
 import type { Creator } from "@/app/data/creators";
 
@@ -31,6 +32,12 @@ export default function ShortlistItem({ creator, note, onDelete }: Props) {
             {note}
           </p>
         )}
+        <Link
+          href={`/brands/${creator.id}`}
+          className="block mt-2 text-sm text-Siora-accent underline"
+        >
+          View Persona
+        </Link>
       </div>
       {onDelete && (
         <button onClick={onDelete} className="text-red-500 hover:text-red-700 self-start">
