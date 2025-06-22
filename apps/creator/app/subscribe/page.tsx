@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
+import { useToast } from "@/components/Toast";
 
 export default function SubscribePage() {
   const [loading, setLoading] = useState<string | null>(null);
+  const toast = useToast();
   const checkout = async (plan: string) => {
     setLoading(plan);
     const res = await fetch("/api/subscribe", {
@@ -15,7 +17,7 @@ export default function SubscribePage() {
       window.location.href = data.url as string;
     } else {
       setLoading(null);
-      alert("Error creating checkout");
+      toast("Error creating checkout");
     }
   };
 

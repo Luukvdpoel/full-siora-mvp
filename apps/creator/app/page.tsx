@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { useToast } from '@/components/Toast';
 import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import ReactMarkdown from "react-markdown";
@@ -28,6 +29,7 @@ export default function Home() {
   const [favFormats, setFavFormats] = useState('');
   const resultRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+  const toast = useToast();
 
 
 
@@ -75,12 +77,16 @@ export default function Home() {
         setPersona(data.result);
         const saved = await handleSave(data.result);
         if (saved) {
+          toast('Persona opgeslagen');
           router.push('/dashboard');
+        } else {
+          toast('Fout bij opslaan');
         }
       }
     } catch (error) {
       console.error(error);
       setPersona("Oops, something went wrong. Please try again.");
+      toast('Fout bij laden');
     } finally {
       setIsLoading(false);
     }
@@ -97,6 +103,7 @@ export default function Home() {
       });
       if (res.status === 429) {
         setLimitReached(true);
+        toast('Fout bij opslaan');
         return false;
       } else if (res.ok) {
         const data = await res.json();
@@ -120,10 +127,12 @@ export default function Home() {
             console.error('Failed to store inputs', err);
           }
         }
+        toast('Persona opgeslagen');
         return true;
       }
     } catch (err) {
       console.error("Failed to save persona", err);
+      toast('Fout bij opslaan');
     }
     return false;
   };

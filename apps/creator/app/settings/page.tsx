@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/Toast";
 import Settings, { ExtendedPersona } from "@/components/Settings";
 import { loadProfileSettings, saveProfileSettings } from "@/lib/profileSettings";
 import { loadPersonasFromLocal } from "@/lib/localPersonas";
@@ -53,6 +54,7 @@ export default function SettingsPage() {
   }
 
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const upgrade = async () => {
     setLoading(true);
@@ -66,7 +68,7 @@ export default function SettingsPage() {
       window.location.href = data.url as string;
     } else {
       setLoading(false);
-      alert("Error creating checkout");
+      toast("Error creating checkout");
     }
   };
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useToast } from "@/components/Toast";
 import { savePerformance, loadPerformance } from "@/lib/localPerformance";
 import type { PerformanceData } from "@/types/performance";
 
@@ -11,6 +12,7 @@ export default function PerformancePage() {
     avgViews: 0,
     growthTrend: "",
   });
+  const toast = useToast();
 
   useEffect(() => {
     const stored = loadPerformance();
@@ -30,7 +32,7 @@ export default function PerformancePage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     savePerformance(metrics);
-    alert("Saved performance metrics");
+    toast("Saved performance metrics");
   };
 
   return (
