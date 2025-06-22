@@ -3,10 +3,14 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { jsPDF } from "jspdf";
+import { useSession } from "next-auth/react";
+import { FaLock } from "react-icons/fa";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { FullPersona } from "@/types/persona";
 
 export default function ProfilePage() {
+  const { data: session } = useSession();
+  const isPro = session?.user?.plan === "pro";
   const [persona, setPersona] = useState<FullPersona | null>(null);
 
   useEffect(() => {
@@ -135,13 +139,22 @@ export default function ProfilePage() {
       </section>
 
       <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
-        <button
-          type="button"
-          onClick={downloadPdf}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md"
-        >
-          Download Media Kit
-        </button>
+        {isPro ? (
+          <button
+            type="button"
+            onClick={downloadPdf}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md"
+          >
+            Download Media Kit
+          </button>
+        ) : (
+          <a
+            href="/subscribe"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center gap-2"
+          >
+            <FaLock className="w-4 h-4" /> Upgrade for PDF
+          </a>
+        )}
         <a
           href="/contact"
           className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-center rounded-md"

@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import html2pdf from "html2pdf.js";
+import { useSession } from "next-auth/react";
+import { FaLock } from "react-icons/fa";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PersonaProfile, FullPersona } from "@/types/persona";
 
 export default function MediaKitPage() {
+  const { data: session, status } = useSession();
+  const isPro = session?.user?.plan === "pro";
   const [personas, setPersonas] = useState<StoredPersona[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -28,6 +32,19 @@ export default function MediaKitPage() {
     } as const;
     html2pdf().set(opt).from(element).save();
   };
+
+  if (status === "loading") return null;
+  if (!isPro) {
+    return (
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 bg-background text-foreground">
+        <FaLock className="w-10 h-10 text-zinc-400" />
+        <p>Media kit export is for Pro members only.</p>
+        <a href="/subscribe" className="text-indigo-500 underline">
+          Upgrade to Pro
+        </a>
+      </main>
+    );
+  }
 
   if (personas.length === 0) {
     return (

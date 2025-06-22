@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { FaLock } from "react-icons/fa";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PersonaProfile } from "@/types/persona";
 import type { GrowthPlan } from "@/types/growth";
 
 export default function GrowthPlanPage() {
+  const { data: session, status } = useSession();
+  const isPro = session?.user?.plan === "pro";
   const [personas, setPersonas] = useState<StoredPersona[]>([]);
 
   useEffect(() => {
@@ -106,6 +110,19 @@ export default function GrowthPlanPage() {
     }));
     return plan;
   };
+
+  if (status === "loading") return null;
+  if (!isPro) {
+    return (
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 bg-background text-foreground">
+        <FaLock className="w-10 h-10 text-zinc-400" />
+        <p>Growth plan is available for Pro members only.</p>
+        <a href="/subscribe" className="text-indigo-500 underline">
+          Upgrade to Pro
+        </a>
+      </main>
+    );
+  }
 
   if (personas.length === 0) {
     return (
