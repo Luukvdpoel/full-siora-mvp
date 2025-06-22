@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import html2pdf from "html2pdf.js";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PersonaProfile, FullPersona } from "@/types/persona";
 
@@ -15,18 +14,13 @@ export default function MediaKitPage() {
 
   const persona = personas[selectedIndex]?.persona as PersonaProfile | undefined;
 
-  const downloadPdf = () => {
-    if (!persona) return;
-    const element = document.getElementById("media-kit");
-    if (!element) return;
-    const opt = {
-      margin: 0.5,
-      filename: `${persona.name || "media-kit"}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-    } as const;
-    html2pdf().set(opt).from(element).save();
+
+  const handleCheckout = async () => {
+    const res = await fetch('/api/checkout', { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      window.location.href = data.url;
+    }
   };
 
   if (personas.length === 0) {
@@ -57,10 +51,10 @@ export default function MediaKitPage() {
         </div>
         <button
           type="button"
-          onClick={downloadPdf}
+          onClick={handleCheckout}
           className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md"
         >
-          Download as PDF
+          Download als PDF (€4.99)
         </button>
       </div>
 
