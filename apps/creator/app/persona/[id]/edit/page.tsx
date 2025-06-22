@@ -19,6 +19,8 @@ export default function EditPersonaPage() {
   const [tone, setTone] = useState('');
   const [platforms, setPlatforms] = useState('');
   const [persona, setPersona] = useState<string | null>(null);
+  const [tagline, setTagline] = useState('');
+  const [taglineLoading, setTaglineLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
   const [showSlowMessage, setShowSlowMessage] = useState(false);
@@ -117,6 +119,27 @@ export default function EditPersonaPage() {
       localStorage.setItem(`inputs-${idParam}`, JSON.stringify({ handle, niche, audience, goal, tone, platforms, struggles, dreamBrands, favFormats }));
     } catch (err) {
       console.error('Failed to save persona', err);
+    }
+  };
+
+  const handleTagline = async () => {
+    if (!persona) return;
+    setTagline('');
+    setTaglineLoading(true);
+    try {
+      const res = await fetch('/api/tagline', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ persona }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setTagline(data.tagline ?? '');
+      }
+    } catch (err) {
+      console.error('Failed to generate tagline', err);
+    } finally {
+      setTaglineLoading(false);
     }
   };
 
@@ -231,6 +254,15 @@ export default function EditPersonaPage() {
           <button type="button" onClick={handleSave} className="bg-green-600 hover:bg-green-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md">
             Save Persona
           </button>
+          <button
+            type="button"
+            onClick={handleTagline}
+            disabled={taglineLoading}
+            className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white font-semibold py-2 px-4 rounded-md disabled:opacity-50"
+          >
+            {taglineLoading ? 'Generating...' : 'Generate sharp tagline'}
+          </button>
+          {tagline && <p className="italic text-center">{tagline}</p>}
         </div>
       )}
 
