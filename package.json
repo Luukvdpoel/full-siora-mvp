@@ -15,12 +15,14 @@
     "build:brand": "npm run build -w apps/brand",
     "lint": "turbo run lint",
     "start": "turbo run start",
-    "generate:campaign": "node tools/campaign_flow.mjs"
+    "generate:campaign": "node tools/campaign_flow.mjs",
+    "prisma:generate": "prisma generate"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
     "tailwindcss": "^4.1.10",
-    "turbo": "latest"
+    "turbo": "latest",
+    "prisma": "^6.9.0"
   },
   "dependencies": {
     "next": "^15.3.4",
