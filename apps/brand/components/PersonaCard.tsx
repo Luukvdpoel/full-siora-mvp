@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
 
@@ -11,12 +12,19 @@ type Props = {
 };
 
 export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/brands/${persona.id}`);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover hover:-translate-y-1 transition-all"
+      onClick={handleClick}
+      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover hover:-translate-y-1 hover:shadow-lg transition-all cursor-pointer"
     >
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
         {persona.name}{" "}
@@ -42,13 +50,17 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
       )}
       <Link
         href={`/brands/${persona.id}`}
+        onClick={(e) => e.stopPropagation()}
         className="inline-block text-sm mt-4 text-Siora-accent underline hover:text-indigo-400"
       >
         View Persona
       </Link>
       {onToggle && (
         <button
-          onClick={() => onToggle(persona.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggle(persona.id);
+          }}
           className="ml-4 text-sm text-Siora-accent underline"
         >
           {inShortlist ? "Remove from Shortlist" : "Save to Shortlist"}
