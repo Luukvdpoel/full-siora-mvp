@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
 import { useState } from "react";
@@ -21,6 +22,7 @@ type Props = {
   children?: ReactNode;
 };
 export default function CreatorCard({ creator, onShortlist, shortlisted, children }: Props) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [checklistOpen, setChecklistOpen] = useState(false);
   const [toast, setToast] = useState("");
@@ -64,14 +66,19 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
     }
   };
 
+  const handleCardClick = () => {
+    router.push(`/dashboard/persona/${creator.handle.replace(/^@/, "")}`);
+  };
+
   return (
     <motion.div
+      onClick={handleCardClick}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
+      className="group cursor-pointer bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
     >
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
         {creator.name}{" "}
@@ -106,31 +113,42 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       </div>
       <Link
         href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
+        onClick={(e) => e.stopPropagation()}
         className="inline-block text-sm mt-4 text-Siora-accent underline group-hover:text-Siora-accent-soft"
       >
         View
       </Link>
       <Link
         href={`/messages/${creator.id}`}
+        onClick={(e) => e.stopPropagation()}
         className="ml-4 inline-flex items-center text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 hover:bg-Siora-accent-soft"
       >
         <FaEnvelope className="mr-1" /> Message
       </Link>
       <button
-        onClick={handleContact}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleContact();
+        }}
         disabled={loading}
         className="ml-4 inline-block text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 disabled:opacity-50"
       >
         {loading ? 'Contacting...' : 'Contact'}
       </button>
       <button
-        onClick={() => setChecklistOpen(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setChecklistOpen(true);
+        }}
         className="ml-4 text-sm mt-4 text-Siora-accent underline"
       >
         Generate Evaluation Checklist
       </button>
       <button
-        onClick={handleSave}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSave();
+        }}
         className={`ml-4 mt-4 text-sm flex items-center gap-1 underline ${
           shortlisted ? 'text-yellow-400' : 'text-Siora-accent'
         }`}
