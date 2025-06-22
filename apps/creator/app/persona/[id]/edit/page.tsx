@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { useToast } from '@/components/Toast';
 import { useParams } from 'next/navigation';
 import ReactMarkdown from "react-markdown";
 import { saveProfileSettings } from "@/lib/profileSettings";
@@ -21,6 +22,7 @@ export default function EditPersonaPage() {
   const [persona, setPersona] = useState<string | null>(null);
   const [tagline, setTagline] = useState('');
   const [taglineLoading, setTaglineLoading] = useState(false);
+  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
   const [showSlowMessage, setShowSlowMessage] = useState(false);
@@ -117,8 +119,10 @@ export default function EditPersonaPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed');
       localStorage.setItem(`inputs-${idParam}`, JSON.stringify({ handle, niche, audience, goal, tone, platforms, struggles, dreamBrands, favFormats }));
+      toast('Persona opgeslagen');
     } catch (err) {
       console.error('Failed to save persona', err);
+      toast('Fout bij opslaan');
     }
   };
 

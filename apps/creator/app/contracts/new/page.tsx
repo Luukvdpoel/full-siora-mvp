@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "@/components/Toast";
 import ReactMarkdown from "react-markdown";
 import { jsPDF } from "jspdf";
 
@@ -14,6 +15,7 @@ export default function NewContractPage() {
   const [contract, setContract] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,7 +66,7 @@ export default function NewContractPage() {
   };
 
   const sendToBrand = () => {
-    alert("Send to Brand coming soon");
+    toast("Send to Brand coming soon");
   };
 
   return (

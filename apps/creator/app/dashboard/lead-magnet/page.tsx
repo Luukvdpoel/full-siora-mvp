@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useToast } from "@/components/Toast";
 import Link from "next/link";
 import type { LeadMagnetIdea } from "@/types/leadMagnet";
 import {
@@ -29,6 +30,7 @@ export default function LeadMagnetDashboard() {
   const [idea, setIdea] = useState<LeadMagnetIdea | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const toast = useToast();
 
   useEffect(() => {
     const stored = loadLeadMagnetIdea();
@@ -74,7 +76,7 @@ export default function LeadMagnetDashboard() {
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      alert("PDF generation failed");
+      toast("PDF generation failed");
     }
   };
 

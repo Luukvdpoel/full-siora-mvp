@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/Toast";
 import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 
 export default function CreatorProfilePage() {
   const [persona, setPersona] = useState<string>("");
+  const toast = useToast();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -15,7 +17,7 @@ export default function CreatorProfilePage() {
   const handleCopy = () => {
     if (!persona) return;
     navigator.clipboard.writeText(persona);
-    alert("Persona copied to clipboard!");
+    toast("Persona copied to clipboard!");
   };
 
   const handleDownload = () => {

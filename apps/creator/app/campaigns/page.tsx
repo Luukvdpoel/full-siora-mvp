@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Toast from "@/components/Toast";
+import { useToast } from "@/components/Toast";
 import { discoveryBrands } from "@/data/discoveryBrands";
 import { Badge } from "shared-ui";
 import { getBrandBadges } from "shared-utils";
@@ -16,7 +16,7 @@ interface Campaign {
 
 export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-  const [toast, setToast] = useState("");
+  const toast = useToast();
 
   useEffect(() => {
     async function load() {
@@ -44,9 +44,9 @@ export default function CampaignsPage() {
           pitch,
         }),
       });
-      setToast("Application submitted!");
+      toast("Application submitted!");
     } catch {
-      setToast("Failed to apply");
+      toast("Failed to apply");
     }
   }
 
@@ -88,7 +88,6 @@ export default function CampaignsPage() {
           );
         })}
       </div>
-      {toast && <Toast message={toast} onClose={() => setToast("")} />}
     </main>
   );
 }

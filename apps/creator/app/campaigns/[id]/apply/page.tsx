@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/Toast";
 import { useParams } from "next/navigation";
 import campaigns from "@/app/data/campaigns";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
@@ -12,6 +13,7 @@ export default function ApplyPage() {
   const [index, setIndex] = useState(0);
   const [pitch, setPitch] = useState("");
   const [summary, setSummary] = useState("");
+  const toast = useToast();
 
   useEffect(() => {
     const list = loadPersonasFromLocal();
@@ -46,7 +48,7 @@ export default function ApplyPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ campaignId: campaign.id, pitch, personaSummary: summary }),
     });
-    alert("Application submitted");
+    toast("Application submitted");
   };
 
   if (!campaign) return <p>Campaign not found.</p>;
