@@ -10,7 +10,7 @@ import { getCreatorBadges } from "shared-utils";
 
 import { FaEnvelope, FaRegStar, FaStar } from "react-icons/fa";
 import { useBrandUser } from "@/lib/brandUser";
-import Toast from "./Toast";
+import { useToast } from "../../../components/Toast";
 
 import { ReactNode } from "react";
 import EvaluationChecklistModal from "./EvaluationChecklistModal";
@@ -25,7 +25,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [checklistOpen, setChecklistOpen] = useState(false);
-  const [toast, setToast] = useState("");
+  const showToast = useToast();
   const { user } = useBrandUser();
   const badges = getCreatorBadges({
     verified: creator.verified,
@@ -60,9 +60,9 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
   const handleSave = () => {
     if (onShortlist) onShortlist(creator.id);
     if (shortlisted) {
-      setToast('Removed from shortlist');
+      showToast('Removed from shortlist', 'success');
     } else {
-      setToast('Creator saved to shortlist');
+      showToast('Creator saved to shortlist', 'success');
     }
   };
 
@@ -162,7 +162,6 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
         creatorId={creator.id}
         creatorName={creator.name}
       />
-      {toast && <Toast message={toast} onClose={() => setToast('')} />}
     </motion.div>
   );
 }

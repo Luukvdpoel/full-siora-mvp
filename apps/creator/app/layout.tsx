@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Providers from './providers';
 import AuthStatus from '@/components/AuthStatus';
 import ThemeToggle from '@/components/ThemeToggle';
+import { ToastProvider } from '../../../components/Toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,13 +24,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={inter.className}>
-        <Providers>
-          <div className="p-4 flex justify-between items-center">
-            <ThemeToggle />
-            <AuthStatus />
-          </div>
-          {children}
-        </Providers>
+        <ToastProvider>
+          <Providers>
+            <div className="p-4 flex justify-between items-center">
+              <ThemeToggle />
+              <AuthStatus />
+            </div>
+            {children}
+          </Providers>
+        </ToastProvider>
       </body>
     </html>
   );

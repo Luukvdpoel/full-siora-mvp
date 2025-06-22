@@ -2,12 +2,12 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useBrandUser } from "@/lib/brandUser";
-import Toast from "@/components/Toast";
+import { useToast } from "../../../../components/Toast";
 
 export default function SignInPage() {
   const { setUser } = useBrandUser();
   const [email, setEmail] = useState("");
-  const [toast, setToast] = useState("");
+  const showToast = useToast();
   const [submitting, setSubmitting] = useState(false);
 
   const handleGoogle = () => {
@@ -18,12 +18,12 @@ export default function SignInPage() {
     if (submitting) return;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setToast("Please enter a valid email");
+      showToast("Please enter a valid email", "error");
       return;
     }
     setSubmitting(true);
     setUser({ email });
-    setToast("Signed in!");
+    showToast("Signed in!", "success");
     setTimeout(() => setSubmitting(false), 1000);
   };
 
@@ -50,7 +50,6 @@ export default function SignInPage() {
           Continue
         </button>
       </div>
-      {toast && <Toast message={toast} onClose={() => setToast("")} />}
     </main>
   );
 }

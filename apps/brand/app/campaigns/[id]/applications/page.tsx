@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import Toast from '@/components/Toast';
+import { useToast } from '../../../../../../components/Toast';
 import { creators } from '@/app/data/creators';
 
 interface Application {
@@ -19,7 +19,7 @@ export default function ApplicationsPage() {
   const params = useParams<{ id: string }>();
   const campaignId = params.id;
   const [apps, setApps] = useState<Application[]>([]);
-  const [toast, setToast] = useState('');
+  const showToast = useToast();
 
   useEffect(() => {
     async function load() {
@@ -48,16 +48,16 @@ export default function ApplicationsPage() {
         }),
       });
       setApps((prev) => prev.filter((a) => a.id !== application.id));
-      setToast('Application accepted');
+      showToast('Application accepted', 'success');
       window.location.href = `/campaigns/${campaignId}/messages/${application.userId}`;
     } catch {
-      setToast('Failed to accept');
+      showToast('Failed to accept', 'error');
     }
   }
 
   function reject(id: string) {
     setApps((prev) => prev.filter((a) => a.id !== id));
-    setToast('Application rejected');
+    showToast('Application rejected', 'success');
   }
 
   return (
@@ -95,7 +95,6 @@ export default function ApplicationsPage() {
           </div>
         )}
       </div>
-      {toast && <Toast message={toast} onClose={() => setToast('')} />}
     </main>
   );
 }
