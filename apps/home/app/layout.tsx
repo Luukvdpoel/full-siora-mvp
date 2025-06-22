@@ -2,6 +2,7 @@ import './globals.css';
 import type { ReactNode } from 'react';
 import Providers from './providers';
 import AuthStatus from '../components/AuthStatus';
+import { PageTransition } from 'shared-ui';
 
 export const metadata = {
   title: 'Siora',
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="p-4 flex justify-end">
             <AuthStatus />
           </div>
-          {children}
+          <PageTransition>{children}</PageTransition>
         </Providers>
       </body>
     </html>
