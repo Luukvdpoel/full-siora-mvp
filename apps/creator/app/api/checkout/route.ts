@@ -1,10 +1,16 @@
 import Stripe from "stripe";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2024-04-10",
 });
 
 export async function POST() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user || session.user.plan !== "pro") {
+    return new Response("Forbidden", { status: 403 });
+  }
   const checkout = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: [

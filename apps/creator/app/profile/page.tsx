@@ -3,10 +3,29 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { jsPDF } from "jspdf";
+import { useSession } from "next-auth/react";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { FullPersona } from "@/types/persona";
 
+function LockIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2v-9a2 2 0 00-2-2h-1.5v-3A4.5 4.5 0 0012 1.5zm-3 4.5a3 3 0 116 0v3h-6v-3z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
 export default function ProfilePage() {
+  const { data: session, status } = useSession();
   const [persona, setPersona] = useState<FullPersona | null>(null);
 
   useEffect(() => {
@@ -38,6 +57,14 @@ export default function ProfilePage() {
       html2canvas: { scale: 0.6 },
     });
   };
+
+  if (status === "loading") {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-background text-foreground p-6">
+        <p>Loading...</p>
+      </main>
+    );
+  }
 
   if (!persona) {
     return (
@@ -135,13 +162,22 @@ export default function ProfilePage() {
       </section>
 
       <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
-        <button
-          type="button"
-          onClick={downloadPdf}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md"
-        >
-          Download Media Kit
-        </button>
+        {session?.user?.plan === "pro" ? (
+          <button
+            type="button"
+            onClick={downloadPdf}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md"
+          >
+            Download Media Kit
+          </button>
+        ) : (
+          <a
+            href="/subscribe"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center gap-2 justify-center"
+          >
+            <LockIcon className="w-4 h-4" /> Pro only
+          </a>
+        )}
         <a
           href="/contact"
           className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-center rounded-md"

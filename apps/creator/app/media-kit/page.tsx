@@ -1,10 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PersonaProfile, FullPersona } from "@/types/persona";
 
+function LockIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2v-9a2 2 0 00-2-2h-1.5v-3A4.5 4.5 0 0012 1.5zm-3 4.5a3 3 0 116 0v3h-6v-3z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
 export default function MediaKitPage() {
+  const { data: session, status } = useSession();
   const [personas, setPersonas] = useState<StoredPersona[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -13,6 +32,26 @@ export default function MediaKitPage() {
   }, []);
 
   const persona = personas[selectedIndex]?.persona as PersonaProfile | undefined;
+
+  if (status === "loading") {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-background text-foreground p-6">
+        <p>Loading...</p>
+      </main>
+    );
+  }
+
+  if (!session || session.user?.plan !== "pro") {
+    return (
+      <main className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-6">
+        <LockIcon className="w-8 h-8 mb-4" />
+        <p className="mb-4">Alleen beschikbaar voor Pro-gebruikers.</p>
+        <a href="/subscribe" className="text-indigo-600 underline">
+          Upgrade naar Pro
+        </a>
+      </main>
+    );
+  }
 
 
   const handleCheckout = async () => {
