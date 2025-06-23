@@ -20,9 +20,10 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
+    "postcss-import": "^16.1.1",
+    "prisma": "^6.9.0",
     "tailwindcss": "^4.1.10",
-    "turbo": "latest",
-    "prisma": "^6.9.0"
+    "turbo": "latest"
   },
   "dependencies": {
     "next": "^15.3.4",
