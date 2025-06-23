@@ -20,12 +20,12 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
-    "postcss-import": "^16.1.1",
+    "postcss-import": "^15.1.0",
     "prisma": "^6.9.0",
     "tailwindcss": "^4.1.10",
     "turbo": "latest",
     "autoprefixer": "^10.4.14",
-    "postcss-import": "^15.1.0"
+    "@tailwindcss/typography": "^0.5.16"
   },
   "dependencies": {
     "next": "^15.3.4",
