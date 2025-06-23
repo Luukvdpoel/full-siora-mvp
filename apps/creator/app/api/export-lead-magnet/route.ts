@@ -16,7 +16,9 @@ export async function POST(req: Request) {
     const cssPath = path.join(process.cwd(), 'apps', 'creator', 'app', 'api', 'export-lead-magnet', 'pdf.css')
     const css = fs.readFileSync(cssPath, 'utf8')
 
-    const logoPath = path.join(process.cwd(), 'apps', 'creator', 'public', 'siora-logo.svg')
+    // Resolve logo path relative to the current working directory so it works
+    // when the app is started from the `apps/creator` workspace
+    const logoPath = path.join(process.cwd(), 'public', 'siora-logo.svg')
     const logoSvg = fs.readFileSync(logoPath)
     const logoData = Buffer.from(logoSvg).toString('base64')
 
