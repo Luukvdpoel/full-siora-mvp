@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { jsPDF } from "jspdf";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { FullPersona } from "@/types/persona";
 
@@ -171,19 +172,19 @@ export default function ProfilePage() {
             Download Media Kit
           </button>
         ) : (
-          <a
+          <Link
             href="/subscribe"
             className="px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center gap-2 justify-center"
           >
             <LockIcon className="w-4 h-4" /> Pro only
-          </a>
+          </Link>
         )}
-        <a
+        <Link
           href="/contact"
           className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-center rounded-md"
         >
           Work with me
-        </a>
+        </Link>
       </div>
     </main>
   );

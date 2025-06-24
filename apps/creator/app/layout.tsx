@@ -5,7 +5,7 @@ import Providers from './providers';
 import AuthStatus from '@/components/AuthStatus';
 import ThemeToggle from '@/components/ThemeToggle';
 import { ToastProvider } from '@/components/Toast';
-import { PageTransition } from 'shared-ui';
+import { PageTransition, Nav, NavLink } from 'shared-ui';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   title: 'Siora',
   description: 'Your identity, illuminated.',
 };
+
+const navLinks: NavLink[] = [
+  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/campaigns', label: 'Campaigns' },
+  { href: '/applications', label: 'Applications' },
+  { href: '/profile', label: 'Profile' },
+];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -31,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ThemeToggle />
               <AuthStatus />
             </div>
+            <Nav links={navLinks} />
             <PageTransition>{children}</PageTransition>
           </ToastProvider>
         </Providers>
