@@ -1,4 +1,4 @@
-import { creators } from '../../../../brand/app/data/creators';
+import { creators } from '@/app/data/creators';
 import { Badge } from 'shared-ui';
 import { getCreatorBadges } from 'shared-utils';
 import ReactMarkdown from 'react-markdown';

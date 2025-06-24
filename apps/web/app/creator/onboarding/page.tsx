@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { trpc } from "@creator/lib/trpcClient";
 import styles from "../styles.module.css";
 
 interface OnboardData {
@@ -22,7 +21,6 @@ const valueOptions = ["Authenticity", "Community", "Innovation", "Sustainability
 
 export default function CreatorOnboarding() {
   const router = useRouter();
-  const mutation = trpc.saveOnboarding.useMutation();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<OnboardData>({
     name: "",
@@ -55,7 +53,7 @@ export default function CreatorOnboarding() {
 
   async function handleConfirm() {
     try {
-      await mutation.mutateAsync(data);
+      // TODO: send data to API
       localStorage.removeItem("creatorOnboarding");
       setStep(6);
     } catch (err) {

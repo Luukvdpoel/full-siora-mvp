@@ -4,11 +4,7 @@ import personas from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
 
-type Props = {
-  params: { id: string };
-};
-
-export default function PersonaProfile({ params }: Props) {
+export default function PersonaProfile({ params }: any) {
   const persona = personas.find((p) => p.id.toString() === params.id);
   if (!persona) return notFound();
 

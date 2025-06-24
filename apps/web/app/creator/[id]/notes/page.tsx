@@ -1,9 +1,9 @@
 "use client";
 import { useEffect } from "react";
-import { useBrandUser } from "@creator/lib/brandUser";
+import { useBrandUser } from "@/lib/brandUser";
 import { useRouter } from "next/navigation";
-import creators from "@/app/creator/data/mock_creators_200.json";
-import { useCreatorMeta } from "@creator/lib/creatorMeta";
+import creators from "@/app/data/mock_creators_200.json";
+import { useCreatorMeta } from "@/lib/creatorMeta";
 
 export default function CreatorNotesPage({ params }: { params: { id: string } }) {
   const { user } = useBrandUser();

@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useToast } from "@creator/components/Toast";
 import ReactMarkdown from "react-markdown";
-import { Button } from "@creator/components/ui/button";
 
 export default function CreatorProfilePage() {
   const [persona, setPersona] = useState<string>("");
@@ -38,8 +37,20 @@ export default function CreatorProfilePage() {
             <ReactMarkdown>{persona}</ReactMarkdown>
           </div>
           <div className="flex gap-4">
-            <Button type="button" onClick={handleCopy}>Copy</Button>
-            <Button type="button" onClick={handleDownload}>Download</Button>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700"
+            >
+              Copy
+            </button>
+            <button
+              type="button"
+              onClick={handleDownload}
+              className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700"
+            >
+              Download
+            </button>
           </div>
         </div>
       ) : (

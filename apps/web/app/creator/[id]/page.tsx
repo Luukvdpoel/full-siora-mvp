@@ -1,7 +1,7 @@
-import { creators } from "@/app/creator/data/creators";
+import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
-import PerformanceTab from "@creator/components/PerformanceTab";
-import CreatorMetrics from "@creator/components/CreatorMetrics";
+import PerformanceTab from "@/components/PerformanceTab";
+import CreatorMetrics from "@/components/CreatorMetrics";
 import { Suspense } from "react";
 import { Spinner } from "shared-ui";
 
