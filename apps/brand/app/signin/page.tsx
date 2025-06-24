@@ -1,10 +1,12 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useBrandUser } from "@/lib/brandUser";
 import Toast from "@/components/Toast";
 
 export default function SignInPage() {
+  const router = useRouter();
   const { setUser } = useBrandUser();
   const [email, setEmail] = useState("");
   const [toast, setToast] = useState("");
@@ -24,6 +26,7 @@ export default function SignInPage() {
     setSubmitting(true);
     setUser({ email });
     setToast("Signed in!");
+    router.push("/brands");
     setTimeout(() => setSubmitting(false), 1000);
   };
 
