@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import PersonaCard from "@/components/PersonaCard";
 import { useBrandUser } from "@/lib/brandUser";
 import { useShortlist } from "@/lib/shortlist";
-import { trpc } from "@/lib/trpcClient";
-import type { Creator } from "@/app/data/creators";
+import { creators, type Creator } from "@/app/data/creators";
 
 export default function BrandsDashboard() {
   const router = useRouter();
@@ -21,18 +20,6 @@ export default function BrandsDashboard() {
   const [minFollowers, setMinFollowers] = useState("");
   const [maxFollowers, setMaxFollowers] = useState("");
 
-  const creatorsQuery = trpc.getCreators.useQuery({
-    search,
-    tone,
-    values: values
-      .split(",")
-      .map((v) => v.trim())
-      .filter(Boolean),
-    niche,
-    persona,
-    minFollowers: minFollowers ? parseInt(minFollowers) : undefined,
-    maxFollowers: maxFollowers ? parseInt(maxFollowers) : undefined,
-  });
 
   useEffect(() => {
     if (!user) router.replace("/signin");
@@ -42,7 +29,7 @@ export default function BrandsDashboard() {
     return null;
   }
 
-  const creators = creatorsQuery.data ?? [];
+  const creatorsList = creators;
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
@@ -98,11 +85,11 @@ export default function BrandsDashboard() {
           </div>
         </div>
 
-        {creators.length === 0 && !creatorsQuery.isLoading ? (
+        {creatorsList.length === 0 ? (
           <p className="text-center text-zinc-400 mt-10">No personas found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {creators.map((p: Creator) => (
+            {creatorsList.map((p: Creator) => (
               <PersonaCard
                 key={p.id}
                 persona={p}

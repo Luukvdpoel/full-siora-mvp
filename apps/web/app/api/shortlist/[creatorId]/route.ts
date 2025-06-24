@@ -26,7 +26,8 @@ async function writeData(data: ShortlistDB) {
   await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
 }
 
-export async function DELETE(req: Request, { params }: { params: { creatorId: string } }) {
+export async function DELETE(req: Request, ctx: any) {
+  const { params } = ctx as { params: { creatorId: string } };
   try {
     const { searchParams } = new URL(req.url);
     const brandId = searchParams.get('brandId');
@@ -45,7 +46,8 @@ export async function DELETE(req: Request, { params }: { params: { creatorId: st
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { creatorId: string } }) {
+export async function PUT(req: Request, ctx: any) {
+  const { params } = ctx as { params: { creatorId: string } };
   try {
     const { brandId, notes, tags } = await req.json();
     if (!brandId) {

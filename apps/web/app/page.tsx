@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PersonaCard from "../../creator/components/PersonaCard";
+import PersonaCard from "../creator/components/PersonaCard";
 
 export interface PersonaProfile {
   name: string;

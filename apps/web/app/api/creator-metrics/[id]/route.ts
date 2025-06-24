@@ -1,6 +1,7 @@
 import data from '@/app/data/creatorMetrics.json';
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, ctx: any) {
+  const { params } = ctx as { params: { id: string } };
   const record = (data as Record<string, any>)[params.id];
   if (!record) {
     return new Response(JSON.stringify({ error: 'Not found' }), {

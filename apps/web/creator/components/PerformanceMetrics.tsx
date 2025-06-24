@@ -65,11 +65,11 @@ export default function PerformanceMetrics() {
                 <div className="text-base font-semibold">{value}</div>
               </div>
             </motion.div>
-          ))
+          ))}
         </div>
       ) : (
         <p className="text-sm text-foreground/60">No metrics saved.</p>
-      )
+      )}
     </div>
   );
 }

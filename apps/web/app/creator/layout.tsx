@@ -1,5 +1,6 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+// Disabled remote font download for offline builds
+const inter = { className: '' };
 import type { Metadata } from 'next';
 import Providers from './providers';
 import AuthStatus from '@creator/components/AuthStatus';
@@ -7,7 +8,6 @@ import ThemeToggle from '@creator/components/ThemeToggle';
 import { ToastProvider } from '@creator/components/Toast';
 import { PageTransition, Nav, NavLink } from 'shared-ui';
 
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Siora',

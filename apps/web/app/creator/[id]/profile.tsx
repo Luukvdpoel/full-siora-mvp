@@ -1,10 +1,10 @@
 "use client";
-import creators from "@/app/creator/data/mock_creators_200.json";
+import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import { useState } from "react";
-import PerformanceTab from "@creator/components/PerformanceTab";
-import ContractModal from "@creator/components/ContractModal";
-import EvaluationChecklistModal from "@creator/components/EvaluationChecklistModal";
+import PerformanceTab from "@/components/PerformanceTab";
+import ContractModal from "@/components/ContractModal";
+import EvaluationChecklistModal from "@/components/EvaluationChecklistModal";
 
 type Props = {
   params: {

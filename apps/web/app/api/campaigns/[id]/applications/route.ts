@@ -24,7 +24,8 @@ async function readData(): Promise<Application[]> {
   }
 }
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, ctx: any) {
+  const { params } = ctx as { params: { id: string } };
   try {
     const data = await readData();
     const apps = data.filter(a => a.campaignId === params.id);

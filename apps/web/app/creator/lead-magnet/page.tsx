@@ -60,6 +60,7 @@ export default function LeadMagnetPage() {
   };
 
   return (
+    <>
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold">Lead Magnet Generator</h1>
       <form onSubmit={handleSubmit} className="space-y-4 border border-white/10 p-4 rounded-md">
@@ -138,5 +139,6 @@ export default function LeadMagnetPage() {
         </div>
       </div>
     )}
+    </>
   );
 }
