@@ -9,10 +9,8 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "dev:creator": "npm run dev -w apps/creator",
-    "dev:brand": "npm run dev -w apps/brand",
-    "build:creator": "npm run build -w apps/creator",
-    "build:brand": "npm run build -w apps/brand",
+    "dev:web": "npm run dev -w apps/web",
+    "build:web": "npm run build -w apps/web",
     "lint": "turbo run lint",
     "start": "turbo run start",
     "generate:campaign": "node tools/campaign_flow.mjs",
