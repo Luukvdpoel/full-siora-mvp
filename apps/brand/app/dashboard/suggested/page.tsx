@@ -19,6 +19,7 @@ export default function SuggestedCreators() {
   const [budget, setBudget] = useState("");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const { data: session } = useSession();
   const user = session?.user?.email ?? null;
@@ -26,6 +27,7 @@ export default function SuggestedCreators() {
 
   const submit = async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch("/api/campaign-match", {
         method: "POST",
@@ -36,6 +38,7 @@ export default function SuggestedCreators() {
       setResults(Array.isArray(data.results) ? data.results : []);
     } catch (err) {
       console.error(err);
+      setError("Failed to fetch suggestions");
     } finally {
       setLoading(false);
     }
@@ -45,6 +48,7 @@ export default function SuggestedCreators() {
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Suggested Creators</h1>
+        {error && <p className="text-red-500">{error}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <input
             value={niche}
