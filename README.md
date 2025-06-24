@@ -494,3 +494,8 @@ By understanding these challenges, you can better tailor your approach to develo
 
 Primary domain: [usesiora.com](https://usesiora.com)
 
+
+## Development
+Copy `apps/web/.env.example` to `apps/web/.env.local` and fill in the required secrets.
+Run `npm run prisma:generate` once to generate the Prisma client.
+Use `npm run dev:web` to start the local server and `npm run build:web` to build for Vercel.

@@ -19,6 +19,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   personas      Persona[]
+  creatorProfile CreatorProfile?
 }
 
 model Account {
@@ -70,7 +71,7 @@ model Persona {
 
 model CreatorProfile {
   id           String   @id @default(cuid())
-  userId       String
+  userId       String   @unique
   name         String
   handle       String
   followers    Int
