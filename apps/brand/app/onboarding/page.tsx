@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import type { BrandOnboardResult } from "@/types/onboard";
 import {
@@ -105,8 +106,16 @@ export default function BrandOnboarding() {
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-xl mx-auto bg-Siora-mid p-6 rounded-2xl space-y-4">
         <h1 className="text-2xl font-bold mb-2">Brand Onboarding</h1>
+        <AnimatePresence mode="wait">
         {step === 0 && (
-          <div className="space-y-3">
+          <motion.div
+            key="step0"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3"
+          >
             {campaignTemplates.map((t) => (
               <button
                 key={t.id}
@@ -123,9 +132,16 @@ export default function BrandOnboarding() {
             >
               Start from Scratch
             </button>
-          </div>
+          </motion.div>
         )}
         {step === 1 && (
+          <motion.div
+            key="step1"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
           <input
             name="name"
             value={form.name}
@@ -133,8 +149,16 @@ export default function BrandOnboarding() {
             placeholder="Brand name"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          </motion.div>
         )}
         {step === 2 && (
+          <motion.div
+            key="step2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
           <textarea
             name="goals"
             value={form.goals}
@@ -142,8 +166,16 @@ export default function BrandOnboarding() {
             placeholder="Campaign goals"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          </motion.div>
         )}
         {step === 3 && (
+          <motion.div
+            key="step3"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
           <textarea
             name="product"
             value={form.product}
@@ -151,8 +183,16 @@ export default function BrandOnboarding() {
             placeholder="Product information"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          </motion.div>
         )}
         {step === 4 && (
+          <motion.div
+            key="step4"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
           <input
             name="creators"
             value={form.creators}
@@ -160,8 +200,16 @@ export default function BrandOnboarding() {
             placeholder="Ideal creator type"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          </motion.div>
         )}
         {step === 5 && (
+          <motion.div
+            key="step5"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
           <input
             name="budget"
             value={form.budget}
@@ -169,9 +217,17 @@ export default function BrandOnboarding() {
             placeholder="Budget range"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          </motion.div>
         )}
         {step === 6 && summary && (
-          <div className="space-y-3">
+          <motion.div
+            key="step6"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3"
+          >
             <textarea
               value={summary.mission}
               onChange={(e) => setSummary({ ...summary, mission: e.target.value })}
@@ -197,8 +253,9 @@ export default function BrandOnboarding() {
               onChange={(e) => setSummary({ ...summary, pitch: e.target.value })}
               className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
             />
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
         <div className="flex justify-between pt-4">
           {step > 0 && step < 6 && (
             <button onClick={prev} className="px-4 py-2 bg-gray-700 rounded">

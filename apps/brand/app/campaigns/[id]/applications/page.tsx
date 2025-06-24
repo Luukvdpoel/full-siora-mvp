@@ -1,9 +1,11 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import Toast from '@/components/Toast';
 import { creators } from '@/app/data/creators';
+import { LoadingSpinner } from 'shared-ui';
+import { useSuspenseFetch } from 'shared-utils';
 
 interface Application {
   id: string;
@@ -15,26 +17,10 @@ interface Application {
   timestamp: string;
 }
 
-export default function ApplicationsPage() {
-  const params = useParams<{ id: string }>();
-  const campaignId = params.id;
-  const [apps, setApps] = useState<Application[]>([]);
+function ApplicationList({ campaignId }: { campaignId: string }) {
+  const initial = useSuspenseFetch<Application[]>(`/api/campaigns/${campaignId}/applications`);
+  const [apps, setApps] = useState(initial);
   const [toast, setToast] = useState('');
-
-  useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`/api/campaigns/${campaignId}/applications`);
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) setApps(data as Application[]);
-        }
-      } catch (err) {
-        console.error('failed to load applications', err);
-      }
-    }
-    if (campaignId) load();
-  }, [campaignId]);
 
   async function accept(application: Application) {
     try {
@@ -61,7 +47,7 @@ export default function ApplicationsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <>
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-extrabold">Campaign Applications</h1>
         {apps.length === 0 ? (
@@ -96,6 +82,21 @@ export default function ApplicationsPage() {
         )}
       </div>
       {toast && <Toast message={toast} onClose={() => setToast('')} />}
+    </>
+  );
+}
+
+export default function ApplicationsPage() {
+  const params = useParams<{ id: string }>();
+  const campaignId = params.id;
+
+  if (!campaignId) return null;
+
+  return (
+    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+      <Suspense fallback={<div className="flex justify-center py-10"><LoadingSpinner /></div>}>
+        <ApplicationList campaignId={campaignId} />
+      </Suspense>
     </main>
   );
 }

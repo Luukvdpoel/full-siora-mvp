@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
 import styles from "../styles.module.css";
@@ -95,20 +96,35 @@ export default function CreatorOnboarding() {
 
   return (
     <div className={styles.wrapper}>
-      {step === 0 && (
-        <div className={styles.formBox}>
-          <h1 className={styles.title}>Welcome to Siora</h1>
-          <p className={styles.subtitle}>Let's get your creator profile set up.</p>
-          <div className={styles.controls}>
-            <button className={styles.submitButton} onClick={next}>Get Started</button>
-            <button className={styles.navButton} onClick={finish}>Skip for now</button>
-          </div>
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {step === 0 && (
+          <motion.div
+            key="step0"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className={styles.formBox}
+          >
+            <h1 className={styles.title}>Welcome to Siora</h1>
+            <p className={styles.subtitle}>Let's get your creator profile set up.</p>
+            <div className={styles.controls}>
+              <button className={styles.submitButton} onClick={next}>Get Started</button>
+              <button className={styles.navButton} onClick={finish}>Skip for now</button>
+            </div>
+          </motion.div>
+        )}
 
-      {step === 1 && (
-        <div className={styles.formBox}>
-          <h2 className={styles.title}>Basic Info</h2>
+        {step === 1 && (
+          <motion.div
+            key="step1"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className={styles.formBox}
+          >
+            <h2 className={styles.title}>Basic Info</h2>
           <input
             className={styles.input}
             placeholder="Handle"
@@ -140,12 +156,19 @@ export default function CreatorOnboarding() {
               <button className={styles.submitButton} onClick={next}>Next</button>
             </div>
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
 
-      {step === 2 && (
-        <div className={styles.formBox}>
-          <h2 className={styles.title}>Persona Generator</h2>
+        {step === 2 && (
+          <motion.div
+            key="step2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className={styles.formBox}
+          >
+            <h2 className={styles.title}>Persona Generator</h2>
           <input
             className={styles.input}
             placeholder="Creator goal"
@@ -178,12 +201,19 @@ export default function CreatorOnboarding() {
               </button>
             )}
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
 
-      {step === 3 && (
-        <div className={styles.formBox}>
-          <h2 className={styles.title}>Visibility Settings</h2>
+        {step === 3 && (
+          <motion.div
+            key="step3"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className={styles.formBox}
+          >
+            <h2 className={styles.title}>Visibility Settings</h2>
           <div className="space-y-2 mb-4">
             <label className="flex items-center gap-2">
               <input
@@ -215,12 +245,19 @@ export default function CreatorOnboarding() {
             <button className={styles.navButton} onClick={skip}>Skip</button>
             <button className={styles.submitButton} onClick={next}>Next</button>
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
 
-      {step === 4 && (
-        <div className={styles.formBox}>
-          <h2 className={styles.title}>Review & Confirm</h2>
+        {step === 4 && (
+          <motion.div
+            key="step4"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className={styles.formBox}
+          >
+            <h2 className={styles.title}>Review & Confirm</h2>
           <div className="text-sm space-y-2 mb-4">
             <p><strong>Handle:</strong> {data.handle || "-"}</p>
             <p><strong>Platforms:</strong> {data.platforms || "-"}</p>
@@ -244,8 +281,9 @@ export default function CreatorOnboarding() {
             <button className={styles.submitButton} onClick={finish}>Confirm</button>
             <button className={styles.navButton} onClick={finish}>Save for later</button>
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -6,3 +6,5 @@ export * from './campaignFitScore';
 export * from './badges';
 export * from './trustScore';
 export * from './briefPersonaMatch';
+export * from './suspense';
+export * from './useSuspenseFetch';
