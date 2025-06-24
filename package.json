@@ -20,16 +20,21 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
+    "autoprefixer": "^10.4.21",
     "postcss-import": "^16.1.1",
     "prisma": "^6.9.0",
     "tailwindcss": "^4.1.10",
-    "turbo": "latest",
-    "autoprefixer": "^10.4.21"
+    "turbo": "latest"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.81.2",
+    "@trpc/client": "^11.4.2",
+    "@trpc/react-query": "^11.4.2",
+    "@trpc/server": "^11.4.2",
     "next": "^15.3.4",
     "pdfkit": "^0.15.2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^3.25.67"
   }
 }

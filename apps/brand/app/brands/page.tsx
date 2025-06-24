@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import personas from "@/app/data/mock_creators_200.json";
+import { trpc } from "@/lib/trpcClient";
 import PersonaCard from "@/components/PersonaCard";
 import { useBrandUser } from "@/lib/brandUser";
 import { useShortlist } from "@/lib/shortlist";
+import type { Creator } from "@prisma/client";
 
-type Persona = (typeof personas)[number];
+type Persona = Creator;
 
 export default function BrandsDashboard() {
   const router = useRouter();
@@ -29,30 +30,13 @@ export default function BrandsDashboard() {
     return null;
   }
 
-  const filtered = personas.filter((p: Persona) => {
-    const matchTone = !tone || p.tone.toLowerCase().includes(tone.toLowerCase());
-    const matchPlatform =
-      !platform || p.platform.toLowerCase().includes(platform.toLowerCase());
-    const matchVibe =
-      !vibe ||
-      (p.tags &&
-        p.tags.some((t: string) => t.toLowerCase().includes(vibe.toLowerCase())));
-    const matchNiche = !niche || p.niche.toLowerCase().includes(niche.toLowerCase());
-    const matchTag =
-      !tag ||
-      (p.tags && p.tags.some((t: string) => t.toLowerCase().includes(tag.toLowerCase())));
-    const matchFormat =
-      !format ||
-      (p.formats && p.formats.some((f: string) => f.toLowerCase().includes(format.toLowerCase())));
-
-    return (
-      matchTone &&
-      matchPlatform &&
-      matchVibe &&
-      matchNiche &&
-      matchTag &&
-      matchFormat
-    );
+  const { data: filtered = [], isLoading } = trpc.filterCreators.useQuery({
+    query: '',
+    tone,
+    platform,
+    niche,
+    persona: vibe,
+    values: tag ? [tag] : [],
   });
 
   return (
@@ -99,7 +83,10 @@ export default function BrandsDashboard() {
           />
         </div>
 
-        {filtered.length === 0 ? (
+        {isLoading && (
+          <p className="text-center text-zinc-400 mt-10">Loading creators...</p>
+        )}
+        {filtered.length === 0 && !isLoading ? (
           <p className="text-center text-zinc-400 mt-10">No personas found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

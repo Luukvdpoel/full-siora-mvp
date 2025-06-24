@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { creators } from "@/app/data/creators";
 import AdvancedFilterBar, { Filters } from "@/components/AdvancedFilterBar";
 import CreatorCard from "@/components/CreatorCard";
 import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";
+import { trpc } from "@/lib/trpcClient";
 
 export default function Dashboard() {
   const [query, setQuery] = useState("");
@@ -26,6 +26,15 @@ export default function Dashboard() {
   const user = session?.user?.email ?? null;
   const { toggle, inShortlist } = useShortlist(user);
 
+  const { data: creators = [], isLoading } = trpc.filterCreators.useQuery({
+    query,
+    tone: toneFilter,
+    platform: platformFilter,
+    niche: nicheFilter,
+    values: filters.values,
+    persona: filters.vibes[0],
+  });
+
   const unique = (arr: (string | undefined)[]) =>
     Array.from(new Set(arr.filter(Boolean))) as string[];
 
@@ -37,48 +46,7 @@ export default function Dashboard() {
   const [toneFilter, setToneFilter] = useState("");
   const [nicheFilter, setNicheFilter] = useState("");
 
-  const filtered = creators
-    .filter((c) => {
-      const matchesQuery = `${c.name} ${c.handle} ${c.niche} ${c.tags.join(" ")} ${c.tone} ${c.summary}`
-        .toLowerCase()
-        .includes(query.toLowerCase());
-
-      const platformMatch =
-        filters.platforms.length === 0 || filters.platforms.includes(c.platform);
-      const toneMatch =
-        filters.tones.length === 0 || filters.tones.includes(c.tone);
-      const vibeMatch =
-        filters.vibes.length === 0 || (c.vibe && filters.vibes.includes(c.vibe));
-      const nicheMatch =
-        filters.niches.length === 0 || filters.niches.includes(c.niche);
-      const formatMatch =
-        filters.formats.length === 0 || (c.formats?.some((f) => filters.formats.includes(f)) ?? false);
-      const valuesMatch =
-        filters.values.length === 0 || filters.values.some((v) => c.tags.includes(v));
-      const erMatch =
-        c.engagementRate >= filters.minEngagement && c.engagementRate <= filters.maxEngagement;
-      const collabMatch =
-        (c.completedCollabs ?? 0) >= filters.minCollabs;
-
-      const extraPlatform = !platformFilter || c.platform === platformFilter;
-      const extraTone = !toneFilter || c.tone === toneFilter;
-      const extraNiche = !nicheFilter || c.niche === nicheFilter;
-
-      return (
-        matchesQuery &&
-        platformMatch &&
-        toneMatch &&
-        vibeMatch &&
-        nicheMatch &&
-        formatMatch &&
-        valuesMatch &&
-        erMatch &&
-        collabMatch &&
-        extraPlatform &&
-        extraTone &&
-        extraNiche
-      );
-    });
+  const filtered = creators;
 
   const totalPages = Math.ceil(filtered.length / perPage);
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
@@ -134,9 +102,17 @@ export default function Dashboard() {
           </select>
         </div>
 
-        <AdvancedFilterBar onFilter={setFilters} />
+        <AdvancedFilterBar
+          onFilter={setFilters}
+          platforms={platforms}
+          tones={tones}
+          niches={niches}
+        />
 
-        {paginated.length === 0 && (
+        {isLoading && (
+          <p className="text-center text-zinc-400 mt-10">Loading creators...</p>
+        )}
+        {paginated.length === 0 && !isLoading && (
           <p className="text-center text-zinc-400 mt-10">No creators match your filters.</p>
         )}
 

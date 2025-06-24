@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import type { Creator } from "@/app/data/creators";
+import type { Creator } from "@prisma/client";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
 interface Message extends ChatMessage {

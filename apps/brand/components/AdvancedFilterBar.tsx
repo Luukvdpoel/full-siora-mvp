@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { creators } from "@/app/data/creators";
 import TagInput from "./TagInput";
 
 export type Filters = {
@@ -18,17 +17,16 @@ export type Filters = {
 
 interface Props {
   onFilter: (f: Filters) => void;
+  platforms?: string[];
+  tones?: string[];
+  vibes?: string[];
+  niches?: string[];
+  formats?: string[];
 }
 
-export default function AdvancedFilterBar({ onFilter }: Props) {
+export default function AdvancedFilterBar({ onFilter, platforms = [], tones = [], vibes = [], niches = [], formats = [] }: Props) {
   const unique = <T extends string>(arr: (T | undefined)[]) =>
     Array.from(new Set(arr.filter(Boolean))) as T[];
-
-  const platforms = unique(creators.map((c) => c.platform));
-  const tones = unique(creators.map((c) => c.tone));
-  const vibes = unique(creators.map((c) => c.vibe));
-  const niches = unique(creators.map((c) => c.niche));
-  const formats = unique(creators.flatMap((c) => c.formats || []));
 
   const [platformsSel, setPlatformsSel] = useState<string[]>([]);
   const [tonesSel, setTonesSel] = useState<string[]>([]);

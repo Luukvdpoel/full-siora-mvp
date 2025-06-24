@@ -67,3 +67,19 @@ model Persona {
 
   @@index([userId])
 }
+
+model Creator {
+  id             String   @id @default(cuid())
+  name           String
+  handle         String   @unique
+  niche          String
+  platform       String
+  summary        String
+  tone           String
+  values         Json?
+  followers      Int
+  engagementRate Float
+  persona        String?
+  vibe           String?
+  tags           Json?
+}

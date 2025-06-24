@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { Creator } from "@/app/data/creators";
+import type { Creator } from "@prisma/client";
 
 const platformIcons: Record<string, string> = {
   Instagram: "\uD83D\uDCF8",

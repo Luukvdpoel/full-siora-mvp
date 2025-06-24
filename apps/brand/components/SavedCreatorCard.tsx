@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { Creator } from "@/app/data/creators";
+import type { Creator } from "@prisma/client";
 
 interface Props {
   creator: Creator;
