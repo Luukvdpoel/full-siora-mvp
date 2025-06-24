@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Spinner } from "shared-ui";
 import { Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -53,7 +54,7 @@ export default function PerformanceTab({ creatorId }: Props) {
   }, [creatorId]);
 
   if (!data) {
-    return <p className="text-sm text-zinc-400">Loading performance...</p>;
+    return <Spinner />;
   }
 
   const trendUp = data.followerGrowth >= 0;

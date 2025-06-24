@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Spinner } from 'shared-ui'
 import type { PersonaProfile } from '@/types/persona'
 
 interface Props {
@@ -50,7 +51,7 @@ export default function HookIdeas({ persona }: Props) {
   return (
     <div className="border border-white/10 bg-background text-foreground p-4 rounded-xl space-y-3">
       <h3 className="text-lg font-bold">Top Hook Ideas</h3>
-      {loading && <p className="text-sm text-foreground/60">Generating hooks...</p>}
+      {loading && <Spinner />}
       {error && <p className="text-sm text-red-500">{error}</p>}
       <ul className="space-y-2">
         {hooks.map((hook, idx) => (

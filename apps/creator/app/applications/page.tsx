@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import campaigns from "@/app/data/campaigns";
+import { Spinner } from "shared-ui";
 
 interface Application {
   id: string;
@@ -34,7 +35,11 @@ export default function ApplicationsPage() {
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6">
       <h1 className="text-2xl font-bold">My Applications</h1>
       {apps.length === 0 ? (
-        <p className="text-foreground/60">{loading ? "Loading..." : "No applications found."}</p>
+        loading ? (
+          <Spinner />
+        ) : (
+          <p className="text-foreground/60">No applications found.</p>
+        )
       ) : (
         <div className="space-y-4">
           {apps.map((a) => {
