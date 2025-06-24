@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
 import { randomUUID } from 'crypto';
-import creators from '@/app/data/creators';
+import { creators } from '@/app/data/creators';
 
 interface Match {
   id: string;
