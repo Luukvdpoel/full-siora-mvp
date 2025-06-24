@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { jsPDF } from "jspdf";
 import { useSession } from "next-auth/react";
+import { Spinner } from "shared-ui";
 import Link from "next/link";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { FullPersona } from "@/types/persona";
@@ -62,7 +63,7 @@ export default function ProfilePage() {
   if (status === "loading") {
     return (
       <main className="min-h-screen flex items-center justify-center bg-background text-foreground p-6">
-        <p>Loading...</p>
+        <Spinner />
       </main>
     );
   }

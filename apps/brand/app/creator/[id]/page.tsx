@@ -2,6 +2,8 @@ import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
 import CreatorMetrics from "@/components/CreatorMetrics";
+import { Suspense } from "react";
+import { Spinner } from "shared-ui";
 
 type Props = {
   params: {
@@ -59,8 +61,12 @@ export default function CreatorProfile({ params }: Props) {
 
         <div>
           <h2 className="text-lg font-semibold mb-2">Performance</h2>
-          <CreatorMetrics creatorId={creator.id} />
-          <PerformanceTab creatorId={creator.id} />
+          <Suspense fallback={<Spinner />}>
+            <CreatorMetrics creatorId={creator.id} />
+          </Suspense>
+          <Suspense fallback={<Spinner />}>
+            <PerformanceTab creatorId={creator.id} />
+          </Suspense>
         </div>
       </div>
     </main>

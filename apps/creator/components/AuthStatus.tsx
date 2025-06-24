@@ -1,11 +1,12 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { Spinner } from "shared-ui";
 
 export default function AuthStatus() {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   if (!session) {
