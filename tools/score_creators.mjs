@@ -1,5 +1,5 @@
 import { rankCreators } from 'shared-utils';
-import creators from '../apps/brand/app/data/mock_creators_200.json' assert { type: 'json' };
+import creators from '../apps/web/app/data/mock_creators_200.json' assert { type: 'json' };
 
 const brand = {
   tone: 'Inspirational',
