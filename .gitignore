@@ -4,4 +4,5 @@ node_modules
 out
 .env
 .env.local
+!apps/web/.env.local
 .turbo/
