@@ -17,9 +17,11 @@ export default function GoalDashboard() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [sort, setSort] = useState<"score" | "name">("score");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function fetchMatches() {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch("/api/goal-match", {
         method: "POST",
@@ -30,6 +32,7 @@ export default function GoalDashboard() {
       if (Array.isArray(data.matches)) setMatches(data.matches as Match[]);
     } catch (err) {
       console.error(err);
+      setError("Failed to fetch matches");
     } finally {
       setLoading(false);
     }
@@ -45,6 +48,9 @@ export default function GoalDashboard() {
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Campaign Matcher</h1>
+        {error && (
+          <p className="text-red-500">{error}</p>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <input value={goals} onChange={e => setGoals(e.target.value)} placeholder="Campaign goals" className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border" />
           <input value={tone} onChange={e => setTone(e.target.value)} placeholder="Tone" className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border" />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import PersonaCard from "@/components/PersonaCard";
 import PerformanceMetrics from "@/components/PerformanceMetrics";
 import type { PersonaProfile } from "@/types/persona";
+import { useToast } from "@/components/Toast";
 
 interface PersonaRecord {
   id: string;
@@ -16,6 +17,7 @@ interface PersonaRecord {
 export default function DashboardPage() {
   const [items, setItems] = useState<PersonaRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
   useEffect(() => {
     async function load() {
@@ -27,6 +29,7 @@ export default function DashboardPage() {
         }
       } catch (err) {
         console.error("Failed to load personas", err);
+        toast("Failed to load personas");
       } finally {
         setLoading(false);
       }
@@ -41,6 +44,7 @@ export default function DashboardPage() {
       setItems((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
       console.error("Failed to delete persona", err);
+      toast("Failed to delete persona");
     }
   }
 
