@@ -1,95 +1,64 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import ReactMarkdown from "react-markdown";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { trpc } from "@/lib/trpcClient";
 import styles from "../styles.module.css";
 
 interface OnboardData {
+  name: string;
   handle: string;
-  platforms: string;
+  followers: number;
   niche: string;
-  audience: string;
-  goal: string;
   tone: string;
-  persona?: string;
-  visibility: "public" | "private";
-  allowDMs: boolean;
+  values: string[];
+  contentType: string;
+  brandPersona: string;
 }
+
+const toneOptions = ["Casual", "Professional", "Playful", "Bold"];
+const valueOptions = ["Authenticity", "Community", "Innovation", "Sustainability"];
 
 export default function CreatorOnboarding() {
   const router = useRouter();
+  const mutation = trpc.saveOnboarding.useMutation();
   const [step, setStep] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<OnboardData>({
+    name: "",
     handle: "",
-    platforms: "",
+    followers: 0,
     niche: "",
-    audience: "",
-    goal: "",
     tone: "",
-    persona: undefined,
-    visibility: "public",
-    allowDMs: true,
+    values: [],
+    contentType: "",
+    brandPersona: "",
   });
-
-  const resultRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
       const stored = localStorage.getItem("creatorOnboarding");
-      if (stored) {
-        const parsed = JSON.parse(stored) as OnboardData & { step?: number };
-        setData((prev) => ({ ...prev, ...parsed }));
-        if (typeof parsed.step === "number") setStep(parsed.step);
-      }
-    } catch (err) {
-      console.error("Failed to load onboarding data", err);
-    }
+      if (stored) setData(JSON.parse(stored));
+    } catch {}
   }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
-      localStorage.setItem(
-        "creatorOnboarding",
-        JSON.stringify({ ...data, step }),
-      );
-    } catch (err) {
-      console.error("Failed to store onboarding data", err);
-    }
-  }, [data, step]);
+      localStorage.setItem("creatorOnboarding", JSON.stringify(data));
+    } catch {}
+  }, [data]);
 
-  const next = () => setStep((s) => Math.min(4, s + 1));
+  const next = () => setStep((s) => Math.min(5, s + 1));
   const prev = () => setStep((s) => Math.max(0, s - 1));
-  const skip = () => next();
-  const finish = () => router.push("/dashboard");
 
-  async function generatePersona() {
-    setLoading(true);
+  async function handleConfirm() {
     try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          handle: data.handle,
-          vibe: data.tone,
-          goal: data.goal,
-          audience: data.audience,
-          contentPreference: data.niche,
-          platform: data.platforms,
-        }),
-      });
-      if (res.ok) {
-        const { result } = await res.json();
-        setData((d) => ({ ...d, persona: result }));
-        setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-      }
+      await mutation.mutateAsync(data);
+      localStorage.removeItem("creatorOnboarding");
+      setStep(5);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -98,17 +67,22 @@ export default function CreatorOnboarding() {
       {step === 0 && (
         <div className={styles.formBox}>
           <h1 className={styles.title}>Welcome to Siora</h1>
-          <p className={styles.subtitle}>Let's get your creator profile set up.</p>
+          <p className={styles.subtitle}>Let's set up your creator profile.</p>
           <div className={styles.controls}>
             <button className={styles.submitButton} onClick={next}>Get Started</button>
-            <button className={styles.navButton} onClick={finish}>Skip for now</button>
           </div>
         </div>
       )}
 
       {step === 1 && (
         <div className={styles.formBox}>
-          <h2 className={styles.title}>Basic Info</h2>
+          <h2 className={styles.title}>Profile Basics</h2>
+          <input
+            className={styles.input}
+            placeholder="Name"
+            value={data.name}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+          />
           <input
             className={styles.input}
             placeholder="Handle"
@@ -117,9 +91,10 @@ export default function CreatorOnboarding() {
           />
           <input
             className={styles.input}
-            placeholder="Platforms"
-            value={data.platforms}
-            onChange={(e) => setData({ ...data, platforms: e.target.value })}
+            placeholder="Follower count"
+            type="number"
+            value={data.followers || ""}
+            onChange={(e) => setData({ ...data, followers: Number(e.target.value) })}
           />
           <input
             className={styles.input}
@@ -127,92 +102,64 @@ export default function CreatorOnboarding() {
             value={data.niche}
             onChange={(e) => setData({ ...data, niche: e.target.value })}
           />
-          <input
-            className={styles.input}
-            placeholder="Audience"
-            value={data.audience}
-            onChange={(e) => setData({ ...data, audience: e.target.value })}
-          />
           <div className={styles.controls}>
             <button className={styles.navButton} onClick={prev}>Back</button>
-            <div className="flex gap-2">
-              <button className={styles.navButton} onClick={skip}>Skip</button>
-              <button className={styles.submitButton} onClick={next}>Next</button>
-            </div>
+            <button className={styles.submitButton} onClick={next}>Next</button>
           </div>
         </div>
       )}
 
       {step === 2 && (
         <div className={styles.formBox}>
-          <h2 className={styles.title}>Persona Generator</h2>
-          <input
-            className={styles.input}
-            placeholder="Creator goal"
-            value={data.goal}
-            onChange={(e) => setData({ ...data, goal: e.target.value })}
-          />
-          <input
-            className={styles.input}
-            placeholder="Tone or vibe"
-            value={data.tone}
-            onChange={(e) => setData({ ...data, tone: e.target.value })}
-          />
-          {data.persona ? (
-            <div ref={resultRef} className="prose prose-invert my-4">
-              <ReactMarkdown>{data.persona}</ReactMarkdown>
-            </div>
-          ) : null}
+          <h2 className={styles.title}>Choose Your Tone</h2>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {toneOptions.map((t) => (
+              <button
+                key={t}
+                className={`${styles.navButton} ${data.tone === t ? styles.submitButton : ""}`}
+                onClick={() => setData({ ...data, tone: t })}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
           <div className={styles.controls}>
             <button className={styles.navButton} onClick={prev}>Back</button>
-            <button className={styles.navButton} onClick={skip}>Skip</button>
-            {data.persona ? (
-              <button className={styles.submitButton} onClick={next}>Next</button>
-            ) : (
-              <button
-                className={styles.submitButton}
-                onClick={generatePersona}
-                disabled={loading || !data.handle || !data.tone || !data.goal}
-              >
-                {loading ? "Generating..." : "Generate"}
-              </button>
-            )}
+            <button className={styles.submitButton} onClick={next} disabled={!data.tone}>Next</button>
           </div>
         </div>
       )}
 
       {step === 3 && (
         <div className={styles.formBox}>
-          <h2 className={styles.title}>Visibility Settings</h2>
+          <h2 className={styles.title}>Values & Content</h2>
           <div className="space-y-2 mb-4">
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                checked={data.visibility === "public"}
-                onChange={() => setData({ ...data, visibility: "public" })}
-              />
-              Public Profile
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                checked={data.visibility === "private"}
-                onChange={() => setData({ ...data, visibility: "private" })}
-              />
-              Private Profile
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={data.allowDMs}
-                onChange={(e) => setData({ ...data, allowDMs: e.target.checked })}
-              />
-              Allow brand DMs
-            </label>
+            {valueOptions.map((v) => (
+              <label key={v} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={data.values.includes(v)}
+                  onChange={(e) => {
+                    setData((d) => ({
+                      ...d,
+                      values: e.target.checked
+                        ? [...d.values, v]
+                        : d.values.filter((val) => val !== v),
+                    }));
+                  }}
+                />
+                {v}
+              </label>
+            ))}
           </div>
+          <input
+            className={styles.input}
+            placeholder="Primary content type"
+            value={data.contentType}
+            onChange={(e) => setData({ ...data, contentType: e.target.value })}
+          />
           <div className={styles.controls}>
             <button className={styles.navButton} onClick={prev}>Back</button>
-            <button className={styles.navButton} onClick={skip}>Skip</button>
             <button className={styles.submitButton} onClick={next}>Next</button>
           </div>
         </div>
@@ -220,33 +167,50 @@ export default function CreatorOnboarding() {
 
       {step === 4 && (
         <div className={styles.formBox}>
+          <h2 className={styles.title}>Brand Persona</h2>
+          <textarea
+            className={styles.input}
+            rows={4}
+            placeholder="Describe your brand persona"
+            value={data.brandPersona}
+            onChange={(e) => setData({ ...data, brandPersona: e.target.value })}
+          />
+          <div className={styles.controls}>
+            <button className={styles.navButton} onClick={prev}>Back</button>
+            <button className={styles.submitButton} onClick={next} disabled={!data.brandPersona}>Next</button>
+          </div>
+        </div>
+      )}
+
+      {step === 5 && (
+        <div className={styles.formBox}>
           <h2 className={styles.title}>Review & Confirm</h2>
           <div className="text-sm space-y-2 mb-4">
-            <p><strong>Handle:</strong> {data.handle || "-"}</p>
-            <p><strong>Platforms:</strong> {data.platforms || "-"}</p>
-            <p><strong>Niche:</strong> {data.niche || "-"}</p>
-            <p><strong>Audience:</strong> {data.audience || "-"}</p>
-            <p><strong>Goal:</strong> {data.goal || "-"}</p>
-            <p><strong>Tone:</strong> {data.tone || "-"}</p>
-            <p><strong>Visibility:</strong> {data.visibility}</p>
-            <p><strong>Allow DMs:</strong> {data.allowDMs ? "Yes" : "No"}</p>
-            {data.persona && (
-              <div>
-                <strong>Persona:</strong>
-                <div className="prose prose-invert mt-2">
-                  <ReactMarkdown>{data.persona}</ReactMarkdown>
-                </div>
-              </div>
-            )}
+            <p><strong>Name:</strong> {data.name}</p>
+            <p><strong>Handle:</strong> {data.handle}</p>
+            <p><strong>Followers:</strong> {data.followers}</p>
+            <p><strong>Niche:</strong> {data.niche}</p>
+            <p><strong>Tone:</strong> {data.tone}</p>
+            <p><strong>Values:</strong> {data.values.join(', ') || '-'}</p>
+            <p><strong>Content Type:</strong> {data.contentType}</p>
+            <p><strong>Brand Persona:</strong> {data.brandPersona}</p>
           </div>
           <div className={styles.controls}>
             <button className={styles.navButton} onClick={prev}>Back</button>
-            <button className={styles.submitButton} onClick={finish}>Confirm</button>
-            <button className={styles.navButton} onClick={finish}>Save for later</button>
+            <button className={styles.submitButton} onClick={handleConfirm}>Confirm</button>
           </div>
+        </div>
+      )}
+
+      {step === 6 && (
+        <div className={styles.formBox}>
+          <h2 className={styles.title}>All set!</h2>
+          <p className={styles.subtitle}>Your profile has been saved.</p>
+          <button className={styles.submitButton} onClick={() => router.push('/dashboard')}>
+            Start Dashboard
+          </button>
         </div>
       )}
     </div>
   );
 }
-
