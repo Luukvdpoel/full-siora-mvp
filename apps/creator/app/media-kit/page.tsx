@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { loadPersonasFromLocal, StoredPersona } from "@/lib/localPersonas";
 import type { PersonaProfile, FullPersona } from "@/types/persona";
 
@@ -46,9 +47,9 @@ export default function MediaKitPage() {
       <main className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-6">
         <LockIcon className="w-8 h-8 mb-4" />
         <p className="mb-4">Alleen beschikbaar voor Pro-gebruikers.</p>
-        <a href="/subscribe" className="text-indigo-600 underline">
+        <Link href="/subscribe" className="text-indigo-600 underline">
           Upgrade naar Pro
-        </a>
+        </Link>
       </main>
     );
   }

@@ -3,7 +3,14 @@ import './globals.css';
 import type { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { BrandUserProvider } from '@/lib/brandUser';
-import { PageTransition } from 'shared-ui';
+import { PageTransition, Nav, NavLink } from 'shared-ui';
+
+const navLinks: NavLink[] = [
+  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/shortlist', label: 'Shortlist' },
+  { href: '/matches', label: 'Matches' },
+  { href: '/inbox', label: 'Inbox' },
+];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -12,6 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SessionProvider>
           <BrandUserProvider>
             <main className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
+              <Nav links={navLinks} />
               <PageTransition>{children}</PageTransition>
             </main>
           </BrandUserProvider>

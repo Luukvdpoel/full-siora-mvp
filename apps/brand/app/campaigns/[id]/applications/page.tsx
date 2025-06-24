@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Toast from '@/components/Toast';
 import { creators } from '@/app/data/creators';
 
@@ -18,6 +18,7 @@ interface Application {
 export default function ApplicationsPage() {
   const params = useParams<{ id: string }>();
   const campaignId = params.id;
+  const router = useRouter();
   const [apps, setApps] = useState<Application[]>([]);
   const [toast, setToast] = useState('');
 
@@ -49,7 +50,7 @@ export default function ApplicationsPage() {
       });
       setApps((prev) => prev.filter((a) => a.id !== application.id));
       setToast('Application accepted');
-      window.location.href = `/campaigns/${campaignId}/messages/${application.userId}`;
+      router.push(`/campaigns/${campaignId}/messages/${application.userId}`);
     } catch {
       setToast('Failed to accept');
     }
