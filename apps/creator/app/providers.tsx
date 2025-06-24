@@ -6,6 +6,9 @@ import {
   useEffect,
   useState,
 } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { httpBatchLink } from "@trpc/react-query";
+import { trpc } from "@/lib/trpcClient";
 
 export const ThemeContext = createContext({
   theme: "light",
@@ -14,6 +17,14 @@ export const ThemeContext = createContext({
 
 export default function Providers({ children }: PropsWithChildren) {
   const [theme, setTheme] = useState("light");
+  const [queryClient] = useState(() => new QueryClient());
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [
+        httpBatchLink({ url: "/api/trpc" }),
+      ],
+    })
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -41,9 +52,13 @@ export default function Providers({ children }: PropsWithChildren) {
 
   return (
     <SessionProvider>
-      <ThemeContext.Provider value={{ theme, toggle }}>
-        {children}
-      </ThemeContext.Provider>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <ThemeContext.Provider value={{ theme, toggle }}>
+            {children}
+          </ThemeContext.Provider>
+        </QueryClientProvider>
+      </trpc.Provider>
     </SessionProvider>
   );
 }
