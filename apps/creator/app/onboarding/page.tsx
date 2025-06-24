@@ -57,7 +57,7 @@ export default function CreatorOnboarding() {
     try {
       await mutation.mutateAsync(data);
       localStorage.removeItem("creatorOnboarding");
-      setStep(5);
+      setStep(6);
     } catch (err) {
       console.error(err);
     }
