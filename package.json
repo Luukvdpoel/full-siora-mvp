@@ -14,6 +14,7 @@
     "lint": "turbo run lint",
     "start": "turbo run start",
     "generate:campaign": "node tools/campaign_flow.mjs",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate"
   },
   "devDependencies": {
