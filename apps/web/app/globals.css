@@ -4,9 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-white text-black font-sans antialiased dark:bg-Siora-dark dark:text-white;
+@layer base {
+  body {
+    @apply bg-white text-black font-sans antialiased dark:bg-Siora-dark dark:text-white;
+  }
+
+  * {
+    @apply transition-all duration-200 ease-in-out;
+  }
 }
+
 
 html {
   scroll-behavior: smooth;
