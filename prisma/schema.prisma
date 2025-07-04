@@ -3,39 +3,57 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL_UNPOOLED")
 }
 
 model User {
-  id            String   @id @default(cuid())
-  name          String?
-  email         String?  @unique
-  emailVerified DateTime?
-  image         String?
-  /// Role can be 'creator' or 'brand'
-  role          String?
-  plan          String   @default("free")
-  accounts      Account[]
-  sessions      Session[]
-  personas      Persona[]
+  id              String           @id @default(cuid())
+  name            String?
+  email           String?          @unique
+  emailVerified   DateTime?
+  image           String?
+  role            String?
+  plan            String           @default("free")
+  accounts        Account[]
+  sessions        Session[]
+  personas        Persona[]
   creatorProfiles CreatorProfile[]
+
+  // 👇 Added relation fields
+  createdApplications Application[] @relation("UserApplications")
+  brandCampaigns      Campaign[]    @relation("UserCampaigns")
+  createdMatches      Match[]       @relation("CreatorRelation")
+  brandMatches        Match[]       @relation("BrandRelation")
+}
+
+model Application {
+  id         String   @id @default(cuid())
+  creatorId  String
+  campaignId String
+  message    String?
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+
+  creator  User     @relation("UserApplications", fields: [creatorId], references: [id])
+  campaign Campaign @relation("CampaignApplications", fields: [campaignId], references: [id])
+  matches  Match[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -86,4 +104,107 @@ model CreatorProfile {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model Campaign {
+  id           String   @id @default(cuid())
+  brandId      String
+  title        String
+  description  String
+  deliverables String
+  deadline     DateTime
+  platform     String
+  niche        String
+  budgetMin    Int
+  budgetMax    Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  brand        User          @relation("UserCampaigns", fields: [brandId], references: [id], onDelete: Cascade)
+  applications Application[] @relation("CampaignApplications")
+  matches      Match[]       @relation("CampaignMatches")
+}
+
+model CampaignDraft {
+  id        String   @id @default(cuid())
+  brandId   String
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CampaignBrief {
+  id        String   @id @default(cuid())
+  brandId   String
+  brief     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CampaignApplication {
+  id          String   @id @default(cuid())
+  campaignId  String
+  creatorId   String
+  status      String
+  submittedAt DateTime @default(now())
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  members   Json
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  senderId       String
+  content        String
+  createdAt      DateTime @default(now())
+}
+
+model Match {
+  id            String   @id @default(cuid())
+  campaignId    String
+  creatorId     String
+  applicationId String
+  timestamp     DateTime @default(now())
+  brandId       String
+  status        String
+
+  campaign    Campaign    @relation("CampaignMatches", fields: [campaignId], references: [id])
+  creator     User        @relation("CreatorRelation", fields: [creatorId], references: [id])
+  brand       User        @relation("BrandRelation", fields: [brandId], references: [id])
+  application Application @relation(fields: [applicationId], references: [id])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  userId    String
+  personaId String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}
+
+model PersonaFeedback {
+  id        String   @id @default(cuid())
+  personaId String
+  feedback  Json
+  createdAt DateTime @default(now())
+}
+
+model Shortlist {
+  id        String   @id @default(cuid())
+  brandId   String
+  creatorId String
+  createdAt DateTime @default(now())
+}
+
+model CreatorOnboardingDraft {
+  id        String   @id @default(cuid())
+  userId    String
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

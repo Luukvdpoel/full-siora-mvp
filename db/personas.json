@@ -1,23 +1,26 @@
 [
   {
-    "id": 1,
+    "userId": "dummy-user-id",
+    "title": "Dummy Persona",
+    "data": {},
     "name": "Eco Emily",
     "category": "Sustainability",
-    "audience": "Eco-conscious millennials",
-    "description": "Lifestyle creator focusing on zero-waste living and eco-friendly products."
+    "audience": "Eco-conscious millennials"
   },
   {
-    "id": 2,
+    "userId": "dummy-user-id",
+    "title": "Dummy Persona",
+    "data": {},
     "name": "Tech Tim",
     "category": "Gadgets",
-    "audience": "Early adopters and tech enthusiasts",
-    "description": "Reviews the latest gadgets and shares practical tech tips across channels."
+    "audience": "Early adopters and tech enthusiasts"
   },
   {
-    "id": 3,
+    "userId": "dummy-user-id",
+    "title": "Dummy Persona",
+    "data": {},
     "name": "Lifestyle Lily",
     "category": "Fashion & Wellness",
-    "audience": "Young urban professionals",
-    "description": "Combines minimalist fashion advice with wellness routines and healthy living."
+    "audience": "Young urban professionals"
   }
 ]

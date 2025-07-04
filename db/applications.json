@@ -1,0 +1,26 @@
+[
+  {
+    "id": "app1",
+    "creatorId": "dummy-user-id",
+    "campaignId": "campaign1",
+    "message": "I'd love to work on this campaign, it fits my audience perfectly!",
+    "status": "pending",
+    "createdAt": "2025-07-01T10:00:00Z"
+  },
+  {
+    "id": "app2",
+    "creatorId": "dummy-user-id",
+    "campaignId": "campaign2",
+    "message": "Experienced in home decor content, this is a perfect fit.",
+    "status": "accepted",
+    "createdAt": "2025-07-02T12:00:00Z"
+  },
+  {
+    "id": "app3",
+    "creatorId": "dummy-user-id",
+    "campaignId": "campaign3",
+    "message": "Tech content is my niche. Excited to review this gadget!",
+    "status": "rejected",
+    "createdAt": "2025-07-03T09:00:00Z"
+  }
+]
