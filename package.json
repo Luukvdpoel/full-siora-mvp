@@ -8,7 +8,7 @@
   ],
   "scripts": {
   "dev": "turbo run dev",
-  "build": "turbo run build",
+  "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=apps/web",
   "dev:web": "npm run dev -w apps/web",
   "build:web": "prisma generate --schema=./prisma/schema.prisma && npm run build -w apps/web",
   "lint": "turbo run lint",
