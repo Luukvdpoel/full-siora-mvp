@@ -15,7 +15,10 @@
   "start": "turbo run start",
   "generate:campaign": "node tools/campaign_flow.mjs",
   "postinstall": "prisma generate",
-  "prisma:generate": "prisma generate --schema=./prisma/schema.prisma"
+  "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+  "generate": "prisma generate",
+  "vercel-build": "npx prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=apps/web"
+
 },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
