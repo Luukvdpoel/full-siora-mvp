@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cd ../.. && npx prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=apps/web",
+    "build": "npx prisma generate --schema=../../prisma/schema.prisma && next build",
     "start": "next start",
     "lint": "next lint"
   },

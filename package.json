@@ -2,10 +2,13 @@
   "name": "full-siora-mvp",
   "private": true,
   "packageManager": "npm@10.5.0",
-  "workspaces": [
-    "apps/*",
+  "workspaces": {
+  "packages": [
+    "apps/web",
     "packages/*"
-  ],
+  ]
+},
+
   "scripts": {
   "dev": "turbo run dev",
   "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=apps/web",
@@ -17,7 +20,7 @@
   "postinstall": "prisma generate",
   "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
   "generate": "prisma generate",
-  "vercel-build": "npx prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=apps/web"
+ "vercel-build": "prisma generate --schema=$(pwd)/prisma/schema.prisma && turbo run build --filter=web"
 
 },
   "devDependencies": {
