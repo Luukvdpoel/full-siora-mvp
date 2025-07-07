@@ -20,8 +20,7 @@
   "postinstall": "prisma generate",
   "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
   "generate": "prisma generate",
- "vercel-build": "prisma generate --schema=$(pwd)/prisma/schema.prisma && turbo run build --filter=web"
-
+  "vercel-build": "npm run build --workspace=web"
 },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
