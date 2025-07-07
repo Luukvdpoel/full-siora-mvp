@@ -1,0 +1,35 @@
+[
+  {
+    "brandId": "dummy-brand-id",
+    "title": "Spring Skincare Launch",
+    "deliverables": "1 IG Reel and 3 Story frames highlighting product benefits",
+    "deadline": "2025-12-31T00:00:00.000Z",
+    "platform": "Instagram",
+    "niche": "Beauty",
+    "budgetMin": 500,
+    "budgetMax": 1000,
+    "description": "N/A"
+  },
+  {
+    "brandId": "dummy-brand-id",
+    "title": "Urban Jungle Challenge",
+    "deliverables": "2 posts showcasing plants, 1 short testimonial video",
+    "deadline": "2025-11-15T00:00:00.000Z",
+    "platform": "TikTok",
+    "niche": "Home & Plants",
+    "budgetMin": 300,
+    "budgetMax": 800,
+    "description": "N/A"
+  },
+  {
+    "brandId": "dummy-brand-id",
+    "title": "AI Gadget Review",
+    "deliverables": "Blog article or video review and 5 social shares",
+    "deadline": "2025-10-01T00:00:00.000Z",
+    "platform": "YouTube",
+    "niche": "Tech",
+    "budgetMin": 700,
+    "budgetMax": 1500,
+    "description": "N/A"
+  }
+]

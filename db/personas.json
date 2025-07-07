@@ -1,0 +1,26 @@
+[
+  {
+    "userId": "dummy-user-id",
+    "title": "Dummy Persona",
+    "data": {},
+    "name": "Eco Emily",
+    "category": "Sustainability",
+    "audience": "Eco-conscious millennials"
+  },
+  {
+    "userId": "dummy-user-id",
+    "title": "Dummy Persona",
+    "data": {},
+    "name": "Tech Tim",
+    "category": "Gadgets",
+    "audience": "Early adopters and tech enthusiasts"
+  },
+  {
+    "userId": "dummy-user-id",
+    "title": "Dummy Persona",
+    "data": {},
+    "name": "Lifestyle Lily",
+    "category": "Fashion & Wellness",
+    "audience": "Young urban professionals"
+  }
+]

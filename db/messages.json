@@ -1,0 +1,18 @@
+{
+  "brand1_1": [
+    {
+      "senderId": "brand1",
+      "receiverId": "1",
+      "message": "Welcome to the campaign!",
+      "timestamp": "2024-05-01T12:10:00.000Z",
+      "read": true
+    },
+    {
+      "senderId": "1",
+      "receiverId": "brand1",
+      "message": "Thanks, excited to work together!",
+      "timestamp": "2024-05-01T12:12:00.000Z",
+      "read": false
+    }
+  ]
+}

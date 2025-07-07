@@ -1,0 +1,9 @@
+[
+  {
+    "campaignId": "1",
+    "creatorId": "1",
+    "applicationId": "app1",
+    "timestamp": "2024-05-01T12:00:00.000Z",
+    "status": "pending"
+  }
+]
