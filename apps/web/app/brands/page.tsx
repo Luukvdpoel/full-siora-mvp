@@ -32,7 +32,7 @@ export default function BrandsDashboard() {
   const creatorsList = creators;
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Persona Dashboard</h1>
 
@@ -41,31 +41,31 @@ export default function BrandsDashboard() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             placeholder="Tone"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={values}
             onChange={(e) => setValues(e.target.value)}
             placeholder="Values (comma separated)"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={niche}
             onChange={(e) => setNiche(e.target.value)}
             placeholder="Niche"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={persona}
             onChange={(e) => setPersona(e.target.value)}
             placeholder="Persona"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <div className="flex gap-2">
             <input
@@ -73,14 +73,14 @@ export default function BrandsDashboard() {
               value={minFollowers}
               onChange={(e) => setMinFollowers(e.target.value)}
               placeholder="Min Followers"
-              className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+              className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
             />
             <input
               type="number"
               value={maxFollowers}
               onChange={(e) => setMaxFollowers(e.target.value)}
               placeholder="Max Followers"
-              className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+              className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
             />
           </div>
         </div>

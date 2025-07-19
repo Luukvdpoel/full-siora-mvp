@@ -18,7 +18,7 @@ export default function SavedCreatorCard({ creator, score, reason, onClick }: Pr
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3 }}
       onClick={onClick}
-      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover cursor-pointer"
+      className="bg-white dark:bg-siora-mid border border-gray-300 dark:border-siora-border rounded-2xl p-6 shadow-siora-hover cursor-pointer"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
         {creator.name}
@@ -44,7 +44,7 @@ export default function SavedCreatorCard({ creator, score, reason, onClick }: Pr
           {creator.tags.map((t) => (
             <span
               key={t}
-              className="bg-gray-100 dark:bg-Siora-light text-gray-700 dark:text-zinc-300 rounded px-2 py-1 text-xs"
+              className="bg-gray-100 dark:bg-siora-light text-gray-700 dark:text-zinc-300 rounded px-2 py-1 text-xs"
             >
               {t}
             </span>
@@ -53,7 +53,7 @@ export default function SavedCreatorCard({ creator, score, reason, onClick }: Pr
       )}
       <Link
         href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
-        className="text-sm text-Siora-accent underline"
+        className="text-sm text-siora-accent underline"
       >
         View Profile
       </Link>

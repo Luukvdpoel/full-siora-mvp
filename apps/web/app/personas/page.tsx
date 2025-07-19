@@ -40,7 +40,7 @@ export default function PersonasPage() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Persona Search</h1>
 
@@ -49,37 +49,37 @@ export default function PersonasPage() {
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             placeholder="Search tone"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
             placeholder="Search platform"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={vibe}
             onChange={(e) => setVibe(e.target.value)}
             placeholder="Search vibe"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={niche}
             onChange={(e) => setNiche(e.target.value)}
             placeholder="Search niche"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={tag}
             onChange={(e) => setTag(e.target.value)}
             placeholder="Tone tag"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={format}
             onChange={(e) => setFormat(e.target.value)}
             placeholder="Format"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
         </div>
 

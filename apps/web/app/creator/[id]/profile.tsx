@@ -20,12 +20,12 @@ export default function CreatorProfile({ params }: Props) {
   const [checklistOpen, setChecklistOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-3xl mx-auto space-y-6">
-        <div className="border border-Siora-border rounded-2xl bg-Siora-mid p-6 shadow-Siora-hover">
+        <div className="border border-siora-border rounded-2xl bg-siora-mid p-6 shadow-siora-hover">
           <h1 className="text-3xl font-bold tracking-tight">
             {creator.name}{" "}
-            <span className="text-Siora-accent">
+            <span className="text-siora-accent">
               {creator.handle.startsWith("@") ? creator.handle : `@${creator.handle}`}
             </span>
           </h1>
@@ -55,7 +55,7 @@ export default function CreatorProfile({ params }: Props) {
                 {creator.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs bg-Siora-light text-white border border-Siora-border px-3 py-1 rounded-full"
+                    className="text-xs bg-siora-light text-white border border-siora-border px-3 py-1 rounded-full"
                   >
                     {tag}
                   </span>
@@ -67,13 +67,13 @@ export default function CreatorProfile({ params }: Props) {
           <PerformanceTab creatorId={creator.id.toString()} />
           <button
             onClick={() => setContractOpen(true)}
-            className="mt-4 px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+            className="mt-4 px-3 py-1 text-sm rounded bg-siora-accent text-white"
           >
             Generate Contract
           </button>
           <button
             onClick={() => setChecklistOpen(true)}
-            className="ml-4 mt-4 px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+            className="ml-4 mt-4 px-3 py-1 text-sm rounded bg-siora-accent text-white"
           >
             Generate Evaluation Checklist
           </button>

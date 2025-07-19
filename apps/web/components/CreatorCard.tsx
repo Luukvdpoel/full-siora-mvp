@@ -78,11 +78,11 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       whileHover={{ y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.3 }}
-      className="group cursor-pointer bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
+      className="group cursor-pointer bg-white dark:bg-siora-mid border border-gray-300 dark:border-siora-border rounded-2xl p-6 shadow-siora-hover"
     >
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
         {creator.name}{" "}
-        <span className="text-Siora-accent group-hover:text-Siora-accent-soft">
+        <span className="text-siora-accent group-hover:text-siora-accent-soft">
           @{creator.handle}
         </span>
         {badges.map((b) => (
@@ -100,7 +100,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
           {creator.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-Siora-light dark:bg-Siora-dark px-2 py-0.5 rounded"
+              className="bg-siora-light dark:bg-siora-dark px-2 py-0.5 rounded"
             >
               {tag}
             </span>
@@ -114,14 +114,14 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       <Link
         href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
         onClick={(e) => e.stopPropagation()}
-        className="inline-block text-sm mt-4 text-Siora-accent underline group-hover:text-Siora-accent-soft"
+        className="inline-block text-sm mt-4 text-siora-accent underline group-hover:text-siora-accent-soft"
       >
         View
       </Link>
       <Link
         href={`/messages/${creator.id}`}
         onClick={(e) => e.stopPropagation()}
-        className="ml-4 inline-flex items-center text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 hover:bg-Siora-accent-soft"
+        className="ml-4 inline-flex items-center text-sm mt-4 text-white bg-siora-accent rounded px-3 py-1 hover:bg-siora-accent-soft"
       >
         <FaEnvelope className="mr-1" /> Message
       </Link>
@@ -131,7 +131,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
           handleContact();
         }}
         disabled={loading}
-        className="ml-4 inline-block text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 disabled:opacity-50"
+        className="ml-4 inline-block text-sm mt-4 text-white bg-siora-accent rounded px-3 py-1 disabled:opacity-50"
       >
         {loading ? 'Contacting...' : 'Contact'}
       </button>
@@ -140,7 +140,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
           e.stopPropagation();
           setChecklistOpen(true);
         }}
-        className="ml-4 text-sm mt-4 text-Siora-accent underline"
+        className="ml-4 text-sm mt-4 text-siora-accent underline"
       >
         Generate Evaluation Checklist
       </button>
@@ -150,7 +150,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
           handleSave();
         }}
         className={`ml-4 mt-4 text-sm flex items-center gap-1 underline ${
-          shortlisted ? 'text-yellow-400' : 'text-Siora-accent'
+          shortlisted ? 'text-yellow-400' : 'text-siora-accent'
         }`}
       >
         {shortlisted ? <FaStar /> : <FaRegStar />} {shortlisted ? 'Saved' : 'Save'}

@@ -11,12 +11,12 @@ export default function PersonaProfile({ params }: any) {
   const [tab, setTab] = useState<'overview' | 'performance'>('overview');
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-3xl mx-auto space-y-6">
-        <div className="border border-Siora-border rounded-2xl bg-Siora-mid p-6 shadow-Siora-hover">
+        <div className="border border-siora-border rounded-2xl bg-siora-mid p-6 shadow-siora-hover">
           <h1 className="text-3xl font-bold tracking-tight">
             {persona.name}{" "}
-            <span className="text-Siora-accent">
+            <span className="text-siora-accent">
               {persona.handle.startsWith("@") ? persona.handle : `@${persona.handle}`}
             </span>
           </h1>
@@ -26,13 +26,13 @@ export default function PersonaProfile({ params }: any) {
           <div className="mt-4 flex gap-2">
             <button
               onClick={() => setTab('overview')}
-              className={tab === 'overview' ? 'px-3 py-1 rounded bg-Siora-accent' : 'px-3 py-1 rounded bg-Siora-light'}
+              className={tab === 'overview' ? 'px-3 py-1 rounded bg-siora-accent' : 'px-3 py-1 rounded bg-siora-light'}
             >
               Overview
             </button>
             <button
               onClick={() => setTab('performance')}
-              className={tab === 'performance' ? 'px-3 py-1 rounded bg-Siora-accent' : 'px-3 py-1 rounded bg-Siora-light'}
+              className={tab === 'performance' ? 'px-3 py-1 rounded bg-siora-accent' : 'px-3 py-1 rounded bg-siora-light'}
             >
               Performance
             </button>
@@ -56,7 +56,7 @@ export default function PersonaProfile({ params }: any) {
                     {persona.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs bg-Siora-light text-white border border-Siora-border px-3 py-1 rounded-full"
+                        className="text-xs bg-siora-light text-white border border-siora-border px-3 py-1 rounded-full"
                       >
                         {tag}
                       </span>

@@ -29,7 +29,7 @@ export default function RecommendedPage() {
   const top = scored.slice(0, 5);
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-extrabold">Recommended Creators</h1>
         <p className="text-zinc-400">
@@ -40,11 +40,11 @@ export default function RecommendedPage() {
           {top.map(({ creator, score, reason }) => (
             <div
               key={creator.id}
-              className="bg-Siora-mid border border-Siora-border rounded-xl p-6 shadow-Siora-hover"
+              className="bg-siora-mid border border-siora-border rounded-xl p-6 shadow-siora-hover"
             >
               <h2 className="text-xl font-semibold">
                 {creator.name}{" "}
-                <span className="text-Siora-accent">@{creator.handle.replace(/^@/, "")}</span>
+                <span className="text-siora-accent">@{creator.handle.replace(/^@/, "")}</span>
               </h2>
               <p className="text-sm text-zinc-400 mb-2">
                 Fit Score: {score}/100

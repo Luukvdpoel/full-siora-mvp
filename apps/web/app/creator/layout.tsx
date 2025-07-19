@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="bg-Siora-dark text-white font-sans antialiased min-h-screen">
+      <body className="bg-siora-dark text-white font-sans antialiased min-h-screen">
         <Providers>
           <ToastProvider>
             <div className="p-4 flex justify-between items-center">

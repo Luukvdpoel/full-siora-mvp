@@ -23,7 +23,7 @@ export default function TagInput({ tags, onChange, placeholder }: TagInputProps)
   };
 
   return (
-    <div className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border flex flex-wrap gap-1">
+    <div className="p-2 border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border flex flex-wrap gap-1">
       {tags.map((tag) => (
         <span key={tag} className="bg-indigo-600 text-white rounded px-2 py-0.5 flex items-center gap-1 text-xs">
           {tag}

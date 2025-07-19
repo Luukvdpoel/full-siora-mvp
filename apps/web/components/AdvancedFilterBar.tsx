@@ -59,7 +59,7 @@ export default function AdvancedFilterBar({ onFilter }: Props) {
   };
 
   return (
-    <div className="space-y-4 p-4 bg-Siora-light rounded-lg text-white">
+    <div className="space-y-4 p-4 bg-siora-light rounded-lg text-white">
       <div className="flex flex-wrap gap-4">
         {platforms.map((p) => (
           <label key={p} className="flex items-center gap-1">

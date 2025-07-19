@@ -60,33 +60,33 @@ export default function MatchesPage() {
 
   return (
     <>
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-extrabold">Your Top Matches</h1>
         <div className="space-y-4">
           {top.map(({ creator, score }) => (
-            <div key={creator.id} className="bg-Siora-mid border border-Siora-border rounded-xl p-6 shadow-Siora-hover">
+            <div key={creator.id} className="bg-siora-mid border border-siora-border rounded-xl p-6 shadow-siora-hover">
               <h2 className="text-xl font-semibold">
-                {creator.name} <span className="text-Siora-accent">@{creator.handle}</span>
+                {creator.name} <span className="text-siora-accent">@{creator.handle}</span>
               </h2>
               <p className="text-sm text-zinc-400 mb-2">{Math.round(score)}% match</p>
               <p className="text-sm text-zinc-300 mb-4">{creator.summary}</p>
               <div className="flex gap-4">
                 <button
                   onClick={() => toggle(creator.id)}
-                  className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+                  className="px-3 py-1 text-sm rounded bg-siora-accent text-white"
                 >
                   {inShortlist(creator.id) ? "Remove from Shortlist" : "Add to Shortlist"}
                 </button>
                 <Link
                   href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
-                  className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
+                  className="px-3 py-1 text-sm rounded border border-siora-border text-white"
                 >
                   View Persona
                 </Link>
                 <Link
                   href={`/messages/${creator.id}`}
-                  className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
+                  className="px-3 py-1 text-sm rounded border border-siora-border text-white"
                 >
                   Send Message
                 </Link>

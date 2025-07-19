@@ -68,7 +68,7 @@ export default function ChatPage({
       <div className="max-w-xl mx-auto flex flex-col space-y-4">
         <h1 className="text-2xl font-bold">Chat with {creator?.name ?? 'Creator'}</h1>
         <input
-          className="p-2 border border-Siora-border rounded text-black"
+          className="p-2 border border-siora-border rounded text-black"
           placeholder="Campaign"
           value={campaign}
           onChange={(e) => setCampaign(e.target.value)}

@@ -15,8 +15,8 @@ export function Nav({ links }: { links: NavLink[] }) {
         <Link
           key={l.href}
           href={l.href}
-          className={`transition-colors hover:text-Siora-accent ${
-            pathname === l.href ? 'text-Siora-accent font-semibold' : 'text-gray-300'
+          className={`transition-colors hover:text-siora-accent ${
+            pathname === l.href ? 'text-siora-accent font-semibold' : 'text-gray-300'
           }`}
         >
           {l.label}

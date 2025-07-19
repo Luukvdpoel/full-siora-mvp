@@ -48,7 +48,7 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-Siora-mid border border-Siora-border rounded-xl p-6 w-96 space-y-4 shadow-Siora-hover">
+      <div className="bg-siora-mid border border-siora-border rounded-xl p-6 w-96 space-y-4 shadow-siora-hover">
         <h2 className="text-xl font-semibold">Generate Contract</h2>
         {!contract && (
           <>
@@ -56,27 +56,27 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+              className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border"
               placeholder="Start Date"
             />
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+              className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border"
               placeholder="End Date"
             />
             <input
               value={deliverables}
               onChange={(e) => setDeliverables(e.target.value)}
               placeholder="Deliverables"
-              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+              className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border"
             />
             <input
               value={payment}
               onChange={(e) => setPayment(e.target.value)}
               placeholder="Payment Terms"
-              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+              className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border"
             />
           </>
         )}
@@ -85,18 +85,18 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
             <textarea
               readOnly
               value={contract}
-              className="w-full h-40 p-2 rounded-lg bg-Siora-light text-white border border-Siora-border overflow-y-auto"
+              className="w-full h-40 p-2 rounded-lg bg-siora-light text-white border border-siora-border overflow-y-auto"
             />
             <div className="flex gap-2 justify-end">
               <button
                 onClick={async () => contract && (await navigator.clipboard.writeText(contract))}
-                className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+                className="px-3 py-1 text-sm rounded bg-siora-accent text-white"
               >
                 Copy to Clipboard
               </button>
               <button
                 onClick={() => alert('Export to PDF coming soon')}
-                className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
+                className="px-3 py-1 text-sm rounded bg-siora-accent text-white"
               >
                 Export PDF
               </button>
@@ -107,14 +107,14 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
           <button
             onClick={generate}
             disabled={loading}
-            className="w-full px-3 py-1 text-sm rounded bg-Siora-accent text-white disabled:opacity-50"
+            className="w-full px-3 py-1 text-sm rounded bg-siora-accent text-white disabled:opacity-50"
           >
             {loading ? "Generating..." : "Generate"}
           </button>
         )}
         <button
           onClick={onClose}
-          className="w-full px-3 py-1 text-sm rounded border border-Siora-border text-white"
+          className="w-full px-3 py-1 text-sm rounded border border-siora-border text-white"
         >
           Close
         </button>

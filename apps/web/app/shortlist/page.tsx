@@ -90,7 +90,7 @@ export default function ShortlistPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <h1 className="text-4xl font-extrabold tracking-tight">My Shortlist</h1>

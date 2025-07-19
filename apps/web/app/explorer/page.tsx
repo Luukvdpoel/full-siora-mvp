@@ -29,7 +29,7 @@ export default function ExplorerPage() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <motion.h1
           initial={{ opacity: 0, y: -10 }}
@@ -44,7 +44,7 @@ export default function ExplorerPage() {
           <select
             value={tone}
             onChange={(e) => setTone(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           >
             <option value="">All Tones</option>
             {tones.map((t) => (
@@ -56,7 +56,7 @@ export default function ExplorerPage() {
           <select
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           >
             <option value="">All Platforms</option>
             {platforms.map((p) => (
@@ -68,7 +68,7 @@ export default function ExplorerPage() {
           <select
             value={niche}
             onChange={(e) => setNiche(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           >
             <option value="">All Niches</option>
             {niches.map((n) => (

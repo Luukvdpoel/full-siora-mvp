@@ -21,7 +21,7 @@ export default function CampaignsPage() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Live Campaigns</h1>
 
@@ -30,27 +30,27 @@ export default function CampaignsPage() {
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
             placeholder="Platform"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={niche}
             onChange={(e) => setNiche(e.target.value)}
             placeholder="Niche"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             type="number"
             value={minBudget}
             onChange={(e) => setMinBudget(e.target.value)}
             placeholder="Min Budget"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             type="number"
             value={maxBudget}
             onChange={(e) => setMaxBudget(e.target.value)}
             placeholder="Max Budget"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
         </div>
 
@@ -61,7 +61,7 @@ export default function CampaignsPage() {
             {filtered.map((c) => (
               <div
                 key={c.id}
-                className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
+                className="bg-white dark:bg-siora-mid border border-gray-300 dark:border-siora-border rounded-2xl p-6 shadow-siora-hover"
               >
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                   {c.brand} – {c.name}
@@ -74,7 +74,7 @@ export default function CampaignsPage() {
                 </p>
                 <button
                   onClick={() => alert('Apply flow coming soon!')}
-                  className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-3 py-1 rounded"
+                  className="bg-siora-accent hover:bg-siora-accent-soft text-white px-3 py-1 rounded"
                 >
                   Apply as Creator
                 </button>

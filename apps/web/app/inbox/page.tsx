@@ -44,7 +44,7 @@ export default function InboxPage() {
   };
 
   return (
-    <main className="min-h-screen p-6 bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white">
+    <main className="min-h-screen p-6 bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white">
       <div className="max-w-5xl mx-auto flex gap-6">
         <aside className="w-64 space-y-2">
           <h2 className="text-xl font-semibold mb-2">Contacts</h2>
@@ -53,7 +53,7 @@ export default function InboxPage() {
               key={c.id}
               onClick={() => openChat(c)}
               className={`block w-full text-left px-4 py-2 rounded transition-colors ${
-                selected?.id === c.id ? "bg-Siora-accent" : "bg-Siora-light"
+                selected?.id === c.id ? "bg-siora-accent" : "bg-siora-light"
               }`}
             >
               {c.name}

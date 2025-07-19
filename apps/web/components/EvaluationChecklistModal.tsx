@@ -78,29 +78,29 @@ export default function EvaluationChecklistModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-Siora-mid border border-Siora-border rounded-xl p-6 w-96 space-y-4 shadow-Siora-hover">
+      <div className="bg-siora-mid border border-siora-border rounded-xl p-6 w-96 space-y-4 shadow-siora-hover">
         <h2 className="text-xl font-semibold">Evaluation Checklist for {creatorName}</h2>
         {markdown && (
-          <pre className="whitespace-pre-wrap text-sm border border-Siora-border p-2 rounded bg-Siora-light text-white">
+          <pre className="whitespace-pre-wrap text-sm border border-siora-border p-2 rounded bg-siora-light text-white">
             {markdown}
           </pre>
         )}
         <div className="flex justify-end gap-2">
           {!markdown ? (
-            <button onClick={generate} disabled={loading} className="px-3 py-1 text-sm rounded bg-Siora-accent text-white disabled:opacity-50">
+            <button onClick={generate} disabled={loading} className="px-3 py-1 text-sm rounded bg-siora-accent text-white disabled:opacity-50">
               {loading ? "Generating..." : "Generate"}
             </button>
           ) : (
             <>
-              <button onClick={save} className="px-3 py-1 text-sm rounded bg-Siora-accent text-white">
+              <button onClick={save} className="px-3 py-1 text-sm rounded bg-siora-accent text-white">
                 Save for Later
               </button>
-              <button onClick={exportPdf} className="px-3 py-1 text-sm rounded bg-Siora-accent text-white">
+              <button onClick={exportPdf} className="px-3 py-1 text-sm rounded bg-siora-accent text-white">
                 Export as PDF
               </button>
             </>
           )}
-          <button onClick={onClose} className="px-3 py-1 text-sm rounded border border-Siora-border text-white">
+          <button onClick={onClose} className="px-3 py-1 text-sm rounded border border-siora-border text-white">
             Close
           </button>
         </div>

@@ -27,7 +27,7 @@ export default function ChecklistPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-xl mx-auto space-y-4">
         <h1 className="text-3xl font-bold">Campaign Checklist</h1>
         <textarea
@@ -35,12 +35,12 @@ export default function ChecklistPage() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your campaign in 1–2 lines"
-          className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none"
+          className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none"
         />
         <button
           onClick={generate}
           disabled={loading}
-          className="px-4 py-2 bg-Siora-accent rounded text-white disabled:opacity-50"
+          className="px-4 py-2 bg-siora-accent rounded text-white disabled:opacity-50"
         >
           {loading ? "Generating..." : "Generate Checklist"}
         </button>

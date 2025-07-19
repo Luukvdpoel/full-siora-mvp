@@ -77,14 +77,14 @@ export default function Dashboard() {
     <div className="p-8 space-y-6">
       <h1 className="text-2xl font-semibold">Creator Personas</h1>
       <input
-        className="p-2 w-full border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+        className="p-2 w-full border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border"
         placeholder="Search creators"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
         <select
-          className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+          className="p-2 border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border"
           value={platform}
           onChange={(e) => setPlatform(e.target.value)}
         >
@@ -94,27 +94,27 @@ export default function Dashboard() {
           <option value="YouTube">YouTube</option>
         </select>
         <input
-          className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+          className="p-2 border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border"
           placeholder="Vibe"
           value={vibe}
           onChange={(e) => setVibe(e.target.value)}
         />
         <input
-          className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+          className="p-2 border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border"
           placeholder="Content format"
           value={format}
           onChange={(e) => setFormat(e.target.value)}
         />
         <input
           type="number"
-          className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+          className="p-2 border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border"
           placeholder="Min fit score"
           value={minScore}
           onChange={(e) => setMinScore(e.target.value)}
         />
         <input
           type="number"
-          className="p-2 border rounded bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white border-gray-300 dark:border-Siora-border"
+          className="p-2 border rounded bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white border-gray-300 dark:border-siora-border"
           placeholder="Max fit score"
           value={maxScore}
           onChange={(e) => setMaxScore(e.target.value)}

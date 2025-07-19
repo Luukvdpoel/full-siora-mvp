@@ -39,17 +39,17 @@ export default function CreatorMetrics({ creatorId }: Props) {
   return (
     <div className="space-y-4 text-sm text-zinc-300">
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        <div className="p-4 bg-Siora-light rounded-lg border border-Siora-border">
+        <div className="p-4 bg-siora-light rounded-lg border border-siora-border">
           <div className="text-xs uppercase tracking-wide">Followers</div>
           <div className="text-base font-semibold">
             {data.totalFollowers.toLocaleString()}
           </div>
         </div>
-        <div className="p-4 bg-Siora-light rounded-lg border border-Siora-border">
+        <div className="p-4 bg-siora-light rounded-lg border border-siora-border">
           <div className="text-xs uppercase tracking-wide">Engagement Rate</div>
           <div className="text-base font-semibold">{data.engagementRate}%</div>
         </div>
-        <div className="p-4 bg-Siora-light rounded-lg border border-Siora-border">
+        <div className="p-4 bg-siora-light rounded-lg border border-siora-border">
           <div className="text-xs uppercase tracking-wide">Monthly Growth</div>
           <div className="text-base font-semibold">
             {data.monthlyGrowthRate}%
@@ -57,13 +57,13 @@ export default function CreatorMetrics({ creatorId }: Props) {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 bg-Siora-light rounded-lg border border-Siora-border">
+        <div className="p-4 bg-siora-light rounded-lg border border-siora-border">
           <div className="text-xs uppercase tracking-wide">Avg Likes/Post</div>
           <div className="text-base font-semibold">
             {data.avgLikes.toLocaleString()}
           </div>
         </div>
-        <div className="p-4 bg-Siora-light rounded-lg border border-Siora-border">
+        <div className="p-4 bg-siora-light rounded-lg border border-siora-border">
           <div className="text-xs uppercase tracking-wide">Avg Comments/Post</div>
           <div className="text-base font-semibold">
             {data.avgComments.toLocaleString()}

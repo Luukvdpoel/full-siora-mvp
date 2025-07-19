@@ -42,7 +42,7 @@ export default function CampaignMessagesPage() {
               <li key={m.id}>
                 <Link
                   href={`/campaigns/${campaignId}/messages/${m.creatorId}`}
-                  className="text-Siora-accent underline"
+                  className="text-siora-accent underline"
                 >
                   {creator ? creator.name : m.creatorId}
                 </Link>

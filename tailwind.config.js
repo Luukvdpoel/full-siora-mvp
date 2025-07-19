@@ -10,15 +10,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'Siora-dark': '#0f172a',
-        'Siora-mid': '#1e293b',
-        'Siora-light': '#334155',
-        'Siora-border': '#3f3f46',
-        'Siora-accent': '#6366f1',
-        'Siora-accent-soft': '#818cf8',
+        'siora-dark': '#0f172a',
+        'siora-mid': '#1e293b',
+        'siora-light': '#334155',
+        'siora-border': '#3f3f46',
+        'siora-accent': '#6366f1',
+        'siora-accent-soft': '#818cf8',
       },
       boxShadow: {
-        'Siora-hover': '0 8px 24px rgba(99, 102, 241, 0.2)',
+        'siora-hover': '0 8px 24px rgba(99, 102, 241, 0.2)',
       },
       borderRadius: {
         DEFAULT: '0.5rem',

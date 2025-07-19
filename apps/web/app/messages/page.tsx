@@ -10,7 +10,7 @@ export default function MessagesPage() {
         <ul className="space-y-2">
           {creators.slice(0, 10).map((c) => (
             <li key={c.id}>
-              <Link href={`/messages/${c.id}`} className="text-Siora-accent underline">
+              <Link href={`/messages/${c.id}`} className="text-siora-accent underline">
                 Chat with {c.name}
               </Link>
             </li>

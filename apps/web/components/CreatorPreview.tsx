@@ -23,7 +23,7 @@ export default function CreatorPreview({ creator }: Props) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-5 shadow-Siora-hover"
+      className="bg-white dark:bg-siora-mid border border-gray-300 dark:border-siora-border rounded-2xl p-5 shadow-siora-hover"
     >
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -43,7 +43,7 @@ export default function CreatorPreview({ creator }: Props) {
           {hooks.map((h) => (
             <span
               key={h}
-              className="bg-gray-100 dark:bg-Siora-light text-gray-700 dark:text-zinc-300 rounded px-2 py-1"
+              className="bg-gray-100 dark:bg-siora-light text-gray-700 dark:text-zinc-300 rounded px-2 py-1"
             >
               {h}
             </span>
@@ -58,7 +58,7 @@ export default function CreatorPreview({ creator }: Props) {
         {creator.location && <> • {creator.location}</>}
       </div>
       {typeof creator.fitScore === "number" && (
-        <p className="text-sm font-semibold text-Siora-accent">
+        <p className="text-sm font-semibold text-siora-accent">
           Fit Score: {creator.fitScore}
         </p>
       )}

@@ -83,26 +83,26 @@ export default function PerformanceTab({ creatorId }: Props) {
     <div className="mt-6 space-y-6 text-sm text-zinc-300">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div
-          className="flex flex-col gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border"
+          className="flex flex-col gap-2 p-4 bg-siora-light rounded-lg border border-siora-border"
           title="Average number of people each post reaches"
         >
           <div className="flex items-center gap-2">
-            <FaUsers className="text-Siora-accent" />
+            <FaUsers className="text-siora-accent" />
             <div>
               <div className="text-xs uppercase tracking-wide">Avg Reach</div>
               <div className="text-base font-semibold">{data.avgReach.toLocaleString()}</div>
             </div>
           </div>
           <div className="w-full h-2 bg-zinc-700/50 rounded">
-            <div className="h-2 bg-Siora-accent rounded" style={{ width: `${reachPct}%` }} />
+            <div className="h-2 bg-siora-accent rounded" style={{ width: `${reachPct}%` }} />
           </div>
         </div>
         <div
-          className="flex flex-col gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border"
+          className="flex flex-col gap-2 p-4 bg-siora-light rounded-lg border border-siora-border"
           title="Percentage of followers who interact with posts"
         >
           <div className="flex items-center gap-2">
-            <FaHeart className="text-Siora-accent" />
+            <FaHeart className="text-siora-accent" />
             <div>
               <div className="text-xs uppercase tracking-wide">Engagement Rate</div>
               <div className="text-base font-semibold">{data.engagementRate}%</div>
@@ -113,11 +113,11 @@ export default function PerformanceTab({ creatorId }: Props) {
           </div>
         </div>
         <div
-          className="flex flex-col gap-2 p-4 bg-Siora-light rounded-lg border border-Siora-border"
+          className="flex flex-col gap-2 p-4 bg-siora-light rounded-lg border border-siora-border"
           title="Change in followers over the last month"
         >
           <div className="flex items-center gap-2">
-            <FaChartLine className="text-Siora-accent" />
+            <FaChartLine className="text-siora-accent" />
             <div>
               <div className="text-xs uppercase tracking-wide">Follower Growth</div>
               <div className={`text-base font-semibold ${trendUp ? "text-green-400" : "text-red-400"}`}>{trendUp ? "▲" : "▼"} {trendPercent}%</div>
@@ -133,7 +133,7 @@ export default function PerformanceTab({ creatorId }: Props) {
           <h3 className="text-md font-semibold mb-2">Top Posts</h3>
           <ul className="space-y-2">
             {data.topPosts.map((p) => (
-              <li key={p.link} className="p-3 bg-Siora-light rounded border border-Siora-border">
+              <li key={p.link} className="p-3 bg-siora-light rounded border border-siora-border">
                 <a href={p.link} target="_blank" rel="noreferrer" className="underline">
                   {p.title}
                 </a>

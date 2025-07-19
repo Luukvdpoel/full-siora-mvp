@@ -34,7 +34,7 @@ export default function SignInPage() {
     <main className="min-h-screen flex flex-col items-center justify-center gap-4">
       <button
         onClick={handleGoogle}
-        className="bg-Siora-accent text-white px-4 py-2 rounded"
+        className="bg-siora-accent text-white px-4 py-2 rounded"
       >
         Sign in with Google
       </button>
@@ -47,7 +47,7 @@ export default function SignInPage() {
         />
         <button
           onClick={handleTemp}
-          className="bg-Siora-accent text-white px-3 py-1 rounded disabled:opacity-50"
+          className="bg-siora-accent text-white px-3 py-1 rounded disabled:opacity-50"
           disabled={submitting}
         >
           Continue

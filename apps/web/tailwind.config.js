@@ -12,7 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'Siora-dark': '#0A0A0A',
+        'siora-dark': '#0A0A0A',
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],

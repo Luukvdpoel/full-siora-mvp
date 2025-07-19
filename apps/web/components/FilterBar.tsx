@@ -40,7 +40,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
       <select
         value={platform}
         onChange={(e) => setPlatform(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       >
         <option value="">All Platforms</option>
         <option value="Instagram">Instagram</option>
@@ -52,14 +52,14 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         value={tone}
         onChange={(e) => setTone(e.target.value)}
         placeholder="Tone"
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       />
 
       <input
         value={audience}
         onChange={(e) => setAudience(e.target.value)}
         placeholder="Audience"
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       />
 
       <input
@@ -67,7 +67,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         placeholder="Min Followers"
         value={minFollowers}
         onChange={(e) => setMinFollowers(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       />
 
       <input
@@ -75,7 +75,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         placeholder="Max Followers"
         value={maxFollowers}
         onChange={(e) => setMaxFollowers(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       />
 
       <input
@@ -84,7 +84,7 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         placeholder="Min ER%"
         value={minEngagement}
         onChange={(e) => setMinEngagement(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       />
 
       <input
@@ -93,14 +93,14 @@ export default function FilterBar({ onFilter, onSort }: Props) {
         placeholder="Max ER%"
         value={maxEngagement}
         onChange={(e) => setMaxEngagement(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+        className="bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
       />
 
       <div className="flex flex-col sm:flex-row gap-2">
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value)}
-          className="flex-1 bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
+          className="flex-1 bg-gray-100 dark:bg-siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent transition"
         >
           <option value="">Sort by</option>
           <option value="followers-desc">Followers ↓</option>

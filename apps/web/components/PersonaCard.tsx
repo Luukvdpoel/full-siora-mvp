@@ -24,11 +24,11 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       onClick={handleClick}
-      className="rounded-xl p-6 bg-Siora-mid border border-Siora-border text-white shadow hover:shadow-Siora-hover hover:-translate-y-1 transition cursor-pointer space-y-2"
+      className="rounded-xl p-6 bg-siora-mid border border-siora-border text-white shadow hover:shadow-siora-hover hover:-translate-y-1 transition cursor-pointer space-y-2"
     >
       <h2 className="text-lg font-semibold text-white mb-1">
         {persona.name}{" "}
-        <span className="text-Siora-accent">@{persona.handle}</span>
+        <span className="text-siora-accent">@{persona.handle}</span>
       </h2>
       <p className="text-sm text-zinc-400 mb-2">
         {persona.tone} • {persona.platform}
@@ -41,7 +41,7 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
           {persona.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-Siora-light/40 px-2 py-0.5 rounded"
+              className="bg-siora-light/40 px-2 py-0.5 rounded"
             >
               {tag}
             </span>
@@ -51,7 +51,7 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
       <Link
         href={`/brands/${persona.id}`}
         onClick={(e) => e.stopPropagation()}
-        className="inline-block text-sm mt-4 text-Siora-accent underline hover:text-Siora-accent-soft"
+        className="inline-block text-sm mt-4 text-siora-accent underline hover:text-siora-accent-soft"
       >
         View Persona
       </Link>
@@ -61,7 +61,7 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
             e.stopPropagation();
             onToggle(persona.id);
           }}
-          className="ml-4 text-sm text-Siora-accent underline"
+          className="ml-4 text-sm text-siora-accent underline"
         >
           {inShortlist ? "Remove from Shortlist" : "Save to Shortlist"}
         </button>

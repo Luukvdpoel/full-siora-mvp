@@ -84,7 +84,7 @@ export default function Dashboard() {
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 md:px-10 py-12">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 md:px-10 py-12">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-extrabold tracking-tight">Brand Dashboard</h1>
 
@@ -92,14 +92,14 @@ export default function Dashboard() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search creators..."
-          className="w-full p-3 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-3 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <select
             value={platformFilter}
             onChange={(e) => setPlatformFilter(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           >
             <option value="">All Platforms</option>
             {platforms.map((p) => (
@@ -111,7 +111,7 @@ export default function Dashboard() {
           <select
             value={toneFilter}
             onChange={(e) => setToneFilter(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           >
             <option value="">All Tones</option>
             {tones.map((t) => (
@@ -123,7 +123,7 @@ export default function Dashboard() {
           <select
             value={nicheFilter}
             onChange={(e) => setNicheFilter(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           >
             <option value="">All Niches</option>
             {niches.map((n) => (
@@ -151,7 +151,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 pt-8 border-t border-Siora-border mt-12">
+        <div className="flex flex-wrap justify-center gap-2 pt-8 border-t border-siora-border mt-12">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
@@ -159,10 +159,10 @@ export default function Dashboard() {
                 setCurrentPage(page);
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className={`px-3 py-1 rounded-md border border-Siora-border text-sm transition ${
+              className={`px-3 py-1 rounded-md border border-siora-border text-sm transition ${
                 page === currentPage
-                  ? "bg-Siora-accent text-white font-semibold"
-                  : "text-zinc-300 hover:bg-Siora-accent hover:text-white"
+                  ? "bg-siora-accent text-white font-semibold"
+                  : "text-zinc-300 hover:bg-siora-accent hover:text-white"
               }`}
             >
               {page}

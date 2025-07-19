@@ -25,7 +25,7 @@ export default function MessagesPage() {
             <li key={c.id}>
               <Link
                 href={`/messages/${c.id}`}
-                className="block bg-Siora-mid border border-Siora-border rounded-xl p-4 hover:bg-Siora-light"
+                className="block bg-siora-mid border border-siora-border rounded-xl p-4 hover:bg-siora-light"
               >
                 <div className="font-semibold mb-1">{c.name}</div>
                 {c.last ? (

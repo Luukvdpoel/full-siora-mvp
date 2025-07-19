@@ -34,7 +34,7 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
 
   return (
     <div className="flex flex-col h-96">
-      <div className="flex-1 overflow-y-auto border border-Siora-border rounded-xl p-4 bg-Siora-mid text-white mb-2 space-y-3">
+      <div className="flex-1 overflow-y-auto border border-siora-border rounded-xl p-4 bg-siora-mid text-white mb-2 space-y-3">
         {messages.map((m) => (
           <div
             key={m.id}
@@ -45,7 +45,7 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
                 {new Date(m.timestamp).toLocaleString()}
               </div>
               <div
-                className={`inline-block px-4 py-2 rounded-2xl border border-Siora-border ${m.sender === currentUser ? 'bg-Siora-accent' : 'bg-gray-700'}`}
+                className={`inline-block px-4 py-2 rounded-2xl border border-siora-border ${m.sender === currentUser ? 'bg-siora-accent' : 'bg-gray-700'}`}
               >
                 {m.text}
               </div>
@@ -57,7 +57,7 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
       <div className="flex gap-2">
         <textarea
           rows={3}
-          className="flex-1 p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border resize-none"
+          className="flex-1 p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border resize-none"
           placeholder="Type a message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -65,7 +65,7 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
         <button
           onClick={handleSend}
           disabled={sending}
-          className="px-4 py-2 bg-Siora-accent text-white rounded disabled:opacity-50"
+          className="px-4 py-2 bg-siora-accent text-white rounded disabled:opacity-50"
         >
           Send
         </button>

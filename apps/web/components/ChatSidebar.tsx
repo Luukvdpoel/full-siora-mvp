@@ -75,7 +75,7 @@ export default function ChatSidebar({ creator, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/50">
-      <div className="w-full max-w-md bg-Siora-mid border-l border-Siora-border p-4 flex flex-col">
+      <div className="w-full max-w-md bg-siora-mid border-l border-siora-border p-4 flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Chat with {creator.name}</h2>
           <button onClick={onClose} className="text-white">✕</button>

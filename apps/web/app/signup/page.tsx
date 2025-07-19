@@ -28,45 +28,45 @@ export default function BrandSignup() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10 flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="bg-Siora-mid p-6 rounded-2xl space-y-4 w-full max-w-md">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10 flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="bg-siora-mid p-6 rounded-2xl space-y-4 w-full max-w-md">
         <h1 className="text-2xl font-bold">Brand Sign Up</h1>
         <input
           name="companyName"
           value={form.companyName}
           onChange={handleChange}
           placeholder="Company Name"
-          className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
         />
         <input
           name="industry"
           value={form.industry}
           onChange={handleChange}
           placeholder="Industry"
-          className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
         />
         <input
           name="creatorTone"
           value={form.creatorTone}
           onChange={handleChange}
           placeholder="Preferred Creator Tone"
-          className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
         />
         <input
           name="platformInterest"
           value={form.platformInterest}
           onChange={handleChange}
           placeholder="Platform Interest"
-          className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
         />
         <textarea
           name="collabGoals"
           value={form.collabGoals}
           onChange={handleChange}
           placeholder="Collab Goals"
-          className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+          className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
         />
-        <button type="submit" className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold w-full">
+        <button type="submit" className="bg-siora-accent hover:bg-siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold w-full">
           Save Details
         </button>
         {saved && (

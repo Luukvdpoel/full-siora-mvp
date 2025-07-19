@@ -49,7 +49,7 @@ export default function RecommendPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-radial from-siora-dark via-siora-mid to-siora-light text-white px-6 py-10">
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-extrabold">Creator Recommendations</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,29 +57,29 @@ export default function RecommendPage() {
             value={audience}
             onChange={(e) => setAudience(e.target.value)}
             placeholder="Audience type"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             placeholder="Tone"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Content types"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <input
             value={platforms}
             onChange={(e) => setPlatforms(e.target.value)}
             placeholder="Platforms"
-            className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            className="w-full p-2 rounded-lg bg-siora-light text-white placeholder-zinc-400 border border-siora-border focus:outline-none focus:ring-2 focus:ring-siora-accent"
           />
           <button
             type="submit"
-            className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold"
+            className="bg-siora-accent hover:bg-siora-accent-soft text-white px-4 py-2 rounded-lg font-semibold"
           >
             Get Recommendations
           </button>
@@ -89,11 +89,11 @@ export default function RecommendPage() {
             {results.map(({ creator, score, reason }) => (
               <div
                 key={creator.id}
-                className="bg-Siora-mid border border-Siora-border rounded-xl p-6 shadow-Siora-hover"
+                className="bg-siora-mid border border-siora-border rounded-xl p-6 shadow-siora-hover"
               >
                 <h2 className="text-xl font-semibold">
                   {creator.name}{" "}
-                  <span className="text-Siora-accent">@{creator.handle}</span>
+                  <span className="text-siora-accent">@{creator.handle}</span>
                 </h2>
                 <p className="text-sm text-zinc-400 mb-2">Fit Score: {score}/100</p>
                 <p className="text-sm text-zinc-300 mb-4">{reason}</p>
