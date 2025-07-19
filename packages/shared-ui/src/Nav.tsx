@@ -10,16 +10,14 @@ export interface NavLink {
 export function Nav({ links }: { links: NavLink[] }) {
   const pathname = usePathname();
   return (
-    <nav className="flex gap-4 text-sm mb-6">
+    <nav className="flex items-center gap-6 mb-8 text-sm">
       {links.map((l) => (
         <Link
           key={l.href}
           href={l.href}
-          className={
-            pathname === l.href
-              ? "underline font-semibold"
-              : "underline"
-          }
+          className={`transition-colors hover:text-Siora-accent ${
+            pathname === l.href ? 'text-Siora-accent font-semibold' : 'text-gray-300'
+          }`}
         >
           {l.label}
         </Link>

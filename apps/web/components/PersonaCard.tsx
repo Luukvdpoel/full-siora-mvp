@@ -24,24 +24,24 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       onClick={handleClick}
-      className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover hover:-translate-y-1 hover:shadow-lg transition-all cursor-pointer"
+      className="rounded-xl p-6 bg-Siora-mid border border-Siora-border text-white shadow hover:shadow-Siora-hover hover:-translate-y-1 transition cursor-pointer space-y-2"
     >
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+      <h2 className="text-lg font-semibold text-white mb-1">
         {persona.name}{" "}
         <span className="text-Siora-accent">@{persona.handle}</span>
       </h2>
-      <p className="text-sm text-gray-500 dark:text-zinc-400 mb-2">
+      <p className="text-sm text-zinc-400 mb-2">
         {persona.tone} • {persona.platform}
       </p>
-      <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
+      <p className="text-sm text-zinc-300 mb-4">
         {persona.summary}
       </p>
       {persona.tags && (
-        <div className="flex flex-wrap gap-1 text-xs text-gray-500 dark:text-zinc-400 mb-2">
+        <div className="flex flex-wrap gap-1 text-xs text-zinc-400 mb-2">
           {persona.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-Siora-light dark:bg-Siora-dark px-2 py-0.5 rounded"
+              className="bg-Siora-light/40 px-2 py-0.5 rounded"
             >
               {tag}
             </span>
@@ -51,7 +51,7 @@ export default function PersonaCard({ persona, onToggle, inShortlist }: Props) {
       <Link
         href={`/brands/${persona.id}`}
         onClick={(e) => e.stopPropagation()}
-        className="inline-block text-sm mt-4 text-Siora-accent underline hover:text-indigo-400"
+        className="inline-block text-sm mt-4 text-Siora-accent underline hover:text-Siora-accent-soft"
       >
         View Persona
       </Link>
