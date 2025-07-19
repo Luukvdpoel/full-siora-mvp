@@ -15,10 +15,10 @@ export const metadata: Metadata = {
 };
 
 const navLinks: NavLink[] = [
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/campaigns', label: 'Campaigns' },
-  { href: '/applications', label: 'Applications' },
-  { href: '/profile', label: 'Profile' },
+  { href: '/creator/dashboard', label: 'Dashboard' },
+  { href: '/creator/campaigns', label: 'Campaigns' },
+  { href: '/creator/applications', label: 'Applications' },
+  { href: '/creator/profile', label: 'Profile' },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
