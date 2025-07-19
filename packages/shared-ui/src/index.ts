@@ -4,3 +4,4 @@ export * from './PageTransition';
 
 export { default as Spinner } from "./Spinner";
 export * from "./Nav";
+export { default as ThemeToggle } from './ThemeToggle';
