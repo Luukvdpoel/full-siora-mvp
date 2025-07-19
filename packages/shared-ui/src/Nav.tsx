@@ -10,18 +10,23 @@ export interface NavLink {
 export function Nav({ links }: { links: NavLink[] }) {
   const pathname = usePathname();
   return (
-    <nav className="flex items-center gap-6 mb-8 text-sm">
-      {links.map((l) => (
-        <Link
-          key={l.href}
-          href={l.href}
-          className={`transition-colors hover:text-Siora-accent ${
-            pathname === l.href ? 'text-Siora-accent font-semibold' : 'text-gray-300'
-          }`}
-        >
-          {l.label}
-        </Link>
-      ))}
+    <nav className="flex items-center gap-4 mb-6">
+      {links.map((l) => {
+        const active = pathname === l.href;
+        return (
+          <Link
+            key={l.href}
+            href={l.href}
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              active
+                ? 'bg-Siora-accent text-white shadow-Siora-hover'
+                : 'text-gray-300 hover:text-white hover:bg-Siora-light'
+            }`}
+          >
+            {l.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
