@@ -20,7 +20,7 @@ const navLinks: NavLink[] = [
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
-      <body className="bg-Siora-dark text-white font-sans antialiased min-h-screen">
+      <body className="min-h-screen bg-gradient-to-b from-Siora-dark via-Siora-mid to-Siora-light text-white font-sans antialiased">
         <SessionProvider>
           <BrandUserProvider>
             <TrpcProvider>
