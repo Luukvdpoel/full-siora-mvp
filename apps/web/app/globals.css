@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-white text-black font-sans antialiased dark:bg-Siora-dark dark:text-white;
+    @apply bg-Siora-dark text-white font-sans antialiased;
   }
 
   * {

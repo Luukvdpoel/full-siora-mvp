@@ -1,11 +1,14 @@
 "use client";
 import './globals.css';
 import type { ReactNode } from 'react';
+import { Inter } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
 import { BrandUserProvider } from '../lib/brandUser';
 import TrpcProvider from './trpcProvider';
 import { PageTransition, Nav, NavLink } from 'shared-ui';
 import * as React from 'react'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 const navLinks: NavLink[] = [
   { href: '/dashboard', label: 'Dashboard' },
@@ -16,8 +19,8 @@ const navLinks: NavLink[] = [
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark"> {/* for testing */}
-      <body className="bg-white text-black dark:bg-Siora-dark dark:text-white font-sans antialiased min-h-screen">
+    <html lang="en" className={`${inter.variable} dark`}>
+      <body className="bg-Siora-dark text-white font-sans antialiased min-h-screen">
         <SessionProvider>
           <BrandUserProvider>
             <TrpcProvider>
