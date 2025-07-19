@@ -18,7 +18,7 @@ npm install
 2. Start the development server:
 
 ```bash
-npm run dev:brand
+npm run dev:web
 ```
 
 ## Environment variables
@@ -27,9 +27,9 @@ This app does not require any environment variables by default.
 
 ## Useful commands
 
-- `npm run dev:brand` – start the dev server with Turborepo
-- `npm run build -w apps/brand` – create a production build
-- `npm run lint -w apps/brand` – run ESLint
+- `npm run dev:web` – start the dev server with Turborepo
+- `npm run build -w apps/web` – create a production build
+- `npm run lint -w apps/web` – run ESLint
 
 ## Dashboard
 
