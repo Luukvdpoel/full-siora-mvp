@@ -1,9 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     './apps/**/*.{js,ts,jsx,tsx,mdx}',
     './packages/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -31,9 +34,9 @@ module.exports = {
         '2xl': '1.5rem',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
     },
   },
   plugins: [],
-}
+};
