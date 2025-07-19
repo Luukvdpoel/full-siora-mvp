@@ -1,4 +1,4 @@
-import creators from '@/app/data/mock_creators_200.json';
+import creators from "../../data/mock_creators_200.json";
 
 interface CampaignRequest {
   name?: string;

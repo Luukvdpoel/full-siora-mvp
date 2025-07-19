@@ -1,4 +1,5 @@
-import data from '@/app/data/creatorMetrics.json';
+import data from "../../../data/creatorMetrics.json";
+
 
 export async function GET(_req: Request, ctx: any) {
   const { params } = ctx as { params: { id: string } };

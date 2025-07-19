@@ -3,17 +3,16 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**"]
+      "outputs": ["apps/web/.next/**", "apps/web/dist/**"]
     },
     "dev": {
       "cache": false
     },
-    "lint": {
-      "outputs": []
-    },
     "start": {
       "cache": false
+    },
+    "lint": {
+      "outputs": []
     }
   }
 }
-
