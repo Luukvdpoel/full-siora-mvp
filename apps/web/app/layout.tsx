@@ -1,21 +1,21 @@
 "use client";
-import './globals.css';
-import type { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
-import { SessionProvider } from 'next-auth/react';
-import { BrandUserProvider } from '../lib/brandUser';
-import TrpcProvider from './trpcProvider';
-import { PageTransition, Nav, NavLink, ThemeToggle } from 'shared-ui';
-import { ThemeProvider } from './providers';
-import * as React from 'react'
+import "./globals.css";
+import type { ReactNode } from "react";
+import { Inter } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
+import { BrandUserProvider } from "../lib/brandUser";
+import TrpcProvider from "./trpcProvider";
+import { PageTransition, Nav, NavLink, ThemeToggle } from "shared-ui";
+import { ThemeProvider } from "./providers";
+import * as React from "react";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const navLinks: NavLink[] = [
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/shortlist', label: 'Shortlist' },
-  { href: '/matches', label: 'Matches' },
-  { href: '/inbox', label: 'Inbox' },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/shortlist", label: "Shortlist" },
+  { href: "/matches", label: "Matches" },
+  { href: "/inbox", label: "Inbox" },
 ];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -46,5 +46,3 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
-
-
