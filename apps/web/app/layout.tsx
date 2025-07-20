@@ -20,7 +20,12 @@ const navLinks: NavLink[] = [
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.className} scroll-smooth`}>
+      <head>
+        <title>Siora Dashboard</title>
+        <meta name="description" content="Siora brand dashboard" />
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
+      </head>
       <body className="min-h-screen bg-gradient-to-b from-Siora-dark via-Siora-mid to-Siora-light text-white font-sans antialiased">
         <ThemeProvider>
           <SessionProvider>
