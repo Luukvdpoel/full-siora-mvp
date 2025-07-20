@@ -1,7 +1,7 @@
 {
   "name": "full-siora-mvp",
   "private": true,
-  "packageManager": "npm@10.5.0",
+  "packageManager": "pnpm@10.13.1",
   "workspaces": {
   "packages": [
     "apps/web",
@@ -10,7 +10,7 @@
 },
 
   "scripts": {
-  "dev": "turbo run dev",
+  "dev": "pnpm --filter web dev",
   "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=web",
   "dev:web": "npm run dev -w apps/web",
   "build:web": "prisma generate --schema=./prisma/schema.prisma && npm run build -w apps/web",
