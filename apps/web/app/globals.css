@@ -3,22 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-Siora-dark text-white font-sans antialiased;
   }
-
-  * {
-    @apply transition-all duration-200 ease-in-out;
-  }
-}
-
-
-html {
-  scroll-behavior: smooth;
-}
-
-* {
-  @apply transition-all duration-200 ease-in-out;
 }
 
 
