@@ -3,28 +3,27 @@
   "private": true,
   "packageManager": "pnpm@10.13.1",
   "workspaces": {
-  "packages": [
-    "apps/web",
-    "packages/*"
-  ]
-},
-
+    "packages": [
+      "apps/web",
+      "packages/*"
+    ]
+  },
   "scripts": {
-  "dev": "pnpm --filter web dev",
-  "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=web",
-  "dev:web": "npm run dev -w apps/web",
-  "build:web": "prisma generate --schema=./prisma/schema.prisma && npm run build -w apps/web",
-  "lint": "turbo run lint",
-  "start": "turbo run start",
-  "generate:campaign": "node tools/campaign_flow.mjs",
-  "postinstall": "prisma generate",
-  "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
-  "generate": "prisma generate",
-  "vercel-build": "npm run build --workspace=web"
-},
+    "dev": "pnpm --filter web dev",
+    "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=web",
+    "dev:web": "npm run dev -w apps/web",
+    "build:web": "prisma generate --schema=./prisma/schema.prisma && npm run build -w apps/web",
+    "lint": "turbo run lint",
+    "start": "turbo run start",
+    "generate:campaign": "node tools/campaign_flow.mjs",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "generate": "prisma generate",
+    "vercel-build": "npm run build --workspace=web"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.15",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",
@@ -32,20 +31,22 @@
     "tailwindcss": "^4.1.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
-    "turbo": "latest"
+    "turbo": "latest",
+    "@types/react": "^19.1.8",
+    "typescript": "^5.4.0"
   },
-    "dependencies": {
-      "iconv-lite": "^0.6.3",
-      "next": "^15.3.4",
-      "pdfkit": "^0.15.2",
-      "react": "^19.1.0",
-      "react-dom": "^19.1.0",
-      "@prisma/client": "^6.9.0",
-      "framer-motion": "^12.6.3",
-      "@headlessui/react": "^1.7.17"
-    },
-"prisma": {
-  "schema": "./prisma/schema.prisma",
-  "seed": "tsx prisma/seed.ts"
-}
+  "dependencies": {
+    "iconv-lite": "^0.6.3",
+    "next": "^15.3.4",
+    "pdfkit": "^0.15.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "@prisma/client": "^6.9.0",
+    "framer-motion": "^12.6.3",
+    "@headlessui/react": "^1.7.17"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma",
+    "seed": "tsx prisma/seed.ts"
+  }
 }

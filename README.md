@@ -494,3 +494,19 @@ By understanding these challenges, you can better tailor your approach to develo
 
 Primary domain: [usesiora.com](https://usesiora.com)
 
+
+## Running Locally
+
+Ensure [pnpm](https://pnpm.io) is installed. Then install dependencies and start the web app:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+The site runs at http://localhost:3000.
+
+## Deployment
+
+Vercel automatically builds using `pnpm build` and outputs `apps/web/.next` as configured in `vercel.json`.
+
