@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Allow Next.js to transpile internal packages written in TypeScript.
+  transpilePackages: ["shared-ui", "shared-utils"],
 };
 
 export default nextConfig;
