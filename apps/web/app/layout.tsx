@@ -1,7 +1,6 @@
 "use client";
 import "./globals.css";
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { BrandUserProvider } from "../lib/brandUser";
 import TrpcProvider from "./trpcProvider";
@@ -9,7 +8,8 @@ import { PageTransition, Nav, NavLink, ThemeToggle } from "shared-ui";
 import { ThemeProvider } from "./providers";
 import * as React from "react";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+// Use system fonts to avoid build-time Google font download
+const inter = { className: "" };
 
 const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard" },

@@ -1,6 +1,6 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+// Use system fonts to avoid build-time Google font download
+const inter = { className: '' };
 import type { Metadata } from 'next';
 import Providers from './providers';
 import AuthStatus from '@creator/components/AuthStatus';

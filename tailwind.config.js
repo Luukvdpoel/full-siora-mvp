@@ -14,6 +14,12 @@ module.exports = {
         'Siora-border': '#475569',
         'Siora-hover': '#818cf8',
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      boxShadow: {
+        'Siora-hover': '0 4px 6px -1px rgba(129, 140, 248, 0.5), 0 2px 4px -1px rgba(129, 140, 248, 0.5)',
+      },
     },
   },
   plugins: [],
