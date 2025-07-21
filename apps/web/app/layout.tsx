@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { BrandUserProvider } from "../lib/brandUser";
 import TrpcProvider from "./trpcProvider";
-import { PageTransition, Nav, NavLink, ThemeToggle } from "shared-ui";
+import { PageTransition, Nav, NavLink, ThemeToggle } from 'shared-ui'
 import { ThemeProvider } from "./providers";
 import * as React from "react";
 
