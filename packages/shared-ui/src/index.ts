@@ -1,8 +1,8 @@
 // Re-export components (named)
 export { PageTransition } from './PageTransition'
 export { Nav } from './Nav'
-export { ThemeToggle } from './ThemeToggle'
-export { Spinner } from './Spinner'
+export { default as ThemeToggle } from './ThemeToggle'
+export { default as Spinner } from './Spinner'
 export { ChatPanel } from './ChatPanel'
 export { Badge } from './Badge'
 
