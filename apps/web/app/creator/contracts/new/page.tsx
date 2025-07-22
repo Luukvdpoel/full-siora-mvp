@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { useState } from "react";
+import { detectContractRedFlags, ContractWarning } from 'shared-utils';
 import { useToast } from "@creator/components/Toast";
 import ReactMarkdown from "react-markdown";
 import { jsPDF } from "jspdf";
@@ -14,6 +15,7 @@ export default function NewContractPage() {
   const [platform, setPlatform] = useState("");
   const [usageRights, setUsageRights] = useState("");
   const [contract, setContract] = useState<string | null>(null);
+  const [warnings, setWarnings] = useState<ContractWarning[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const toast = useToast();
@@ -38,7 +40,9 @@ export default function NewContractPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to generate");
-      setContract(data.contract as string);
+      const text = data.contract as string;
+      setContract(text);
+      setWarnings(detectContractRedFlags(text));
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong";
       setError(msg);
@@ -154,15 +158,32 @@ export default function NewContractPage() {
         <div className="space-y-4 mt-6">
           <textarea
             value={contract}
-            onChange={(e) => setContract(e.target.value)}
+            onChange={(e) => {
+              setContract(e.target.value);
+              setWarnings(detectContractRedFlags(e.target.value));
+            }}
             className="w-full h-40 p-2 rounded-md bg-zinc-800 text-white"
           />
+          {warnings.length > 0 && (
+            <div className="space-y-2 border border-red-500 p-4 rounded-md">
+              <h2 className="text-lg font-semibold text-red-500">Potential Issues</h2>
+              <ul className="list-disc list-inside space-y-1">
+                {warnings.map((w, idx) => (
+                  <li key={idx}>{w.message}</li>
+                ))}
+              </ul>
+              <p className="mt-2 text-sm text-red-300">This deal may undervalue your influence. Want help negotiating?</p>
+            </div>
+          )}
           <div
             id="contract-preview"
             className="prose prose-invert max-w-none border border-white/10 p-4 rounded-md overflow-y-auto max-h-96"
           >
             <ReactMarkdown>{contract}</ReactMarkdown>
           </div>
+          {warnings.length === 0 && (
+            <p className="text-green-500">No major red flags detected.</p>
+          )}
           <div className="flex gap-2">
             <button
               type="button"
