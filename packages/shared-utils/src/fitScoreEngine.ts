@@ -16,6 +16,9 @@ export interface CreatorPersona {
   partnershipPreference?: string;
   undervaluedExperience?: string;
   supportWish?: string;
+  dealPreference?: string;
+  minExpectedFee?: number;
+  revenueShareTolerance?: number;
 }
 
 export interface BrandProfile {

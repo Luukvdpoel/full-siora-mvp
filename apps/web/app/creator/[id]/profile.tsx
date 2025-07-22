@@ -91,6 +91,7 @@ export default function CreatorProfile({ params }: Props) {
         open={contractOpen}
         onClose={() => setContractOpen(false)}
         creatorName={creator.name}
+        dealPreference={(creator as any).deal_preference}
       />
       <EvaluationChecklistModal
         open={checklistOpen}

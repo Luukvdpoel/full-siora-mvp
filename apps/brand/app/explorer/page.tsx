@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, useMemo } from "react";
 import creatorsData from "../../../web/app/data/mock_creators_200.json";
 import PersonaCard from "../../../web/components/PersonaCard";
+import { Badge } from "shared-ui";
 
 type Creator = (typeof creatorsData)[number];
 
@@ -13,6 +14,7 @@ export default function BrandExplorerPage() {
   const [maxFollowers, setMaxFollowers] = useState("");
   const [values, setValues] = useState("");
   const [bestFirst, setBestFirst] = useState(true);
+  const [dealType, setDealType] = useState('standard'); // standard or affiliate
 
   const unique = (arr: (string | undefined)[]) =>
     Array.from(new Set(arr.filter(Boolean))) as string[];
@@ -33,8 +35,20 @@ export default function BrandExplorerPage() {
         const sharedValues = valList.filter((v) => creatorValues.includes(v));
         const toneScore = tone && c.tone.toLowerCase() === tone.toLowerCase() ? 1 : 0;
         const nicheScore = niche && c.niche.toLowerCase() === niche.toLowerCase() ? 1 : 0;
-        const matchScore = sharedValues.length + toneScore + nicheScore;
-        return { ...c, matchScore, sharedValues } as Creator & { matchScore: number; sharedValues: string[] };
+        let matchScore = sharedValues.length + toneScore + nicheScore;
+        let needsWarning = false;
+        const pref = c.deal_preference?.toLowerCase() || '';
+        const rejects = pref.includes('reject affiliate');
+        const wantsValue = pref.includes('value');
+        if (dealType === 'affiliate' && (rejects || wantsValue)) {
+          matchScore -= 1;
+          needsWarning = true;
+        }
+        return { ...c, matchScore, sharedValues, needsWarning } as Creator & {
+          matchScore: number;
+          sharedValues: string[];
+          needsWarning: boolean;
+        };
       })
       .filter((c) => {
         const followerOk =
@@ -46,7 +60,7 @@ export default function BrandExplorerPage() {
         return followerOk && toneOk && nicheOk && valuesOk;
       })
       .sort((a, b) => (bestFirst ? b.matchScore - a.matchScore : 0));
-  }, [niche, tone, minFollowers, maxFollowers, values, bestFirst]);
+  }, [niche, tone, minFollowers, maxFollowers, values, bestFirst, dealType]);
 
   const scoreColor = (score: number) => {
     if (score >= 3) return "bg-green-600";
@@ -79,6 +93,10 @@ export default function BrandExplorerPage() {
               <option key={v} value={v} />
             ))}
           </datalist>
+          <select value={dealType} onChange={(e) => setDealType(e.target.value)} className="p-2 rounded bg-Siora-light">
+            <option value="standard">Flat Fee</option>
+            <option value="affiliate">Affiliate Only</option>
+          </select>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={bestFirst} onChange={(e) => setBestFirst(e.target.checked)} />
             Show best matches first
@@ -91,6 +109,12 @@ export default function BrandExplorerPage() {
             {filtered.map((p) => (
               <div key={p.id} className="relative">
                 <PersonaCard persona={p} />
+                {dealType === 'affiliate' && p.needsWarning && (
+                  <Badge
+                    label="prefers value-based"
+                    className="absolute top-2 left-2 bg-red-600 text-white"
+                  />
+                )}
                 <span className={`absolute top-2 right-2 px-2 py-1 text-xs rounded ${scoreColor(p.matchScore)}`}>{p.matchScore}</span>
               </div>
             ))}

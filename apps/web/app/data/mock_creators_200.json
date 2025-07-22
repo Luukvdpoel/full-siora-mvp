@@ -16,7 +16,10 @@
     "formats":[
       "Blogs",
       "Livestreams"
-    ]
+    ],
+    "deal_preference":"reject affiliate-only",
+    "min_expected_fee":500,
+    "revenue_share_tolerance":20
   },
   {
     "id":"2",
@@ -34,7 +37,10 @@
     ],
     "formats":[
       "Blogs"
-    ]
+    ],
+    "deal_preference":"value-based partnerships",
+    "min_expected_fee":800,
+    "revenue_share_tolerance":15
   },
   {
     "id":"3",
@@ -52,7 +58,10 @@
     ],
     "formats":[
       "Short Videos"
-    ]
+    ],
+    "deal_preference":"open to revenue share",
+    "min_expected_fee":300,
+    "revenue_share_tolerance":25
   },
   {
     "id":"4",

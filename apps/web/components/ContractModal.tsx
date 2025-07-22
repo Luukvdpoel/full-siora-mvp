@@ -2,20 +2,26 @@
 import React from 'react';
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from 'shared-ui';
 
 interface Props {
   open: boolean;
   onClose: () => void;
   creatorName: string;
+  dealPreference?: string;
 }
 
-export default function ContractModal({ open, onClose, creatorName }: Props) {
+export default function ContractModal({ open, onClose, creatorName, dealPreference }: Props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [deliverables, setDeliverables] = useState("");
   const [payment, setPayment] = useState("");
   const [contract, setContract] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const warnMismatch =
+    (payment.toLowerCase().includes('commission') || payment.toLowerCase().includes('affiliate')) &&
+    !!dealPreference &&
+    (dealPreference.toLowerCase().includes('reject affiliate') || dealPreference.toLowerCase().includes('value'));
 
 
   const generate = async () => {
@@ -105,6 +111,9 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
               </button>
             </div>
           </>
+        )}
+        {warnMismatch && (
+          <Badge label="creator prefers value-based deals" className="bg-red-600 text-white" />
         )}
         {!contract && (
           <button
