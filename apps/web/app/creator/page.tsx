@@ -62,7 +62,7 @@ export default function Home() {
     
   
     try {
-      const res = await fetch("/api/generate", {
+      const res = await fetch("/api/ai/generatePersona", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
