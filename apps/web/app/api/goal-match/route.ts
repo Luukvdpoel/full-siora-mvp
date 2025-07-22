@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     scored.sort((a,b) => b.score - a.score);
     const top = scored.slice(0,5);
 
-    let explanations: Record<string,string> = {};
+    const explanations: Record<string,string> = {};
     try {
       const messages = [
         {
