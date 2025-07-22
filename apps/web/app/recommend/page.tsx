@@ -16,7 +16,7 @@ export default function RecommendPage() {
     { creator: Creator; score: number; reason: string }[]
   >([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const brand = {
       niches: audience
@@ -33,8 +33,8 @@ export default function RecommendPage() {
         ? platforms.split(/[,\n]+/).map((s) => s.trim()).filter(Boolean)
         : undefined,
     };
-    const scored = (creators as Creator[])
-      .map((c) => {
+    const scored = await Promise.all(
+      (creators as Creator[]).map(async (c) => {
         const persona = {
           niches: [c.niche],
           tone: c.tone,
@@ -42,10 +42,11 @@ export default function RecommendPage() {
           vibe: Array.isArray(c.tags) ? c.tags.join(" ") : undefined,
           formats: (c as any).formats,
         };
-        const { score, reason } = matchCreator(persona, brandWithPlatforms);
+        const { score, reason } = await matchCreator(persona, brandWithPlatforms);
         return { creator: c, score, reason };
       })
-      .sort((a, b) => b.score - a.score);
+    );
+    scored.sort((a, b) => b.score - a.score);
     setResults(scored.slice(0, 10));
   };
 
