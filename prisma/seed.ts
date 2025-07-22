@@ -118,7 +118,8 @@ async function main() {
       creatorId: user.id,
       applicationId: applicationRecords[i % applicationRecords.length].id,
       brandId: user.id,
-      status: m.status || 'matched',
+      status: m.status || 'new',
+      isShortlisted: false,
     }));
 
     await prisma.match.createMany({

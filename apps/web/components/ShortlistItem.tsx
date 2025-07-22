@@ -5,16 +5,20 @@ import type { Creator } from "@/app/data/creators";
 import { useMemo } from "react";
 import { generateMatchExplanation } from "shared-utils";
 import { useBrandPrefs } from "@/lib/brandPrefs";
+import { useCreatorMeta, CollabStatus } from "@/lib/creatorMeta";
 
 interface Props {
   creator: Creator;
   note?: string;
   onDelete?: () => void;
+  userId?: string | null;
 }
 
-export default function ShortlistItem({ creator, note, onDelete }: Props) {
+export default function ShortlistItem({ creator, note, onDelete, userId }: Props) {
   const imgSrc = (creator as any).image || "https://placehold.co/80x80";
   const brandPrefs = useBrandPrefs();
+  const { status, updateStatus } = useCreatorMeta(userId ?? null);
+  const currentStatus: CollabStatus = status[creator.id] || 'new';
   const matchNotes = useMemo(() => {
     if (!brandPrefs) return [] as string[];
     const persona = {
@@ -62,6 +66,16 @@ export default function ShortlistItem({ creator, note, onDelete }: Props) {
         >
           View Persona
         </Link>
+        <select
+          className="mt-2 text-sm text-black rounded"
+          value={currentStatus}
+          onChange={(e) => updateStatus(creator.id, e.target.value as CollabStatus)}
+        >
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="interested">Interested</option>
+          <option value="not_fit">Not a fit</option>
+        </select>
       </div>
       {onDelete && (
         <button onClick={onDelete} className="text-red-500 hover:text-red-700 self-start">

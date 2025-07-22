@@ -172,7 +172,8 @@ model Match {
   applicationId String
   timestamp     DateTime @default(now())
   brandId       String
-  status        String
+  status        String      @default("new")
+  isShortlisted Boolean     @default(false)
 
   campaign    Campaign    @relation("CampaignMatches", fields: [campaignId], references: [id])
   creator     User        @relation("CreatorRelation", fields: [creatorId], references: [id])

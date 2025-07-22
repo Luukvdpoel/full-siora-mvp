@@ -4,12 +4,18 @@ import Link from "next/link";
 import personas from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
+import { useShortlist } from "@/lib/shortlist";
+import { useBrandUser } from "@/lib/brandUser";
+import { useCreatorMeta } from "@/lib/creatorMeta";
 
 export default function PersonaProfile({ params }: any) {
   const persona = personas.find((p) => p.id.toString() === params.id);
   if (!persona) return notFound();
 
   const [tab, setTab] = useState<'overview' | 'performance'>('overview');
+  const { user } = useBrandUser();
+  const { toggle, inShortlist } = useShortlist(user?.email ?? null);
+  const { status, updateStatus } = useCreatorMeta(user?.email ?? null);
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
@@ -24,6 +30,24 @@ export default function PersonaProfile({ params }: any) {
           <p className="text-zinc-400 text-sm mt-1">
             {persona.tone} • {persona.platform}
           </p>
+          <div className="mt-2 flex items-center gap-2">
+            <button
+              onClick={() => toggle(persona.id)}
+              className="text-sm underline"
+            >
+              {inShortlist(persona.id) ? 'Remove from shortlist' : 'Save to shortlist'}
+            </button>
+            <select
+              className="text-black text-sm rounded"
+              value={status[persona.id] || 'new'}
+              onChange={(e) => updateStatus(persona.id, e.target.value)}
+            >
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="interested">Interested</option>
+              <option value="not_fit">Not a fit</option>
+            </select>
+          </div>
           <div className="mt-4 flex gap-2">
             <button
               onClick={() => setTab('overview')}

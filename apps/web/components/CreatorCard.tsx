@@ -11,6 +11,7 @@ import { getCreatorBadges, generateMatchExplanation } from "shared-utils";
 import { FaEnvelope, FaRegStar, FaStar } from "react-icons/fa";
 import { useBrandUser } from "@/lib/brandUser";
 import { useBrandPrefs } from "@/lib/brandPrefs";
+import { useCreatorMeta, CollabStatus } from "@/lib/creatorMeta";
 import Toast from "./Toast";
 
 import EvaluationChecklistModal from "./EvaluationChecklistModal";
@@ -28,6 +29,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
   const [toast, setToast] = useState("");
   const { user } = useBrandUser();
   const brandPrefs = useBrandPrefs();
+  const { status, updateStatus } = useCreatorMeta(user?.email ?? null);
   const badges = getCreatorBadges({
     verified: creator.verified,
     completedCollabs: creator.completedCollabs,
@@ -91,6 +93,8 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       setToast('Creator saved to shortlist');
     }
   };
+
+  const currentStatus: CollabStatus = status[creator.id] || 'new';
 
   const handleCardClick = () => {
     router.push(`/dashboard/persona/${creator.handle.replace(/^@/, "")}`);
@@ -201,6 +205,17 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       >
         {shortlisted ? <FaStar /> : <FaRegStar />} {shortlisted ? 'Saved' : 'Save'}
       </button>
+      <select
+        className="ml-4 mt-4 text-sm text-black rounded"
+        value={currentStatus}
+        onClick={(e) => e.stopPropagation()}
+        onChange={(e) => updateStatus(creator.id, e.target.value as CollabStatus)}
+      >
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="interested">Interested</option>
+        <option value="not_fit">Not a fit</option>
+      </select>
       {children}
       <EvaluationChecklistModal
         open={checklistOpen}

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export type CollabStatus = "not_contacted" | "contacted" | "negotiating" | "closed";
+export type CollabStatus = "new" | "contacted" | "interested" | "not_fit";
 
 export function useCreatorMeta(user: string | null) {
   const notesKey = user ? `notes:${user}` : "notes";
