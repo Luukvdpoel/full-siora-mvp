@@ -3,11 +3,15 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
 import type { PersonaProfile } from '@creator/types/persona';
+import { callOpenAI, safeJson } from 'shared-utils';
 
 interface FeedbackRequest {
   persona: PersonaProfile;
   rating: number;
   notes?: string;
+  tone?: string;
+  audience?: string;
+  platform?: string;
 }
 
 interface FeedbackEntry extends FeedbackRequest {
@@ -17,7 +21,11 @@ interface FeedbackEntry extends FeedbackRequest {
 
 export async function POST(req: Request) {
   try {
-    const { persona, rating, notes } = (await req.json()) as FeedbackRequest;
+    const { persona, rating, notes, tone, audience, platform } = (await req.json()) as FeedbackRequest & {
+      tone?: string;
+      audience?: string;
+      platform?: string;
+    };
     if (!persona || typeof persona !== 'object') {
       return NextResponse.json({ error: 'Invalid persona' }, { status: 400 });
     }
@@ -48,34 +56,40 @@ export async function POST(req: Request) {
       {
         role: 'system',
         content: [
-          'You refine influencer personas.',
-          'Given the existing persona and user feedback, rewrite the persona using the same structure.',
+          'You are an influencer coach refining creator personas.',
+          'Use the feedback and any provided tone, audience or platform info to make improvements.',
           'Respond ONLY with JSON matching the PersonaProfile TypeScript interface: { name: string; personality: string; interests: string[]; summary: string; postingFrequency?: string; toneConfidence?: number; brandFit?: string; growthSuggestions?: string }',
         ].join('\n'),
       },
       {
         role: 'user',
-        content: `Existing persona: ${JSON.stringify(persona)}\nFeedback: ${notes ?? ''}`,
+        content: [
+          `Existing persona: ${JSON.stringify(persona)}`,
+          `Feedback: needs clearer mission`,
+          'Tone: professional',
+        ].join('\n'),
+      },
+      {
+        role: 'assistant',
+        content:
+          '{"name":"Sample","personality":"professional","interests":[],"summary":"Refined mission"}',
+      },
+      {
+        role: 'user',
+        content: [
+          `Existing persona: ${JSON.stringify(persona)}`,
+          `Feedback: ${notes ?? ''}`,
+          tone ? `Tone: ${tone}` : undefined,
+          audience ? `Audience: ${audience}` : undefined,
+          platform ? `Platform: ${platform}` : undefined,
+        ]
+          .filter(Boolean)
+          .join('\n'),
       },
     ];
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({ model: 'gpt-4', messages, temperature: 0.7 }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      return new NextResponse(errorText, { status: response.status });
-    }
-
-    const dataRes = await response.json();
-    const content = dataRes.choices?.[0]?.message?.content ?? '{}';
-    const improved: PersonaProfile = JSON.parse(content);
+    const content = await callOpenAI({ messages, temperature: 0.7, fallback: '{}' });
+    const improved: PersonaProfile = safeJson(content, {} as PersonaProfile);
 
     return NextResponse.json({ improved });
   } catch (err) {

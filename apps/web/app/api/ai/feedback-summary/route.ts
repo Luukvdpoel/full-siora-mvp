@@ -23,11 +23,11 @@ async function writeData(data: any[]) {
   await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
 }
 
-import { callOpenAI } from 'shared-utils';
+import { callOpenAI, safeJson } from 'shared-utils';
 
 export async function POST(req: Request) {
   try {
-    const { id, text } = await req.json();
+    const { id, text, role, tone, audience, platform } = await req.json();
     if (!id || !text) {
       return new Response(
         JSON.stringify({ error: 'id and text required' }),
@@ -39,16 +39,46 @@ export async function POST(req: Request) {
       {
         role: 'system',
         content: [
-          'You summarize user feedback about collaborations.',
+          'You are a professional community manager summarizing collaboration feedback.',
+          role === 'creator'
+            ? 'Provide guidance for creators working with brands.'
+            : role === 'brand'
+            ? 'Provide guidance for brands working with creators.'
+            : 'Offer balanced advice for both parties.',
+          'Include tone, audience or platform insights when supplied.',
           'Return ONLY JSON matching this TypeScript interface:',
           '{ overallTone: string; collaborationHighlights: string; thingsToImprove: string }',
         ].join('\n'),
       },
-      { role: 'user', content: text },
+      {
+        role: 'user',
+        content: [
+          'Feedback: Great collab but response times were slow.',
+          'Tone: casual',
+          'Audience: fitness lovers',
+          'Platform: Instagram',
+        ].join('\n'),
+      },
+      {
+        role: 'assistant',
+        content:
+          '{"overallTone":"positive","collaborationHighlights":"Great collab","thingsToImprove":"Faster replies"}',
+      },
+      {
+        role: 'user',
+        content: [
+          `Feedback: ${text}`,
+          tone ? `Tone: ${tone}` : undefined,
+          audience ? `Audience: ${audience}` : undefined,
+          platform ? `Platform: ${platform}` : undefined,
+        ]
+          .filter(Boolean)
+          .join('\n'),
+      },
     ];
 
     const content = await callOpenAI({ messages, temperature: 0.7, fallback: '{}' });
-    const summary: FeedbackSummary = JSON.parse(content);
+    const summary: FeedbackSummary = safeJson(content, { overallTone: '', collaborationHighlights: '', thingsToImprove: '' });
 
     const db = await readData();
     const idx = db.findIndex((f: any) => f.id === id);
