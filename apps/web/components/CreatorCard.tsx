@@ -45,6 +45,20 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
     return generateMatchExplanation(brandPrefs, persona);
   }, [brandPrefs, creator]);
 
+  const brandFit = useMemo(() => {
+    if (!brandPrefs) return 0;
+    const tags = brandPrefs.niches || brandPrefs.values || [];
+    const normalized = tags.map((t) => t.toLowerCase());
+    const category = creator.niche.toLowerCase();
+    const tagMatch =
+      normalized.some((t) => category.includes(t)) ||
+      (creator.tags || []).some((ct) => normalized.includes(ct.toLowerCase()));
+    let score = tagMatch ? 3 : 1;
+    const engagement = Math.min(creator.engagementRate || 0, 10) / 10;
+    score += Math.round(engagement * 2);
+    return Math.min(score, 5);
+  }, [brandPrefs, creator]);
+
   const handleContact = async () => {
     setLoading(true);
     try {
@@ -107,6 +121,16 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
         {creator.summary}
       </p>
+      {brandFit > 0 && (
+        <div
+          className="flex items-center gap-1 text-yellow-400 mb-2"
+          title={`Why this match: ${matchNotes.join('; ')}`}
+        >
+          {Array.from({ length: 5 }).map((_, i) =>
+            i < brandFit ? <FaStar key={i} /> : <FaRegStar key={i} />
+          )}
+        </div>
+      )}
       {matchNotes.length > 0 && (
         <div className="mb-2 text-xs text-gray-600 dark:text-zinc-400">
           <span className="font-semibold">Why this match:</span>
