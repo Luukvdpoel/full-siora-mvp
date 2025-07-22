@@ -2,20 +2,9 @@
 import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import type { Metadata } from 'next'
 import { motion } from 'framer-motion'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUp } from 'lucide-react'
-
-export const metadata: Metadata = {
-  title: 'Siora – AI-Powered Brand Partnerships for Creators',
-  description: 'Discover fair collaborations between creators and brands powered by AI.',
-  openGraph: {
-    title: 'Siora – AI-Powered Brand Partnerships for Creators',
-    description:
-      'Discover fair collaborations between creators and brands powered by AI.'
-  }
-}
 
 export default function Page() {
   const { data: session, status } = useSession()
