@@ -16,6 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <nav className="space-x-4">
             <Link href="/">Home</Link>
             <Link href="/persona">Generate Persona</Link>
+            <Link href="/dashboard">Affiliate Links</Link>
           </nav>
           <ThemeToggle />
         </div>
