@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions, prisma } from "@creator/lib/auth";
+import { authOptions, prisma } from "@lib/auth";
 
 const DAILY_LIMIT = 3;
 
