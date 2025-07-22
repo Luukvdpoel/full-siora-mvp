@@ -55,6 +55,11 @@ export default function DashboardPage() {
           <p className="text-sm text-foreground/60">Analytics tracking coming soon.</p>
         </div>
       )}
+      <p>
+        <a href="/persona" className="text-indigo-600 underline">
+          Go to Persona Generator
+        </a>
+      </p>
     </main>
   );
 }
