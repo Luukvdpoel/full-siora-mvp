@@ -16,6 +16,7 @@ const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/shortlist", label: "Shortlist" },
   { href: "/matches", label: "Matches" },
+  { href: "/analytics", label: "Analytics" },
   { href: "/inbox", label: "Inbox" },
   { href: "/billing", label: "Billing" },
   { href: "/privacy", label: "Privacy" },
