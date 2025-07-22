@@ -26,6 +26,9 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold">Affiliate Link Generator</h1>
+      <p className="text-foreground/80">
+        Siora connects you with brands who value your influence—not just the sales you drive.
+      </p>
       <form onSubmit={generate} className="space-y-4 border border-white/10 p-4 rounded-md">
         <input
           type="url"

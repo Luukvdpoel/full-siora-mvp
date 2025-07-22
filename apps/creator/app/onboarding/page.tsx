@@ -95,7 +95,10 @@ export default function CreatorOnboarding() {
         <TabsContent value="0" current={step}>
           <div className={styles.formBox}>
             <h1 className={styles.title}>Welcome to Siora</h1>
-            <p className={styles.subtitle}>Let's set up your creator profile.</p>
+            <p className={styles.subtitle}>
+              Siora connects you with brands who value your influence—not just
+              your affiliate sales. Let’s set up your creator profile.
+            </p>
             <div className={styles.controls}>
               <button className={styles.submitButton} onClick={() => setStep("1")}>Get Started</button>
             </div>
