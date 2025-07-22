@@ -1,3 +1,4 @@
+import React from 'react';
 import type { PersonaProfile } from "@creator/types/persona";
 
 function SparklesIcon({ className }: { className?: string }) {

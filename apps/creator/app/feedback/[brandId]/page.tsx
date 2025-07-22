@@ -1,3 +1,4 @@
+import React from 'react';
 "use client";
 import { useState, useEffect } from 'react';
 import brands from "../../../../web/app/creator/data/mock_brands.json";

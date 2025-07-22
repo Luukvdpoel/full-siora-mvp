@@ -1,3 +1,4 @@
+import React from 'react';
 export default function MarketingPage() {
   return (
     <main className="min-h-screen text-gray-900 dark:text-white bg-white dark:bg-gradient-radial dark:from-Siora-dark dark:via-Siora-mid dark:to-Siora-light">

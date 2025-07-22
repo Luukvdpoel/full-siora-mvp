@@ -1,3 +1,4 @@
+import React from 'react';
 import { creators } from "@/app/data/creators";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";

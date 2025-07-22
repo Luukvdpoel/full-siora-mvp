@@ -1,3 +1,4 @@
+import React from 'react';
 "use client";
 import { useState, useEffect } from 'react';
 import creators from "../../../../web/app/data/mock_creators_200.json";
