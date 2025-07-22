@@ -1,146 +1,168 @@
 "use client";
-import { useState } from 'react'
-import { PDFDownloadLink } from '@react-pdf/renderer'
-import PersonaPDF from '../../../../components/pdf/PersonaPDF'
 
-export default function GeneratePersonaPage() {
-  const [step, setStep] = useState(0)
-  const [niche, setNiche] = useState('')
-  const [tone, setTone] = useState('')
-  const [audience, setAudience] = useState('')
-  const [values, setValues] = useState('')
-  const [result, setResult] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-  const stripHtml = (html: string) => html.replace(/<[^>]+>/g, '');
+interface SavedPersona {
+  id: string;
+  data: any;
+}
+
+export default function PersonaPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const [values, setValues] = useState("");
+  const [tone, setTone] = useState("");
+  const [experience, setExperience] = useState("");
+  const [niche, setNiche] = useState("");
+  const [persona, setPersona] = useState<string>("");
+  const [personaId, setPersonaId] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/persona")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data: SavedPersona | null) => {
+          if (data && data.id) {
+            setPersonaId(data.id);
+            setPersona(typeof data.data === "string" ? data.data : data.data?.persona ?? "");
+          }
+        })
+        .catch(() => {});
+    }
+  }, [status]);
+
+  if (status === "loading") return null;
+  if (!session) {
+    router.replace("/signin");
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    setResult(null)
+    e.preventDefault();
+    setLoading(true);
     try {
-      const res = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          handle: 'creator',
-          vibe: tone,
-          goal: 'grow',
-          audience,
-          contentPreference: niche,
-          platform: 'instagram',
-          values,
-        }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed')
-      setResult(data.result as string)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error')
-    } finally {
-      setLoading(false)
-
-
-  const handleSave = async () => {
-    if (!result) return;
-    try {
-      await fetch("/api/personas", {
+      const res = await fetch("/api/persona/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: "Persona", persona: result }),
+        body: JSON.stringify({ values, tone, experience, niche }),
       });
-    } catch (err) {
-      console.error(err);
+      const data = await res.json();
+      if (res.ok) {
+        setPersona(data.persona as string);
+        setPersonaId(data.id as string);
+      }
+    } catch {
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  const questions = [
-    { label: "What niche are you in?", value: niche, setter: setNiche, placeholder: "travel, tech..." },
-    { label: "Choose a tone for your brand", value: tone, setter: setTone, placeholder: "friendly, bold..." },
-    { label: "How big is your audience?", value: audience, setter: setAudience, placeholder: "10k followers" },
-    { label: "List your core values", value: values, setter: setValues, placeholder: "authenticity, fun" },
-  ] as const
-
+  const handleSaveEdit = async () => {
+    if (!personaId) return;
+    setLoading(true);
+    try {
+      await fetch(`/api/persona/${personaId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ persona }),
+      });
+      setEditMode(false);
+    } catch {
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold">Generate Persona</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 border border-white/10 p-4 rounded-md">
-        <label className="block text-sm font-semibold mb-1">{questions[step].label}</label>
-        <input
-          className="w-full p-2 rounded-md bg-zinc-800 text-white"
-          placeholder={questions[step].placeholder}
-          value={questions[step].value}
-          onChange={e => questions[step].setter(e.target.value)}
-          required
-        />
-        <div className="flex justify-between items-center">
-          {step > 0 && (
-            <button type="button" onClick={() => setStep(step - 1)} className="px-3 py-1 rounded bg-zinc-700 text-white">
-              Back
-            </button>
-          )}
-          {step < questions.length - 1 ? (
-            <button type="button" onClick={() => setStep(step + 1)} className="px-3 py-1 rounded bg-zinc-700 text-white">
-              Next
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
-              disabled={loading || !niche || !tone || !audience || !values}
-            >
-              {loading ? 'Generating...' : 'Generate My Persona'}
-            </button>
-          )}
-        </div>
-        <div className="h-2 bg-zinc-800 rounded">
-          <div className="h-full bg-indigo-600 rounded" style={{ width: `${((step + 1) / questions.length) * 100}%` }} />
-        </div>
-        <p className="text-center text-sm text-foreground/60">Step {step + 1} of {questions.length}</p>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-      </form>
-        {result && (
-          <>
-            <div
-              className="prose prose-invert border border-white/10 p-4 rounded-md"
-              dangerouslySetInnerHTML={{ __html: result }}
+      <h1 className="text-2xl font-bold">Persona Generator</h1>
+      {persona ? (
+        <div className="space-y-4">
+          {editMode ? (
+            <textarea
+              className="w-full p-2 rounded-md bg-zinc-800 text-white"
+              rows={10}
+              value={persona}
+              onChange={(e) => setPersona(e.target.value)}
             />
-            <PDFDownloadLink
-              document={
-                <PersonaPDF
-                  data={{
-                    persona: stripHtml(result),
-                    tone,
-                    date: new Date().toLocaleDateString(),
-                  }}
-                />
-              }
-              fileName={`persona.pdf`}
-            >
-              {({ loading: pdfLoading }) => (
-                <button
-                  type="button"
-                  className="mt-4 bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
-                  disabled={pdfLoading}
-                >
-                  {pdfLoading ? 'Preparing...' : 'Download Persona PDF'}
-                </button>
-              )}
-            </PDFDownloadLink>
+          ) : (
+            <div className="prose prose-invert" dangerouslySetInnerHTML={{ __html: persona }} />
+          )}
+          <div className="flex gap-2">
             <button
               type="button"
-              onClick={handleSave}
-              className="mt-2 bg-green-600 hover:bg-green-500 transition-colors duration-200 text-white px-4 py-2 rounded-md"
+              onClick={() => setEditMode(!editMode)}
+              className="px-4 py-2 rounded bg-zinc-700 text-white"
             >
-              Save to DB
+              {editMode ? "Cancel" : "Edit"}
             </button>
-          </>
-        )}
+            {editMode && (
+              <button
+                type="button"
+                onClick={handleSaveEdit}
+                className="px-4 py-2 bg-green-600 text-white rounded"
+                disabled={loading}
+              >
+                Save
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                setPersona("");
+                setPersonaId("");
+              }}
+              className="px-4 py-2 bg-indigo-600 text-white rounded"
+            >
+              Regenerate
+            </button>
+          </div>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4 border border-white/10 p-4 rounded-md">
+          <input
+            className="w-full p-2 rounded-md bg-zinc-800 text-white"
+            placeholder="Your niche"
+            value={niche}
+            onChange={(e) => setNiche(e.target.value)}
+            required
+          />
+          <input
+            className="w-full p-2 rounded-md bg-zinc-800 text-white"
+            placeholder="Brand tone"
+            value={tone}
+            onChange={(e) => setTone(e.target.value)}
+            required
+          />
+          <input
+            className="w-full p-2 rounded-md bg-zinc-800 text-white"
+            placeholder="Experience level"
+            value={experience}
+            onChange={(e) => setExperience(e.target.value)}
+            required
+          />
+          <textarea
+            className="w-full p-2 rounded-md bg-zinc-800 text-white"
+            rows={3}
+            placeholder="Core values"
+            value={values}
+            onChange={(e) => setValues(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? "Generating..." : "Generate"}
+          </button>
+        </form>
+      )}
     </main>
   );
 }
