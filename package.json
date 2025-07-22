@@ -12,12 +12,12 @@
     ]
   },
   "scripts": {
-    "dev": "turbo run dev --parallel",
-    "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build",
+    "dev": "turbo run dev --filter=web",
+    "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=web",
     "dev:web": "npm run dev -w apps/web",
     "build:web": "prisma generate --schema=./prisma/schema.prisma && npm run build -w apps/web",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "start": "turbo run start",
+    "start": "turbo run start --filter=web",
     "generate:campaign": "node tools/campaign_flow.mjs",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
