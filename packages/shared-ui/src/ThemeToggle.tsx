@@ -1,10 +1,23 @@
 "use client";
 import { Switch } from "@headlessui/react";
-import { useContext } from "react";
-import { ThemeContext } from "@/app/providers";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const { theme, toggle } = useContext(ThemeContext);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = localStorage.getItem("theme") as "light" | "dark" | null;
+    if (stored) setTheme(stored);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   const enabled = theme === "dark";
 
   return (
