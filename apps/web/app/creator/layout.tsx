@@ -7,6 +7,9 @@ import AuthStatus from '@creator/components/AuthStatus';
 import ThemeToggle from '@creator/components/ThemeToggle';
 import { ToastProvider } from '@creator/components/Toast';
 import { PageTransition, Nav, NavLink } from 'shared-ui';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@creator/lib/auth';
 
 
 export const metadata: Metadata = {
@@ -19,9 +22,14 @@ const navLinks: NavLink[] = [
   { href: '/creator/campaigns', label: 'Campaigns' },
   { href: '/creator/applications', label: 'Applications' },
   { href: '/creator/profile', label: 'Profile' },
+  { href: '/dashboard', label: 'Brand View' },
 ];
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession(authOptions);
+  if (!session || (session.user as { role?: string }).role !== 'creator') {
+    redirect('/select-role');
+  }
   return (
     <html lang="en" className={`${inter.className} dark scroll-smooth`}>
       <head>
