@@ -31,6 +31,12 @@ export type Creator = {
   completedCollabs?: number;
   avgResponseMinutes?: number;
   performance?: CreatorPerformance;
+  /** Preferred deal structure e.g. 'value_based', 'reject_affiliate_only' */
+  deal_preference?: string;
+  /** Minimum flat fee the creator expects */
+  min_expected_fee?: number;
+  /** Acceptable revenue share percentage if doing commission */
+  revenue_share_tolerance?: number;
 };
 
 export const creators = [
@@ -77,10 +83,23 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
       engagementRate: 3.8,
       followerGrowth: 4.0,
       topPosts: [
-        { type: 'Reel', title: 'Glow routine', link: 'https://example.com/post1', stats: '8k views' },
-        { type: 'Story', title: 'Skincare Q&A', link: 'https://example.com/post2', stats: '5k views' },
+        {
+          type: "Reel",
+          title: "Glow routine",
+          link: "https://example.com/post1",
+          stats: "8k views",
+        },
+        {
+          type: "Story",
+          title: "Skincare Q&A",
+          link: "https://example.com/post2",
+          stats: "5k views",
+        },
       ],
     },
+    deal_preference: "value_based",
+    min_expected_fee: 500,
+    revenue_share_tolerance: 20,
   },
   {
     id: "2",
@@ -126,10 +145,23 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
       engagementRate: 6.2,
       followerGrowth: 2.0,
       topPosts: [
-        { type: 'Video', title: 'AI Gadgets Review', link: 'https://example.com/post3', stats: '20k views' },
-        { type: 'Short', title: 'Crypto Basics', link: 'https://example.com/post4', stats: '15k views' },
+        {
+          type: "Video",
+          title: "AI Gadgets Review",
+          link: "https://example.com/post3",
+          stats: "20k views",
+        },
+        {
+          type: "Short",
+          title: "Crypto Basics",
+          link: "https://example.com/post4",
+          stats: "15k views",
+        },
       ],
     },
+    deal_preference: "reject_affiliate_only",
+    min_expected_fee: 750,
+    revenue_share_tolerance: 15,
   },
   {
     id: "3",
@@ -139,7 +171,8 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
     tone: "Soft & Visual",
     platform: "TikTok",
     tags: ["plantcare", "interiordecor", "boho"],
-    summary: "Urban jungle queen helping you green your home, one reel at a time.",
+    summary:
+      "Urban jungle queen helping you green your home, one reel at a time.",
     followers: 82000,
     engagementRate: 4.7,
     vibe: "aesthetic nature",
@@ -174,11 +207,22 @@ I teach aesthetic plant care, budget-friendly home decor, and cozy vibes — all
       engagementRate: 4.7,
       followerGrowth: -1.0,
       topPosts: [
-        { type: 'Reel', title: 'Plant Shelf Tour', link: 'https://example.com/post5', stats: '11k views' },
-        { type: 'Tutorial', title: 'Potting Basics', link: 'https://example.com/post6', stats: '8k views' },
+        {
+          type: "Reel",
+          title: "Plant Shelf Tour",
+          link: "https://example.com/post5",
+          stats: "11k views",
+        },
+        {
+          type: "Tutorial",
+          title: "Potting Basics",
+          link: "https://example.com/post6",
+          stats: "8k views",
+        },
       ],
     },
-  }
+    deal_preference: "value_based",
+    min_expected_fee: 400,
+    revenue_share_tolerance: 10,
+  },
 ];
-
-  

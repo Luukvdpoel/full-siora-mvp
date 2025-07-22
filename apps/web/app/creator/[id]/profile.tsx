@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import { useState } from "react";
@@ -28,7 +28,9 @@ export default function CreatorProfile({ params }: Props) {
           <h1 className="text-3xl font-bold tracking-tight">
             {creator.name}{" "}
             <span className="text-Siora-accent">
-              {creator.handle.startsWith("@") ? creator.handle : `@${creator.handle}`}
+              {creator.handle.startsWith("@")
+                ? creator.handle
+                : `@${creator.handle}`}
             </span>
           </h1>
 
@@ -36,7 +38,9 @@ export default function CreatorProfile({ params }: Props) {
             {creator.niche} • {creator.platform}
           </p>
 
-          <p className="mt-4 text-zinc-300 leading-relaxed">{creator.summary}</p>
+          <p className="mt-4 text-zinc-300 leading-relaxed">
+            {creator.summary}
+          </p>
 
           <div className="mt-6 space-y-2 text-sm text-zinc-300">
             <div>
@@ -91,6 +95,7 @@ export default function CreatorProfile({ params }: Props) {
         open={contractOpen}
         onClose={() => setContractOpen(false)}
         creatorName={creator.name}
+        dealPreference={creator.deal_preference}
       />
       <EvaluationChecklistModal
         open={checklistOpen}
@@ -101,6 +106,3 @@ export default function CreatorProfile({ params }: Props) {
     </main>
   );
 }
-
-
-

@@ -6,6 +6,7 @@ interface CampaignRequest {
   platform?: string;
   tone?: string;
   budget?: string;
+  compensationType?: string;
 }
 
 type Creator = (typeof creators)[number];
@@ -18,7 +19,7 @@ function scoreCreator(c: Creator, req: CampaignRequest) {
     const match = c.platform.toLowerCase().includes(req.platform.toLowerCase());
     if (match) {
       score += 0.25;
-      reasons.push('Platform match');
+      reasons.push("Platform match");
     }
   }
 
@@ -26,7 +27,7 @@ function scoreCreator(c: Creator, req: CampaignRequest) {
     const match = c.tone.toLowerCase().includes(req.tone.toLowerCase());
     if (match) {
       score += 0.25;
-      reasons.push('Tone match');
+      reasons.push("Tone match");
     }
   }
 
@@ -37,19 +38,28 @@ function scoreCreator(c: Creator, req: CampaignRequest) {
       (c.tags || []).some((t) => t.toLowerCase().includes(norm));
     if (match) {
       score += 0.25;
-      reasons.push('Niche match');
+      reasons.push("Niche match");
     }
   }
 
   if (req.budget) {
-    const num = parseInt(req.budget.replace(/[^0-9]/g, ''), 10);
+    const num = parseInt(req.budget.replace(/[^0-9]/g, ""), 10);
     if (!isNaN(num)) {
       const maxFollowers = num * 100; // rough $10 CPM assumption
       if (c.followers <= maxFollowers) {
         score += 0.25;
-        reasons.push('Within budget');
+        reasons.push("Within budget");
       }
     }
+  }
+
+  if (
+    req.compensationType === "commission" &&
+    c.deal_preference &&
+    /affiliate|value_based/i.test(c.deal_preference)
+  ) {
+    score -= 0.25;
+    reasons.push("Prefers non-affiliate deals");
   }
 
   return { score, reasons };
@@ -66,18 +76,15 @@ export async function POST(req: Request) {
 
     scored.sort((a, b) => b.score - a.score);
 
-    return new Response(
-      JSON.stringify({ results: scored.slice(0, 5) }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ results: scored.slice(0, 5) }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
-    console.error('campaign match error', err);
-    return new Response(JSON.stringify({ error: 'Server error' }), {
+    console.error("campaign match error", err);
+    return new Response(JSON.stringify({ error: "Server error" }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 }

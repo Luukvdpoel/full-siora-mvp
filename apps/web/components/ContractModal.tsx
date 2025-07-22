@@ -1,22 +1,33 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface Props {
   open: boolean;
   onClose: () => void;
   creatorName: string;
+  dealPreference?: string;
 }
 
-export default function ContractModal({ open, onClose, creatorName }: Props) {
+export default function ContractModal({
+  open,
+  onClose,
+  creatorName,
+  dealPreference,
+}: Props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [deliverables, setDeliverables] = useState("");
   const [payment, setPayment] = useState("");
   const [contract, setContract] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
+  const [dealType, setDealType] = useState("flat_fee");
 
   const generate = async () => {
     setLoading(true);
@@ -30,6 +41,7 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
           creatorName,
           deliverables,
           payment,
+          dealType,
           startDate,
           endDate,
         }),
@@ -51,7 +63,9 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="space-y-4">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">Generate Contract</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">
+            Generate Contract
+          </DialogTitle>
         </DialogHeader>
         {!contract && (
           <>
@@ -75,12 +89,26 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
               placeholder="Deliverables"
               className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
             />
+            <select
+              value={dealType}
+              onChange={(e) => setDealType(e.target.value)}
+              className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+            >
+              <option value="flat_fee">Flat Fee</option>
+              <option value="commission">Commission Only</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
             <input
               value={payment}
               onChange={(e) => setPayment(e.target.value)}
               placeholder="Payment Terms"
               className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
             />
+            {dealType === "commission" && dealPreference && (
+              <span className="text-xs bg-red-600 text-white px-2 py-1 rounded">
+                Creator dislikes affiliate-only deals
+              </span>
+            )}
           </>
         )}
         {contract && (
@@ -92,13 +120,15 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
             />
             <div className="flex gap-2 justify-end">
               <button
-                onClick={async () => contract && (await navigator.clipboard.writeText(contract))}
+                onClick={async () =>
+                  contract && (await navigator.clipboard.writeText(contract))
+                }
                 className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
               >
                 Copy to Clipboard
               </button>
               <button
-                onClick={() => alert('Export to PDF coming soon')}
+                onClick={() => alert("Export to PDF coming soon")}
                 className="px-3 py-1 text-sm rounded bg-Siora-accent text-white"
               >
                 Export PDF

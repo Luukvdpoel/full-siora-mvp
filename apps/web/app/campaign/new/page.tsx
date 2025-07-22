@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 import { useState } from "react";
 import PersonaCard from "@/components/PersonaCard";
@@ -17,6 +17,7 @@ export default function NewCampaignPage() {
   const [platform, setPlatform] = useState("");
   const [tone, setTone] = useState("");
   const [budget, setBudget] = useState("");
+  const [compType, setCompType] = useState("flat_fee");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +27,14 @@ export default function NewCampaignPage() {
       const res = await fetch("/api/campaign-match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, niche, platform, tone, budget }),
+        body: JSON.stringify({
+          name,
+          niche,
+          platform,
+          tone,
+          budget,
+          compensationType: compType,
+        }),
       });
       const data = await res.json();
       setResults(data.results || []);
@@ -72,6 +80,15 @@ export default function NewCampaignPage() {
             placeholder="Budget"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          <select
+            value={compType}
+            onChange={(e) => setCompType(e.target.value)}
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+          >
+            <option value="flat_fee">Flat Fee</option>
+            <option value="commission">Commission Only</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
         </div>
         <button
           onClick={submit}

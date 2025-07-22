@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 import { useState } from "react";
 import CreatorCard from "@/components/CreatorCard";
@@ -18,6 +18,7 @@ export default function SuggestedCreators() {
   const [platform, setPlatform] = useState("");
   const [tone, setTone] = useState("");
   const [budget, setBudget] = useState("");
+  const [compType, setCompType] = useState("flat_fee");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +34,13 @@ export default function SuggestedCreators() {
       const res = await fetch("/api/campaign-match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ niche, platform, tone, budget }),
+        body: JSON.stringify({
+          niche,
+          platform,
+          tone,
+          budget,
+          compensationType: compType,
+        }),
       });
       const data = await res.json();
       setResults(Array.isArray(data.results) ? data.results : []);
@@ -48,7 +55,9 @@ export default function SuggestedCreators() {
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl font-extrabold tracking-tight">Suggested Creators</h1>
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          Suggested Creators
+        </h1>
         {error && <p className="text-red-500">{error}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <input
@@ -75,6 +84,15 @@ export default function SuggestedCreators() {
             placeholder="Budget"
             className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           />
+          <select
+            value={compType}
+            onChange={(e) => setCompType(e.target.value)}
+            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
+          >
+            <option value="flat_fee">Flat Fee</option>
+            <option value="commission">Commission Only</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
         </div>
         <button
           onClick={submit}

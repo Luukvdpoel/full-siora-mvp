@@ -13,6 +13,12 @@ export interface CreatorPersona {
   /** Goals or aspirations of the creator */
   goals?: string[];
   pastCollabs?: string[];
+  /** Creator's stance on deal structures */
+  dealPreference?: string;
+  /** Minimum fee expected for collaborations */
+  minExpectedFee?: number;
+  /** Acceptable revenue share percentage */
+  revenueShareTolerance?: number;
 }
 
 export interface BrandProfile {
@@ -23,6 +29,8 @@ export interface BrandProfile {
   values?: string[];
   desiredFormats?: string[];
   categories?: string[];
+  /** Compensation model offered by the campaign */
+  compensationType?: string;
 }
 
 function arrayOverlap(a?: string[], b?: string[]): string[] {
@@ -42,41 +50,41 @@ function rangeOverlap(a?: AgeRange, b?: AgeRange): number {
 
 export function getFitScore(
   creator: CreatorPersona,
-  brand: BrandProfile
+  brand: BrandProfile,
 ): { score: number; reason: string } {
   let score = 0;
   const reasons: string[] = [];
 
   // Audience overlap: age + niche + tone (30)
   const ageFactor = rangeOverlap(creator.ageRange, brand.targetAgeRange);
-  if (ageFactor > 0.6) reasons.push('Strong age overlap');
-  else if (ageFactor > 0) reasons.push('Some age overlap');
-  else reasons.push('Different target ages');
+  if (ageFactor > 0.6) reasons.push("Strong age overlap");
+  else if (ageFactor > 0) reasons.push("Some age overlap");
+  else reasons.push("Different target ages");
   score += ageFactor * 10;
 
   const nicheCommon = arrayOverlap(creator.niches, brand.niches);
   if (nicheCommon.length > 0)
-    reasons.push(`Shared niches: ${nicheCommon.join(', ')}`);
-  else reasons.push('Niche mismatch');
+    reasons.push(`Shared niches: ${nicheCommon.join(", ")}`);
+  else reasons.push("Niche mismatch");
   const nicheScore = (nicheCommon.length / (brand.niches?.length || 1)) * 10;
   score += nicheScore;
 
   if (creator.tone && brand.tone) {
     const sameTone = creator.tone.toLowerCase() === brand.tone.toLowerCase();
     score += sameTone ? 10 : 5;
-    reasons.push(sameTone ? 'Matching tone' : 'Different tone');
+    reasons.push(sameTone ? "Matching tone" : "Different tone");
   }
 
   // Values & vibe alignment (25)
   const valueOverlap = arrayOverlap(
     creator.vibe ? creator.vibe.split(/[,\s]+/) : undefined,
-    brand.values
+    brand.values,
   );
   const valueScore = (valueOverlap.length / (brand.values?.length || 1)) * 25;
   score += valueScore;
   if (valueOverlap.length > 0)
-    reasons.push(`Values align: ${valueOverlap.join(', ')}`);
-  else reasons.push('Values/vibe differ');
+    reasons.push(`Values align: ${valueOverlap.join(", ")}`);
+  else reasons.push("Values/vibe differ");
 
   // Format compatibility (25)
   const formatCommon = arrayOverlap(creator.formats, brand.desiredFormats);
@@ -84,7 +92,7 @@ export function getFitScore(
     (formatCommon.length / (brand.desiredFormats?.length || 1)) * 25;
   score += formatScore;
   if (formatCommon.length > 0)
-    reasons.push(`Compatible formats: ${formatCommon.join(', ')}`);
+    reasons.push(`Compatible formats: ${formatCommon.join(", ")}`);
   else reasons.push("Content formats don't match");
 
   // Past collaborations (20)
@@ -92,9 +100,18 @@ export function getFitScore(
   const collabScore = Math.min(collabCommon.length, 1) * 20;
   score += collabScore;
   if (collabCommon.length > 0)
-    reasons.push(`Past experience with ${collabCommon.join(', ')}`);
-  else reasons.push('No related past collaborations');
+    reasons.push(`Past experience with ${collabCommon.join(", ")}`);
+  else reasons.push("No related past collaborations");
+
+  if (
+    brand.compensationType === "commission" &&
+    creator.dealPreference &&
+    /affiliate|value_based/i.test(creator.dealPreference)
+  ) {
+    score -= 15;
+    reasons.push("Creator prefers non-affiliate deals");
+  }
 
   const finalScore = Math.round(Math.max(0, Math.min(100, score)));
-  return { score: finalScore, reason: reasons.join('; ') };
+  return { score: finalScore, reason: reasons.join("; ") };
 }

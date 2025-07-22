@@ -7,6 +7,7 @@ export type Campaign = {
   budgetMax: number;
   platform: string;
   niche: string;
+  compensationType?: string;
 };
 
 export const campaigns: Campaign[] = [
@@ -19,6 +20,7 @@ export const campaigns: Campaign[] = [
     budgetMax: 1000,
     platform: "Instagram",
     niche: "Beauty",
+    compensationType: "flat_fee",
   },
   {
     id: "2",
@@ -29,6 +31,7 @@ export const campaigns: Campaign[] = [
     budgetMax: 800,
     platform: "TikTok",
     niche: "Home & Plants",
+    compensationType: "commission",
   },
   {
     id: "3",
@@ -39,5 +42,6 @@ export const campaigns: Campaign[] = [
     budgetMax: 1500,
     platform: "YouTube",
     niche: "Tech",
+    compensationType: "hybrid",
   },
 ];
