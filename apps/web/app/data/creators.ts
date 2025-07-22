@@ -32,6 +32,9 @@ export type Creator = {
   avgResponseMinutes?: number;
   painPoints?: string[];
   performance?: CreatorPerformance;
+  deal_preference?: string;
+  min_expected_fee?: number;
+  revenue_share_tolerance?: number;
 };
 
 export const creators = [
@@ -86,6 +89,9 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
         { type: 'Story', title: 'Skincare Q&A', link: 'https://example.com/post2', stats: '5k views' },
       ],
     },
+    deal_preference: 'reject affiliate-only',
+    min_expected_fee: 500,
+    revenue_share_tolerance: 20,
   },
   {
     id: "2",
@@ -139,6 +145,9 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
         { type: 'Short', title: 'Crypto Basics', link: 'https://example.com/post4', stats: '15k views' },
       ],
     },
+    deal_preference: 'value-based partnerships',
+    min_expected_fee: 800,
+    revenue_share_tolerance: 15,
   },
   {
     id: "3",
@@ -191,6 +200,9 @@ I teach aesthetic plant care, budget-friendly home decor, and cozy vibes — all
         { type: 'Tutorial', title: 'Potting Basics', link: 'https://example.com/post6', stats: '8k views' },
       ],
     },
+    deal_preference: 'open to revenue share',
+    min_expected_fee: 300,
+    revenue_share_tolerance: 25,
   }
 ];
 
