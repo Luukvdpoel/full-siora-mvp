@@ -225,3 +225,14 @@ model InstagramAccount {
   @@index([userId])
 }
 
+model Invite {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  role      String
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+

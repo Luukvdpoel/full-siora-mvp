@@ -41,8 +41,30 @@ export const authOptions: NextAuthOptions = {
             role: (user as { role?: string }).role ?? null,
           },
         });
+
+        const existing = await prisma.user.findUnique({ where: { id: user.id } });
+        if (existing?.role) return true;
+
+        if (user.email) {
+          const invite = await prisma.invite.findFirst({
+            where: { email: user.email, used: false },
+          });
+          if (invite) {
+            await prisma.user.update({
+              where: { id: user.id },
+              data: { role: invite.role },
+            });
+            await prisma.invite.update({
+              where: { id: invite.id },
+              data: { used: true },
+            });
+            return true;
+          }
+        }
+
+        return false;
       }
-      return true;
+      return false;
     },
     async session({ session, user }) {
       if (session.user) {
