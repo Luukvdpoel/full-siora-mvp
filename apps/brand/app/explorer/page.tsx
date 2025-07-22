@@ -1,5 +1,5 @@
-import React from 'react';
 "use client";
+import React from 'react';
 import { useState, useMemo } from "react";
 import creatorsData from "../../../web/app/data/mock_creators_200.json";
 import PersonaCard from "../../../web/components/PersonaCard";
