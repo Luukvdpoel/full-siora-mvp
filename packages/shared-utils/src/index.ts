@@ -8,3 +8,4 @@ export * from './trustScore';
 export * from './briefPersonaMatch';
 export * from './generateMatchExplanation';
 export * from './openai';
+export * from './advancedMatch';

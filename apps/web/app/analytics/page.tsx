@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions, prisma } from '@/lib/auth';
-import { matchScore } from 'shared-utils';
+import { advancedMatch } from 'shared-utils';
 
 export default async function AnalyticsPage() {
   const session = await getServerSession(authOptions);
@@ -26,22 +26,25 @@ export default async function AnalyticsPage() {
   const metrics = await Promise.all(
     campaigns.map(async (c) => {
       const applicationCount = c.applications.length;
-      const matchScores = c.matches.map((m) => {
-        const profile = m.creator.creatorProfiles[0];
-        if (!profile) return 0;
-        const creatorPersona = {
-          tone: profile.tone,
-          niches: [profile.niche],
-          platforms: [],
-          formats: profile.contentType ? [profile.contentType] : undefined,
-          vibe: Array.isArray(profile.values) ? profile.values.join(' ') : undefined,
-        };
-        const brandProfile = {
-          niches: [c.niche],
-          desiredFormats: c.deliverables.split(',').map((d) => d.trim()).filter(Boolean),
-        } as any;
-        return matchScore(creatorPersona, { ...brandProfile, platforms: [c.platform] }).score;
-      });
+      const matchScores = await Promise.all(
+        c.matches.map(async (m) => {
+          const profile = m.creator.creatorProfiles[0];
+          if (!profile) return 0;
+          const creatorPersona = {
+            tone: profile.tone,
+            niches: [profile.niche],
+            platforms: [],
+            formats: profile.contentType ? [profile.contentType] : undefined,
+            vibe: Array.isArray(profile.values) ? profile.values.join(' ') : undefined,
+          };
+          const brandProfile = {
+            niches: [c.niche],
+            desiredFormats: c.deliverables.split(',').map((d) => d.trim()).filter(Boolean),
+          } as any;
+          const result = await advancedMatch(creatorPersona, { ...brandProfile, platforms: [c.platform] });
+          return result.score;
+        })
+      );
       const avgScore =
         matchScores.length > 0
           ? Math.round(matchScores.reduce((a, b) => a + b, 0) / matchScores.length)

@@ -52,3 +52,19 @@ async function logPromptResponse(messages: any, content: string) {
     });
   } catch {}
 }
+
+export async function getEmbedding(text: string, model = 'text-embedding-ada-002'): Promise<number[]> {
+  const res = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({ input: text, model }),
+  });
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+  const data = await res.json();
+  return data.data[0].embedding as number[];
+}
