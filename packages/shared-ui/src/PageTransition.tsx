@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";

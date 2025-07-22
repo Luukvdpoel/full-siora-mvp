@@ -1,11 +1,9 @@
-import React from 'react';
 "use client";
-
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 export type ChatMessage = {
   id: string;
-  sender: 'brand' | 'creator';
+  sender: "brand" | "creator";
   text: string;
   timestamp: string;
   campaign?: string;
@@ -16,22 +14,30 @@ export interface ChatPanelProps {
   messages: ChatMessage[];
   onSend: (text: string) => Promise<void> | void;
   sending?: boolean;
-  currentUser: 'brand' | 'creator';
+  currentUser: "brand" | "creator";
 }
 
-export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelProps) {
-  const [input, setInput] = useState('');
+export function ChatPanel({
+  messages,
+  onSend,
+  sending,
+  currentUser,
+}: ChatPanelProps) {
+  const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'auto' });
+    bottomRef.current?.scrollIntoView({ behavior: "auto" });
   }, [messages]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
     await onSend(input);
-    setInput('');
-    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' }), 0);
+    setInput("");
+    setTimeout(
+      () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
+      0,
+    );
   };
 
   return (
@@ -40,20 +46,18 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
         {messages.map((m) => (
           <div
             key={m.id}
-            className={`flex ${m.sender === currentUser ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${m.sender === currentUser ? "justify-end" : "justify-start"}`}
           >
             <div>
               <div className="text-xs text-zinc-400 mb-1">
                 {new Date(m.timestamp).toLocaleString()}
               </div>
               <div
-                className={`inline-block px-4 py-2 rounded-2xl border border-Siora-border ${m.sender === currentUser ? 'bg-Siora-accent' : 'bg-gray-700'}`}
+                className={`inline-block px-4 py-2 rounded-2xl border border-Siora-border ${m.sender === currentUser ? "bg-Siora-accent" : "bg-gray-700"}`}
               >
                 {m.text}
                 {m.sender === currentUser && (
-                  <span className="ml-2 text-xs">
-                    {m.read ? '✓' : '•'}
-                  </span>
+                  <span className="ml-2 text-xs">{m.read ? "✓" : "•"}</span>
                 )}
               </div>
             </div>

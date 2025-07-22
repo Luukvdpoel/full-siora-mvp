@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 import type { BrandProfile } from '../../packages/shared-utils/src/fitScoreEngine';
 

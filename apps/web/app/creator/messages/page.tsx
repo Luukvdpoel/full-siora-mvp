@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import Link from "next/link";
 import brands from "@/app/creator/data/mock_brands.json";
 import mockMessages, { StoredMessage } from "@/app/creator/data/mock_messages";

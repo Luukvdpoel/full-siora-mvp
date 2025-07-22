@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 
 import { useState } from "react";
 import creators from "@/app/data/mock_creators_200.json";

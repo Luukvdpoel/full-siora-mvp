@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { signIn } from "next-auth/react";
 
 export default function SignInPage() {

@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { SessionProvider } from 'next-auth/react';
 import type { PropsWithChildren } from 'react';
 import { ThemeProvider } from '../providers';

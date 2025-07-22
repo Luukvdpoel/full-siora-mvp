@@ -1,8 +1,5 @@
-import React from 'react';
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
-import * as React from 'react'
-
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type BrandUser = { email: string } | null;
 

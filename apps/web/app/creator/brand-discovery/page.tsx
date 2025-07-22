@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client"
 
 import { useEffect, useMemo, useState } from 'react'
 import BrandDiscoveryCard from '@creator/components/BrandDiscoveryCard'

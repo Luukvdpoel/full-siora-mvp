@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from "react";
 
 export type CollabStatus = "new" | "contacted" | "interested" | "not_fit";
