@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { code } = req.query;
-  const redirectUri = 'http://localhost:3000/api/instagram/callback';
+  const redirectUri = `${process.env.NEXTAUTH_URL}/api/instagram/callback`;
 
   try {
     const { data } = await axios.get(
