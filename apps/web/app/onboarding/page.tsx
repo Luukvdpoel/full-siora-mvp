@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import type { BrandOnboardResult } from "@/types/onboard";
 import { campaignTemplates, type CampaignTemplate } from "@/app/data/campaignTemplates";
@@ -214,17 +215,24 @@ export default function BrandOnboarding() {
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-xl mx-auto bg-Siora-mid p-6 rounded-2xl space-y-4">
         <h1 className="text-2xl font-bold mb-2">Brand Onboarding</h1>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={step}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {renderStep()}
-          </motion.div>
-        </AnimatePresence>
+        <Tabs value={step.toString()} onValueChange={(v) => setStep(Number(v))}>
+          <TabsList className="mb-4 grid grid-cols-7 gap-1">
+            {Array.from({ length: 7 }).map((_, i) => (
+              <TabsTrigger key={i} value={i.toString()}>{i + 1}</TabsTrigger>
+            ))}
+          </TabsList>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={step}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <TabsContent value={step.toString()}>{renderStep()}</TabsContent>
+            </motion.div>
+          </AnimatePresence>
+        </Tabs>
         <div className="flex justify-between pt-4">
           {step > 0 && step < 6 && (
             <button onClick={prev} className="px-4 py-2 bg-gray-700 rounded">

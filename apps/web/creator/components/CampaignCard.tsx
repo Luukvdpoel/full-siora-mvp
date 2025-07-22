@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Campaign } from '@/app/data/campaigns';
+import { Card } from '@/components/ui/card';
 import { discoveryBrands } from '@creator/data/discoveryBrands';
 import { getBrandTrustScore } from 'shared-utils';
 
@@ -20,7 +21,7 @@ export default function CampaignCard({ campaign }: Props) {
   const trustColor =
     trust.score >= 80 ? 'bg-green-600' : trust.score >= 50 ? 'bg-yellow-500' : 'bg-red-600';
   return (
-    <div className="border border-white/10 bg-background p-4 rounded-lg space-y-2">
+    <Card className="border border-white/10 bg-background p-4 space-y-2">
       <h3 className="text-lg font-semibold">{campaign.title}</h3>
       <p className="text-sm text-foreground/80 flex items-center gap-2">
         {campaign.brand}
@@ -42,6 +43,6 @@ export default function CampaignCard({ campaign }: Props) {
       >
         View Brief
       </Link>
-    </div>
+    </Card>
   );
 }
