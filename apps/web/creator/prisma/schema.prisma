@@ -81,6 +81,9 @@ model CreatorProfile {
   values       Json
   contentType  String
   brandPersona String
+  partnershipPreference String?
+  undervaluedExperience String?
+  supportWish          String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 

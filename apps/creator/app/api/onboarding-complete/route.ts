@@ -74,7 +74,10 @@ export async function POST(req: Request) {
       tone: progress.tone,
       values: progress.values ?? [],
       contentType: progress.contentType,
-      brandPersona: persona
+      brandPersona: persona,
+      partnershipPreference: progress.partnershipValue,
+      undervaluedExperience: progress.undervaluedExperience,
+      supportWish: progress.supportWish
     }
   });
 

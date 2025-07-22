@@ -16,6 +16,9 @@ interface OnboardData {
   values: string[];
   contentType: string;
   brandPersona: string;
+  partnershipValue: string;
+  undervaluedExperience: string;
+  supportWish: string;
 }
 
 const toneOptions = ["Casual", "Professional", "Playful", "Bold"];
@@ -33,6 +36,9 @@ export default function CreatorOnboarding() {
     values: [],
     contentType: "",
     brandPersona: "",
+    partnershipValue: "",
+    undervaluedExperience: "",
+    supportWish: "",
   });
 
   useEffect(() => {
@@ -50,14 +56,14 @@ export default function CreatorOnboarding() {
     } catch {}
   }, [data]);
 
-  const next = () => setStep((s) => Math.min(5, s + 1));
+  const next = () => setStep((s) => Math.min(7, s + 1));
   const prev = () => setStep((s) => Math.max(0, s - 1));
 
   async function handleConfirm() {
     try {
       // TODO: send data to API
       localStorage.removeItem("creatorOnboarding");
-      setStep(6);
+      setStep(7);
     } catch (err) {
       console.error(err);
     }
@@ -184,6 +190,39 @@ export default function CreatorOnboarding() {
       case 5:
         return (
           <div className={styles.formBox}>
+            <h2 className={styles.title}>Partnership Preferences</h2>
+            <textarea
+              className={styles.input}
+              rows={3}
+              placeholder="What do you value most in a brand partnership?"
+              value={data.partnershipValue}
+              onChange={(e) => setData({ ...data, partnershipValue: e.target.value })}
+            />
+            <textarea
+              className={styles.input}
+              rows={3}
+              placeholder="Have you ever been undervalued by a brand? What happened?"
+              value={data.undervaluedExperience}
+              onChange={(e) =>
+                setData({ ...data, undervaluedExperience: e.target.value })
+              }
+            />
+            <textarea
+              className={styles.input}
+              rows={3}
+              placeholder="What kind of support or recognition do you wish brands offered?"
+              value={data.supportWish}
+              onChange={(e) => setData({ ...data, supportWish: e.target.value })}
+            />
+            <div className={styles.controls}>
+              <button className={styles.navButton} onClick={prev}>Back</button>
+              <button className={styles.submitButton} onClick={next} disabled={!data.partnershipValue}>Next</button>
+            </div>
+          </div>
+        );
+      case 6:
+        return (
+          <div className={styles.formBox}>
             <h2 className={styles.title}>Review & Confirm</h2>
             <div className="text-sm space-y-2 mb-4">
               <p><strong>Name:</strong> {data.name}</p>
@@ -194,6 +233,9 @@ export default function CreatorOnboarding() {
               <p><strong>Values:</strong> {data.values.join(', ') || '-'}</p>
               <p><strong>Content Type:</strong> {data.contentType}</p>
               <p><strong>Brand Persona:</strong> {data.brandPersona}</p>
+              <p><strong>Partnership Value:</strong> {data.partnershipValue}</p>
+              <p><strong>Undervalued:</strong> {data.undervaluedExperience}</p>
+              <p><strong>Support Wish:</strong> {data.supportWish}</p>
             </div>
             <div className={styles.controls}>
               <button className={styles.navButton} onClick={prev}>Back</button>
@@ -201,7 +243,7 @@ export default function CreatorOnboarding() {
             </div>
           </div>
         );
-      case 6:
+      case 7:
         return (
           <div className={styles.formBox}>
             <h2 className={styles.title}>All set!</h2>
@@ -217,8 +259,8 @@ export default function CreatorOnboarding() {
   return (
     <div className={styles.wrapper}>
       <Tabs value={step.toString()} onValueChange={(v) => setStep(Number(v))}>
-        <TabsList className="mb-4 grid grid-cols-6 gap-1">
-          {Array.from({ length: 6 }).map((_, i) => (
+        <TabsList className="mb-4 grid grid-cols-8 gap-1">
+          {Array.from({ length: 8 }).map((_, i) => (
             <TabsTrigger key={i} value={i.toString()}>{i + 1}</TabsTrigger>
           ))}
         </TabsList>
