@@ -27,6 +27,7 @@
     "fuse.js": "^7.1.0",
     "html2pdf.js": "^0.10.3",
     "jspdf": "^3.0.1",
+    "lucide-react": "^0.525.0",
     "markdown-pdf": "^11.0.0",
     "marked": "^12.0.2",
     "next": "^15.3.4",
