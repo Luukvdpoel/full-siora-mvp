@@ -16,7 +16,6 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
 
   const handleSend = () => {
     // In a real app this would POST to an API.
-    console.log({ creator, message, budget });
     onClose();
   };
 

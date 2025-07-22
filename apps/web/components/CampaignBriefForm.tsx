@@ -38,7 +38,6 @@ export default function CampaignBriefForm() {
       deadline,
       notes,
     };
-    console.log(data);
   };
 
   return (
