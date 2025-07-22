@@ -6,6 +6,22 @@ export interface ChatCompletionParams {
   fallback?: string;
 }
 
+const cache = new Map<string, { ts: number; value: string }>();
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+const callTimestamps: number[] = [];
+const WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_CALLS_PER_WINDOW = 60;
+
+function registerCall() {
+  const now = Date.now();
+  callTimestamps.push(now);
+  while (callTimestamps.length && now - callTimestamps[0] > WINDOW_MS) {
+    callTimestamps.shift();
+  }
+  return callTimestamps.length <= MAX_CALLS_PER_WINDOW;
+}
+
 export async function callOpenAI({
   messages,
   model = 'gpt-4',
@@ -13,9 +29,18 @@ export async function callOpenAI({
   maxRetries = 2,
   fallback,
 }: ChatCompletionParams): Promise<string> {
+  const key = JSON.stringify({ model, messages, temperature });
+  const cached = cache.get(key);
+  if (cached && Date.now() - cached.ts < CACHE_TTL) {
+    return cached.value;
+  }
+
   let lastError: unknown;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
+      if (!registerCall()) {
+        await new Promise(res => setTimeout(res, 1000));
+      }
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -29,6 +54,7 @@ export async function callOpenAI({
       }
       const data = await res.json();
       const content = data.choices?.[0]?.message?.content ?? '';
+      cache.set(key, { ts: Date.now(), value: content });
       logPromptResponse(messages, content);
       return content;
     } catch (err) {
