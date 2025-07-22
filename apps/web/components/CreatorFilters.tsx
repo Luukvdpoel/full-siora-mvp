@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { useEffect, useState } from "react";
 import Dropdown from "@/components/ui/dropdown";
 import Checkbox from "@/components/ui/checkbox";

@@ -4,13 +4,12 @@ import type { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { BrandUserProvider } from "../lib/brandUser";
 import TrpcProvider from "./trpcProvider";
-import { PageTransition, Nav, NavLink, ThemeToggle } from 'shared-ui'
-import AuthStatus from '../components/AuthStatus'
+import { PageTransition, Nav, NavLink, ThemeToggle } from "shared-ui";
+import AuthStatus from "../components/AuthStatus";
 import { ThemeProvider } from "./providers";
-import PostHogProvider from '../components/PostHogProvider'
-import { Analytics } from '@vercel/analytics/react'
+import PostHogProvider from "../components/PostHogProvider";
+import { Analytics } from "@vercel/analytics/react";
 import * as React from "react";
-import { Inter } from "next/font/google";
 import {
   LayoutDashboard,
   Heart,
@@ -21,8 +20,6 @@ import {
   ShieldCheck,
   ScrollText,
 } from "lucide-react";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -38,7 +35,7 @@ const navLinks: NavLink[] = [
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.className} scroll-smooth`}>
+    <html lang="en" className="scroll-smooth">
       <head>
         <title>Siora Dashboard</title>
         <meta name="description" content="Siora brand dashboard" />

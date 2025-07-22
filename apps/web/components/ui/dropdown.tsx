@@ -1,4 +1,3 @@
-import React from 'react';
 import * as React from "react";
 
 export type DropdownProps = React.SelectHTMLAttributes<HTMLSelectElement>;
@@ -12,7 +11,7 @@ export const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
     >
       {children}
     </select>
-  )
+  ),
 );
 Dropdown.displayName = "Dropdown";
 

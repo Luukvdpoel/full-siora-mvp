@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { signIn } from 'next-auth/react';
 
 export default function InviteForm({ email, role }: { email: string; role: string }) {

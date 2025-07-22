@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import campaigns from "@/app/creator/data/campaigns";

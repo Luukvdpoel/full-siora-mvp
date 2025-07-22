@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import brands from "@/app/creator/data/mock_brands.json";

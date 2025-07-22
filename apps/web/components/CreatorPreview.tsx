@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";

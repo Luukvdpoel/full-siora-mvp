@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 import { Switch } from "@headlessui/react";
 import { useContext } from "react";
 import { ThemeContext } from "@/app/providers";

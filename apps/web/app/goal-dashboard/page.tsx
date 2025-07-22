@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-"use client";
 
 import { useState } from "react";
 import type { Creator } from "@/app/data/creators";

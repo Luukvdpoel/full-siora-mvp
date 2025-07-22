@@ -1,4 +1,3 @@
-import React from 'react';
 import * as React from "react";
 
 export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -11,7 +10,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       className={`h-4 w-4 rounded border border-Siora-border bg-Siora-light text-Siora-accent ${className}`}
       {...props}
     />
-  )
+  ),
 );
 Checkbox.displayName = "Checkbox";
 
