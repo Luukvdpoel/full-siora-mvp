@@ -12,7 +12,7 @@ const checks: { pattern: RegExp; flag: string; message: string }[] = [
   {
     pattern: /affiliate[- ]only/i,
     flag: 'affiliate_only',
-    message: 'Affiliate-only compensation detected.',
+    message: 'Affiliate-only compensation detected. This may be unfair to the creator.',
   },
   {
     pattern: /(all|perpetual) rights|rights without compensation|royalty[- ]free/i,

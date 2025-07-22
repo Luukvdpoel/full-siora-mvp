@@ -9,3 +9,4 @@ export * from './briefPersonaMatch';
 export * from './generateMatchExplanation';
 export * from './openai';
 export * from './detectContractRedFlags';
+export * from './creatorROI';
