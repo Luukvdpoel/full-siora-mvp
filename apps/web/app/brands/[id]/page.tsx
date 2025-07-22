@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import personas from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
 
-export default function PersonaProfile({ params }: any) {
+interface PageProps {
+  params: { id: string };
+}
+
+export default function PersonaProfile({ params }: PageProps) {
   const persona = personas.find((p) => p.id.toString() === params.id);
   if (!persona) return notFound();
 
@@ -14,7 +19,10 @@ export default function PersonaProfile({ params }: any) {
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
       <div className="max-w-3xl mx-auto space-y-6">
-        <div className="border border-Siora-border rounded-2xl bg-Siora-mid p-6 shadow-Siora-hover">
+        <motion.div
+          layoutId={`creator-${persona.id}`}
+          className="border border-Siora-border rounded-2xl bg-Siora-mid p-6 shadow-Siora-hover"
+        >
           <h1 className="text-3xl font-bold tracking-tight">
             {persona.name}{" "}
             <span className="text-Siora-accent">
@@ -74,7 +82,7 @@ export default function PersonaProfile({ params }: any) {
           >
             Leave/View Feedback
           </Link>
-        </div>
+        </motion.div>
       </div>
     </main>
   );

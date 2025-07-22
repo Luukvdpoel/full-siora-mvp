@@ -9,7 +9,6 @@ import { Badge } from "shared-ui";
 import { getCreatorBadges, generateMatchExplanation } from "shared-utils";
 
 import { FaEnvelope, FaRegStar, FaStar } from "react-icons/fa";
-import { useBrandUser } from "@/lib/brandUser";
 import { useBrandPrefs } from "@/lib/brandPrefs";
 import Toast from "./Toast";
 
@@ -26,7 +25,6 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
   const [loading, setLoading] = useState(false);
   const [checklistOpen, setChecklistOpen] = useState(false);
   const [toast, setToast] = useState("");
-  const { user } = useBrandUser();
   const brandPrefs = useBrandPrefs();
   const badges = getCreatorBadges({
     verified: creator.verified,
@@ -99,10 +97,11 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
   return (
     <motion.div
       onClick={handleCardClick}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      layoutId={`creator-${creator.id}`}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.3 }}
       className="group cursor-pointer bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
     >
