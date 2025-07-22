@@ -74,6 +74,23 @@ export function matchScore(
     reasons.push(`Preferred formats: ${formatOverlap.join(', ')}`);
   else reasons.push('Formats differ');
 
+  if (creator.partnershipPreference && brand.values) {
+    const prefs = creator.partnershipPreference.split(/[,\s]+/);
+    const prefOverlap = overlap(prefs, brand.values);
+    const prefScore = (prefOverlap.length / prefs.length) * 10;
+    score += prefScore;
+    if (prefOverlap.length > 0)
+      reasons.push(`Partnership focus: ${prefOverlap.join(', ')}`);
+  }
+
+  if (creator.supportWish && brand.values) {
+    const wishes = creator.supportWish.split(/[,\s]+/);
+    const wishOverlap = overlap(wishes, brand.values);
+    const wishScore = (wishOverlap.length / wishes.length) * 5;
+    score += wishScore;
+    if (wishOverlap.length > 0) reasons.push('Meets support needs');
+  }
+
   const finalScore = Math.round(Math.max(0, Math.min(100, score)));
   return { score: finalScore, reasons };
 }

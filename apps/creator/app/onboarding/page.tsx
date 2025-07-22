@@ -16,11 +16,22 @@ interface OnboardData {
   values: string[];
   contentType: string;
   brandPersona: string;
+  partnershipValue: string;
+  undervaluedExperience: string;
+  supportWish: string;
 }
 
 const toneOptions = ["Casual", "Professional", "Playful", "Bold"];
 const valueOptions = ["Authenticity", "Community", "Innovation", "Sustainability"];
-const steps = ["Start", "Basics", "Tone", "Values", "Persona", "Review"];
+const steps = [
+  "Start",
+  "Basics",
+  "Tone",
+  "Values",
+  "Persona",
+  "Partnership",
+  "Review",
+];
 
 export default function CreatorOnboarding() {
   const router = useRouter();
@@ -35,6 +46,9 @@ export default function CreatorOnboarding() {
     values: [],
     contentType: "",
     brandPersona: "",
+    partnershipValue: "",
+    undervaluedExperience: "",
+    supportWish: "",
   });
 
   useEffect(() => {
@@ -213,6 +227,41 @@ export default function CreatorOnboarding() {
 
         <TabsContent value="5" current={step}>
           <div className={styles.formBox}>
+            <h2 className={styles.title}>Partnership Preferences</h2>
+            <textarea
+              className={styles.input}
+              rows={3}
+              placeholder="What do you value most in a brand partnership?"
+              value={data.partnershipValue}
+              onChange={(e) =>
+                setData({ ...data, partnershipValue: e.target.value })
+              }
+            />
+            <textarea
+              className={styles.input}
+              rows={3}
+              placeholder="Have you ever been undervalued by a brand? What happened?"
+              value={data.undervaluedExperience}
+              onChange={(e) =>
+                setData({ ...data, undervaluedExperience: e.target.value })
+              }
+            />
+            <textarea
+              className={styles.input}
+              rows={3}
+              placeholder="What kind of support or recognition do you wish brands offered?"
+              value={data.supportWish}
+              onChange={(e) => setData({ ...data, supportWish: e.target.value })}
+            />
+            <div className={styles.controls}>
+              <button className={styles.navButton} onClick={() => setStep("4")}>Back</button>
+              <button className={styles.submitButton} onClick={() => setStep("6")} disabled={!data.partnershipValue}>Next</button>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="6" current={step}>
+          <div className={styles.formBox}>
             <h2 className={styles.title}>Review & Confirm</h2>
             <div className="text-sm space-y-2 mb-4">
               <p><strong>Name:</strong> {data.name}</p>
@@ -223,9 +272,12 @@ export default function CreatorOnboarding() {
               <p><strong>Values:</strong> {data.values.join(', ') || '-'}</p>
               <p><strong>Content Type:</strong> {data.contentType}</p>
               <p><strong>Brand Persona:</strong> {data.brandPersona}</p>
+              <p><strong>Partnership Value:</strong> {data.partnershipValue}</p>
+              <p><strong>Undervalued:</strong> {data.undervaluedExperience}</p>
+              <p><strong>Support Wish:</strong> {data.supportWish}</p>
             </div>
             <div className={styles.controls}>
-              <button className={styles.navButton} onClick={() => setStep("4")}>Back</button>
+              <button className={styles.navButton} onClick={() => setStep("5")}>Back</button>
               <button className={styles.submitButton} onClick={handleConfirm}>Confirm</button>
             </div>
           </div>

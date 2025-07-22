@@ -13,6 +13,9 @@ export interface CreatorPersona {
   /** Goals or aspirations of the creator */
   goals?: string[];
   pastCollabs?: string[];
+  partnershipPreference?: string;
+  undervaluedExperience?: string;
+  supportWish?: string;
 }
 
 export interface BrandProfile {
@@ -94,6 +97,27 @@ export function getFitScore(
   if (collabCommon.length > 0)
     reasons.push(`Past experience with ${collabCommon.join(', ')}`);
   else reasons.push('No related past collaborations');
+
+  // Partnership values (10)
+  if (creator.partnershipPreference && brand.values) {
+    const prefs = creator.partnershipPreference.split(/[,\s]+/);
+    const prefOverlap = arrayOverlap(prefs, brand.values);
+    const prefScore = (prefOverlap.length / prefs.length) * 10;
+    score += prefScore;
+    if (prefOverlap.length > 0)
+      reasons.push(`Partnership focus on ${prefOverlap.join(', ')}`);
+    else reasons.push('Partnership priorities differ');
+  }
+
+  // Desired support (5)
+  if (creator.supportWish && brand.values) {
+    const wishes = creator.supportWish.split(/[,\s]+/);
+    const wishOverlap = arrayOverlap(wishes, brand.values);
+    const wishScore = (wishOverlap.length / wishes.length) * 5;
+    score += wishScore;
+    if (wishOverlap.length > 0)
+      reasons.push('Supports creator needs');
+  }
 
   const finalScore = Math.round(Math.max(0, Math.min(100, score)));
   return { score: finalScore, reason: reasons.join('; ') };

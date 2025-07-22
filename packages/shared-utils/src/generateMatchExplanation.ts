@@ -40,5 +40,23 @@ export function generateMatchExplanation(
     notes.push('Audience fits your target age');
   }
 
+  if (creator.partnershipPreference && brand.values) {
+    const prefs = creator.partnershipPreference
+      .split(/[,\s]+/)
+      .filter(Boolean);
+    const overlap = prefs.filter((p) =>
+      brand.values!.some((v) => v.toLowerCase() === p.toLowerCase())
+    );
+    if (overlap.length > 0) notes.push('Shares partnership priorities');
+  }
+
+  if (creator.supportWish && brand.values) {
+    const wishes = creator.supportWish.split(/[,\s]+/).filter(Boolean);
+    const match = wishes.filter((w) =>
+      brand.values!.some((v) => v.toLowerCase() === w.toLowerCase())
+    );
+    if (match.length > 0) notes.push('Offers desired creator support');
+  }
+
   return notes;
 }
