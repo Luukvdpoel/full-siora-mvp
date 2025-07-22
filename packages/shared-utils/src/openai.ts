@@ -48,6 +48,27 @@ export function safeJson<T>(text: string, fallback: T): T {
   }
 }
 
+export async function getEmbedding(
+  input: string,
+  model = 'text-embedding-ada-002'
+): Promise<number[]> {
+  const res = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({ input, model }),
+  });
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+  const data = await res.json();
+  const vector = (data.data?.[0]?.embedding ?? []) as number[];
+  logEmbedding(input.length);
+  return vector;
+}
+
 async function logPromptResponse(messages: any, content: string) {
   const key = process.env.POSTHOG_API_KEY;
   const host = process.env.POSTHOG_HOST;
@@ -57,6 +78,19 @@ async function logPromptResponse(messages: any, content: string) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ api_key: key, event: 'gpt_interaction', properties: { messages, content } }),
+    });
+  } catch {}
+}
+
+async function logEmbedding(length: number) {
+  const key = process.env.POSTHOG_API_KEY;
+  const host = process.env.POSTHOG_HOST;
+  if (!key || !host) return;
+  try {
+    await fetch(`${host}/capture/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: key, event: 'embedding_generated', properties: { length } }),
     });
   } catch {}
 }
