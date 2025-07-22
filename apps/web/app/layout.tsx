@@ -19,12 +19,14 @@ import {
   CreditCard,
   ShieldCheck,
   ScrollText,
+  User,
 } from "lucide-react";
 
 const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/shortlist", label: "Shortlist", icon: Heart },
   { href: "/matches", label: "Matches", icon: Users2 },
+  { href: "/creator", label: "Creator View", icon: User },
   { href: "/analytics", label: "Analytics", icon: BarChart },
   { href: "/inbox", label: "Inbox", icon: Mail },
   { href: "/billing", label: "Billing", icon: CreditCard },
