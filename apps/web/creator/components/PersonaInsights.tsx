@@ -1,3 +1,4 @@
+import React from 'react';
 import type { FullPersona } from '../types/persona'
 
 export default function PersonaInsights({ persona }: { persona: FullPersona }) {

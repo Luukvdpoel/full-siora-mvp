@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useEffect, useState } from "react";
 import creators from "@/app/data/mock_creators_200.json";
 import { ChatPanel, ChatMessage } from "shared-ui";

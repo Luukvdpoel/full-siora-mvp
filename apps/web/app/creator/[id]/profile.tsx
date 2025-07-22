@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import { useState } from "react";

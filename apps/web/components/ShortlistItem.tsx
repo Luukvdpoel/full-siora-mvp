@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
 import type { Creator } from "@/app/data/creators";

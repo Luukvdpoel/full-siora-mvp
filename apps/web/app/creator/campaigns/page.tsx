@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useToast } from "@creator/components/Toast";
 import { discoveryBrands } from "@creator/data/discoveryBrands";

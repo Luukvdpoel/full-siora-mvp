@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { discoveryBrands } from '@creator/data/discoveryBrands';

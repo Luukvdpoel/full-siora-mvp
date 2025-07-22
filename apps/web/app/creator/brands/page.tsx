@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { loadPersonasFromLocal, StoredPersona } from '@creator/lib/localPersonas';
 import { brands, type Brand } from '@creator/data/brands';

@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useEffect, useState } from "react";
 import brands from "@/app/creator/data/mock_brands.json";
 import { ChatPanel, ChatMessage } from "shared-ui";

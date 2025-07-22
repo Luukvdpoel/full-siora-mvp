@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useEffect, useState, useMemo } from 'react';
 import type { Campaign } from '@/app/creator/data/campaigns';
 import CampaignCard from '@creator/components/CampaignCard';

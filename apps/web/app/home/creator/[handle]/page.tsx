@@ -1,3 +1,4 @@
+import React from 'react';
 import { creators } from '@/app/data/creators';
 import { Badge } from 'shared-ui';
 import { getCreatorBadges } from 'shared-utils';
