@@ -22,6 +22,7 @@ const navLinks: NavLink[] = [
   { href: "/billing", label: "Billing" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
+  { href: "https://tally.so/r/xyz123", label: "Feedback" },
 ];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
