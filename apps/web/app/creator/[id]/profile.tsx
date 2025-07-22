@@ -2,6 +2,7 @@
 import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 import PerformanceTab from "@/components/PerformanceTab";
 import ContractModal from "@/components/ContractModal";
 import EvaluationChecklistModal from "@/components/EvaluationChecklistModal";
@@ -77,6 +78,12 @@ export default function CreatorProfile({ params }: Props) {
           >
             Generate Evaluation Checklist
           </button>
+          <Link
+            href={`/feedback/${creator.id}`}
+            className="ml-4 mt-4 px-3 py-1 text-sm rounded bg-gray-700 text-white"
+          >
+            Leave/View Feedback
+          </Link>
         </div>
       </div>
       <ContractModal

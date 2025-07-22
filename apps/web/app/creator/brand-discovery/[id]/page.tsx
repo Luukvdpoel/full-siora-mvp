@@ -1,6 +1,7 @@
 "use client";
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { discoveryBrands } from '@creator/data/discoveryBrands';
 import { getBrandBadges, getBrandTrustScore } from 'shared-utils';
 import { Badge } from 'shared-ui';
@@ -57,6 +58,12 @@ export default function BrandProfile() {
           <li key={c}>{c}</li>
         ))}
       </ul>
+      <Link
+        href={`/creator/feedback/${brand.id}`}
+        className="inline-block mt-4 px-3 py-1 bg-gray-700 text-white rounded"
+      >
+        Leave/View Feedback
+      </Link>
     </main>
   );
 }

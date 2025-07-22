@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import personas from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
@@ -67,6 +68,12 @@ export default function PersonaProfile({ params }: any) {
             </>
           )}
           {tab === 'performance' && <PerformanceTab creatorId={persona.id.toString()} />}
+          <Link
+            href={`/feedback/${persona.id}`}
+            className="mt-4 inline-block px-3 py-1 bg-gray-700 text-white rounded"
+          >
+            Leave/View Feedback
+          </Link>
         </div>
       </div>
     </main>
