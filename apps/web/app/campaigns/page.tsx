@@ -1,14 +1,45 @@
 'use client';
 import React from 'react';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { campaigns } from "@/app/data/campaigns";
+import { Badge } from "shared-ui";
+import FeedbackButton from "@/components/FeedbackButton";
+
+interface Fairness {
+  fair: boolean;
+  concerns: string[];
+}
 
 export default function CampaignsPage() {
   const [platform, setPlatform] = useState("");
   const [niche, setNiche] = useState("");
   const [minBudget, setMinBudget] = useState("");
   const [maxBudget, setMaxBudget] = useState("");
+  const [fairness, setFairness] = useState<Record<string, Fairness>>({});
+
+  useEffect(() => {
+    campaigns.forEach(async (c) => {
+      try {
+        const res = await fetch('/api/fairness/evaluateCampaign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: c.name,
+            description: c.requirements,
+            deliverables: c.requirements,
+            compensation: `${c.budgetMin}-${c.budgetMax}`,
+          }),
+        });
+        if (res.ok) {
+          const data: Fairness = await res.json();
+          setFairness((prev) => ({ ...prev, [c.id]: data }));
+        }
+      } catch (err) {
+        console.error('fairness check failed', err);
+      }
+    });
+  }, []);
 
   const filtered = campaigns.filter((c) => {
     const matchPlatform =
@@ -62,23 +93,34 @@ export default function CampaignsPage() {
             {filtered.map((c) => (
               <div
                 key={c.id}
-                className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
+                className="bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover space-y-2"
               >
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
                   {c.brand} – {c.name}
+                  {fairness[c.id] && !fairness[c.id].fair && (
+                    <Badge label="Unfair offer" className="bg-red-600 text-white" />
+                  )}
                 </h2>
-                <p className="text-sm text-gray-700 dark:text-zinc-300 mb-2">
+                {fairness[c.id] && fairness[c.id].concerns.length > 0 && (
+                  <p className="text-xs text-red-400">
+                    {fairness[c.id].concerns[0]}
+                  </p>
+                )}
+                <p className="text-sm text-gray-700 dark:text-zinc-300">
                   {c.requirements}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-zinc-400 mb-4">
+                <p className="text-sm text-gray-500 dark:text-zinc-400">
                   Budget: ${'{'}c.budgetMin{'}'} - ${'{'}c.budgetMax{'}'}
                 </p>
-                <button
-                  onClick={() => alert('Apply flow coming soon!')}
-                  className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-3 py-1 rounded"
-                >
-                  Apply as Creator
-                </button>
+                <div className="flex gap-2 mt-2">
+                  <button
+                    onClick={() => alert('Apply flow coming soon!')}
+                    className="bg-Siora-accent hover:bg-Siora-accent-soft text-white px-3 py-1 rounded"
+                  >
+                    Apply as Creator
+                  </button>
+                  <FeedbackButton id={c.id} />
+                </div>
               </div>
             ))}
           </div>
