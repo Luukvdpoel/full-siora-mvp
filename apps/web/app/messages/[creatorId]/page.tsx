@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import creators from "@/app/data/mock_creators_200.json";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
@@ -79,6 +80,12 @@ export default function ChatPage({
           onSend={send}
           sending={sending}
         />
+        <Link
+          href={`/feedback/${params.creatorId}`}
+          className="mt-4 px-3 py-1 text-sm rounded bg-gray-700 text-white self-start"
+        >
+          Leave/View Feedback
+        </Link>
       </div>
     </main>
   );
