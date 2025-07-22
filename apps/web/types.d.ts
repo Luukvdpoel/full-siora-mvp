@@ -2,8 +2,8 @@
 
 declare module '*';
 
-declare var process: any;
-declare var Buffer: any;
+declare let process: any;
+declare let Buffer: any;
 
 declare namespace JSX {
   interface IntrinsicElements {
