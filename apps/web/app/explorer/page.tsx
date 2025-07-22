@@ -1,32 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import personas from "@/app/data/mock_creators_200.json";
 import PersonaCard from "@/components/PersonaCard";
-
-// Limit dataset to first 5 example personas
-type Persona = (typeof personas)[number];
-const samplePersonas: Persona[] = (personas as Persona[]).slice(0, 5);
+import CreatorFilters from "@/components/CreatorFilters";
+import { fetchCreators, getFilterOptions } from "./actions";
 
 export default function ExplorerPage() {
-  const [tone, setTone] = useState("");
-  const [platform, setPlatform] = useState("");
-  const [niche, setNiche] = useState("");
+  const [tones, setTones] = useState<string[]>([]);
+  const [personaTypes, setPersonaTypes] = useState<string[]>([]);
+  const [filters, setFilters] = useState<{ tone: string; personaTypes: string[] }>({ tone: "", personaTypes: [] });
+  const [sort, setSort] = useState<"match" | "name">("match");
+  const [page, setPage] = useState(1);
+  const [creators, setCreators] = useState<any[]>([]);
+  const [total, setTotal] = useState(0);
 
-  const unique = (arr: (string | undefined)[]) =>
-    Array.from(new Set(arr.filter(Boolean))) as string[];
+  useEffect(() => {
+    getFilterOptions().then((d) => {
+      setTones(d.tones);
+      setPersonaTypes(d.personaTypes);
+    });
+  }, []);
 
-  const tones = unique(samplePersonas.map((p) => p.tone));
-  const platforms = unique(samplePersonas.map((p) => p.platform));
-  const niches = unique(samplePersonas.map((p) => p.niche));
+  useEffect(() => {
+    fetchCreators({ ...filters, sort, page }).then((d) => {
+      setCreators(d.creators);
+      setTotal(d.total);
+    });
+  }, [filters, sort, page]);
 
-  const filtered = samplePersonas.filter((p) => {
-    const matchTone = !tone || p.tone === tone;
-    const matchPlatform = !platform || p.platform === platform;
-    const matchNiche = !niche || p.niche === niche;
-    return matchTone && matchPlatform && matchNiche;
-  });
+  const totalPages = Math.ceil(total / 10) || 1;
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 py-10">
@@ -40,56 +43,71 @@ export default function ExplorerPage() {
           Persona Explorer
         </motion.h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <CreatorFilters
+          tones={tones}
+          personaTypes={personaTypes}
+          onChange={(f) => {
+            setFilters(f);
+            setPage(1);
+          }}
+        />
+        <div className="flex items-center gap-2">
+          <span className="text-sm">Sort by:</span>
           <select
-            value={tone}
-            onChange={(e) => setTone(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
+            value={sort}
+            onChange={(e) => {
+              setSort(e.target.value as "match" | "name");
+              setPage(1);
+            }}
+            className="p-2 rounded-lg bg-Siora-light text-white border border-Siora-border"
           >
-            <option value="">All Tones</option>
-            {tones.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-          <select
-            value={platform}
-            onChange={(e) => setPlatform(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
-          >
-            <option value="">All Platforms</option>
-            {platforms.map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
-            ))}
-          </select>
-          <select
-            value={niche}
-            onChange={(e) => setNiche(e.target.value)}
-            className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
-          >
-            <option value="">All Niches</option>
-            {niches.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
+            <option value="match">Match Score</option>
+            <option value="name">Name</option>
           </select>
         </div>
 
-        {filtered.length === 0 ? (
+        {creators.length === 0 ? (
           <p className="text-center text-zinc-400 mt-10">No personas match.</p>
         ) : (
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filtered.map((p) => (
-              <PersonaCard key={p.id} persona={p} />
-            ))}
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {creators.map((p) => {
+              const persona = {
+                id: p.id,
+                name: p.name,
+                handle: p.handle,
+                tone: p.tone,
+                platform: "Instagram",
+                summary: p.brandPersona || "",
+                tags: Array.isArray(p.values) ? p.values : [],
+                followers: p.followers,
+                engagementRate: 0,
+                niche: p.niche,
+              };
+              return <PersonaCard key={p.id} persona={persona as any} />;
+            })}
           </motion.div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-3 py-1 bg-Siora-accent rounded disabled:opacity-50"
+            >
+              Prev
+            </button>
+            <span className="text-sm">
+              Page {page} of {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="px-3 py-1 bg-Siora-accent rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
         )}
       </div>
     </main>
