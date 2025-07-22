@@ -16,6 +16,12 @@ export interface CreatorPersona {
   partnershipPreference?: string;
   undervaluedExperience?: string;
   supportWish?: string;
+  /** Creator expectations around payment models */
+  dealPreference?: string;
+  /** Minimum flat fee the creator expects */
+  minExpectedFee?: number;
+  /** Acceptable percentage for revenue share deals */
+  revenueShareTolerance?: number;
 }
 
 export interface BrandProfile {
@@ -26,6 +32,8 @@ export interface BrandProfile {
   values?: string[];
   desiredFormats?: string[];
   categories?: string[];
+  /** If true, campaign pays only commission (affiliate) */
+  commissionOnly?: boolean;
 }
 
 function arrayOverlap(a?: string[], b?: string[]): string[] {

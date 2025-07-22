@@ -7,6 +7,7 @@ export interface CampaignBrief {
   platforms?: string[];
   deliverables?: string[];
   goals?: string[];
+  commissionOnly?: boolean;
 }
 
 function fuzzyMatch(a: string, b: string): boolean {
@@ -72,6 +73,14 @@ export function getCampaignFitScore(
     reasons.push(`Niche match: ${personaMatch.join(', ')}`);
   } else if (campaign.idealPersona && campaign.idealPersona.length > 0) {
     reasons.push('Niche does not match');
+  }
+
+  if (campaign.commissionOnly && creator.dealPreference) {
+    const dp = creator.dealPreference.toLowerCase();
+    if (dp.includes('no affiliate-only') || dp.includes('value-based')) {
+      score -= 15;
+      reasons.push('Creator dislikes commission-only deals');
+    }
   }
 
   const finalScore = Math.round(Math.max(0, Math.min(100, score)));

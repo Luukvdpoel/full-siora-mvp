@@ -91,6 +91,14 @@ export function matchScore(
     if (wishOverlap.length > 0) reasons.push('Meets support needs');
   }
 
+  if (brand.commissionOnly && creator.dealPreference) {
+    const dp = creator.dealPreference.toLowerCase();
+    if (dp.includes('no affiliate-only') || dp.includes('value-based')) {
+      score -= 15;
+      reasons.push('Prefers value-based compensation');
+    }
+  }
+
   const finalScore = Math.round(Math.max(0, Math.min(100, score)));
   return { score: finalScore, reasons };
 }

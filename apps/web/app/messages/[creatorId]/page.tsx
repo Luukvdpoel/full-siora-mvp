@@ -5,7 +5,11 @@ import Link from "next/link";
 import creators from "@/app/data/mock_creators_200.json";
 import { ChatPanel, ChatMessage } from "shared-ui";
 
-type Message = ChatMessage & { creatorId: string; campaign?: string };
+type Message = ChatMessage & {
+  creatorId: string;
+  campaign?: string;
+  commissionOnly?: boolean;
+};
 
 export default function ChatPage({
   params,
@@ -16,6 +20,7 @@ export default function ChatPage({
   const brandId = "brand1"; // demo brand id until auth
   const [messages, setMessages] = useState<Message[]>([]);
   const [campaign, setCampaign] = useState("");
+  const [commissionOnly, setCommissionOnly] = useState(false);
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
@@ -58,6 +63,7 @@ export default function ChatPage({
         text,
         timestamp: new Date().toISOString(),
         campaign,
+        commissionOnly,
       };
       setMessages((prev) => [...prev, newMessage]);
     } finally {
@@ -75,6 +81,21 @@ export default function ChatPage({
           value={campaign}
           onChange={(e) => setCampaign(e.target.value)}
         />
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={commissionOnly}
+            onChange={(e) => setCommissionOnly(e.target.checked)}
+          />
+          Commission-only deal
+        </label>
+        {commissionOnly &&
+          creator?.deal_preference &&
+          /no affiliate-only|value-based/i.test(creator.deal_preference) && (
+            <span className="text-red-600 text-sm">
+              Creator prefers value-based deals
+            </span>
+          )}
         <ChatPanel
           messages={messages}
           currentUser="brand"
