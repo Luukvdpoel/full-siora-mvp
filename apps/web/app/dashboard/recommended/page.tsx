@@ -1,30 +1,29 @@
 import React from 'react';
 import { creators, type Creator } from "@/app/data/creators";
-import type { BrandProfile, CreatorPersona } from "shared-utils";
-import { getFitScore } from "shared-utils";
+import { advancedMatch, type AdvancedBrand, type AdvancedCreator } from "@/lib/matching/advancedMatcher";
 
 export const dynamic = "force-static";
 
-export default function RecommendedPage() {
-  const brand: BrandProfile = {
-    targetAgeRange: { min: 18, max: 30 },
-    niches: ["Beauty & Lifestyle"],
-    tone: "Warm & Aspirational",
+export default async function RecommendedPage() {
+  const brand: AdvancedBrand = {
     values: ["wellness", "selfcare"],
-    desiredFormats: ["UGC reels"],
-    categories: ["Clean beauty"],
+    tone: "Warm & Aspirational",
+    campaignType: "long-term",
+    brief: "Seeking authentic creators to showcase our clean beauty line to Gen Z audiences."
   };
 
-  const scored = creators.map((c: Creator) => {
-    const persona: CreatorPersona = {
-      niches: [c.niche],
-      tone: c.tone,
-      platforms: [c.platform],
-      vibe: c.tags?.join(" "),
-    };
-    const { score, reason } = getFitScore(persona, brand);
-    return { creator: c, score, reason };
-  });
+  const scored = await Promise.all(
+    creators.map(async (c: Creator) => {
+      const persona: AdvancedCreator = {
+        values: c.tags,
+        tone: c.tone,
+        successRate: Math.min((c.completedCollabs ?? 0) / 10, 1),
+        personaText: c.summary,
+      };
+      const { score, reasons } = await advancedMatch(persona, brand);
+      return { creator: c, score, reasons };
+    })
+  );
 
   scored.sort((a, b) => b.score - a.score);
   const top = scored.slice(0, 5);
@@ -38,7 +37,7 @@ export default function RecommendedPage() {
           scores.
         </p>
         <div className="space-y-4">
-          {top.map(({ creator, score, reason }) => (
+          {top.map(({ creator, score, reasons }) => (
             <div
               key={creator.id}
               className="bg-Siora-mid border border-Siora-border rounded-xl p-6 shadow-Siora-hover"
@@ -50,7 +49,13 @@ export default function RecommendedPage() {
               <p className="text-sm text-zinc-400 mb-2">
                 Fit Score: {score}/100
               </p>
-              <p className="text-sm text-zinc-300">{reason}</p>
+              {reasons.length > 0 && (
+                <ul className="text-sm text-zinc-300 list-disc list-inside">
+                  {reasons.map((r, i) => (
+                    <li key={i}>{r}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
