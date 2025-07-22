@@ -20,6 +20,8 @@ model User {
   personas        Persona[]
   creatorProfiles CreatorProfile[]
 
+  instagramAccounts InstagramAccount[]
+
   // 👇 Added relation fields
   createdApplications Application[] @relation("UserApplications")
   brandCampaigns      Campaign[]    @relation("UserCampaigns")
@@ -208,3 +210,16 @@ model CreatorOnboardingDraft {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model InstagramAccount {
+  id           String   @id @default(cuid())
+  ig_id        String
+  username     String
+  access_token String
+  userId       String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
