@@ -1,5 +1,7 @@
 "use client";
 import { useState } from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PersonaPDF from '../../../../components/pdf/PersonaPDF';
 
 export default function GeneratePersonaPage() {
   const [handle, setHandle] = useState('');
@@ -11,6 +13,8 @@ export default function GeneratePersonaPage() {
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const stripHtml = (html: string) => html.replace(/<[^>]+>/g, '');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,7 +60,36 @@ export default function GeneratePersonaPage() {
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
       {result && (
-        <div className="prose prose-invert border border-white/10 p-4 rounded-md" dangerouslySetInnerHTML={{ __html: result }} />
+        <>
+          <div
+            className="prose prose-invert border border-white/10 p-4 rounded-md"
+            dangerouslySetInnerHTML={{ __html: result }}
+          />
+          <PDFDownloadLink
+            document={
+              <PersonaPDF
+                data={{
+                  persona: stripHtml(result),
+                  tone,
+                  niche,
+                  highlights: goal,
+                  handle,
+                }}
+              />
+            }
+            fileName={`${handle || 'persona'}.pdf`}
+          >
+            {({ loading: pdfLoading }) => (
+              <button
+                type="button"
+                className="mt-4 bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
+                disabled={pdfLoading}
+              >
+                {pdfLoading ? 'Preparing...' : 'Download PDF'}
+              </button>
+            )}
+          </PDFDownloadLink>
+        </>
       )}
     </main>
   );
