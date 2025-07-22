@@ -4,6 +4,7 @@ import React from 'react';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
 import type { Creator } from "@/app/data/creators";
 import { useState, useMemo, ReactNode } from "react";
 import { Badge } from "shared-ui";
@@ -108,8 +109,9 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.3 }}
-      className="group cursor-pointer bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
+      className="group cursor-pointer"
     >
+      <Card className="p-6">
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
         {creator.name}{" "}
         <span className="text-Siora-accent group-hover:text-Siora-accent-soft">
@@ -224,10 +226,7 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
         creatorName={creator.name}
       />
       {toast && <Toast message={toast} onClose={() => setToast('')} />}
+      </Card>
     </motion.div>
   );
 }
-
-
-
-  

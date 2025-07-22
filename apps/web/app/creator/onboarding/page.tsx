@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import styles from "../styles.module.css";
 
@@ -215,17 +216,24 @@ export default function CreatorOnboarding() {
 
   return (
     <div className={styles.wrapper}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={step}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          {renderStep()}
-        </motion.div>
-      </AnimatePresence>
+      <Tabs value={step.toString()} onValueChange={(v) => setStep(Number(v))}>
+        <TabsList className="mb-4 grid grid-cols-6 gap-1">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <TabsTrigger key={i} value={i.toString()}>{i + 1}</TabsTrigger>
+          ))}
+        </TabsList>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={step}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <TabsContent value={step.toString()}>{renderStep()}</TabsContent>
+          </motion.div>
+        </AnimatePresence>
+      </Tabs>
     </div>
   );
 }

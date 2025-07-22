@@ -1,6 +1,7 @@
 import React from 'react';
 "use client";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 type Props = {
   open: boolean;
@@ -12,7 +13,6 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
   const [message, setMessage] = useState("");
   const [budget, setBudget] = useState("");
 
-  if (!open) return null;
 
   const handleSend = () => {
     // In a real app this would POST to an API.
@@ -21,11 +21,13 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-Siora-mid border border-Siora-border rounded-xl p-6 w-96 space-y-4 shadow-Siora-hover">
-        <h2 className="text-xl font-semibold">
-          Request Collaboration with {creator}
-        </h2>
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="space-y-4">
+        <DialogHeader>
+          <DialogTitle className="text-xl font-semibold">
+            Request Collaboration with {creator}
+          </DialogTitle>
+        </DialogHeader>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -52,7 +54,7 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
             Send
           </button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
