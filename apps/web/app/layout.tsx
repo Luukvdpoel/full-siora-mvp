@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { BrandUserProvider } from "../lib/brandUser";
 import TrpcProvider from "./trpcProvider";
 import { PageTransition, Nav, NavLink, ThemeToggle } from 'shared-ui'
+import AuthStatus from '../components/AuthStatus'
 import { ThemeProvider } from "./providers";
 import * as React from "react";
 
@@ -34,7 +35,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <BrandUserProvider>
               <TrpcProvider>
                 <main className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
-                  <div className="flex justify-end mb-4">
+                  <div className="flex justify-between mb-4">
+                    <AuthStatus />
                     <ThemeToggle />
                   </div>
                   <Nav links={navLinks} />
