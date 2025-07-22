@@ -2,5 +2,6 @@
   "buildCommand": "pnpm run build --filter=web",
   "installCommand": "pnpm install --frozen-lockfile --strict-peer-dependencies",
   "outputDirectory": "apps/web/.next",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "analytics": true
 }

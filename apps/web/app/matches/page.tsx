@@ -8,6 +8,7 @@ import { useShortlist } from "@/lib/shortlist";
 import { useBrandUser } from "@/lib/brandUser";
 import type { BrandProfile, CreatorPersona } from "../../../../packages/shared-utils/src";
 import { getFitScore, generateMatchExplanation } from "../../../../packages/shared-utils/src";
+import posthog from 'posthog-js';
 
 export default function MatchesPage() {
   const { user } = useBrandUser();
@@ -100,12 +101,14 @@ export default function MatchesPage() {
                 <Link
                   href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
                   className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
+                  onClick={() => posthog.capture('Match Clicked', { creatorId: creator.id })}
                 >
                   View Persona
                 </Link>
                 <Link
                   href={`/messages/${creator.id}`}
                   className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
+                  onClick={() => posthog.capture('Match Clicked', { creatorId: creator.id })}
                 >
                   Send Message
                 </Link>

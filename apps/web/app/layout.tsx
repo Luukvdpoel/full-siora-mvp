@@ -9,6 +9,10 @@ import { PageTransition, Nav, NavLink, ThemeToggle } from 'shared-ui'
 import AuthStatus from '../components/AuthStatus'
 import { ThemeProvider } from "./providers";
 import * as React from "react";
+import posthog from 'posthog-js';
+import { Analytics } from '@vercel/analytics/react';
+import { useEffect } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 // Use system fonts to avoid build-time Google font download
 const inter = { className: "" };
@@ -25,6 +29,20 @@ const navLinks: NavLink[] = [
 ];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_POSTHOG_API_KEY) return;
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_API_KEY, {
+      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    });
+  }, []);
+
+  useEffect(() => {
+    posthog.capture('$pageview');
+  }, [pathname, searchParams]);
+
   return (
     <html lang="en" className={`${inter.className} scroll-smooth`}>
       <head>
@@ -49,6 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </BrandUserProvider>
           </SessionProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

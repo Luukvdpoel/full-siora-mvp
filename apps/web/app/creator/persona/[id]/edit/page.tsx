@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import ReactMarkdown from "react-markdown";
 import { saveProfileSettings } from "@creator/lib/profileSettings";
 import styles from '../../../styles.module.css';
+import posthog from 'posthog-js';
 
 export default function EditPersonaPage() {
   const params = useParams();
@@ -94,6 +95,7 @@ export default function EditPersonaPage() {
       } else {
         const data = await res.json();
         setPersona(data.result);
+        posthog.capture('Persona Created');
         saveProfileSettings({
           bio: data.result,
           tone,
