@@ -3,7 +3,6 @@
   "installCommand": "pnpm install",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
-  "rootDirectory": "apps/web",
   "ignoreCommand": "echo Skip deploying apps/brand and apps/creator",
   "analytics": true
 }
