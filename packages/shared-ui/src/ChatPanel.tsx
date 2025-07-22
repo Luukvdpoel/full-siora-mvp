@@ -8,6 +8,7 @@ export type ChatMessage = {
   text: string;
   timestamp: string;
   campaign?: string;
+  read?: boolean;
 };
 
 export interface ChatPanelProps {
@@ -48,6 +49,11 @@ export function ChatPanel({ messages, onSend, sending, currentUser }: ChatPanelP
                 className={`inline-block px-4 py-2 rounded-2xl border border-Siora-border ${m.sender === currentUser ? 'bg-Siora-accent' : 'bg-gray-700'}`}
               >
                 {m.text}
+                {m.sender === currentUser && (
+                  <span className="ml-2 text-xs">
+                    {m.read ? '✓' : '•'}
+                  </span>
+                )}
               </div>
             </div>
           </div>
