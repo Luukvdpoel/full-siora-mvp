@@ -1,4 +1,5 @@
 import type { AgeRange, CreatorPersona, BrandProfile } from './fitScoreEngine';
+import { getEmbedding } from './openai';
 
 function overlap(a?: string[], b?: string[]): string[] {
   if (!a || !b) return [];
@@ -15,66 +16,104 @@ function rangeOverlap(a?: AgeRange, b?: AgeRange): number {
   return overlapAmount / span;
 }
 
-export function matchScore(
-  creator: CreatorPersona,
-  brand: BrandProfile & { platforms?: string[] }
-): { score: number; reasons: string[] } {
-  let score = 0;
-  const reasons: string[] = [];
-
-  // Platform match (25)
-  const platformOverlap = overlap(creator.platforms, brand.platforms);
-  if (brand.platforms && brand.platforms.length > 0) {
-    const platformScore =
-      (platformOverlap.length / brand.platforms.length) * 25;
-    score += platformScore;
-    if (platformOverlap.length > 0)
-      reasons.push(`Platform match: ${platformOverlap.join(', ')}`);
-    else reasons.push('Preferred platforms differ');
-  } else {
-    reasons.push('Brand has no platform preference');
-  }
-
-  // Vibe/tone overlap (25)
-  const vibeWords = creator.vibe ? creator.vibe.split(/[,\s]+/) : undefined;
-  const toneWords = brand.tone ? brand.tone.split(/[,\s]+/) : undefined;
-  const vibeOverlap = overlap(vibeWords, brand.values);
-  const toneOverlap = overlap(creator.tone ? [creator.tone] : undefined, toneWords);
-  const vibeToneScore =
-    ((vibeOverlap.length / (brand.values?.length || 1)) * 15) +
-    (toneOverlap.length > 0 ? 10 : 0);
-  score += vibeToneScore;
-  if (toneOverlap.length > 0) reasons.push('Tone aligns');
-  if (vibeOverlap.length > 0)
-    reasons.push(`Shared vibe: ${vibeOverlap.join(', ')}`);
-  if (toneOverlap.length === 0 && vibeOverlap.length === 0)
-    reasons.push('Tone/vibe mismatch');
-
-  // Audience alignment (25)
-  const ageScore = rangeOverlap(creator.ageRange, brand.targetAgeRange) * 12.5;
-  score += ageScore;
-  if (ageScore > 7) reasons.push('Strong age overlap');
-  else if (ageScore > 0) reasons.push('Some age overlap');
-  else reasons.push('Age mismatch');
-
-  const nicheOverlap = overlap(creator.niches, brand.niches);
-  const nicheScore =
-    (nicheOverlap.length / (brand.niches?.length || 1)) * 12.5;
-  score += nicheScore;
-  if (nicheOverlap.length > 0)
-    reasons.push(`Shared niches: ${nicheOverlap.join(', ')}`);
-  else reasons.push('Different niches');
-
-  // Format preferences (25)
-  const formatOverlap = overlap(creator.formats, brand.desiredFormats);
-  const formatScore =
-    (formatOverlap.length / (brand.desiredFormats?.length || 1)) * 25;
-  score += formatScore;
-  if (formatOverlap.length > 0)
-    reasons.push(`Preferred formats: ${formatOverlap.join(', ')}`);
-  else reasons.push('Formats differ');
-
-  const finalScore = Math.round(Math.max(0, Math.min(100, score)));
-  return { score: finalScore, reasons };
+function cosineSim(a: number[], b: number[]): number {
+  const dot = a.reduce((sum, v, i) => sum + v * (b[i] || 0), 0);
+  const normA = Math.sqrt(a.reduce((sum, v) => sum + v * v, 0));
+  const normB = Math.sqrt(b.reduce((sum, v) => sum + v * v, 0));
+  return dot / (normA * normB || 1);
 }
 
+async function logScore(score: number, reason: string) {
+  const key = process.env.POSTHOG_API_KEY;
+  const host = process.env.POSTHOG_HOST;
+  if (!key || !host) return;
+  try {
+    await fetch(`${host}/capture/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: key, event: 'match_score', properties: { score, reason } }),
+    });
+  } catch {}
+}
+
+export async function matchScore(
+  creator: CreatorPersona,
+  brand: BrandProfile & { platforms?: string[] }
+): Promise<{ score: number; reason: string }> {
+  const creatorText = [
+    creator.tone,
+    creator.vibe,
+    creator.niches?.join(' '),
+    creator.platforms?.join(' '),
+    creator.formats?.join(' '),
+    creator.goals?.join(' '),
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const brandText = [
+    brand.tone,
+    brand.values?.join(' '),
+    brand.niches?.join(' '),
+    brand.platforms?.join(' '),
+    brand.desiredFormats?.join(' '),
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  let textScore = 0;
+  try {
+    if (process.env.OPENAI_API_KEY) {
+      const [cEmb, bEmb] = await Promise.all([
+        getEmbedding(creatorText),
+        getEmbedding(brandText),
+      ]);
+      textScore = (cosineSim(cEmb, bEmb) + 1) / 2; // 0..1
+    }
+  } catch {
+    textScore = 0;
+  }
+
+  let metrics = 0;
+  const reasons: { score: number; text: string }[] = [];
+
+  const toneMatch =
+    creator.tone && brand.tone &&
+    creator.tone.toLowerCase() === brand.tone.toLowerCase();
+  if (toneMatch) {
+    reasons.push({ score: 15, text: 'Tone match' });
+    metrics += 15;
+  }
+
+  const formatOverlap = overlap(creator.formats, brand.desiredFormats);
+  if (formatOverlap.length > 0) {
+    reasons.push({ score: 15, text: `Format match: ${formatOverlap.join(', ')}` });
+    metrics += 15;
+  }
+
+  const nicheOverlap = overlap(creator.niches, brand.niches);
+  if (nicheOverlap.length > 0) {
+    reasons.push({ score: 10, text: `Shared niches: ${nicheOverlap.join(', ')}` });
+    metrics += 10;
+  }
+
+  const ageRatio = rangeOverlap(creator.ageRange, brand.targetAgeRange);
+  if (ageRatio > 0) {
+    const ageScore = Math.round(ageRatio * 10);
+    reasons.push({ score: ageScore, text: 'Audience age overlap' });
+    metrics += ageScore;
+  }
+
+  const platformOverlap = overlap(creator.platforms, brand.platforms);
+  if (platformOverlap.length > 0) {
+    reasons.push({ score: 5, text: `Platform match: ${platformOverlap.join(', ')}` });
+    metrics += 5;
+  }
+
+  const final = Math.round(Math.min(100, textScore * 40 + metrics));
+  const topReason = reasons.sort((a, b) => b.score - a.score)[0]?.text || 'Overall similarity';
+
+  await logScore(final, topReason);
+
+  return { score: final, reason: topReason };
+}

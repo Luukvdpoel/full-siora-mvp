@@ -48,6 +48,20 @@ export function safeJson<T>(text: string, fallback: T): T {
   }
 }
 
+export async function getEmbedding(text: string): Promise<number[]> {
+  const res = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({ model: 'text-embedding-ada-002', input: text }),
+  });
+  if (!res.ok) throw new Error(`OpenAI embed error ${res.status}`);
+  const data = await res.json();
+  return data.data[0].embedding as number[];
+}
+
 async function logPromptResponse(messages: any, content: string) {
   const key = process.env.POSTHOG_API_KEY;
   const host = process.env.POSTHOG_HOST;
