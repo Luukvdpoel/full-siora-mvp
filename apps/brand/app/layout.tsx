@@ -1,5 +1,5 @@
-import React from 'react';
 "use client";
+import React from 'react';
 import "./globals.css";
 import type { ReactNode } from "react";
 import { Nav, NavLink, PageTransition, ThemeToggle } from "shared-ui";
