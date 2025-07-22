@@ -24,6 +24,14 @@ export default function Page() {
           <a href="/preview" className="inline-block px-8 py-4 bg-indigo-600 text-white rounded-full">Preview My Persona</a>
         </div>
       </section>
+      <footer className="py-16 bg-gradient-to-b from-Siora-dark via-Siora-mid to-Siora-light text-white">
+        <a
+          href="/signup"
+          className="inline-block px-8 py-4 bg-Siora-accent hover:bg-Siora-accent-soft rounded-full font-semibold"
+        >
+          Join the Waitlist
+        </a>
+      </footer>
     </main>
   );
 }
