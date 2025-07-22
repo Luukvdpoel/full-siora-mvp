@@ -10,3 +10,4 @@ export * from './generateMatchExplanation';
 export * from './openai';
 export * from './detectContractRedFlags';
 export * from './creatorROI';
+export * from './advancedMatch';
