@@ -38,6 +38,29 @@ async function main() {
     console.log(`✅ Seeded ${personaData.length} personas`);
   }
 
+    // REAL CREATORS
+    const realCreatorsRaw = await readJson('db/real_creators_seed.json');
+    if (realCreatorsRaw.length > 0) {
+      const creators = realCreatorsRaw.map((c: any) => ({
+        userId: user.id,
+        title: `${c.name} Persona`,
+        data: {
+          name: c.name,
+          instagramHandle: c.username,
+          category: c.category,
+          followers: c.followers,
+          platform: 'Instagram',
+        },
+      }));
+  
+      await prisma.persona.createMany({
+        data: creators,
+        skipDuplicates: true,
+      });
+  
+      console.log(`✅ Seeded ${creators.length} real Instagram creators`);
+    }
+
   // CAMPAIGNS
   const campaignsRaw = await readJson('campaigns.json');
   let campaignRecords: Campaign[] = [];
