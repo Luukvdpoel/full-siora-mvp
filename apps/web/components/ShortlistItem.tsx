@@ -2,6 +2,9 @@
 import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
 import type { Creator } from "@/app/data/creators";
+import { useMemo } from "react";
+import { generateMatchExplanation } from "shared-utils";
+import { useBrandPrefs } from "@/lib/brandPrefs";
 
 interface Props {
   creator: Creator;
@@ -11,6 +14,17 @@ interface Props {
 
 export default function ShortlistItem({ creator, note, onDelete }: Props) {
   const imgSrc = (creator as any).image || "https://placehold.co/80x80";
+  const brandPrefs = useBrandPrefs();
+  const matchNotes = useMemo(() => {
+    if (!brandPrefs) return [] as string[];
+    const persona = {
+      niches: [creator.niche],
+      tone: creator.tone,
+      platforms: [creator.platform],
+      vibe: Array.isArray(creator.tags) ? creator.tags.join(' ') : undefined,
+    };
+    return generateMatchExplanation(brandPrefs, persona);
+  }, [brandPrefs, creator]);
   return (
     <div className="flex gap-4 p-4 bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl shadow-Siora-hover">
       <img src={imgSrc} alt={creator.name} className="w-20 h-20 rounded object-cover" />
@@ -25,6 +39,16 @@ export default function ShortlistItem({ creator, note, onDelete }: Props) {
                 {t}
               </span>
             ))}
+          </div>
+        )}
+        {matchNotes.length > 0 && (
+          <div className="mt-2 text-xs text-gray-600 dark:text-zinc-400">
+            <span className="font-semibold">Why this match:</span>
+            <ul className="list-disc list-inside">
+              {matchNotes.map((m, i) => (
+                <li key={i}>{m}</li>
+              ))}
+            </ul>
           </div>
         )}
         {note && (
