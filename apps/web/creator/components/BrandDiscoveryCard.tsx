@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image'
 import { DiscoveryBrand } from '@creator/data/discoveryBrands'
 import { Badge } from 'shared-ui'

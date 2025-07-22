@@ -1,3 +1,4 @@
+import React from 'react';
 import type { FullPersona } from "@creator/types/persona";
 import { prisma } from "@creator/lib/auth";
 

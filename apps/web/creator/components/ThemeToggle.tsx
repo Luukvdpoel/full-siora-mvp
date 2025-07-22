@@ -1,3 +1,4 @@
+import React from 'react';
 "use client";
 import { Switch } from "@headlessui/react";
 import { useContext } from "react";

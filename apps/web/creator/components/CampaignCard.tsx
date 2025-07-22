@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import type { Campaign } from '@/app/data/campaigns';
 import { discoveryBrands } from '@creator/data/discoveryBrands';

@@ -1,3 +1,4 @@
+import React from 'react';
 "use client";
 import { useEffect, useState, useMemo } from 'react';
 import type { Campaign } from '@/app/creator/data/campaigns';

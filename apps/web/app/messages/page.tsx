@@ -1,3 +1,4 @@
+import React from 'react';
 "use client";
 import Link from "next/link";
 import creators from "@/app/data/mock_creators_200.json";

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import type { Brand } from '@creator/data/brands';
 import type { PitchResult } from '@creator/types/pitch';

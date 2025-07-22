@@ -1,3 +1,4 @@
+import React from 'react';
 "use client";
 import creators from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";

@@ -1,3 +1,4 @@
+import React from 'react';
 import { creators, type Creator } from "@/app/data/creators";
 import type { BrandProfile, CreatorPersona } from "shared-utils";
 import { getFitScore } from "shared-utils";

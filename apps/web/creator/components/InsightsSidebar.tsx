@@ -1,3 +1,4 @@
+import React from 'react';
 import type { PersonaProfile } from '../types/persona'
 
 export default function InsightsSidebar({ profile }: { profile: PersonaProfile }) {
