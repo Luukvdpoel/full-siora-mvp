@@ -110,7 +110,8 @@ export default function MatchesPage() {
                 </Link>
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
       </div>
     </main>
