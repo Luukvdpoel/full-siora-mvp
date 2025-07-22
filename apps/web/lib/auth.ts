@@ -22,9 +22,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, user }) {
       if (session.user) {
-        (session.user as { id?: string; plan?: string; role?: string }).id = user.id;
-        (session.user as { id?: string; plan?: string; role?: string }).plan = (user as { plan?: string }).plan ?? "free";
-        (session.user as { id?: string; plan?: string; role?: string }).role = (user as { role?: string | null }).role ?? undefined;
+        (session.user as { id?: string; plan?: string; role?: string; billingStatus?: string }).id = user.id;
+        (session.user as { id?: string; plan?: string; role?: string; billingStatus?: string }).plan = (user as { plan?: string }).plan ?? "free";
+        (session.user as { id?: string; plan?: string; role?: string; billingStatus?: string }).role = (user as { role?: string | null }).role ?? undefined;
+        (session.user as { id?: string; plan?: string; role?: string; billingStatus?: string }).billingStatus = (user as { billingStatus?: string }).billingStatus ?? "none";
       }
       return session;
     },
