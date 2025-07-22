@@ -32,11 +32,13 @@ export const authOptions: NextAuthOptions = {
           update: {
             name: user.name ?? profile?.name ?? undefined,
             email: user.email ?? profile?.email ?? undefined,
+            role: (user as { role?: string }).role ?? undefined,
           },
           create: {
             id: user.id,
             name: user.name ?? profile?.name ?? null,
             email: user.email ?? profile?.email ?? null,
+            role: (user as { role?: string }).role ?? null,
           },
         });
       }
