@@ -30,6 +30,7 @@ export type Creator = {
   verified?: boolean;
   completedCollabs?: number;
   avgResponseMinutes?: number;
+  painPoints?: string[];
   performance?: CreatorPerformance;
 };
 
@@ -72,6 +73,7 @@ I'm Sophie — I share skincare rituals, cozy routines, and self-care tips to he
     verified: true,
     completedCollabs: 4,
     avgResponseMinutes: 30,
+    painPoints: ['Finding aligned sponsors', 'Juggling content and self-care'],
     performance: {
       avgReach: 5500,
       engagementRate: 3.8,
@@ -121,6 +123,7 @@ Tech explainer meets crypto nerd. My YouTube channel covers AI, gadgets, and dec
     verified: true,
     completedCollabs: 3,
     avgResponseMinutes: 45,
+    painPoints: ['Educating mainstream audience', 'Securing fair sponsorship rates'],
     performance: {
       avgReach: 15000,
       engagementRate: 6.2,
@@ -169,6 +172,7 @@ I teach aesthetic plant care, budget-friendly home decor, and cozy vibes — all
     verified: false,
     completedCollabs: 2,
     avgResponseMinutes: 90,
+    painPoints: ['Seasonal engagement drops', 'Limited budget from plant brands'],
     performance: {
       avgReach: 9000,
       engagementRate: 4.7,

@@ -35,6 +35,16 @@ export default async function MediaKitIdPage({ params }: PageParams) {
           <h2 className="text-xl font-semibold">Tone</h2>
           <p className="text-sm text-foreground/80">{(persona as any).tone ?? persona.vibe ?? persona.personality}</p>
         </section>
+        {Array.isArray(persona.painPoints) && persona.painPoints.length > 0 && (
+          <section className="border border-white/10 rounded-lg p-4 space-y-2">
+            <h2 className="text-xl font-semibold">Pain Points</h2>
+            <ul className="list-disc list-inside text-sm text-foreground/80">
+              {persona.painPoints.map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
+          </section>
+        )}
         {persona.platforms && persona.platforms.length > 0 && (
           <section className="border border-white/10 rounded-lg p-4 space-y-2">
             <h2 className="text-xl font-semibold">Platforms</h2>

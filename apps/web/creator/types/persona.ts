@@ -10,6 +10,7 @@ export type PersonaProfile = {
   verified?: boolean
   completedCollabs?: number
   avgResponseMinutes?: number
+  painPoints?: string[]
 }
 
 export interface FullPersona extends PersonaProfile {

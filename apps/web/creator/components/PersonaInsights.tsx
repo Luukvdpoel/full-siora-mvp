@@ -2,7 +2,7 @@ import React from 'react';
 import type { FullPersona } from '../types/persona'
 
 export default function PersonaInsights({ persona }: { persona: FullPersona }) {
-  const { name, summary, vibe, tone, goals, interests, platforms } = persona
+  const { name, summary, vibe, tone, goals, interests, platforms, painPoints } = persona
 
   const tag = (label: string, value?: string) =>
     value ? (
@@ -35,6 +35,16 @@ export default function PersonaInsights({ persona }: { persona: FullPersona }) {
           </span>
         ))}
       </div>
+      {painPoints && painPoints.length > 0 && (
+        <div>
+          <h3 className="font-semibold mt-2">Pain Points</h3>
+          <ul className="list-disc list-inside text-sm text-foreground/80">
+            {painPoints.map((p, i) => (
+              <li key={i}>{p}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

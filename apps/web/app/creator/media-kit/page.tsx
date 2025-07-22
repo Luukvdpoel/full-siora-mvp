@@ -141,6 +141,16 @@ export default function MediaKitPage() {
               <p className="text-sm text-foreground/80">{(persona as FullPersona).vibe}</p>
             </div>
           )}
+          {Array.isArray((persona as FullPersona).painPoints) && (persona as FullPersona).painPoints!.length > 0 && (
+            <div>
+              <h3 className="font-semibold">Pain Points</h3>
+              <ul className="list-disc list-inside text-sm text-foreground/80">
+                {(persona as FullPersona).painPoints!.map((p, i) => (
+                  <li key={i}>{p}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       )}
     </main>
