@@ -7,22 +7,25 @@ export interface PersonaData {
   niche: string
   highlights?: string
   handle?: string
+  date: string
 }
 
 const styles = StyleSheet.create({
   page: { padding: 32, fontFamily: 'Helvetica' },
-  header: { fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 16, color: '#4f46e5' },
+  header: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#7c3aed' },
+  subHeader: { fontSize: 12, textAlign: 'center', marginBottom: 16, color: '#475569' },
   section: { marginBottom: 12 },
   label: { fontSize: 12, fontWeight: 'bold', marginBottom: 4 },
   text: { fontSize: 12, marginBottom: 4 },
 })
 
 export default function PersonaPDF({ data }: { data: PersonaData }) {
-  const { handle, persona, strengths, tone, niche, highlights } = data
+  const { handle, persona, strengths, tone, niche, highlights, date } = data
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.header}>Siora Creator Persona</Text>
+        <Text style={styles.subHeader}>{date}{handle ? ` | ${handle}` : ''}</Text>
         {handle && (
           <View style={styles.section}>
             <Text style={styles.label}>Creator</Text>

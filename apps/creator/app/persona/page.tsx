@@ -74,6 +74,7 @@ export default function GeneratePersonaPage() {
                   niche,
                   highlights: goal,
                   handle,
+                  date: new Date().toLocaleDateString(),
                 }}
               />
             }
@@ -85,7 +86,7 @@ export default function GeneratePersonaPage() {
                 className="mt-4 bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
                 disabled={pdfLoading}
               >
-                {pdfLoading ? 'Preparing...' : 'Download PDF'}
+                {pdfLoading ? 'Preparing...' : 'Download Persona PDF'}
               </button>
             )}
           </PDFDownloadLink>
