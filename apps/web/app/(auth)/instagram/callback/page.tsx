@@ -14,7 +14,7 @@ export default function InstagramCallback() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log("Instagram profile", data.profile);
+          // Handle Instagram profile data
         })
         .catch((err) => console.error("Instagram auth failed", err));
     }
