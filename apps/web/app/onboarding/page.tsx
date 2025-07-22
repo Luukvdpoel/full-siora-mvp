@@ -42,7 +42,7 @@ export default function BrandOnboarding() {
   const generateBrief = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/brand-onboard", {
+      const res = await fetch("/api/ai/generateBrief", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

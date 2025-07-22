@@ -82,7 +82,7 @@ export default function EditPersonaPage() {
     };
 
     try {
-      const res = await fetch('/api/generate', {
+      const res = await fetch('/api/ai/generatePersona', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
