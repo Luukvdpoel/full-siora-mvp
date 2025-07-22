@@ -7,3 +7,4 @@ export * from './badges';
 export * from './trustScore';
 export * from './briefPersonaMatch';
 export * from './generateMatchExplanation';
+export * from './openai';

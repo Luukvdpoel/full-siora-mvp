@@ -1,5 +1,6 @@
 import creators from '@/app/data/mock_creators_200.json';
 import { NextResponse } from 'next/server';
+import { callOpenAI } from 'shared-utils';
 
 interface GoalRequest {
   goals?: string;
@@ -72,17 +73,8 @@ export async function POST(req: Request) {
           content: `Campaign goals: ${body.goals || ''}; Tone: ${body.tone || ''}; Platform: ${body.platform || ''}; Audience: ${body.audience || ''}. Creators: ${top.map(t => `${t.creator.id}:${t.creator.name}`).join(', ')}`
         }
       ];
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({ model: 'gpt-4', messages, temperature: 0.7 })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        const content = data.choices?.[0]?.message?.content || '[]';
+      const content = await callOpenAI({ messages, temperature: 0.7, fallback: '[]' });
+      if (content) {
         const arr = JSON.parse(content);
         if (Array.isArray(arr)) {
           for (const item of arr) {
