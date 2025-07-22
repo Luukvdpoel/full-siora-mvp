@@ -4,13 +4,13 @@
   "packageManager": "pnpm@10.13.1",
   "workspaces": {
     "packages": [
-      "apps/web",
+      "apps/*",
       "packages/*"
     ]
   },
   "scripts": {
-    "dev": "pnpm --filter web dev",
-    "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build --filter=web",
+    "dev": "turbo run dev --parallel",
+    "build": "prisma generate --schema=./prisma/schema.prisma && turbo run build",
     "dev:web": "npm run dev -w apps/web",
     "build:web": "prisma generate --schema=./prisma/schema.prisma && npm run build -w apps/web",
     "lint": "turbo run lint",
