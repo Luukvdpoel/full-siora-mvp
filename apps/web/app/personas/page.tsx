@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 
 import { useState } from "react";
 import personas from "@/app/data/mock_creators_200.json";

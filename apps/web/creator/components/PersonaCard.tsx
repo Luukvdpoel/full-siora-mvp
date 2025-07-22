@@ -1,3 +1,4 @@
+import React from 'react';
 import { PersonaProfile } from '../types/persona'
 import { Badge } from 'shared-ui'
 import { getCreatorBadges } from 'shared-utils'

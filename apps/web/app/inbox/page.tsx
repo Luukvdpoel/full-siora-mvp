@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 
 import { useState } from "react";
 import { ChatPanel, ChatMessage } from "shared-ui";

@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { generateInstagramAuthUrl } from "@/lib/instagram";
 
 export default function InstagramLogin() {

@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 
 import { useState, useEffect } from "react";
 import { creators } from "@/app/data/creators";

@@ -1,3 +1,4 @@
+import React from 'react';
 import personas from '../../../../../../data/personas.json';
 
 interface Persona {

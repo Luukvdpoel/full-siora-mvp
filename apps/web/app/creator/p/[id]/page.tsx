@@ -1,3 +1,4 @@
+import React from 'react';
 import PersonaCard from '@creator/components/PersonaCard';
 import InsightsSidebar from '@creator/components/InsightsSidebar';
 import CopyLinkButton from '@creator/components/CopyLinkButton';

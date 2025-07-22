@@ -1,3 +1,4 @@
+import React from 'react';
 export default function Page() {
   return (
     <main className="min-h-screen text-center text-gray-900 space-y-32">

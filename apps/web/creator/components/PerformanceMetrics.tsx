@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useEffect, useState } from "react";
 import { loadPerformance } from "@creator/lib/localPerformance";
 import type { PerformanceData } from "@creator/types/performance";

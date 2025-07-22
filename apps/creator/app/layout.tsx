@@ -1,3 +1,4 @@
+import React from 'react';
 import './globals.css';
 import type { ReactNode } from 'react';
 import { PageTransition, ThemeToggle } from 'shared-ui';
