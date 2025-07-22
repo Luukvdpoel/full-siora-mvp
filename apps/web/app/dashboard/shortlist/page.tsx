@@ -12,7 +12,7 @@ export default function ShortlistPage() {
   const { user } = useBrandUser();
   const router = useRouter();
   const { ids, toggle } = useShortlist(user?.email ?? null);
-  const { notes } = useCreatorMeta(user?.email ?? null);
+  const { notes, status, updateStatus } = useCreatorMeta(user?.email ?? null);
   const [compare, setCompare] = useState(false);
 
   useEffect(() => {
@@ -134,6 +134,7 @@ export default function ShortlistPage() {
                 key={c.id}
                 creator={c as any}
                 note={notes[c.id]}
+                userId={user?.email ?? null}
                 onDelete={() => toggle(c.id)}
               />
             ))}
