@@ -1,3 +1,5 @@
+import { callOpenAI } from 'shared-utils';
+
 export async function POST(req: Request) {
   try {
     const { description } = await req.json();
@@ -20,25 +22,7 @@ export async function POST(req: Request) {
       { role: 'user', content: description }
     ];
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({ model: 'gpt-4', messages, temperature: 0.7 })
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      return new Response(
-        JSON.stringify({ error: 'OpenAI error', details: errorText }),
-        { status: response.status, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content ?? '[]';
+    const content = await callOpenAI({ messages, temperature: 0.7, fallback: '[]' });
     const checklist = JSON.parse(content);
 
     return new Response(JSON.stringify({ checklist }), {
