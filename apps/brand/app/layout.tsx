@@ -6,6 +6,7 @@ import { Nav, NavLink, PageTransition, ThemeToggle } from "shared-ui";
 const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/create-brief", label: "Create Brief" },
+  { href: "/inbox", label: "Inbox" },
 ];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
