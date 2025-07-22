@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { creators } from "@/app/data/creators";
 import AdvancedFilterBar, { Filters } from "@/components/AdvancedFilterBar";
 import CreatorCard from "@/components/CreatorCard";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useShortlist } from "@/lib/shortlist";
 
 export default function Dashboard() {
@@ -22,8 +23,18 @@ export default function Dashboard() {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 12;
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const user = session?.user?.email ?? null;
+
+  useEffect(() => {
+    if (status === "loading") return;
+    if (!session) {
+      signIn();
+    } else if ((session.user as { role?: string }).role !== "brand") {
+      router.replace("/select-role");
+    }
+  }, [status, session, router]);
   const { toggle, inShortlist } = useShortlist(user);
 
   const unique = (arr: (string | undefined)[]) =>

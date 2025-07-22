@@ -16,6 +16,10 @@ export default function SignInPage() {
     signIn("google", { callbackUrl: "/select-role" });
   };
 
+  const handleGitHub = () => {
+    signIn("github", { callbackUrl: "/select-role" });
+  };
+
   const handleTemp = () => {
     if (submitting) return;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,6 +41,12 @@ export default function SignInPage() {
         className="bg-Siora-accent text-white px-4 py-2 rounded"
       >
         Sign in with Google
+      </button>
+      <button
+        onClick={handleGitHub}
+        className="bg-Siora-accent text-white px-4 py-2 rounded"
+      >
+        Sign in with GitHub
       </button>
       <div className="flex items-center gap-2">
         <input
