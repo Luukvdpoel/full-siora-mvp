@@ -1,6 +1,9 @@
 {
   "buildCommand": "pnpm build",
   "installCommand": "pnpm install --frozen-lockfile --strict-peer-dependencies",
-  "outputDirectory": ".next",
-  "framework": "nextjs"
+  "outputDirectory": "apps/web/.next",
+  "framework": "nextjs",
+  "rewrites": [
+    { "source": "/creator/:path*", "destination": "/creator/:path*" }
+  ]
 }

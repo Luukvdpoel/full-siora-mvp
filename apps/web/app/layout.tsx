@@ -18,6 +18,12 @@ const navLinks: NavLink[] = [
   { href: "/inbox", label: "Inbox" },
 ];
 
+const devLinks: NavLink[] = [
+  { href: "/creator/persona", label: "Creator Persona" },
+  { href: "/creator/dashboard", label: "Creator Dashboard" },
+  { href: "/creator/profile", label: "Creator Profile" },
+];
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.className} scroll-smooth`}>
@@ -36,6 +42,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <ThemeToggle />
                   </div>
                   <Nav links={navLinks} />
+                  <Nav links={devLinks} />
                   <PageTransition>{children}</PageTransition>
                 </main>
               </TrpcProvider>

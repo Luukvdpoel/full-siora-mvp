@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "npx prisma generate --schema=../../prisma/schema.prisma && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "node ../../tools/list_routes.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
