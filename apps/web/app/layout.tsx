@@ -11,19 +11,29 @@ import { ThemeProvider } from "./providers";
 import PostHogProvider from '../components/PostHogProvider'
 import { Analytics } from '@vercel/analytics/react'
 import * as React from "react";
+import { Inter } from "next/font/google";
+import {
+  LayoutDashboard,
+  Heart,
+  Users2,
+  BarChart,
+  Mail,
+  CreditCard,
+  ShieldCheck,
+  ScrollText,
+} from "lucide-react";
 
-// Use system fonts to avoid build-time Google font download
-const inter = { className: "" };
+const inter = Inter({ subsets: ["latin"] });
 
 const navLinks: NavLink[] = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/shortlist", label: "Shortlist" },
-  { href: "/matches", label: "Matches" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/inbox", label: "Inbox" },
-  { href: "/billing", label: "Billing" },
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/shortlist", label: "Shortlist", icon: Heart },
+  { href: "/matches", label: "Matches", icon: Users2 },
+  { href: "/analytics", label: "Analytics", icon: BarChart },
+  { href: "/inbox", label: "Inbox", icon: Mail },
+  { href: "/billing", label: "Billing", icon: CreditCard },
+  { href: "/privacy", label: "Privacy", icon: ShieldCheck },
+  { href: "/terms", label: "Terms", icon: ScrollText },
   { href: "https://tally.so/r/xyz123", label: "Feedback" },
 ];
 
@@ -35,19 +45,23 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="description" content="Siora brand dashboard" />
         <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
       </head>
-      <body className="min-h-screen bg-gradient-to-b from-Siora-dark via-Siora-mid to-Siora-light text-white font-sans antialiased">
+      <body className="min-h-screen bg-[#0D0F12] text-white font-sans antialiased">
         <ThemeProvider>
           <PostHogProvider />
           <Analytics />
           <SessionProvider>
             <BrandUserProvider>
               <TrpcProvider>
-                <main className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
-                  <div className="flex justify-between mb-4">
+                <header className="sticky top-0 z-50 bg-[#0D0F12]/80 backdrop-blur border-b border-Siora-border">
+                  <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex justify-between items-center">
                     <AuthStatus />
-                    <ThemeToggle />
+                    <div className="flex items-center gap-4">
+                      <Nav links={navLinks} />
+                      <ThemeToggle />
+                    </div>
                   </div>
-                  <Nav links={navLinks} />
+                </header>
+                <main className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
                   <PageTransition>{children}</PageTransition>
                 </main>
               </TrpcProvider>
