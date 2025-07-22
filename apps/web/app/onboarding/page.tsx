@@ -7,6 +7,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import type { BrandOnboardResult } from "@/types/onboard";
 import { campaignTemplates, type CampaignTemplate } from "@/app/data/campaignTemplates";
+import posthog from 'posthog-js'
 
 export default function BrandOnboarding() {
   const router = useRouter();
@@ -78,9 +79,10 @@ export default function BrandOnboarding() {
           productInfo: form.product,
           idealCreators: form.creators,
           budget: form.budget,
-          summary,
-        }),
+        summary,
+      }),
       });
+      posthog.capture('Campaign Submitted');
       router.push("/dashboard");
     } catch (err) {
       console.error(err);
