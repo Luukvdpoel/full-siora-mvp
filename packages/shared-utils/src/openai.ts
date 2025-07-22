@@ -40,6 +40,14 @@ export async function callOpenAI({
   throw lastError;
 }
 
+export function safeJson<T>(text: string, fallback: T): T {
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return fallback;
+  }
+}
+
 async function logPromptResponse(messages: any, content: string) {
   const key = process.env.POSTHOG_API_KEY;
   const host = process.env.POSTHOG_HOST;

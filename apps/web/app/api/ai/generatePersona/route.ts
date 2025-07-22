@@ -1,8 +1,8 @@
-import { callOpenAI } from 'shared-utils';
+import { callOpenAI, safeJson } from 'shared-utils';
 
 export async function POST(req: Request) {
   try {
-    const { name, tone, values } = await req.json();
+    const { name, tone, values, audience, platform } = await req.json();
 
     if (!tone || !values) {
       return new Response(
@@ -15,6 +15,8 @@ export async function POST(req: Request) {
     const userPrompt = [
       name ? `Name: ${name}` : undefined,
       `Tone: ${tone}`,
+      audience ? `Audience: ${audience}` : undefined,
+      platform ? `Platform: ${platform}` : undefined,
       `Core values: ${valuesStr}`,
     ]
       .filter(Boolean)
@@ -24,16 +26,32 @@ export async function POST(req: Request) {
       {
         role: 'system',
         content: [
-          'You craft concise brand personas for marketing teams.',
+          'You are a brand strategist crafting concise personas to help brands collaborate with creators.',
+          'Incorporate the provided tone, target audience and platform into the persona.',
           'Return ONLY JSON matching this TypeScript interface:',
           '{ bio: string; tone: string; values: string[]; dos: string[]; donts: string[] }',
         ].join('\n'),
+      },
+      {
+        role: 'user',
+        content: [
+          'Name: EcoBrand',
+          'Tone: friendly',
+          'Audience: eco-conscious millennials',
+          'Platform: Instagram',
+          'Core values: sustainability, transparency',
+        ].join('\n'),
+      },
+      {
+        role: 'assistant',
+        content:
+          '{"bio":"EcoBrand promotes sustainable living.","tone":"friendly","values":["sustainability","transparency"],"dos":["Highlight eco products"],"donts":["Use generic stock photos"]}',
       },
       { role: 'user', content: userPrompt },
     ];
 
     const content = await callOpenAI({ messages, temperature: 0.7, fallback: '{}' });
-    const persona = JSON.parse(content);
+    const persona = safeJson(content, {});
 
     return new Response(JSON.stringify(persona), {
       status: 200,

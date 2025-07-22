@@ -1,8 +1,8 @@
-import { callOpenAI } from 'shared-utils';
+import { callOpenAI, safeJson } from 'shared-utils';
 
 export async function POST(req: Request) {
   try {
-    const { goal, audience, budget } = await req.json();
+    const { goal, audience, budget, tone, platform } = await req.json();
 
     if (!goal || !audience) {
       return new Response(
@@ -14,6 +14,8 @@ export async function POST(req: Request) {
     const userPrompt = [
       `Goal: ${goal}`,
       `Audience: ${audience}`,
+      tone ? `Tone: ${tone}` : undefined,
+      platform ? `Platform: ${platform}` : undefined,
       budget ? `Budget: ${budget}` : undefined,
     ]
       .filter(Boolean)
@@ -23,16 +25,32 @@ export async function POST(req: Request) {
       {
         role: 'system',
         content: [
-          'You generate short influencer campaign briefs.',
+          'You create concise influencer campaign briefs for brands.',
+          'Ensure coherence by using the provided tone, target audience and platform.',
           'Return ONLY JSON matching this TypeScript interface:',
           '{ blurb: string; deliverables: string[]; kpis: string[] }',
         ].join('\n'),
+      },
+      {
+        role: 'user',
+        content: [
+          'Goal: Drive app installs',
+          'Audience: Gen Z gamers',
+          'Tone: bold',
+          'Platform: TikTok',
+          'Budget: $5000',
+        ].join('\n'),
+      },
+      {
+        role: 'assistant',
+        content:
+          '{"blurb":"Launch a bold TikTok challenge to boost installs.","deliverables":["3 short-form videos"],"kpis":["installs","views"]}',
       },
       { role: 'user', content: userPrompt },
     ];
 
     const content = await callOpenAI({ messages, temperature: 0.7, fallback: '{}' });
-    const brief = JSON.parse(content);
+    const brief = safeJson(content, {});
 
     return new Response(JSON.stringify(brief), {
       status: 200,
