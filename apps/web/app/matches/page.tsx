@@ -5,8 +5,8 @@ import Link from "next/link";
 import creators from "@/app/data/mock_creators_200.json";
 import { useShortlist } from "@/lib/shortlist";
 import { useBrandUser } from "@/lib/brandUser";
-import type { BrandProfile, CreatorPersona } from "../../../../packages/shared-utils/src/fitScoreEngine";
-import { getFitScore } from "../../../../packages/shared-utils/src/fitScoreEngine";
+import type { BrandProfile, CreatorPersona } from "../../../../packages/shared-utils/src";
+import { getFitScore, generateMatchExplanation } from "../../../../packages/shared-utils/src";
 
 export default function MatchesPage() {
   const { user } = useBrandUser();
@@ -64,13 +64,31 @@ export default function MatchesPage() {
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-extrabold">Your Top Matches</h1>
         <div className="space-y-4">
-          {top.map(({ creator, score }) => (
+          {top.map(({ creator, score }) => {
+            const persona: CreatorPersona = {
+              niches: [creator.niche],
+              tone: creator.tone,
+              platforms: [creator.platform],
+              vibe: Array.isArray(creator.tags) ? creator.tags.join(" ") : undefined,
+            };
+            const reasons = generateMatchExplanation(brand, persona);
+            return (
             <div key={creator.id} className="bg-Siora-mid border border-Siora-border rounded-xl p-6 shadow-Siora-hover">
               <h2 className="text-xl font-semibold">
                 {creator.name} <span className="text-Siora-accent">@{creator.handle}</span>
               </h2>
               <p className="text-sm text-zinc-400 mb-2">{Math.round(score)}% match</p>
               <p className="text-sm text-zinc-300 mb-4">{creator.summary}</p>
+              {reasons.length > 0 && (
+                <div className="mb-2 text-xs text-zinc-300">
+                  <span className="font-semibold">Why this match:</span>
+                  <ul className="list-disc list-inside">
+                    {reasons.map((r, i) => (
+                      <li key={i}>{r}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="flex gap-4">
                 <button
                   onClick={() => toggle(creator.id)}

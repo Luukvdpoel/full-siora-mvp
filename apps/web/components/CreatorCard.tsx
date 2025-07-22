@@ -4,15 +4,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import type { Creator } from "@/app/data/creators";
-import { useState } from "react";
+import { useState, useMemo, ReactNode } from "react";
 import { Badge } from "shared-ui";
-import { getCreatorBadges } from "shared-utils";
+import { getCreatorBadges, generateMatchExplanation } from "shared-utils";
 
 import { FaEnvelope, FaRegStar, FaStar } from "react-icons/fa";
 import { useBrandUser } from "@/lib/brandUser";
+import { useBrandPrefs } from "@/lib/brandPrefs";
 import Toast from "./Toast";
 
-import { ReactNode } from "react";
 import EvaluationChecklistModal from "./EvaluationChecklistModal";
 
 type Props = {
@@ -27,11 +27,23 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
   const [checklistOpen, setChecklistOpen] = useState(false);
   const [toast, setToast] = useState("");
   const { user } = useBrandUser();
+  const brandPrefs = useBrandPrefs();
   const badges = getCreatorBadges({
     verified: creator.verified,
     completedCollabs: creator.completedCollabs,
     avgResponseMinutes: creator.avgResponseMinutes,
   });
+
+  const matchNotes = useMemo(() => {
+    if (!brandPrefs) return [] as string[];
+    const persona = {
+      niches: [creator.niche],
+      tone: creator.tone,
+      platforms: [creator.platform],
+      vibe: Array.isArray(creator.tags) ? creator.tags.join(' ') : undefined,
+    };
+    return generateMatchExplanation(brandPrefs, persona);
+  }, [brandPrefs, creator]);
 
   const handleContact = async () => {
     setLoading(true);
@@ -95,6 +107,16 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
         {creator.summary}
       </p>
+      {matchNotes.length > 0 && (
+        <div className="mb-2 text-xs text-gray-600 dark:text-zinc-400">
+          <span className="font-semibold">Why this match:</span>
+          <ul className="list-disc list-inside">
+            {matchNotes.map((m, i) => (
+              <li key={i}>{m}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {creator.tags && (
         <div className="flex flex-wrap gap-1 text-xs text-gray-500 dark:text-zinc-400 mb-2">
           {creator.tags.map((tag) => (

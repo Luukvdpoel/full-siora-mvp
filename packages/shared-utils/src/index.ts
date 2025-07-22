@@ -6,3 +6,4 @@ export * from './campaignFitScore';
 export * from './badges';
 export * from './trustScore';
 export * from './briefPersonaMatch';
+export * from './generateMatchExplanation';
