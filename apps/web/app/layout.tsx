@@ -8,6 +8,8 @@ import TrpcProvider from "./trpcProvider";
 import { PageTransition, Nav, NavLink, ThemeToggle } from 'shared-ui'
 import AuthStatus from '../components/AuthStatus'
 import { ThemeProvider } from "./providers";
+import PostHogProvider from '../components/PostHogProvider'
+import { Analytics } from '@vercel/analytics/react'
 import * as React from "react";
 
 // Use system fonts to avoid build-time Google font download
@@ -35,6 +37,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className="min-h-screen bg-gradient-to-b from-Siora-dark via-Siora-mid to-Siora-light text-white font-sans antialiased">
         <ThemeProvider>
+          <PostHogProvider />
+          <Analytics />
           <SessionProvider>
             <BrandUserProvider>
               <TrpcProvider>

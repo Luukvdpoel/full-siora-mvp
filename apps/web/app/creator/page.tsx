@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import ReactMarkdown from "react-markdown";
 import { saveProfileSettings } from "@creator/lib/profileSettings";
+import posthog from 'posthog-js'
 
 
 export default function Home() {
@@ -124,6 +125,7 @@ export default function Home() {
                 favFormats,
               }),
             );
+            posthog.capture('Persona Created', { id: data.id });
           } catch (err) {
             console.error('Failed to store inputs', err);
           }
