@@ -4,16 +4,16 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import type { Metadata } from 'next'
 import { motion } from 'framer-motion'
-import { Disclosure } from '@headlessui/react'
-import { ChevronUp } from 'lucide-react'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion'
 
 export const metadata: Metadata = {
-  title: 'Siora – AI-Powered Brand Partnerships for Creators',
-  description: 'Discover fair collaborations between creators and brands powered by AI.',
+  title: 'Siora – Smarter Brand-Creator Matches',
+  description: 'AI-powered platform connecting creators and brands for fair collaborations.',
   openGraph: {
-    title: 'Siora – AI-Powered Brand Partnerships for Creators',
+    title: 'Siora – Smarter Brand-Creator Matches',
     description:
-      'Discover fair collaborations between creators and brands powered by AI.'
+      'AI-powered platform connecting creators and brands for fair collaborations.',
+    images: ['/siora-logo.svg']
   }
 }
 
@@ -25,7 +25,7 @@ export default function Page() {
     if (status !== 'authenticated') return
     const role = (session?.user as { role?: string })?.role
     if (role === 'brand') router.replace('/dashboard')
-    if (role === 'creator') router.replace('/explorer')
+    if (role === 'creator') router.replace('/persona')
   }, [status, session, router])
 
   if (status === 'loading') return null
@@ -40,7 +40,7 @@ export default function Page() {
           transition={{ duration: 0.6 }}
           className="text-5xl font-extrabold tracking-tight"
         >
-          Forge Fair Brand Partnerships
+          Smarter, fairer brand deals.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ export default function Page() {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="text-zinc-300 max-w-xl mx-auto"
         >
-          Siora matches authentic creators and brands using AI-driven personas.
+          AI-powered brand-creator partnerships. Built for creators who value their worth.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,12 +56,6 @@ export default function Page() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="flex flex-col sm:flex-row justify-center gap-4"
         >
-          <a
-            href="/explorer"
-            className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
-          >
-            Explore creators
-          </a>
           <a
             href="/signup?role=brand"
             className="px-6 py-3 rounded-md bg-white text-Siora-dark hover:bg-zinc-200 transition"
@@ -86,7 +80,7 @@ export default function Page() {
           transition={{ duration: 0.6 }}
           className="text-xl font-semibold"
         >
-          Fair partnerships. Smarter matches. Built for real creators.
+          Siora empowers creators to find aligned partnerships — and helps brands discover voices that truly fit.
         </motion.p>
       </section>
 
@@ -102,7 +96,7 @@ export default function Page() {
             className="space-y-2"
           >
             <span className="text-5xl font-bold text-Siora-accent">1</span>
-            <p>Build your profile</p>
+            <p>Build a persona or campaign brief</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +106,7 @@ export default function Page() {
             className="space-y-2"
           >
             <span className="text-5xl font-bold text-Siora-accent">2</span>
-            <p>Discover matches</p>
+            <p>Discover fair matches</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -122,29 +116,29 @@ export default function Page() {
             className="space-y-2"
           >
             <span className="text-5xl font-bold text-Siora-accent">3</span>
-            <p>Collaborate with aligned brands</p>
+            <p>Collaborate and get paid</p>
           </motion.div>
         </div>
       </section>
 
-      {/* Value props */}
+      {/* Features */}
       <section className="px-6 py-24 bg-Siora-mid">
-        <h2 className="text-3xl font-bold text-center mb-12">Why Siora?</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Features</h2>
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div>
             <h3 className="text-2xl font-semibold mb-4">Creators</h3>
             <ul className="space-y-2 list-disc list-inside text-zinc-300">
-              <li>No affiliate-only offers</li>
-              <li>Get paid your worth</li>
-              <li>Automated persona &amp; pitch</li>
+              <li>Smart persona builder</li>
+              <li>Fairness layer</li>
+              <li>Protect against affiliate-only offers</li>
             </ul>
           </div>
           <div>
             <h3 className="text-2xl font-semibold mb-4">Brands</h3>
             <ul className="space-y-2 list-disc list-inside text-zinc-300">
-              <li>Smarter discovery</li>
-              <li>Fair matching</li>
-              <li>Campaign-ready brief tools</li>
+              <li>GPT-powered briefs</li>
+              <li>Intelligent match scoring</li>
+              <li>Shortlist management</li>
             </ul>
           </div>
         </div>
@@ -160,29 +154,35 @@ export default function Page() {
       <section className="px-6 py-24 bg-Siora-mid">
         <h2 className="text-3xl font-bold text-center mb-8">FAQ</h2>
         <div className="max-w-3xl mx-auto space-y-4">
-          {[
-            {
-              q: 'Is Siora free to use?',
-              a: 'Yes, creators can join for free. Brands pay per campaign.'
-            },
-            {
-              q: 'How do matches work?',
-              a: 'Our AI reviews each profile to suggest partners that share your values.'
-            },
-            { q: 'Can I change my role later?', a: 'Absolutely, contact support anytime.' }
-          ].map((item, i) => (
-            <Disclosure key={i} as="div" className="border-b border-Siora-border pb-2">
-              {({ open }) => (
-                <>
-                  <Disclosure.Button className="flex justify-between w-full text-left font-medium py-2">
-                    <span>{item.q}</span>
-                    <ChevronUp className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} />
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="mt-2 text-zinc-300">{item.a}</Disclosure.Panel>
-                </>
-              )}
-            </Disclosure>
-          ))}
+          <Accordion type="single" collapsible className="space-y-2">
+            {[
+              {
+                q: 'Is Siora free to use?',
+                a: 'Yes, creators can join for free. Brands pay per campaign.'
+              },
+              {
+                q: 'How do matches work?',
+                a: 'Our AI reviews each profile to suggest partners that share your values.'
+              },
+              {
+                q: 'Can I change my role later?',
+                a: 'Absolutely, contact support anytime.'
+              }
+            ].map((item, i) => (
+              <AccordionItem
+                key={i}
+                value={`item-${i}`}
+                className="border-b border-Siora-border"
+              >
+                <AccordionTrigger className="w-full text-left">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-zinc-300">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
@@ -195,7 +195,7 @@ export default function Page() {
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold mb-6"
         >
-          Start creating fairer brand deals today
+          Get started in 2 minutes. No code. No spam.
         </motion.h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -218,6 +218,11 @@ export default function Page() {
           </a>
         </motion.div>
       </section>
+      <footer className="px-6 py-8 text-center text-sm text-zinc-400">
+        <a href="/privacy" className="underline mr-4">Privacy Policy</a>
+        <a href="/terms" className="underline">Terms of Service</a>
+        <p className="mt-4">&copy; {new Date().getFullYear()} Siora</p>
+      </footer>
     </main>
   )
 }
