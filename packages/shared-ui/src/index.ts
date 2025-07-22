@@ -5,6 +5,7 @@ export { default as ThemeToggle } from './ThemeToggle'
 export { default as Spinner } from './Spinner'
 export { ChatPanel } from './ChatPanel'
 export { Badge } from './Badge'
+export { Hero } from './Hero'
 
 // Re-export types
 export type { NavLink } from './Nav'
