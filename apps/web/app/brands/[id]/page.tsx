@@ -4,6 +4,7 @@ import Link from "next/link";
 import personas from "@/app/data/mock_creators_200.json";
 import { notFound } from "next/navigation";
 import PerformanceTab from "@/components/PerformanceTab";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui";
 
 export default function PersonaProfile({ params }: any) {
   const persona = personas.find((p) => p.id.toString() === params.id);
@@ -24,50 +25,44 @@ export default function PersonaProfile({ params }: any) {
           <p className="text-zinc-400 text-sm mt-1">
             {persona.tone} • {persona.platform}
           </p>
-          <div className="mt-4 flex gap-2">
-            <button
-              onClick={() => setTab('overview')}
-              className={tab === 'overview' ? 'px-3 py-1 rounded bg-Siora-accent' : 'px-3 py-1 rounded bg-Siora-light'}
-            >
-              Overview
-            </button>
-            <button
-              onClick={() => setTab('performance')}
-              className={tab === 'performance' ? 'px-3 py-1 rounded bg-Siora-accent' : 'px-3 py-1 rounded bg-Siora-light'}
-            >
-              Performance
-            </button>
-          </div>
-
-          {tab === 'overview' && (
-            <>
-              <p className="mt-4 text-zinc-300 leading-relaxed">{persona.summary}</p>
-              <div className="mt-6 space-y-2 text-sm text-zinc-300">
-                <div>
-                  <strong>Followers:</strong> {persona.followers.toLocaleString()}
-                </div>
-                <div>
-                  <strong>Engagement Rate:</strong> {persona.engagementRate}%
-                </div>
-              </div>
-              {persona.tags && (
-                <div className="mt-6">
-                  <h2 className="text-md font-semibold mb-2">Vibes</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {persona.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs bg-Siora-light text-white border border-Siora-border px-3 py-1 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+          <Tabs value={tab} onValueChange={setTab} className="mt-4">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="performance">Performance</TabsTrigger>
+            </TabsList>
+            <TabsContent value="overview">
+              <>
+                <p className="mt-4 text-zinc-300 leading-relaxed">{persona.summary}</p>
+                <div className="mt-6 space-y-2 text-sm text-zinc-300">
+                  <div>
+                    <strong>Followers:</strong> {persona.followers.toLocaleString()}
+                  </div>
+                  <div>
+                    <strong>Engagement Rate:</strong> {persona.engagementRate}%
                   </div>
                 </div>
-              )}
-            </>
-          )}
-          {tab === 'performance' && <PerformanceTab creatorId={persona.id.toString()} />}
+                {persona.tags && (
+                  <div className="mt-6">
+                    <h2 className="text-md font-semibold mb-2">Vibes</h2>
+                    <div className="flex flex-wrap gap-2">
+                      {persona.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs bg-Siora-light text-white border border-Siora-border px-3 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            </TabsContent>
+            <TabsContent value="performance">
+              <PerformanceTab creatorId={persona.id.toString()} />
+            </TabsContent>
+          </Tabs>
+          
           <Link
             href={`/feedback/${persona.id}`}
             className="mt-4 inline-block px-3 py-1 bg-gray-700 text-white rounded"

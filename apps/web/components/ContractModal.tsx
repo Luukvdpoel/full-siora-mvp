@@ -1,5 +1,12 @@
 "use client";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui";
 
 interface Props {
   open: boolean;
@@ -14,8 +21,6 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
   const [payment, setPayment] = useState("");
   const [contract, setContract] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  if (!open) return null;
 
   const generate = async () => {
     setLoading(true);
@@ -47,9 +52,11 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-Siora-mid border border-Siora-border rounded-xl p-6 w-96 space-y-4 shadow-Siora-hover">
-        <h2 className="text-xl font-semibold">Generate Contract</h2>
+    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Generate Contract</DialogTitle>
+        </DialogHeader>
         {!contract && (
           <>
             <input
@@ -118,7 +125,7 @@ export default function ContractModal({ open, onClose, creatorName }: Props) {
         >
           Close
         </button>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

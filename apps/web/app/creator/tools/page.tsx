@@ -25,6 +25,7 @@ function CheckIcon({ className }: { className?: string }) {
 }
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui";
 
 const tabs = [
   { id: "hook", label: "Hook Generator" },
@@ -305,27 +306,21 @@ export default function ToolsPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6">
-      <div className="flex gap-4">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setActive(t.id)}
-            className={`px-3 py-1 rounded-md border transition-colors ${
-              active === t.id
-                ? "bg-indigo-600 text-white border-indigo-600"
-                : "bg-white/5 text-foreground border-white/10"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-      <div className="mt-4">
-        {active === "hook" && renderHookGen()}
-        {active === "rewrite" && renderRewrite()}
-        {active === "ideas" && renderIdeas()}
-        {active === "magnet" && renderLeadMagnet()}
-      </div>
+      <Tabs value={active} onValueChange={setActive}>
+        <TabsList>
+          {tabs.map((t) => (
+            <TabsTrigger key={t.id} value={t.id}>
+              {t.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <div className="mt-4">
+          <TabsContent value="hook">{renderHookGen()}</TabsContent>
+          <TabsContent value="rewrite">{renderRewrite()}</TabsContent>
+          <TabsContent value="ideas">{renderIdeas()}</TabsContent>
+          <TabsContent value="magnet">{renderLeadMagnet()}</TabsContent>
+        </div>
+      </Tabs>
     </main>
   );
 }

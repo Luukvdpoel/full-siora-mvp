@@ -35,6 +35,8 @@
     "react-dom": "^19.1.0",
     "react-icons": "^4.11.0",
     "react-markdown": "^10.1.0",
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-tabs": "^1.0.4",
     "shared-ui": "workspace:*",
     "shared-utils": "workspace:*",
     "stripe": "^18.2.1",

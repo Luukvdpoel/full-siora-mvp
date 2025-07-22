@@ -12,6 +12,7 @@ import { FaEnvelope, FaRegStar, FaStar } from "react-icons/fa";
 import { useBrandUser } from "@/lib/brandUser";
 import { useBrandPrefs } from "@/lib/brandPrefs";
 import Toast from "./Toast";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui";
 
 import EvaluationChecklistModal from "./EvaluationChecklistModal";
 
@@ -104,23 +105,26 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
       whileHover={{ y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.3 }}
-      className="group cursor-pointer bg-white dark:bg-Siora-mid border border-gray-300 dark:border-Siora-border rounded-2xl p-6 shadow-Siora-hover"
     >
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
-        {creator.name}{" "}
-        <span className="text-Siora-accent group-hover:text-Siora-accent-soft">
-          @{creator.handle}
-        </span>
-        {badges.map((b) => (
-          <Badge key={b.id} label={b.label} />
-        ))}
-      </h2>
-      <p className="text-sm text-gray-500 dark:text-zinc-400 mb-2">
-        {creator.niche} • {creator.platform}
-      </p>
-      <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
-        {creator.summary}
-      </p>
+      <Card className="group cursor-pointer">
+        <CardHeader className="flex items-center gap-2">
+          <CardTitle className="text-lg font-semibold">
+            {creator.name}{" "}
+            <span className="text-Siora-accent group-hover:text-Siora-accent-soft">
+              @{creator.handle}
+            </span>
+            {badges.map((b) => (
+              <Badge key={b.id} label={b.label} />
+            ))}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-500 dark:text-zinc-400 mb-2">
+            {creator.niche} • {creator.platform}
+          </p>
+          <p className="text-sm text-gray-700 dark:text-zinc-300 mb-4">
+            {creator.summary}
+          </p>
       {brandFit > 0 && (
         <div
           className="flex items-center gap-1 text-yellow-400 mb-2"
@@ -153,55 +157,59 @@ export default function CreatorCard({ creator, onShortlist, shortlisted, childre
           ))}
         </div>
       )}
-      <div className="flex items-center text-xs text-gray-500 dark:text-zinc-400 space-x-4">
-        <span>{creator.followers.toLocaleString()} followers</span>
-        <span>{creator.engagementRate}% ER</span>
-      </div>
-      <Link
-        href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
-        onClick={(e) => e.stopPropagation()}
-        className="inline-block text-sm mt-4 text-Siora-accent underline group-hover:text-Siora-accent-soft"
-      >
-        View
-      </Link>
-      <Link
-        href={`/messages/${creator.id}`}
-        onClick={(e) => e.stopPropagation()}
-        className="ml-4 inline-flex items-center text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 hover:bg-Siora-accent-soft"
-      >
-        <FaEnvelope className="mr-1" /> Message
-      </Link>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleContact();
-        }}
-        disabled={loading}
-        className="ml-4 inline-block text-sm mt-4 text-white bg-Siora-accent rounded px-3 py-1 disabled:opacity-50"
-      >
-        {loading ? 'Contacting...' : 'Contact'}
-      </button>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setChecklistOpen(true);
-        }}
-        className="ml-4 text-sm mt-4 text-Siora-accent underline"
-      >
-        Generate Evaluation Checklist
-      </button>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleSave();
-        }}
-        className={`ml-4 mt-4 text-sm flex items-center gap-1 underline ${
-          shortlisted ? 'text-yellow-400' : 'text-Siora-accent'
-        }`}
-      >
-        {shortlisted ? <FaStar /> : <FaRegStar />} {shortlisted ? 'Saved' : 'Save'}
-      </button>
-      {children}
+          <div className="flex items-center text-xs text-gray-500 dark:text-zinc-400 space-x-4">
+            <span>{creator.followers.toLocaleString()} followers</span>
+            <span>{creator.engagementRate}% ER</span>
+          </div>
+        </CardContent>
+        <CardFooter className="pt-4 flex flex-wrap items-center">
+          <Link
+            href={`/dashboard/persona/${creator.handle.replace(/^@/, "")}`}
+            onClick={(e) => e.stopPropagation()}
+            className="text-sm text-Siora-accent underline group-hover:text-Siora-accent-soft"
+          >
+            View
+          </Link>
+          <Link
+            href={`/messages/${creator.id}`}
+            onClick={(e) => e.stopPropagation()}
+            className="ml-4 inline-flex items-center text-sm text-white bg-Siora-accent rounded px-3 py-1 hover:bg-Siora-accent-soft"
+          >
+            <FaEnvelope className="mr-1" /> Message
+          </Link>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleContact();
+            }}
+            disabled={loading}
+            className="ml-4 text-sm text-white bg-Siora-accent rounded px-3 py-1 disabled:opacity-50"
+          >
+            {loading ? 'Contacting...' : 'Contact'}
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setChecklistOpen(true);
+            }}
+            className="ml-4 text-sm text-Siora-accent underline"
+          >
+            Generate Evaluation Checklist
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSave();
+            }}
+            className={`ml-4 text-sm flex items-center gap-1 underline ${
+              shortlisted ? 'text-yellow-400' : 'text-Siora-accent'
+            }`}
+          >
+            {shortlisted ? <FaStar /> : <FaRegStar />} {shortlisted ? 'Saved' : 'Save'}
+          </button>
+          {children}
+        </CardFooter>
+      </Card>
       <EvaluationChecklistModal
         open={checklistOpen}
         onClose={() => setChecklistOpen(false)}

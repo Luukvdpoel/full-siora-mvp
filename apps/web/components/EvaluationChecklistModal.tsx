@@ -1,5 +1,12 @@
 "use client";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui";
 
 interface Props {
   open: boolean;
@@ -16,8 +23,6 @@ export default function EvaluationChecklistModal({
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [markdown, setMarkdown] = useState<string | null>(null);
-
-  if (!open) return null;
 
   const generate = async () => {
     setLoading(true);
@@ -77,9 +82,11 @@ export default function EvaluationChecklistModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-Siora-mid border border-Siora-border rounded-xl p-6 w-96 space-y-4 shadow-Siora-hover">
-        <h2 className="text-xl font-semibold">Evaluation Checklist for {creatorName}</h2>
+    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Evaluation Checklist for {creatorName}</DialogTitle>
+        </DialogHeader>
         {markdown && (
           <pre className="whitespace-pre-wrap text-sm border border-Siora-border p-2 rounded bg-Siora-light text-white">
             {markdown}
@@ -104,7 +111,7 @@ export default function EvaluationChecklistModal({
             Close
           </button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

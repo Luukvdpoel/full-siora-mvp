@@ -1,5 +1,12 @@
 "use client";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui";
 
 type Props = {
   open: boolean;
@@ -11,8 +18,6 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
   const [message, setMessage] = useState("");
   const [budget, setBudget] = useState("");
 
-  if (!open) return null;
-
   const handleSend = () => {
     // In a real app this would POST to an API.
     console.log({ creator, message, budget });
@@ -20,11 +25,11 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-Siora-mid border border-Siora-border rounded-xl p-6 w-96 space-y-4 shadow-Siora-hover">
-        <h2 className="text-xl font-semibold">
-          Request Collaboration with {creator}
-        </h2>
+    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Request Collaboration with {creator}</DialogTitle>
+        </DialogHeader>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -37,7 +42,7 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
           placeholder="Budget range (e.g. $500-$1000)"
           className="w-full p-2 rounded-lg bg-Siora-light text-white placeholder-zinc-400 border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
         />
-        <div className="flex justify-end gap-2">
+        <DialogFooter>
           <button
             onClick={onClose}
             className="px-3 py-1 text-sm rounded border border-Siora-border text-white"
@@ -50,8 +55,8 @@ export default function CollabRequestModal({ open, onClose, creator }: Props) {
           >
             Send
           </button>
-        </div>
-      </div>
-    </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
