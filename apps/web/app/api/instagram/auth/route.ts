@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     if (!code) {
       return NextResponse.json({ error: "Missing code" }, { status: 400 });
     }
-    const redirectUri = "http://localhost:3000/instagram/callback";
+    const redirectUri = `${process.env.NEXTAUTH_URL}/instagram/callback`;
     const token = await exchangeCodeForToken(code, redirectUri);
     const profile = await fetchInstagramUserProfile(token.access_token);
     return NextResponse.json({ profile });

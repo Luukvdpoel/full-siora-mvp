@@ -4,7 +4,8 @@ import React from 'react';
 export function ConnectInstagramButton() {
   const handleClick = () => {
     const clientId = process.env.NEXT_PUBLIC_IG_APP_ID!;
-    const redirectUri = encodeURIComponent('http://localhost:3000/api/instagram/callback');
+    const baseUrl = process.env.NEXTAUTH_URL || '';
+    const redirectUri = encodeURIComponent(`${baseUrl}/api/instagram/callback`);
 
     const oauthUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=instagram_basic,user_profile&response_type=code`;
 

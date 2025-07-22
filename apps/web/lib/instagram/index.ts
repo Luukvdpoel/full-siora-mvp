@@ -1,6 +1,6 @@
 import type { InstagramAccessTokenResponse, InstagramUserProfile } from "@/types/instagram";
 
-export const INSTAGRAM_REDIRECT_URI = "http://localhost:3000/instagram/callback";
+export const INSTAGRAM_REDIRECT_URI = `${process.env.NEXTAUTH_URL}/instagram/callback`;
 
 export function generateInstagramAuthUrl() {
   const appId = process.env.NEXT_PUBLIC_IG_APP_ID;
