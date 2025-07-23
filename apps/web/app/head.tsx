@@ -1,19 +1,20 @@
 export default function Head() {
   return (
     <>
-      <title>Siora – AI-Powered Brand Partnerships for Creators</title>
+      <title>Siora – Smarter Brand-Creator Matches</title>
       <meta
         name="description"
-        content="Discover fair collaborations between creators and brands powered by AI."
+        content="AI-powered brand-creator partnerships. Built for creators who value their worth."
       />
       <meta
         property="og:title"
-        content="Siora – AI-Powered Brand Partnerships for Creators"
+        content="Siora – Smarter Brand-Creator Matches"
       />
       <meta
         property="og:description"
-        content="Discover fair collaborations between creators and brands powered by AI."
+        content="AI-powered brand-creator partnerships. Built for creators who value their worth."
       />
+      <meta property="og:image" content="/siora-logo.svg" />
     </>
   );
 }

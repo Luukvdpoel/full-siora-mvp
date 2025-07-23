@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Disclosure } from '@headlessui/react'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { ChevronUp } from 'lucide-react'
 
 export default function Page() {
@@ -25,43 +25,40 @@ export default function Page() {
       <section className="px-6 py-24 text-center max-w-5xl mx-auto space-y-6">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-5xl font-extrabold tracking-tight"
         >
-          Forge Fair Brand Partnerships
+          Smarter, fairer brand deals.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.6 }}
           className="text-zinc-300 max-w-xl mx-auto"
         >
-          Siora matches authentic creators and brands using AI-driven personas.
+          AI-powered brand-creator partnerships. Built for creators who value their worth.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
           className="flex flex-col sm:flex-row justify-center gap-4"
         >
           <a
-            href="/explorer"
+            href="/signup?role=creator"
             className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
           >
-            Explore creators
+            Join as Creator
           </a>
           <a
             href="/signup?role=brand"
-            className="px-6 py-3 rounded-md bg-white text-Siora-dark hover:bg-zinc-200 transition"
-          >
-            Join as brand
-          </a>
-          <a
-            href="/signup?role=creator"
             className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
           >
-            Join as creator
+            Join as Brand
           </a>
         </motion.div>
       </section>
@@ -75,7 +72,7 @@ export default function Page() {
           transition={{ duration: 0.6 }}
           className="text-xl font-semibold"
         >
-          Fair partnerships. Smarter matches. Built for real creators.
+          Siora empowers creators to find aligned partnerships — and helps brands discover voices that truly fit.
         </motion.p>
       </section>
 
@@ -91,7 +88,7 @@ export default function Page() {
             className="space-y-2"
           >
             <span className="text-5xl font-bold text-Siora-accent">1</span>
-            <p>Build your profile</p>
+            <p>Build a persona or campaign brief</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -101,7 +98,7 @@ export default function Page() {
             className="space-y-2"
           >
             <span className="text-5xl font-bold text-Siora-accent">2</span>
-            <p>Discover matches</p>
+            <p>Discover fair matches</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -111,29 +108,29 @@ export default function Page() {
             className="space-y-2"
           >
             <span className="text-5xl font-bold text-Siora-accent">3</span>
-            <p>Collaborate with aligned brands</p>
+            <p>Collaborate and get paid</p>
           </motion.div>
         </div>
       </section>
 
       {/* Value props */}
       <section className="px-6 py-24 bg-Siora-mid">
-        <h2 className="text-3xl font-bold text-center mb-12">Why Siora?</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Features</h2>
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div>
             <h3 className="text-2xl font-semibold mb-4">Creators</h3>
             <ul className="space-y-2 list-disc list-inside text-zinc-300">
-              <li>No affiliate-only offers</li>
-              <li>Get paid your worth</li>
-              <li>Automated persona &amp; pitch</li>
+              <li>Smart persona builder</li>
+              <li>Fairness layer</li>
+              <li>Protect against affiliate-only offers</li>
             </ul>
           </div>
           <div>
             <h3 className="text-2xl font-semibold mb-4">Brands</h3>
             <ul className="space-y-2 list-disc list-inside text-zinc-300">
-              <li>Smarter discovery</li>
-              <li>Fair matching</li>
-              <li>Campaign-ready brief tools</li>
+              <li>GPT-powered briefs</li>
+              <li>Intelligent match scoring</li>
+              <li>Shortlist management</li>
             </ul>
           </div>
         </div>
@@ -148,33 +145,35 @@ export default function Page() {
       {/* FAQ */}
       <section className="px-6 py-24 bg-Siora-mid">
         <h2 className="text-3xl font-bold text-center mb-8">FAQ</h2>
-        <div className="max-w-3xl mx-auto space-y-4">
-          {[
-            {
-              q: 'Is Siora free to use?',
-              a: 'Yes, creators can join for free. Brands pay per campaign.'
-            },
-            {
-              q: 'How do matches work?',
-              a: 'Our AI reviews each profile to suggest partners that share your values.'
-            },
-            { q: 'Can I change my role later?', a: 'Absolutely, contact support anytime.' }
-          ].map((item, i) => (
-            <Disclosure key={i} as="div" className="border-b border-Siora-border pb-2">
-              {({ open }) => (
-                <>
-                  <Disclosure.Button className="flex justify-between w-full text-left font-medium py-2">
-                    <span>{item.q}</span>
-                    <ChevronUp className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} />
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="mt-2 text-zinc-300">{item.a}</Disclosure.Panel>
-                </>
-              )}
-            </Disclosure>
-          ))}
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="space-y-2">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Is Siora free to use?</AccordionTrigger>
+              <AccordionContent>
+                Yes, creators can join for free. Brands pay per campaign.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>How do matches work?</AccordionTrigger>
+              <AccordionContent>
+                Our AI reviews each profile to suggest partners that share your values.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Can I change my role later?</AccordionTrigger>
+              <AccordionContent>
+                Absolutely, contact support anytime.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-4">
+              <AccordionTrigger>How long does onboarding take?</AccordionTrigger>
+              <AccordionContent>
+                Most users create a profile and start matching in under two minutes.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
-
       {/* CTA footer */}
       <section className="px-6 py-24 text-center">
         <motion.h2
@@ -184,7 +183,7 @@ export default function Page() {
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold mb-6"
         >
-          Start creating fairer brand deals today
+          Get started in 2 minutes. No code. No spam.
         </motion.h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -197,16 +196,21 @@ export default function Page() {
             href="/signup?role=creator"
             className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
           >
-            Join as creator
+            Join as Creator
           </a>
           <a
             href="/signup?role=brand"
             className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
           >
-            Join as brand
+            Join as Brand
           </a>
         </motion.div>
       </section>
+      <footer className="bg-Siora-mid text-center text-sm py-6 space-x-4">
+        <a href="/privacy" className="underline hover:text-Siora-accent">Privacy Policy</a>
+        <a href="/terms" className="underline hover:text-Siora-accent">Terms of Service</a>
+        <p className="mt-2 text-zinc-400">© {new Date().getFullYear()} Siora</p>
+      </footer>
     </main>
   )
 }
