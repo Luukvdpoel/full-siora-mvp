@@ -1,5 +1,5 @@
-import type { CreatorPersona, BrandProfile } from '../../packages/shared-utils/src/fitScoreEngine';
-import { advancedMatch } from '../../packages/shared-utils/src/advancedMatch';
+import type { CreatorPersona, BrandProfile } from '../../../packages/shared-utils/src/fitScoreEngine';
+import { advancedMatch } from '../../../packages/shared-utils/src/advancedMatch';
 
 export async function matchCreator(
   creator: CreatorPersona,
