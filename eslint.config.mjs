@@ -17,4 +17,9 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-export default compat.config(eslintrc);
+export default [
+  ...compat.config(eslintrc),
+  {
+    ignores: ['**/.next/**', 'node_modules/**', '**/dist/**']
+  }
+];
