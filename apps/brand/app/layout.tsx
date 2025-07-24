@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Nav, NavLink, PageTransition, ThemeToggle } from "shared-ui";
 
 const navLinks: NavLink[] = [
+  { href: "/", label: "Home" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/create-brief", label: "Create Brief" },
   { href: "/inbox", label: "Inbox" },
