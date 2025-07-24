@@ -20,9 +20,11 @@ import {
   ShieldCheck,
   ScrollText,
   User,
+  Home as HomeIcon,
 } from "lucide-react";
 
 const navLinks: NavLink[] = [
+  { href: "/", label: "Home", icon: HomeIcon },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/shortlist", label: "Shortlist", icon: Heart },
   { href: "/matches", label: "Matches", icon: Users2 },

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 const navLinks: NavLink[] = [
+  { href: '/', label: 'Home' },
   { href: '/creator/dashboard', label: 'Dashboard' },
   { href: '/creator/campaigns', label: 'Campaigns' },
   { href: '/creator/applications', label: 'Applications' },
