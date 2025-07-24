@@ -1,8 +1,15 @@
 {
-  "buildCommand": "pnpm turbo run build --filter=web...",
-  "installCommand": "pnpm install",
-  "outputDirectory": "apps/web/.next",
-  "framework": "nextjs",
-  "ignoreCommand": "echo Skip deploying apps/brand and apps/creator"
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/web/next.config.js",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "apps/web/$1"
+    }
+  ]
 }
-
