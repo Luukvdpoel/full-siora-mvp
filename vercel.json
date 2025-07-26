@@ -1,9 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "apps/web/next.config.ts",
-      "use": "@vercel/next"
-    }
-  ]
+  "buildCommand": "pnpm turbo run build --filter=web...",
+  "installCommand": "pnpm install",
+  "outputDirectory": "apps/web/.next",
+  "framework": "nextjs"
 }
