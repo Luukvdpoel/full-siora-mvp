@@ -13,6 +13,9 @@ export default function CreatorDashboard() {
   return (
     <main className="min-h-screen bg-background text-foreground p-6 space-y-6">
       <h1 className="text-2xl font-bold">Creator Dashboard</h1>
+      <p>
+        <Link href="/instagram/login" className="px-4 py-2 bg-indigo-600 text-white rounded">Connect Instagram</Link>
+      </p>
       {personas.length === 0 ? (
         <p>
           No personas found.{' '}
@@ -43,6 +46,7 @@ export default function CreatorDashboard() {
             <li key={brand.id} className="border border-white/10 p-4 rounded">
               <p className="font-semibold">{brand.name}</p>
               <p className="text-sm text-foreground/80">{brand.summary}</p>
+              <button className="mt-2 px-3 py-1 bg-indigo-600 text-white rounded">Apply</button>
             </li>
           ))}
         </ul>

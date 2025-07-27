@@ -23,7 +23,7 @@ export default function BrandsDashboard() {
 
 
   useEffect(() => {
-    if (!user) router.replace("/signin");
+    if (!user) router.replace("/auth/login");
   }, [user, router]);
 
   if (!user) {

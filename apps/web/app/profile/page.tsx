@@ -12,7 +12,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (status === "loading") return;
-    if (!session) router.replace("/signin");
+    if (!session) router.replace("/auth/login");
   }, [status, session, router]);
 
   const save = async () => {

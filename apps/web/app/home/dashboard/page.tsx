@@ -17,7 +17,7 @@ interface Persona {
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
-    redirect('/signin');
+    redirect('/auth/login');
   }
 
   const file = await fs.readFile(

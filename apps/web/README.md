@@ -33,7 +33,7 @@ This app does not require any environment variables by default.
 
 ## Dashboard
 
-Visit `/signin` to log in. After signing in, head to `/brands` to search creator personas. Results can be filtered by tone, platform and vibe. Each profile can be saved to your personal shortlist which is stored in your browser using `localStorage`. View your selections any time at `/shortlist`.
+Visit `/auth/login` to log in. After signing in, head to `/brands` to search creator personas. Results can be filtered by tone, platform and vibe. Each profile can be saved to your personal shortlist which is stored in your browser using `localStorage`. View your selections any time at `/shortlist`.
 
 `/dashboard` and `/personas` remain available for exploring personas without authentication.
 

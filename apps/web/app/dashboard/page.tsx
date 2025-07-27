@@ -107,7 +107,16 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 md:px-10 py-12">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl font-extrabold tracking-tight">Brand Dashboard</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-4xl font-extrabold tracking-tight">Campaign Overview</h1>
+          <a href="/create-brief" className="px-4 py-2 bg-indigo-600 rounded text-white">Create New Campaign</a>
+        </div>
+        <div className="flex gap-4 pt-2">
+          <a href="/inbox" className="underline">Inbox</a>
+          <a href="/matches" className="underline">Creator Matches</a>
+          <a href="/shortlist" className="underline">Shortlist</a>
+        </div>
+
 
         <input
           value={query}

@@ -17,7 +17,7 @@ export default function ShortlistPage() {
   const [compare, setCompare] = useState(false);
 
   useEffect(() => {
-    if (!user) router.replace("/signin");
+    if (!user) router.replace("/auth/login");
   }, [user, router]);
 
   if (!user) return null;

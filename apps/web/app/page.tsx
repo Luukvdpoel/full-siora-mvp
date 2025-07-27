@@ -25,7 +25,7 @@ export default function Page() {
       <header className="sticky top-0 z-50 bg-Siora-dark/80 backdrop-blur px-6 sm:px-12 py-4 flex justify-between items-center">
         <span className="font-bold text-lg">Siora</span>
         <nav className="flex items-center gap-6 text-sm">
-          <a href="/signin" className="hover:text-Siora-accent transition-all">Login</a>
+          <a href="/auth/login" className="hover:text-Siora-accent transition-all">Login</a>
           <a href="#how" className="hover:text-Siora-accent transition-all">How it works</a>
           <a href="/creator" className="bg-Siora-accent hover:bg-Siora-hover text-white px-4 py-2 rounded-xl transition-all hover:scale-[1.02]">Start</a>
         </nav>
@@ -39,7 +39,7 @@ export default function Page() {
       />
       <div className="flex justify-center gap-4 -mt-8">
         <a
-          href="/brand"
+          href="/dashboard"
           className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
         >
           Start as Brand
@@ -187,7 +187,7 @@ export default function Page() {
             Start as Creator
           </a>
           <a
-            href="/brand"
+            href="/dashboard"
             className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
           >
             Start as Brand
@@ -195,9 +195,10 @@ export default function Page() {
         </motion.div>
       </section>
       <footer className="bg-Siora-mid text-center text-sm py-6 space-x-4">
+        <a href="/about" className="underline hover:text-Siora-accent">About Us</a>
+        <a href="/mission" className="underline hover:text-Siora-accent">Our Mission</a>
+        <a href="/contact" className="underline hover:text-Siora-accent">Contact</a>
         <a href="/privacy" className="underline hover:text-Siora-accent">Privacy</a>
-        <a href="/terms" className="underline hover:text-Siora-accent">Terms</a>
-        <a href="/signin" className="underline hover:text-Siora-accent">Login</a>
         <p className="mt-2 text-zinc-400">© {new Date().getFullYear()} Siora</p>
       </footer>
     </main>
