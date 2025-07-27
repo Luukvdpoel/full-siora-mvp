@@ -29,7 +29,7 @@ export function Hero({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-5xl font-extrabold tracking-tight"
+        className="text-4xl sm:text-6xl font-bold tracking-tight"
       >
         {title}
       </motion.h1>
@@ -49,7 +49,7 @@ export function Hero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           href={ctaHref}
-          className="inline-block px-6 py-3 rounded-md bg-Siora-accent text-white hover:bg-Siora-hover transition-all duration-300 ease-in-out"
+          className="inline-block px-6 py-3 rounded-xl bg-Siora-accent text-white hover:bg-Siora-hover transition-all duration-300 hover:scale-[1.02]"
         >
           {ctaLabel}
         </motion.a>

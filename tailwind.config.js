@@ -6,12 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'Siora-dark': '#0f172a',
-        'Siora-mid': '#1e293b',
-        'Siora-light': '#334155',
-        'Siora-accent': '#7c3aed',
-        'Siora-accent-soft': '#a78bfa',
-        'Siora-border': '#475569',
+        'Siora-dark': '#111827',
+        'Siora-mid': '#1f2937',
+        'Siora-light': '#374151',
+        'Siora-accent': '#6366F1',
+        'Siora-accent-soft': '#818cf8',
+        'Siora-border': '#4b5563',
         'Siora-hover': '#818cf8',
       },
       backgroundImage: {
@@ -25,5 +25,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+  ],
 };
