@@ -10,7 +10,11 @@ export default function AuthStatus() {
 
   if (!session) {
     return (
-      <button type="button" onClick={() => signIn()} className="text-sm underline">
+      <button
+        type="button"
+        onClick={() => signIn()}
+        className="text-sm px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white"
+      >
         Sign In
       </button>
     );

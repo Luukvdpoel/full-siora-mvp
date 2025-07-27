@@ -55,11 +55,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <SessionProvider>
             <BrandUserProvider>
               <TrpcProvider>
-                <header className="sticky top-0 z-50 bg-Siora-dark/80 backdrop-blur border-b border-Siora-border">
+                <header className="sticky top-0 z-50 bg-black/70 backdrop-blur">
                   <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex justify-between items-center">
-                    <AuthStatus />
+                    <a href="/" className="font-bold text-white text-lg">Siora</a>
                     <div className="flex items-center gap-4">
                       <Nav links={navLinks} />
+                      <AuthStatus />
                       <ThemeToggle />
                     </div>
                   </div>

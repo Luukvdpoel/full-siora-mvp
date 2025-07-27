@@ -22,12 +22,12 @@ export default function Page() {
 
   return (
     <main className="min-h-screen bg-Siora-dark text-white font-sans">
-      <header className="sticky top-0 z-50 bg-Siora-dark/80 backdrop-blur px-6 sm:px-12 py-4 flex justify-between items-center">
+      <header className="sticky top-0 z-50 bg-black/70 backdrop-blur px-6 sm:px-12 py-4 flex justify-between items-center">
         <span className="font-bold text-lg">Siora</span>
         <nav className="flex items-center gap-6 text-sm">
-          <a href="/signin" className="hover:text-Siora-accent transition-all">Login</a>
-          <a href="#how" className="hover:text-Siora-accent transition-all">How it works</a>
-          <a href="/creator" className="bg-Siora-accent hover:bg-Siora-hover text-white px-4 py-2 rounded-xl transition-all hover:scale-[1.02]">Start</a>
+          <a href="/signin" className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white transition-colors">Login</a>
+          <a href="#how" className="hover:text-indigo-400 transition-colors">How it works</a>
+          <a href="/creator" className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition-colors">Start</a>
         </nav>
       </header>
       {/* Hero */}
@@ -40,13 +40,13 @@ export default function Page() {
       <div className="flex justify-center gap-4 -mt-8">
         <a
           href="/brand"
-          className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
+          className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
         >
           Start as Brand
         </a>
         <a
           href="/creator"
-          className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
+          className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
         >
           Start as Creator
         </a>
@@ -67,7 +67,7 @@ export default function Page() {
 
       {/* How it works */}
       <section id="how" className="px-6 py-24 max-w-4xl mx-auto space-y-12">
-        <h2 className="text-3xl font-bold text-center mb-6">How it works</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 border-b border-indigo-500 w-fit mx-auto">How it works</h2>
         <div className="grid md:grid-cols-3 gap-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -104,7 +104,7 @@ export default function Page() {
 
       {/* Value props */}
       <section className="px-6 py-24 bg-Siora-mid">
-        <h2 className="text-3xl font-bold text-center mb-12">Why Siora?</h2>
+        <h2 className="text-3xl font-bold text-center mb-12 border-b border-indigo-500 w-fit mx-auto">Why Siora?</h2>
         <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
           <div className="space-y-3 text-center">
             <Search className="w-10 h-10 mx-auto text-Siora-accent" />
@@ -126,13 +126,13 @@ export default function Page() {
 
       {/* Testimonials placeholder */}
       <section className="px-6 py-24 text-center">
-        <h2 className="text-3xl font-bold mb-6">Testimonials</h2>
+        <h2 className="text-3xl font-bold mb-6 border-b border-indigo-500 w-fit mx-auto">Testimonials</h2>
         <p className="text-zinc-400">Real stories from our users coming soon.</p>
       </section>
 
       {/* FAQ */}
       <section className="px-6 py-24 bg-Siora-mid">
-        <h2 className="text-3xl font-bold text-center mb-8">FAQ</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 border-b border-indigo-500 w-fit mx-auto">FAQ</h2>
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-2">
             <AccordionItem value="item-1">
@@ -182,13 +182,13 @@ export default function Page() {
         >
           <a
             href="/creator"
-            className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
+            className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
           >
             Start as Creator
           </a>
           <a
             href="/brand"
-            className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
+            className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
           >
             Start as Brand
           </a>

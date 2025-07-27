@@ -6,12 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'Siora-dark': '#111827',
-        'Siora-mid': '#1f2937',
-        'Siora-light': '#374151',
+        'Siora-dark': '#0f0f0f',
+        'Siora-mid': '#121212',
+        'Siora-light': '#1e1e1e',
         'Siora-accent': '#6366F1',
         'Siora-accent-soft': '#818cf8',
-        'Siora-border': '#4b5563',
+        'Siora-cta': '#10B981',
+        'Siora-border': '#27272a',
         'Siora-hover': '#818cf8',
       },
       backgroundImage: {
