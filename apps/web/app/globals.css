@@ -7,8 +7,8 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: #0f172a;
-    color: white;
+    background-color: #111827;
+    color: #F9FAFB;
     font-family: theme("fontFamily.sans");
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

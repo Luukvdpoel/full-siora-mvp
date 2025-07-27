@@ -1,5 +1,6 @@
 "use client";
 import "./globals.css";
+import { Inter } from 'next/font/google';
 import type { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { BrandUserProvider } from "../lib/brandUser";
@@ -10,6 +11,7 @@ import { ThemeProvider } from "./providers";
 import PostHogProvider from "../components/PostHogProvider";
 import { Analytics } from "@vercel/analytics/react";
 import * as React from "react";
+const inter = Inter({ subsets: ['latin'] });
 import {
   LayoutDashboard,
   Heart,
@@ -40,20 +42,20 @@ const navLinks: NavLink[] = [
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`${inter.className} scroll-smooth`}>
       <head>
         <title>Siora Dashboard</title>
         <meta name="description" content="Siora brand dashboard" />
         <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
       </head>
-      <body className="min-h-screen bg-[#0D0F12] text-white font-sans antialiased">
+      <body className="min-h-screen bg-Siora-dark text-white antialiased">
         <ThemeProvider>
           <PostHogProvider />
           <Analytics />
           <SessionProvider>
             <BrandUserProvider>
               <TrpcProvider>
-                <header className="sticky top-0 z-50 bg-[#0D0F12]/80 backdrop-blur border-b border-Siora-border">
+                <header className="sticky top-0 z-50 bg-Siora-dark/80 backdrop-blur border-b border-Siora-border">
                   <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex justify-between items-center">
                     <AuthStatus />
                     <div className="flex items-center gap-4">

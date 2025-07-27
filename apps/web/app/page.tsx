@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Hero } from 'shared-ui'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { ChevronUp } from 'lucide-react'
+import { ChevronUp, Search, Gauge, Handshake } from 'lucide-react'
 
 export default function Page() {
   const { data: session, status } = useSession()
@@ -22,21 +22,33 @@ export default function Page() {
 
   return (
     <main className="min-h-screen bg-Siora-dark text-white font-sans">
+      <header className="sticky top-0 z-50 bg-Siora-dark/80 backdrop-blur px-6 sm:px-12 py-4 flex justify-between items-center">
+        <span className="font-bold text-lg">Siora</span>
+        <nav className="flex items-center gap-6 text-sm">
+          <a href="/signin" className="hover:text-Siora-accent transition-all">Login</a>
+          <a href="#how" className="hover:text-Siora-accent transition-all">How it works</a>
+          <a href="/creator" className="bg-Siora-accent hover:bg-Siora-hover text-white px-4 py-2 rounded-xl transition-all hover:scale-[1.02]">Start</a>
+        </nav>
+      </header>
       {/* Hero */}
       <Hero
-        title="AI-powered brand‑creator partnerships."
-        subtitle="AI-powered brand-creator partnerships. Built for creators who value their worth."
-        ctaLabel="Join as Creator"
-        ctaHref="/creator"
+        title="Siora connects brands with creators that match their values — not just follower counts."
+        subtitle=""
         className="max-w-5xl"
         fullHeight
       />
       <div className="flex justify-center gap-4 -mt-8">
         <a
           href="/brand"
-          className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
+          className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
         >
-          Join as Brand
+          Start as Brand
+        </a>
+        <a
+          href="/creator"
+          className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
+        >
+          Start as Creator
         </a>
       </div>
 
@@ -54,7 +66,7 @@ export default function Page() {
       </section>
 
       {/* How it works */}
-      <section className="px-6 py-24 max-w-4xl mx-auto space-y-12">
+      <section id="how" className="px-6 py-24 max-w-4xl mx-auto space-y-12">
         <h2 className="text-3xl font-bold text-center mb-6">How it works</h2>
         <div className="grid md:grid-cols-3 gap-8 text-center">
           <motion.div
@@ -92,23 +104,22 @@ export default function Page() {
 
       {/* Value props */}
       <section className="px-6 py-24 bg-Siora-mid">
-        <h2 className="text-3xl font-bold text-center mb-12">Features</h2>
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div>
-            <h3 className="text-2xl font-semibold mb-4">Creators</h3>
-            <ul className="space-y-2 list-disc list-inside text-zinc-300">
-              <li>Smart persona builder</li>
-              <li>Fairness layer</li>
-              <li>Protect against affiliate-only offers</li>
-            </ul>
+        <h2 className="text-3xl font-bold text-center mb-12">Why Siora?</h2>
+        <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+          <div className="space-y-3 text-center">
+            <Search className="w-10 h-10 mx-auto text-Siora-accent" />
+            <h3 className="text-xl font-semibold">Find creators who match your tone.</h3>
+            <p className="text-zinc-400 text-sm">Our AI analyses style and values so you connect with personalities that truly resonate.</p>
           </div>
-          <div>
-            <h3 className="text-2xl font-semibold mb-4">Brands</h3>
-            <ul className="space-y-2 list-disc list-inside text-zinc-300">
-              <li>GPT-powered briefs</li>
-              <li>Intelligent match scoring</li>
-              <li>Shortlist management</li>
-            </ul>
+          <div className="space-y-3 text-center">
+            <Gauge className="w-10 h-10 mx-auto text-Siora-accent" />
+            <h3 className="text-xl font-semibold">AI-powered campaign scoring.</h3>
+            <p className="text-zinc-400 text-sm">See at a glance how each creator aligns with your brief for efficient outreach.</p>
+          </div>
+          <div className="space-y-3 text-center">
+            <Handshake className="w-10 h-10 mx-auto text-Siora-accent" />
+            <h3 className="text-xl font-semibold">Respect creators’ value.</h3>
+            <p className="text-zinc-400 text-sm">Transparent offers ensure fair deals that build lasting relationships.</p>
           </div>
         </div>
       </section>
@@ -171,15 +182,15 @@ export default function Page() {
         >
           <a
             href="/creator"
-            className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
+            className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
           >
-            Join as Creator
+            Start as Creator
           </a>
           <a
             href="/brand"
-            className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
+            className="px-6 py-3 rounded-xl bg-Siora-accent hover:bg-Siora-hover transition-all hover:scale-[1.02]"
           >
-            Join as Brand
+            Start as Brand
           </a>
         </motion.div>
       </section>
