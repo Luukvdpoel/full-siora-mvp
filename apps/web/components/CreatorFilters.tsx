@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
 import { useEffect, useState } from "react";
-import Dropdown from "@/components/ui/dropdown";
-import Checkbox from "@/components/ui/checkbox";
+import { Dropdown, Checkbox } from "shared-ui";
 
 type Props = {
   tones: string[];

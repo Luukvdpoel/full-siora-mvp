@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "shared-ui";
 import { Label } from "@/components/ui/label";
 
 const PLATFORMS = ["Instagram", "TikTok", "YouTube", "Twitter"];

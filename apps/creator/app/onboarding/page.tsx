@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "shared-ui";
 import styles from "../styles.module.css";
 import { saveOnboardingDraft, loadOnboardingDraft } from "@/lib/localOnboarding";
 

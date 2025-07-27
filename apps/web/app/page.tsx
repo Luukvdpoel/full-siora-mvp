@@ -3,7 +3,13 @@ import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Hero,
+} from 'shared-ui'
 import { ChevronUp } from 'lucide-react'
 
 export default function Page() {
@@ -22,46 +28,20 @@ export default function Page() {
   return (
     <main className="min-h-screen bg-Siora-dark text-white font-sans">
       {/* Hero */}
-      <section className="px-6 py-24 text-center max-w-5xl mx-auto space-y-6">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-5xl font-extrabold tracking-tight"
+      <Hero
+        title="Smarter, fairer brand deals."
+        subtitle="AI-powered brand-creator partnerships. Built for creators who value their worth."
+        ctaLabel="Join as Creator"
+        ctaHref="/signup?role=creator"
+      />
+      <div className="text-center -mt-8 mb-12">
+        <a
+          href="/signup?role=brand"
+          className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
         >
-          Smarter, fairer brand deals.
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="text-zinc-300 max-w-xl mx-auto"
-        >
-          AI-powered brand-creator partnerships. Built for creators who value their worth.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex flex-col sm:flex-row justify-center gap-4"
-        >
-          <a
-            href="/signup?role=creator"
-            className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
-          >
-            Join as Creator
-          </a>
-          <a
-            href="/signup?role=brand"
-            className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
-          >
-            Join as Brand
-          </a>
-        </motion.div>
-      </section>
+          Join as Brand
+        </a>
+      </div>
 
       {/* Mission statement */}
       <section className="px-6 py-16 text-center bg-Siora-mid">

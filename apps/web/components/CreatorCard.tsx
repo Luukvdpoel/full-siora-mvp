@@ -4,7 +4,7 @@ import React from 'react';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
+import { Card } from "shared-ui";
 import type { Creator } from "@/app/data/creators";
 import { useState, useMemo, ReactNode } from "react";
 import { Badge } from "shared-ui";

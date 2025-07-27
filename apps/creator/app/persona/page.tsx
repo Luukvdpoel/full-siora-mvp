@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { Card } from "shared-ui";
 import { useRouter } from "next/navigation";
 
 interface SavedPersona {
@@ -125,14 +126,15 @@ export default function PersonaPage() {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4 border border-white/10 p-4 rounded-md">
-          <input
-            className="w-full p-2 rounded-md bg-zinc-800 text-white"
-            placeholder="Your niche"
-            value={niche}
-            onChange={(e) => setNiche(e.target.value)}
-            required
-          />
+        <Card className="p-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+           <input
+              className="w-full p-2 rounded-md bg-zinc-800 text-white"
+              placeholder="Your niche"
+              value={niche}
+              onChange={(e) => setNiche(e.target.value)}
+              required
+            />
           <input
             className="w-full p-2 rounded-md bg-zinc-800 text-white"
             placeholder="Brand tone"
@@ -155,14 +157,15 @@ export default function PersonaPage() {
             onChange={(e) => setValues(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? "Generating..." : "Generate"}
-          </button>
-        </form>
+           <button
+              type="submit"
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors duration-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Generating..." : "Generate"}
+            </button>
+          </form>
+        </Card>
       )}
     </main>
   );
