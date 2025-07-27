@@ -1,29 +1,26 @@
-import { PrismaClient, Campaign, Application } from '@prisma/client';
-import { readJson } from '../tools/readJson.ts';
-
+import { PrismaClient, Campaign, Application } from "@prisma/client";
+import { readJson } from "../tools/readJson.ts";
 
 const prisma = new PrismaClient();
 
 async function main() {
   // Create a dummy user
   const user = await prisma.user.upsert({
-    where: { email: 'dummy@user.com' },
+    where: { email: "dummy@user.com" },
     update: {},
     create: {
-      email: 'dummy@user.com',
-      name: 'Dummy User',
-      role: 'creator',
+      email: "dummy@user.com",
+      name: "Dummy User",
+      role: "creator",
     },
   });
 
-  console.log('✅ Created user:', user.email);
-
   // PERSONAS
-  const personasRaw = await readJson('personas.json');
+  const personasRaw = await readJson("personas.json");
   if (personasRaw.length > 0) {
     const personaData = personasRaw.map((p: any) => ({
       userId: user.id,
-      title: p.title || 'Dummy Persona',
+      title: p.title || "Dummy Persona",
       data: {
         name: p.name,
         category: p.category,
@@ -35,34 +32,34 @@ async function main() {
       data: personaData,
       skipDuplicates: true,
     });
-    console.log(`✅ Seeded ${personaData.length} personas`);
+    // console.info(`Seeded ${personaData.length} personas`);
   }
 
-    // REAL CREATORS
-    const realCreatorsRaw = await readJson('db/real_creators_seed.json');
-    if (realCreatorsRaw.length > 0) {
-      const creators = realCreatorsRaw.map((c: any) => ({
-        userId: user.id,
-        title: `${c.name} Persona`,
-        data: {
-          name: c.name,
-          instagramHandle: c.username,
-          category: c.category,
-          followers: c.followers,
-          platform: 'Instagram',
-        },
-      }));
-  
-      await prisma.persona.createMany({
-        data: creators,
-        skipDuplicates: true,
-      });
-  
-      console.log(`✅ Seeded ${creators.length} real Instagram creators`);
-    }
+  // REAL CREATORS
+  const realCreatorsRaw = await readJson("db/real_creators_seed.json");
+  if (realCreatorsRaw.length > 0) {
+    const creators = realCreatorsRaw.map((c: any) => ({
+      userId: user.id,
+      title: `${c.name} Persona`,
+      data: {
+        name: c.name,
+        instagramHandle: c.username,
+        category: c.category,
+        followers: c.followers,
+        platform: "Instagram",
+      },
+    }));
+
+    await prisma.persona.createMany({
+      data: creators,
+      skipDuplicates: true,
+    });
+
+    // console.info(`Seeded ${creators.length} real Instagram creators`);
+  }
 
   // CAMPAIGNS
-  const campaignsRaw = await readJson('campaigns.json');
+  const campaignsRaw = await readJson("campaigns.json");
   let campaignRecords: Campaign[] = [];
 
   if (campaignsRaw.length > 0) {
@@ -80,14 +77,14 @@ async function main() {
             budgetMin: c.budgetMin,
             budgetMax: c.budgetMax,
           },
-        })
-      )
+        }),
+      ),
     );
-    console.log(`✅ Seeded ${campaignRecords.length} campaigns`);
+    // console.info(`Seeded ${campaignRecords.length} campaigns`);
   }
 
   // APPLICATIONS
-  const applicationsRaw = await readJson('applications.json');
+  const applicationsRaw = await readJson("applications.json");
   let applicationRecords: Application[] = [];
 
   if (applicationsRaw.length > 0 && campaignRecords.length > 0) {
@@ -98,16 +95,16 @@ async function main() {
             creatorId: user.id,
             campaignId: campaignRecords[i % campaignRecords.length].id,
             message: a.message,
-            status: a.status || 'pending',
+            status: a.status || "pending",
           },
-        })
-      )
+        }),
+      ),
     );
-    console.log(`✅ Seeded ${applicationRecords.length} applications`);
+    // console.info(`Seeded ${applicationRecords.length} applications`);
   }
 
   // MATCHES
-  const matchesRaw = await readJson('matches.json');
+  const matchesRaw = await readJson("matches.json");
   if (
     matchesRaw.length > 0 &&
     campaignRecords.length > 0 &&
@@ -118,7 +115,7 @@ async function main() {
       creatorId: user.id,
       applicationId: applicationRecords[i % applicationRecords.length].id,
       brandId: user.id,
-      status: m.status || 'new',
+      status: m.status || "new",
       isShortlisted: false,
     }));
 
@@ -127,20 +124,17 @@ async function main() {
       skipDuplicates: true,
     });
 
-    console.log(`✅ Seeded ${matchesRaw.length} matches`);
+    // console.info(`Seeded ${matchesRaw.length} matches`);
   }
 
-  console.log('✅ Done seeding.');
+  // console.info('Done seeding.');
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Seed error:', e);
+    console.error("❌ Seed error:", e);
     process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();
   });
-
-
-

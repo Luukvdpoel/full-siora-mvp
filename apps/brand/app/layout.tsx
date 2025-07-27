@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React from "react";
 import "./globals.css";
 import type { ReactNode } from "react";
 import { Nav, NavLink, PageTransition, ThemeToggle } from "shared-ui";
@@ -15,6 +15,10 @@ const navLinks: NavLink[] = [
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <title>Siora Brand Portal</title>
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
+      </head>
       <body className="min-h-screen bg-gradient-to-b from-Siora-dark via-Siora-mid to-Siora-light text-white font-sans antialiased">
         <main className="max-w-4xl mx-auto px-6 py-10 space-y-6">
           <div className="flex justify-end">
