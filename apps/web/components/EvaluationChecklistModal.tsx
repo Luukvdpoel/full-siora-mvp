@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "shared-ui";
 
 interface Props {
   open: boolean;

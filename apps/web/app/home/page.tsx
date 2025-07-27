@@ -1,11 +1,15 @@
 import React from 'react';
+import { Hero } from 'shared-ui';
 export default function Page() {
   return (
     <main className="min-h-screen text-center text-gray-900 space-y-32">
-      <section className="h-screen flex flex-col items-center justify-center bg-gradient-to-b from-white to-indigo-50 px-4">
-        <h1 className="text-4xl sm:text-6xl font-extrabold max-w-2xl">Match with brands based on your vibe, not your follower count</h1>
-        <a href="#story" className="mt-10 px-6 py-3 bg-black text-white rounded-full">Learn how</a>
-      </section>
+      <Hero
+        title="Match with brands based on your vibe, not your follower count"
+        ctaLabel="Learn how"
+        ctaHref="#story"
+        fullHeight
+        className="bg-gradient-to-b from-white to-indigo-50"
+      />
 
       <section id="story" className="space-y-16 px-4">
         <div className="max-w-3xl mx-auto space-y-8">

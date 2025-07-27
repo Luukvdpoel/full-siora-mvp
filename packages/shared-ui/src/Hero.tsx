@@ -7,11 +7,24 @@ interface HeroProps {
   subtitle?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  className?: string;
+  fullHeight?: boolean;
 }
 
-export function Hero({ title, subtitle, ctaLabel, ctaHref }: HeroProps) {
+export function Hero({
+  title,
+  subtitle,
+  ctaLabel,
+  ctaHref,
+  className,
+  fullHeight,
+}: HeroProps) {
   return (
-    <section className="max-w-7xl mx-auto px-6 sm:px-8 py-24 text-center space-y-6">
+    <section
+      className={`max-w-7xl mx-auto px-6 sm:px-8 py-24 text-center space-y-6 ${
+        fullHeight ? 'min-h-screen flex flex-col items-center justify-center' : ''
+      } ${className || ''}`}
+    >
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
