@@ -49,7 +49,7 @@ export function Hero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           href={ctaHref}
-          className="inline-block px-6 py-3 rounded-xl bg-Siora-accent text-white hover:bg-Siora-hover transition-all duration-300 hover:scale-[1.02]"
+          className="inline-block px-6 py-3 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg"
         >
           {ctaLabel}
         </motion.a>
