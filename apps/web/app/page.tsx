@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <main className="min-h-screen bg-Siora-dark text-white font-sans">
       {/* Hero */}
-      <section className="px-6 py-24 text-center max-w-5xl mx-auto space-y-6">
+            <section className="min-h-screen flex flex-col items-center justify-center px-6 text-center max-w-5xl mx-auto space-y-6">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ export default function Page() {
           transition={{ duration: 0.6 }}
           className="text-5xl font-extrabold tracking-tight"
         >
-          Smarter, fairer brand deals.
+          AI-powered brand‑creator partnerships.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -49,13 +49,13 @@ export default function Page() {
           className="flex flex-col sm:flex-row justify-center gap-4"
         >
           <a
-            href="/signup?role=creator"
+            href="/creator"
             className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
           >
             Join as Creator
           </a>
           <a
-            href="/signup?role=brand"
+            href="/brand"
             className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
           >
             Join as Brand
@@ -193,13 +193,13 @@ export default function Page() {
           className="flex justify-center gap-4"
         >
           <a
-            href="/signup?role=creator"
+            href="/creator"
             className="px-6 py-3 rounded-md bg-Siora-accent hover:bg-Siora-hover transition shadow-Siora-hover"
           >
             Join as Creator
           </a>
           <a
-            href="/signup?role=brand"
+            href="/brand"
             className="px-6 py-3 rounded-md border border-white hover:bg-white hover:text-Siora-dark transition"
           >
             Join as Brand
@@ -207,8 +207,9 @@ export default function Page() {
         </motion.div>
       </section>
       <footer className="bg-Siora-mid text-center text-sm py-6 space-x-4">
-        <a href="/privacy" className="underline hover:text-Siora-accent">Privacy Policy</a>
-        <a href="/terms" className="underline hover:text-Siora-accent">Terms of Service</a>
+        <a href="/privacy" className="underline hover:text-Siora-accent">Privacy</a>
+        <a href="/terms" className="underline hover:text-Siora-accent">Terms</a>
+        <a href="/signin" className="underline hover:text-Siora-accent">Login</a>
         <p className="mt-2 text-zinc-400">© {new Date().getFullYear()} Siora</p>
       </footer>
     </main>
