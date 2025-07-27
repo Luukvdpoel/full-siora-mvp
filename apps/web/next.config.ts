@@ -14,16 +14,13 @@ const nextConfig: NextConfig = {
   // Allow Next.js to transpile internal packages written in TypeScript.
   transpilePackages: ["shared-ui", "shared-utils"],
   async rewrites() {
-    const creatorUrl = process.env.CREATOR_APP_URL;
-    if (creatorUrl) {
-      return [
-        {
-          source: "/creator/:path*",
-          destination: `${creatorUrl}/:path*`,
-        },
-      ];
-    }
-    return [];
+    const creatorUrl = process.env.CREATOR_APP_URL || "http://localhost:3001";
+    return [
+      {
+        source: "/creator/:path*",
+        destination: `${creatorUrl}/:path*`,
+      },
+    ];
   },
 };
 
