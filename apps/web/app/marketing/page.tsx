@@ -11,7 +11,7 @@ export default function MarketingPage() {
         </p>
         <div className="flex gap-4">
           <a href="/signup" className="px-6 py-3 rounded-full bg-Siora-accent text-white font-semibold hover:bg-Siora-hover">Sign Up</a>
-          <a href="/signin" className="px-6 py-3 rounded-full border border-Siora-accent text-Siora-accent hover:bg-Siora-accent hover:text-white">Log In</a>
+          <a href="/auth/login" className="px-6 py-3 rounded-full border border-Siora-accent text-Siora-accent hover:bg-Siora-accent hover:text-white">Log In</a>
         </div>
       </section>
 

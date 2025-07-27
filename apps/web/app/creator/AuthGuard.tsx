@@ -9,10 +9,10 @@ export default function AuthGuard({ children }: PropsWithChildren) {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.replace('/signin');
+    if (status === 'unauthenticated') router.replace('/auth/login');
     if (status === 'authenticated') {
       if (!session || (session.user as { role?: string }).role !== 'creator') {
-        router.replace('/signin');
+        router.replace('/auth/login');
       }
     }
   }, [status, session, router]);
