@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useBrandUser } from "@/lib/brandUser";
 import Toast from "@/components/Toast";
+import InstagramLoginButton from "@/components/instagram/InstagramLoginButton";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -17,9 +18,6 @@ export default function SignInPage() {
     signIn("google", { callbackUrl: "/select-role" });
   };
 
-  const handleGitHub = () => {
-    signIn("github", { callbackUrl: "/select-role" });
-  };
 
   const handleTemp = () => {
     if (submitting) return;
@@ -43,12 +41,7 @@ export default function SignInPage() {
       >
         Sign in with Google
       </button>
-      <button
-        onClick={handleGitHub}
-        className="bg-Siora-accent text-white px-4 py-2 rounded"
-      >
-        Sign in with GitHub
-      </button>
+      <InstagramLoginButton />
       <div className="flex items-center gap-2">
         <input
           value={email}
