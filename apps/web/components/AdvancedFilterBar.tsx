@@ -15,6 +15,8 @@ export type Filters = {
   minEngagement: number;
   maxEngagement: number;
   minCollabs: number;
+  minFollowers: number;
+  maxFollowers: number;
 };
 
 interface Props {
@@ -40,6 +42,8 @@ export default function AdvancedFilterBar({ onFilter }: Props) {
   const [minER, setMinER] = useState(0);
   const [maxER, setMaxER] = useState(10);
   const [minCollabs, setMinCollabs] = useState(0);
+  const [minFollowers, setMinFollowers] = useState(0);
+  const [maxFollowers, setMaxFollowers] = useState(1000000);
 
   useEffect(() => {
     onFilter({
@@ -52,8 +56,10 @@ export default function AdvancedFilterBar({ onFilter }: Props) {
       minEngagement: minER,
       maxEngagement: maxER,
       minCollabs,
+      minFollowers,
+      maxFollowers,
     });
-  }, [platformsSel, tonesSel, vibesSel, nichesSel, formatsSel, values, minER, maxER, minCollabs, onFilter]);
+  }, [platformsSel, tonesSel, vibesSel, nichesSel, formatsSel, values, minER, maxER, minCollabs, minFollowers, maxFollowers, onFilter]);
 
   const toggle = (value: string, list: string[], set: (v: string[]) => void) => {
     set(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
@@ -146,6 +152,25 @@ export default function AdvancedFilterBar({ onFilter }: Props) {
           step={0.1}
           value={maxER}
           onChange={(e) => setMaxER(parseFloat(e.target.value))}
+        />
+      </div>
+
+      <div className="flex items-center gap-2">
+        <label>Followers {minFollowers}+</label>
+        <input
+          type="number"
+          min={0}
+          value={minFollowers}
+          onChange={(e) => setMinFollowers(parseInt(e.target.value) || 0)}
+          className="w-24 p-1 rounded bg-Siora-dark text-white"
+        />
+        <label className="ml-4">Max {maxFollowers}</label>
+        <input
+          type="number"
+          min={0}
+          value={maxFollowers}
+          onChange={(e) => setMaxFollowers(parseInt(e.target.value) || 0)}
+          className="w-24 p-1 rounded bg-Siora-dark text-white"
         />
       </div>
 

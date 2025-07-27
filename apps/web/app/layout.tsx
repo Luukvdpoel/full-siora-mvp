@@ -7,6 +7,7 @@ import { BrandUserProvider } from "../lib/brandUser";
 import TrpcProvider from "./trpcProvider";
 import { PageTransition, Nav, NavLink, ThemeToggle } from "shared-ui";
 import AuthStatus from "../components/AuthStatus";
+import Footer from "../components/Footer";
 import { ThemeProvider } from "./providers";
 import PostHogProvider from "../components/PostHogProvider";
 import { Analytics } from "@vercel/analytics/react";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <main className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
                   <PageTransition>{children}</PageTransition>
                 </main>
+                <Footer />
               </TrpcProvider>
             </BrandUserProvider>
           </SessionProvider>

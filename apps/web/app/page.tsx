@@ -39,16 +39,16 @@ export default function Page() {
       />
       <div className="flex justify-center gap-4 -mt-8">
         <a
-          href="/brand"
+          href="/dashboard"
           className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
         >
-          Start as Brand
+          I'm a Brand
         </a>
         <a
           href="/creator"
           className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
         >
-          Start as Creator
+          I'm a Creator
         </a>
       </div>
 
@@ -184,13 +184,13 @@ export default function Page() {
             href="/creator"
             className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
           >
-            Start as Creator
+            I'm a Creator
           </a>
           <a
-            href="/brand"
+            href="/dashboard"
             className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all hover:scale-[1.02]"
           >
-            Start as Brand
+            I'm a Brand
           </a>
         </motion.div>
       </section>

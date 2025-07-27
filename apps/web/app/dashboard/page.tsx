@@ -1,33 +1,28 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { creators } from '@/app/data/creators';
+import AdvancedFilterBar, { Filters } from '@/components/AdvancedFilterBar';
+import CreatorCard from '@/components/CreatorCard';
+import { useShortlist } from '@/lib/shortlist';
 
-import { useEffect, useState } from "react";
-import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { creators } from "@/app/data/creators";
-import AdvancedFilterBar, { Filters } from "@/components/AdvancedFilterBar";
-import CreatorCard from "@/components/CreatorCard";
-import { useShortlist } from "@/lib/shortlist";
-
-export default function Dashboard() {
+export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const role = (session?.user as { role?: string })?.role;
   const email = session?.user?.email ?? null;
 
   useEffect(() => {
-    if (status === "loading") return;
-    if (!session) {
-      signIn();
-    } else if (!role) {
-      router.replace("/select-role");
-    }
+    if (status === 'loading') return;
+    if (!session) signIn();
+    else if (!role) router.replace('/select-role');
   }, [status, session, role, router]);
 
-  if (!session || status === "loading") return null;
+  if (!session || status === 'loading') return null;
 
-  if (role === "brand") return <BrandDashboard userEmail={email} />;
-  if (role === "creator") return <CreatorDashboard />;
+  if (role === 'brand') return <BrandDashboard userEmail={email} />;
+  if (role === 'creator') return <CreatorDashboard />;
 
   return (
     <main className="min-h-screen flex items-center justify-center text-white">
@@ -39,7 +34,7 @@ export default function Dashboard() {
 function BrandDashboard({ userEmail }: { userEmail: string | null }) {
   const { toggle, inShortlist } = useShortlist(userEmail);
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [filters, setFilters] = useState<Filters>({
     platforms: [],
     tones: [],
@@ -50,23 +45,26 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
     minEngagement: 0,
     maxEngagement: 10,
     minCollabs: 0,
+    minFollowers: 0,
+    maxFollowers: 1000000,
   });
+  const [sort, setSort] = useState('followers-desc');
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 12;
 
   const unique = (arr: (string | undefined)[]) =>
     Array.from(new Set(arr.filter(Boolean))) as string[];
 
-  const platforms = unique(creators.map((c: any) => c.platform));
-  const tones = unique(creators.map((c: any) => c.tone));
-  const niches = unique(creators.map((c: any) => c.niche));
+  const platforms = unique(creators.map((c) => c.platform));
+  const tones = unique(creators.map((c) => c.tone));
+  const niches = unique(creators.map((c) => c.niche));
 
-  const [platformFilter, setPlatformFilter] = useState("");
-  const [toneFilter, setToneFilter] = useState("");
-  const [nicheFilter, setNicheFilter] = useState("");
+  const [platformFilter, setPlatformFilter] = useState('');
+  const [toneFilter, setToneFilter] = useState('');
+  const [nicheFilter, setNicheFilter] = useState('');
 
-  const filtered = creators.filter((c: any) => {
-    const matchesQuery = `${c.name} ${c.handle} ${c.niche} ${c.tags.join(" ")}`
+  const filtered = creators.filter((c) => {
+    const matchesQuery = `${c.name} ${c.handle} ${c.niche} ${c.tags.join(' ')}`
       .toLowerCase()
       .includes(query.toLowerCase());
 
@@ -76,10 +74,11 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
     const vibeMatch = filters.vibes.length === 0 || (c.vibe && filters.vibes.includes(c.vibe));
     const nicheMatch = filters.niches.length === 0 || filters.niches.includes(c.niche);
     const formatMatch =
-      filters.formats.length === 0 || (c.formats?.some((f: any) => filters.formats.includes(f)) ?? false);
+      filters.formats.length === 0 || (c.formats?.some((f) => filters.formats.includes(f)) ?? false);
     const valuesMatch = filters.values.length === 0 || filters.values.some((v) => c.tags.includes(v));
     const erMatch = c.engagementRate >= filters.minEngagement && c.engagementRate <= filters.maxEngagement;
     const collabMatch = (c.completedCollabs ?? 0) >= filters.minCollabs;
+    const followersMatch = c.followers >= filters.minFollowers && c.followers <= filters.maxFollowers;
 
     const extraPlatform = !platformFilter || c.platform === platformFilter;
     const extraTone = !toneFilter || c.tone === toneFilter;
@@ -95,14 +94,30 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
       valuesMatch &&
       erMatch &&
       collabMatch &&
+      followersMatch &&
       extraPlatform &&
       extraTone &&
       extraNiche
     );
   });
 
-  const totalPages = Math.ceil(filtered.length / perPage);
-  const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const sorted = filtered.sort((a, b) => {
+    switch (sort) {
+      case 'followers-asc':
+        return a.followers - b.followers;
+      case 'followers-desc':
+        return b.followers - a.followers;
+      case 'engagement-asc':
+        return (a.engagementRate || 0) - (b.engagementRate || 0);
+      case 'engagement-desc':
+        return (b.engagementRate || 0) - (a.engagementRate || 0);
+      default:
+        return 0;
+    }
+  });
+
+  const totalPages = Math.ceil(sorted.length / perPage);
+  const paginated = sorted.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   return (
     <main className="min-h-screen bg-gradient-radial from-Siora-dark via-Siora-mid to-Siora-light text-white px-6 md:px-10 py-12">
@@ -123,7 +138,7 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
             className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           >
             <option value="">All Platforms</option>
-            {platforms.map((p: string) => (
+            {platforms.map((p) => (
               <option key={p} value={p}>
                 {p}
               </option>
@@ -135,7 +150,7 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
             className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           >
             <option value="">All Tones</option>
-            {tones.map((t: string) => (
+            {tones.map((t) => (
               <option key={t} value={t}>
                 {t}
               </option>
@@ -147,7 +162,7 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
             className="w-full p-2 rounded-lg bg-Siora-light text-white border border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent"
           >
             <option value="">All Niches</option>
-            {niches.map((n: string) => (
+            {niches.map((n) => (
               <option key={n} value={n}>
                 {n}
               </option>
@@ -156,6 +171,20 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
         </div>
 
         <AdvancedFilterBar onFilter={setFilters} />
+
+        <div className="flex items-center gap-2">
+          <span className="text-sm">Sort by:</span>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="p-2 rounded bg-Siora-light text-white border border-Siora-border"
+          >
+            <option value="followers-desc">Followers ↓</option>
+            <option value="followers-asc">Followers ↑</option>
+            <option value="engagement-desc">Engagement ↓</option>
+            <option value="engagement-asc">Engagement ↑</option>
+          </select>
+        </div>
 
         {paginated.length === 0 && (
           <p className="text-center text-zinc-400 mt-10">No creators match your filters.</p>
@@ -178,12 +207,12 @@ function BrandDashboard({ userEmail }: { userEmail: string | null }) {
               key={page}
               onClick={() => {
                 setCurrentPage(page);
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className={`px-3 py-1 rounded-md border border-Siora-border text-sm transition ${
                 page === currentPage
-                  ? "bg-Siora-accent text-white font-semibold"
-                  : "text-zinc-300 hover:bg-Siora-accent hover:text-white"
+                  ? 'bg-Siora-accent text-white font-semibold'
+                  : 'text-zinc-300 hover:bg-Siora-accent hover:text-white'
               }`}
             >
               {page}
