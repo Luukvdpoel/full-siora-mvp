@@ -9,7 +9,7 @@ export default function SelectRole() {
 
   if (status === "loading") return null;
   if (!session) {
-    router.replace("/signin");
+    router.replace("/auth/login");
     return null;
   }
 

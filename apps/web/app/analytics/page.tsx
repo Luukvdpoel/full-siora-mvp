@@ -6,7 +6,7 @@ import { matchScore } from 'shared-utils';
 export default async function AnalyticsPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
-    redirect('/signin');
+    redirect('/auth/login');
   }
 
   const campaigns = await prisma.campaign.findMany({

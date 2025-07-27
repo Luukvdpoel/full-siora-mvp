@@ -12,7 +12,7 @@ export default function CreatorNotesPage({ params }: { params: { id: string } })
   const { notes, updateNote, status: collab, updateStatus } = useCreatorMeta(user?.email ?? null);
 
   useEffect(() => {
-    if (!user) router.replace("/signin");
+    if (!user) router.replace("/auth/login");
   }, [user, router]);
 
   if (!user) return null;
