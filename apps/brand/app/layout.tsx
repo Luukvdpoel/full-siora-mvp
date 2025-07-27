@@ -9,6 +9,7 @@ const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/create-brief", label: "Create Brief" },
   { href: "/inbox", label: "Inbox" },
+  { href: "/creator", label: "Creator View" },
 ];
 
 export default function RootLayout({ children }: { children: ReactNode }) {
