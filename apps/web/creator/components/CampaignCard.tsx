@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import type { Campaign } from '@/app/data/campaigns';
-import { Card } from '@/components/ui/card';
+import { Card } from 'shared-ui';
 import { discoveryBrands } from '@creator/data/discoveryBrands';
 import { getBrandTrustScore } from 'shared-utils';
 

@@ -1,12 +1,12 @@
-import * as React from 'react'
-import * as DialogPrimitive from '@radix-ui/react-dialog'
-import { cn } from '@/lib/utils'
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { cn } from './utils';
 
-export const Dialog = DialogPrimitive.Root
-export const DialogTrigger = DialogPrimitive.Trigger
+export const Dialog = DialogPrimitive.Root;
+export const DialogTrigger = DialogPrimitive.Trigger;
 
 export function DialogPortal({ children }: { children: React.ReactNode }) {
-  return <DialogPrimitive.Portal>{children}</DialogPrimitive.Portal>
+  return <DialogPrimitive.Portal>{children}</DialogPrimitive.Portal>;
 }
 
 export const DialogOverlay = React.forwardRef<
@@ -18,8 +18,8 @@ export const DialogOverlay = React.forwardRef<
     className={cn('fixed inset-0 bg-black/50 backdrop-blur-sm', className)}
     {...props}
   />
-))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
+));
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 export const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -38,13 +38,13 @@ export const DialogContent = React.forwardRef<
       {children}
     </DialogPrimitive.Content>
   </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
+));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 export const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />
-)
+);
 
-export const DialogTitle = DialogPrimitive.Title
-export const DialogDescription = DialogPrimitive.Description
-export const DialogClose = DialogPrimitive.Close
+export const DialogTitle = DialogPrimitive.Title;
+export const DialogDescription = DialogPrimitive.Description;
+export const DialogClose = DialogPrimitive.Close;

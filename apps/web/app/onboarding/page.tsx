@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "shared-ui";
 import { useRouter } from "next/navigation";
 import type { BrandOnboardResult } from "@/types/onboard";
 import { campaignTemplates, type CampaignTemplate } from "@/app/data/campaignTemplates";
