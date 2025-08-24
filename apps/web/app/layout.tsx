@@ -1,78 +1,72 @@
-"use client";
 import "./globals.css";
-import { Inter } from 'next/font/google';
-import type { ReactNode } from "react";
-import { SessionProvider } from "next-auth/react";
-import { BrandUserProvider } from "../lib/brandUser";
-import TrpcProvider from "./trpcProvider";
-import { PageTransition, Nav, NavLink, ThemeToggle } from "shared-ui";
-import AuthStatus from "../components/AuthStatus";
-import { ThemeProvider } from "./providers";
-import PostHogProvider from "../components/PostHogProvider";
-import { Analytics } from "@vercel/analytics/react";
-import * as React from "react";
-const inter = Inter({ subsets: ['latin'] });
-import {
-  LayoutDashboard,
-  Heart,
-  Users2,
-  BarChart,
-  Mail,
-  CreditCard,
-  ShieldCheck,
-  ScrollText,
-  User,
-  Home as HomeIcon,
-} from "lucide-react";
+import Link from "next/link";
+import PostHogProvider from "@/components/PostHogProvider";
 
-const navLinks: NavLink[] = [
-  { href: "/", label: "Home", icon: HomeIcon },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/shortlist", label: "Shortlist", icon: Heart },
-  { href: "/matches", label: "Matches", icon: Users2 },
-  { href: "/creator", label: "Creator View", icon: User },
-  { href: "/brand", label: "Brand Portal", icon: LayoutDashboard },
-  { href: "/analytics", label: "Analytics", icon: BarChart },
-  { href: "/inbox", label: "Inbox", icon: Mail },
-  { href: "/billing", label: "Billing", icon: CreditCard },
-  { href: "/privacy", label: "Privacy", icon: ShieldCheck },
-  { href: "/terms", label: "Terms", icon: ScrollText },
-  { href: "https://tally.so/r/xyz123", label: "Feedback" },
-];
+export const metadata = {
+  title: "Siora",
+  description: "Creator x Brand matching by tone & values",
+};
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.className} scroll-smooth`}>
-      <head>
-        <title>Siora Dashboard</title>
-        <meta name="description" content="Siora brand dashboard" />
-        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
-      </head>
-      <body className="min-h-screen bg-Siora-dark text-white antialiased">
-        <ThemeProvider>
-          <PostHogProvider />
-          <Analytics />
-          <SessionProvider>
-            <BrandUserProvider>
-              <TrpcProvider>
-                <header className="sticky top-0 z-50 bg-black/70 backdrop-blur">
-                  <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex justify-between items-center">
-                    <a href="/" className="font-bold text-white text-lg">Siora</a>
-                    <div className="flex items-center gap-4">
-                      <Nav links={navLinks} />
-                      <AuthStatus />
-                      <ThemeToggle />
-                    </div>
-                  </div>
-                </header>
-                <main className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
-                  <PageTransition>{children}</PageTransition>
-                </main>
-              </TrpcProvider>
-            </BrandUserProvider>
-          </SessionProvider>
-        </ThemeProvider>
+    <html lang="en" className="bg-gray-950 text-white">
+      <body className="min-h-screen antialiased">
+        <PostHogProvider />
+        <header className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur">
+          <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+            <Link href="/" className="font-semibold tracking-tight">
+              Siora
+            </Link>
+            <div className="hidden gap-6 md:flex">
+              <NavLink href="/">Home</NavLink>
+              <NavLink href="/dashboard">Dashboard</NavLink>
+              <NavLink href="/pricing">Pricing</NavLink>
+            </div>
+            <MobileMenu />
+          </nav>
+        </header>
+        <main className="mx-auto max-w-7xl px-4">{children}</main>
+        <footer className="mx-auto max-w-7xl px-4 py-10 text-sm text-white/50">
+          © {new Date().getFullYear()} Siora — All rights reserved.
+        </footer>
       </body>
     </html>
   );
 }
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="rounded-lg px-2 py-1 text-white/80 hover:text-white hover:bg-white/5 data-[active=true]:text-white data-[active=true]:bg-white/10"
+      data-active={
+        typeof window !== "undefined" && window.location?.pathname === href
+      }
+      suppressHydrationWarning
+    >
+      {children}
+    </Link>
+  );
+}
+
+function MobileMenu() {
+  return (
+    <details className="md:hidden">
+      <summary className="cursor-pointer rounded-lg px-2 py-1 text-white/80 hover:text-white hover:bg-white/5">
+        Menu
+      </summary>
+      <div className="mt-2 flex flex-col rounded-xl border border-white/10 bg-gray-900 p-2">
+        <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/">
+          Home
+        </Link>
+        <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/dashboard">
+          Dashboard
+        </Link>
+        <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/pricing">
+          Pricing
+        </Link>
+      </div>
+    </details>
+  );
+}
+
