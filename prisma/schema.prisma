@@ -11,6 +11,7 @@ datasource db {
 /// Users come from your auth provider (Clerk/NextAuth). We store a shadow user record for app data.
 model User {
   id        String   @id @default(cuid())
+  authId    String?  @unique
   email     String   @unique
   name      String?
   role      Role     @default(BRAND)
