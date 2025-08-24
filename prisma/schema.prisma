@@ -1,244 +1,133 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL_UNPOOLED")
+  url      = env("DATABASE_URL")
 }
 
+/// Users come from your auth provider (Clerk/NextAuth). We store a shadow user record for app data.
 model User {
-  id              String           @id @default(cuid())
-  name            String?
-  email           String?          @unique
-  emailVerified   DateTime?
-  image           String?
-  role            String?
-  plan            String           @default("free")
-  billingStatus   String           @default("none")
-  accounts        Account[]
-  sessions        Session[]
-  personas        Persona[]
-  creatorProfiles CreatorProfile[]
-
-  instagramAccounts InstagramAccount[]
-
-  // 👇 Added relation fields
-  createdApplications Application[] @relation("UserApplications")
-  brandCampaigns      Campaign[]    @relation("UserCampaigns")
-  createdMatches      Match[]       @relation("CreatorRelation")
-  brandMatches        Match[]       @relation("BrandRelation")
-}
-
-model Application {
-  id         String   @id @default(cuid())
-  creatorId  String
-  campaignId String
-  message    String?
-  status     String   @default("pending")
-  createdAt  DateTime @default(now())
-
-  creator  User     @relation("UserApplications", fields: [creatorId], references: [id])
-  campaign Campaign @relation("CampaignApplications", fields: [campaignId], references: [id])
-  matches  Match[]
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-model Persona {
   id        String   @id @default(cuid())
-  userId    String
-  title     String
-  data      Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  email     String   @unique
+  name      String?
+  role      Role     @default(BRAND)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
+  brands    Brand[]
+  creators  Creator[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
-model CreatorProfile {
-  id           String   @id @default(cuid())
-  userId       String
-  name         String
-  handle       String
-  followers    Int
-  niche        String
-  tone         String
-  values       Json
-  contentType  String
-  brandPersona String
-  partnershipPreference String?
-  undervaluedExperience String?
-  supportWish          String?
-  dealPreference       String?
-  minExpectedFee       Int?
-  revenueShareTolerance Int?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+enum Role {
+  BRAND
+  CREATOR
+  ADMIN
+}
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Brand {
+  id         String    @id @default(cuid())
+  ownerId    String
+  owner      User      @relation(fields: [ownerId], references: [id])
+  name       String
+  website    String?
+  plan       Plan      @default(FREE)
 
-  @@index([userId])
+  campaigns  Campaign[]
+  shortlists Shortlist[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([ownerId])
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+model Creator {
+  id          String   @id @default(cuid())
+  name        String
+  handle      String   @unique
+  platform    Platform @default(INSTAGRAM)
+  niche       String?
+  tone        String?
+  values      String[]
+  followers   Int      @default(0)
+  avgViews    Int      @default(0)
+  engagement  Float?
+  location    String?
+  bio         String?
+  tags        String[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  matches     Match[]
+  shortlists  ShortlistItem[]
+  @@index([platform])
+  @@index([followers])
+  @@fulltext([name, handle, bio])
+}
+
+enum Platform {
+  INSTAGRAM
+  TIKTOK
+  YOUTUBE
 }
 
 model Campaign {
-  id           String   @id @default(cuid())
-  brandId      String
-  title        String
-  description  String
-  deliverables String
-  deadline     DateTime
-  platform     String
-  niche        String
-  budgetMin    Int
-  budgetMax    Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id         String  @id @default(cuid())
+  brandId    String
+  brand      Brand   @relation(fields: [brandId], references: [id])
+  title      String
+  brief      String?
+  budgetEUR  Int?
+  niche      String?
+  targetTone String?
 
-  brand        User          @relation("UserCampaigns", fields: [brandId], references: [id], onDelete: Cascade)
-  applications Application[] @relation("CampaignApplications")
-  matches      Match[]       @relation("CampaignMatches")
-}
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-model CampaignDraft {
-  id        String   @id @default(cuid())
-  brandId   String
-  content   Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model CampaignBrief {
-  id        String   @id @default(cuid())
-  brandId   String
-  brief     Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model CampaignApplication {
-  id          String   @id @default(cuid())
-  campaignId  String
-  creatorId   String
-  status      String
-  submittedAt DateTime @default(now())
-}
-
-model Conversation {
-  id        String   @id @default(cuid())
-  members   Json
-  createdAt DateTime @default(now())
-}
-
-model Message {
-  id             String   @id @default(cuid())
-  conversationId String
-  senderId       String
-  content        String
-  createdAt      DateTime @default(now())
+  matches    Match[]
+  @@index([brandId])
 }
 
 model Match {
-  id            String   @id @default(cuid())
-  campaignId    String
-  creatorId     String
-  applicationId String
-  timestamp     DateTime @default(now())
-  brandId       String
-  status        String      @default("new")
-  isShortlisted Boolean     @default(false)
+  id          String    @id @default(cuid())
+  campaignId  String
+  creatorId   String
+  campaign    Campaign  @relation(fields: [campaignId], references: [id])
+  creator     Creator   @relation(fields: [creatorId], references: [id])
+  matchScore  Int       @default(0)
+  rationale   String?
+  createdAt   DateTime  @default(now())
 
-  campaign    Campaign    @relation("CampaignMatches", fields: [campaignId], references: [id])
-  creator     User        @relation("CreatorRelation", fields: [creatorId], references: [id])
-  brand       User        @relation("BrandRelation", fields: [brandId], references: [id])
-  application Application @relation(fields: [applicationId], references: [id])
-}
-
-model Feedback {
-  id        String   @id @default(cuid())
-  userId    String
-  personaId String
-  rating    Int
-  comment   String?
-  createdAt DateTime @default(now())
-}
-
-model PersonaFeedback {
-  id        String   @id @default(cuid())
-  personaId String
-  feedback  Json
-  createdAt DateTime @default(now())
+  @@unique([campaignId, creatorId])
+  @@index([matchScore])
 }
 
 model Shortlist {
-  id        String   @id @default(cuid())
+  id        String         @id @default(cuid())
   brandId   String
-  creatorId String
-  createdAt DateTime @default(now())
+  brand     Brand          @relation(fields: [brandId], references: [id])
+  name      String         @default("Shortlist")
+  items     ShortlistItem[]
+  createdAt DateTime       @default(now())
 }
 
-model CreatorOnboardingDraft {
-  id        String   @id @default(cuid())
-  userId    String
-  data      Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+model ShortlistItem {
+  id          String   @id @default(cuid())
+  shortlistId String
+  creatorId   String
+  shortlist   Shortlist @relation(fields: [shortlistId], references: [id])
+  creator     Creator   @relation(fields: [creatorId], references: [id])
+  note        String?
+  createdAt   DateTime  @default(now())
 
-model InstagramAccount {
-  id           String   @id @default(cuid())
-  ig_id        String
-  username     String
-  access_token String
-  userId       String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
-model Invite {
-  id        String   @id @default(cuid())
-  email     String
-  token     String   @unique
-  role      String
-  used      Boolean  @default(false)
-  createdAt DateTime @default(now())
-
-  @@index([email])
+  @@unique([shortlistId, creatorId])
 }
 
