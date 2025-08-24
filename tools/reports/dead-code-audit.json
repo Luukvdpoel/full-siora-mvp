@@ -1,0 +1,194 @@
+[
+  {
+    "path": "apps/web/app/(auth)/instagram/callback/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/(auth)/instagram/login/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/admin/invite/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/analytics/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/billing/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/brand/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/brands/[id]/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/brands/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/campaign/new/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/campaigns/[id]/applications/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/campaigns/[id]/messages/[creatorId]/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/campaigns/[id]/messages/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/checklist/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/contract/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/creator/[id]/notes/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/creator/[id]/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/creator/analyze/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/creator/applications/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/creator/brand-discovery/[id]/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/creator/brand-discovery/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/components/ChatSidebar.tsx",
+    "type": "component",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "apps/web/components/CampaignBriefForm.tsx",
+    "type": "component",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "apps/web/components/SavedCreatorCard.tsx",
+    "type": "component",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "apps/web/components/CreatorPreview.tsx",
+    "type": "component",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "apps/web/components/CollabRequestModal.tsx",
+    "type": "component",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "apps/web/lib/trpcClient.ts",
+    "type": "util",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "apps/web/utils/instagram.ts",
+    "type": "util",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "packages/shared-ui/src/components/ThemeToggle 2.tsx",
+    "type": "package-file",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "packages/shared-ui/src/components/NavLink 2.tsx",
+    "type": "package-file",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "packages/shared-ui/src/components/Nav 2.tsx",
+    "type": "package-file",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "packages/shared-ui/src/components/PageTransition 2.tsx",
+    "type": "package-file",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "packages/shared-utils/src/generateSmartPitch.ts",
+    "type": "gpt-feature",
+    "reason": "Uses OpenAI but not referenced",
+    "suggested_action": "SURFACE"
+  }
+]
