@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,13 @@ const sources = [
 
 const WaitlistForm = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const referredBy = searchParams.get("ref") || undefined;
+  const utmSource = searchParams.get("utm_source") || undefined;
+  const utmMedium = searchParams.get("utm_medium") || undefined;
+  const utmCampaign = searchParams.get("utm_campaign") || undefined;
+
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -51,21 +59,29 @@ const WaitlistForm = () => {
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
     try {
-      try {
-        const local = JSON.parse(localStorage.getItem("siora_waitlist") || "[]");
-        local.push({ ...values, at: new Date().toISOString() });
-        localStorage.setItem("siora_waitlist", JSON.stringify(local));
-      } catch {}
-      toast.success("You're on the list — we'll be in touch soon!");
-      form.reset({ role: values.role, consent: true });
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: values.email,
+          role: values.role,
+          name: values.name,
+          company: values.company,
+          igHandle: values.website,
+          notes: values.message,
+          source: values.source,
+          referredBy,
+          utmSource,
+          utmMedium,
+          utmCampaign,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.referralCode) throw new Error("Signup failed");
+      router.push(`/waitlist/thank-you?code=${json.referralCode}`);
     } catch (err) {
       console.error("Waitlist submission failed:", err);
-      try {
-        const local = JSON.parse(localStorage.getItem("siora_waitlist") || "[]");
-        local.push({ ...values, at: new Date().toISOString() });
-        localStorage.setItem("siora_waitlist", JSON.stringify(local));
-      } catch {}
-      toast.success("You're on the list!");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -86,6 +102,7 @@ const WaitlistForm = () => {
           </ul>
         </div>
         <form onSubmit={form.handleSubmit(onSubmit)} className="rounded-xl border border-Siora-border bg-gray-900/50 p-6 shadow-sm">
+          <input type="hidden" name="referredBy" value={referredBy || ""} />
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
               <Label htmlFor="role">I am a</Label>
