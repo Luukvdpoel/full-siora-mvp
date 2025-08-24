@@ -1,7 +1,7 @@
 # Dead Code & Hidden Features Audit
 
 ## Orphan Routes
-Routes present under `apps/web/app` but not referenced via `Link` or router navigation. Total detected: 89. Sample:
+Routes present under `apps/web/app` but not referenced via `Link` or router navigation. Total detected: 91. Sample:
 
 - /(auth)/instagram/callback
 - /(auth)/instagram/login
@@ -18,6 +18,8 @@ Routes present under `apps/web/app` but not referenced via `Link` or router navi
 - /creator/brand-discovery/[id]
 - /creator/brand-discovery
 - /contract
+- /dashboard/legacy
+- /dashboard/recommended
 
 ## Unused Components
 Components with no imports in the codebase:
@@ -27,6 +29,7 @@ Components with no imports in the codebase:
 - apps/web/components/SavedCreatorCard.tsx
 - apps/web/components/CreatorPreview.tsx
 - apps/web/components/CollabRequestModal.tsx
+- apps/web/components/FilterBarLegacy.tsx
 
 ## Unused Hooks/Utils
 Helpers and utilities that are never imported:
@@ -42,6 +45,7 @@ Helpers and utilities that are never imported:
 Code invoking GPT/OpenAI not surfaced in UI:
 
 - packages/shared-utils/src/generateSmartPitch.ts
+- lib/gpt/persona.ts
 
 ## Buttons with no handlers
 Buttons rendered without click handlers or meaningful action:
@@ -53,9 +57,11 @@ Buttons rendered without click handlers or meaningful action:
 - apps/web/app/creator/campaigns/[id]/apply/page.tsx line 94
 - apps/web/app/creator/contracts/new/page.tsx line 151
 - apps/web/app/creator/contracts/review/page.tsx line 43
+- apps/web/app/pricing/page.tsx line 25
 
 ## Localhost references
-No hardcoded `localhost` endpoints were detected.
+- apps/web/.env.local line 4
+- apps/web/.env.local line 23
 
 ## Suggestions
 - Review orphan routes to determine if they should be surfaced or removed.
