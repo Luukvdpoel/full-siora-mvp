@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 type CreatorRow = {
   id: string;
@@ -35,6 +36,13 @@ export default function MatchesClient({
   const [matches, setMatches] = React.useState<CreatorRow[]>(initialMatches);
   const [loading, setLoading] = React.useState<null | string>(null);
   const [error, setError] = React.useState<string>("");
+  const [selected, setSelected] = React.useState<string[]>([]);
+
+  function toggleSelect(id: string) {
+    setSelected((sel) =>
+      sel.includes(id) ? sel.filter((x) => x !== id) : [...sel, id].slice(-3)
+    );
+  }
 
   async function analyzeCampaign() {
     setLoading("analyze");
@@ -179,6 +187,13 @@ export default function MatchesClient({
         </a>
       </div>
 
+      {selected.length >= 2 && (
+        <CompareDialog
+          creators={matches.filter((m) => selected.includes(m.id))}
+          onClose={() => setSelected([])}
+        />
+      )}
+
       {error && (
         <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
           {error}
@@ -223,7 +238,16 @@ export default function MatchesClient({
               ))}
             </div>
 
-            <div className="mt-4 flex items-center justify-end">
+            <div className="mt-4 flex items-center justify-between">
+              <label className="flex items-center gap-2 text-xs text-white/70">
+                <input
+                  type="checkbox"
+                  checked={selected.includes(m.id)}
+                  onChange={() => toggleSelect(m.id)}
+                  className="h-3 w-3 accent-indigo-500"
+                />
+                Compare
+              </label>
               <button
                 onClick={() => shortlist(m.id)}
                 disabled={loading === `shortlist:${m.id}`}
@@ -260,4 +284,91 @@ function fmtK(n: number) {
   if (n < 1000) return String(n);
   if (n < 1_000_000) return (n / 1000).toFixed(n % 1000 ? 1 : 0) + "k";
   return (n / 1_000_000).toFixed(1) + "M";
+}
+
+function CompareDialog({
+  creators,
+  onClose,
+}: {
+  creators: CreatorRow[];
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="max-w-5xl border-white/10 bg-gray-950 text-white">
+        <DialogHeader>
+          <DialogTitle className="text-lg">Compare creators</DialogTitle>
+        </DialogHeader>
+
+        <div className="overflow-x-auto">
+          <table className="min-w-full border-collapse text-sm">
+            <thead>
+              <tr className="text-white/60">
+                <th className="p-2 text-left">Metric</th>
+                {creators.map((c) => (
+                  <th key={c.id} className="p-2 text-left font-medium">
+                    {c.name} <span className="text-xs text-white/50">({c.handle})</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-2">Match Score</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2 font-semibold">
+                    {c.score}%
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Followers</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2">{fmtK(c.followers)}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Avg Views</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2">{fmtK(c.avgViews)}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Engagement</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2">
+                    {c.engagement ? `${c.engagement.toFixed(1)}%` : "—"}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Tone</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2">{c.tone || "—"}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Niche</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2">{c.niche || "—"}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Values</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2">{(c.values || []).join(", ")}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-2">Rationale</td>
+                {creators.map((c) => (
+                  <td key={c.id} className="p-2 text-white/70">{c.rationale}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 }
