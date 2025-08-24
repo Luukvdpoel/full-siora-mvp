@@ -17,6 +17,10 @@ type CreatorFromServer = {
 };
 
 export default function DashboardClient({ initialCreators }: { initialCreators: CreatorFromServer[] }) {
+  React.useEffect(() => {
+    fetch("/api/provision", { method: "POST" }).catch(() => {});
+  }, []);
+
   const [filters, setFilters] = React.useState<FilterState>({
     q: "",
     tone: "Any",

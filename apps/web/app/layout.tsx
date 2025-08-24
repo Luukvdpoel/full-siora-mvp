@@ -1,14 +1,8 @@
 import "./globals.css";
 import Link from "next/link";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import PostHogProvider from "@/components/PostHogProvider";
+import { AuthControls } from "@/components/AuthControls";
 
 export const metadata = {
   title: "Siora",
@@ -32,13 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <NavLink href="/pricing">Pricing</NavLink>
               </div>
               <div className="flex items-center gap-2">
-                <SignedOut>
-                  <SignInButton />
-                  <SignUpButton />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
+                <AuthControls />
                 <MobileMenu />
               </div>
             </nav>
