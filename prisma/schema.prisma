@@ -68,6 +68,10 @@ model Creator {
   bio         String?
   tags        String[]
 
+  analysisAt  DateTime?
+  keywords    String[]
+  embedding   Unsupported("vector")?
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -93,6 +97,11 @@ model Campaign {
   budgetEUR  Int?
   niche      String?
   targetTone String?
+
+  desiredValues  String[]
+  desiredKeywords String[]
+  analyzedAt   DateTime?
+  embedding    Unsupported("vector")?
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
