@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import * as React from "react";
 
 type CreatorRow = {
@@ -139,8 +140,16 @@ export default function MatchesClient({
           )}
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80">
-          Credits: <b className="ml-1">{campaign.credits.toLocaleString()}</b>
+        <div className="flex items-center gap-3">
+          <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80">
+            Credits: <b className="ml-1">{campaign.credits.toLocaleString()}</b>
+          </div>
+          <Link
+            className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm hover:bg-white/10"
+            href={`/campaigns/${campaign.id}/edit`}
+          >
+            Edit campaign
+          </Link>
         </div>
       </div>
 
