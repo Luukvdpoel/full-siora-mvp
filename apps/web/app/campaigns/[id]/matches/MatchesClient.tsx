@@ -36,6 +36,9 @@ export default function MatchesClient({
   const [matches, setMatches] = React.useState<CreatorRow[]>(initialMatches);
   const [loading, setLoading] = React.useState<null | string>(null);
   const [error, setError] = React.useState<string>("");
+  const [autoMsg, setAutoMsg] = React.useState<string>("");
+
+  const estimatedCost = (!campaign.analyzedAt ? 1 : 0) + 20;
 
   async function analyzeCampaign() {
     setLoading("analyze");
@@ -68,6 +71,27 @@ export default function MatchesClient({
       }
       return setError(j?.error || "Failed to generate matches");
     }
+    setMatches(j.data);
+  }
+
+  async function autoAnalyzeAndGenerate() {
+    setLoading("auto");
+    setError("");
+    setAutoMsg("");
+    const r = await fetch("/api/match/auto", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ campaignId: campaign.id, topK: 20 }),
+    });
+    const j = await r.json().catch(() => ({}));
+    setLoading(null);
+
+    if (!r.ok) {
+      if (r.status === 402) return setError(j?.error || "Not enough credits.");
+      return setError(j?.error || "Failed to run auto match");
+    }
+
+    if (j.analyzed) setAutoMsg("Analyzed campaign (+1 credit) and generated matches.");
     setMatches(j.data);
   }
 
@@ -173,6 +197,18 @@ export default function MatchesClient({
         )}
 
         <button
+          onClick={autoAnalyzeAndGenerate}
+          disabled={loading === "auto"}
+          className="rounded-xl bg-white/90 px-4 py-2 text-gray-900 hover:bg-white disabled:opacity-60"
+        >
+          {loading === "auto" ? "Working…" : "Analyze + Generate (auto)"}
+        </button>
+
+        <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/70">
+          ~{estimatedCost} credits
+        </span>
+
+        <button
           onClick={exportCSV}
           disabled={!matches.length}
           className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 disabled:opacity-60"
@@ -187,6 +223,12 @@ export default function MatchesClient({
           Billing & Credits
         </a>
       </div>
+
+      {autoMsg && (
+        <div className="mt-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-2 text-sm text-emerald-200">
+          {autoMsg}
+        </div>
+      )}
 
       {error && (
         <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
