@@ -36,6 +36,10 @@ model Brand {
   website    String?
   plan       Plan      @default(FREE)
 
+  stripeCustomerId     String?  @unique
+  stripeSubscriptionId String?
+  currentPeriodEnd     DateTime?
+
   campaigns  Campaign[]
   shortlists Shortlist[]
   createdAt  DateTime  @default(now())
