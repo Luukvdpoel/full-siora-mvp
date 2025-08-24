@@ -1,18 +1,26 @@
 
 "use client";
 
+import { useEffect } from "react";
 import Hero from "@/components/marketing/Hero";
 import Features from "@/components/marketing/Features";
 import WaitlistForm from "@/components/marketing/WaitlistForm";
+import HowItWorks from "@/components/marketing/HowItWorks";
 import { Toaster } from "react-hot-toast";
+import { track } from "@/lib/analytics/track";
 
 export default function Home() {
+  useEffect(() => {
+    track("landing_view");
+  }, []);
+
   return (
     <>
       <Toaster position="top-right" />
       <Hero />
-      <Features />
       <WaitlistForm />
+      <Features />
+      <HowItWorks />
     </>
   );
 }
