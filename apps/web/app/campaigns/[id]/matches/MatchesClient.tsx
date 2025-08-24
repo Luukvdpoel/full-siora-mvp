@@ -1,5 +1,12 @@
 "use client";
 import * as React from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type CreatorRow = {
   id: string;
@@ -14,6 +21,13 @@ type CreatorRow = {
   location: string | null;
   score: number;
   rationale: string;
+  breakdown?: {
+    toneMatch01: number;
+    nicheMatch01: number;
+    valuesOverlap01: number;
+    engagement01: number;
+    semanticHint?: string;
+  };
 };
 
 export default function MatchesClient({
@@ -223,7 +237,8 @@ export default function MatchesClient({
               ))}
             </div>
 
-            <div className="mt-4 flex items-center justify-end">
+            <div className="mt-4 flex items-center justify-between">
+              <DetailsDialog m={m} campaign={{ niche: campaign.niche, targetTone: campaign.targetTone }} />
               <button
                 onClick={() => shortlist(m.id)}
                 disabled={loading === `shortlist:${m.id}`}
@@ -242,6 +257,97 @@ export default function MatchesClient({
         )}
       </div>
     </section>
+  );
+}
+
+function Bar({ label, v }: { label: string; v: number }) {
+  const pct = Math.round(Math.max(0, Math.min(1, v)) * 100);
+  return (
+    <div className="mb-2">
+      <div className="flex items-center justify-between text-xs text-white/70">
+        <span>{label}</span>
+        <span>{pct}%</span>
+      </div>
+      <div className="h-1.5 w-full rounded bg-white/10">
+        <div className="h-1.5 rounded bg-white/80" style={{ width: `${pct}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function DetailsDialog({ m, campaign }: { m: CreatorRow; campaign: { niche: string; targetTone: string } }) {
+  const toneMatch =
+    m.breakdown?.toneMatch01 ?? (m.tone && campaign.targetTone ? (m.tone === campaign.targetTone ? 1 : 0) : 0);
+  const nicheMatch =
+    m.breakdown?.nicheMatch01 ?? (m.niche && campaign.niche ? (m.niche === campaign.niche ? 1 : 0) : 0);
+  const valuesOverlap = m.breakdown?.valuesOverlap01 ?? 0;
+  const engagement01 =
+    m.breakdown?.engagement01 ?? (m.engagement ? Math.min(1, Math.max(0, m.engagement / 10)) : 0);
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs hover:bg-white/10">Details</button>
+      </DialogTrigger>
+      <DialogContent className="max-w-lg border-white/10 bg-gray-950 text-white">
+        <DialogHeader>
+          <DialogTitle className="text-base">
+            {m.name} <span className="text-white/50">({m.handle})</span>
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="mt-2 space-y-4">
+          <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm">
+            <div className="flex items-center justify-between">
+              <div className="font-medium">Overall match</div>
+              <div
+                className={
+                  "rounded-md px-2 py-0.5 text-xs font-semibold " +
+                  (m.score >= 80
+                    ? "bg-emerald-500/15 text-emerald-300"
+                    : m.score >= 60
+                    ? "bg-indigo-500/15 text-indigo-300"
+                    : "bg-white/10 text-white/70")
+                }
+              >
+                {m.score}%
+              </div>
+            </div>
+            <p className="mt-2 text-white/70">{m.rationale}</p>
+          </div>
+
+          <div>
+            <div className="text-sm font-medium">Fit breakdown</div>
+            <div className="mt-2">
+              <Bar label={`Tone (${m.tone ?? "—"} vs ${campaign.targetTone || "—"})`} v={toneMatch} />
+              <Bar label={`Niche (${m.niche ?? "—"} vs ${campaign.niche || "—"})`} v={nicheMatch} />
+              <Bar label={`Values overlap`} v={valuesOverlap} />
+              <Bar label={`Engagement quality`} v={engagement01} />
+            </div>
+            <p className="mt-1 text-xs text-white/50">
+              {m.breakdown?.semanticHint ?? "Includes semantic similarity from your campaign brief."}
+            </p>
+          </div>
+
+          <div className="text-sm">
+            <div className="font-medium">Creator attributes</div>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {m.tone && <Chip>{m.tone}</Chip>}
+              {m.niche && <Chip>{m.niche}</Chip>}
+              {(m.values || []).map((v) => (
+                <Chip key={v}>{v}</Chip>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 text-sm">
+            <Stat label="Followers" value={fmtK(m.followers)} />
+            <Stat label="Avg Views" value={fmtK(m.avgViews)} />
+            <Stat label="ER" value={m.engagement ? `${m.engagement.toFixed(1)}%` : "—"} />
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

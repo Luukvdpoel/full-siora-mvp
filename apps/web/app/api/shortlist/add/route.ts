@@ -13,7 +13,9 @@ export async function POST(req: Request) {
       status: 400,
     });
 
-  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress!;
+  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress;
+  if (!email)
+    return new Response(JSON.stringify({ error: "Email required" }), { status: 400 });
   const brand = await prisma.brand.findFirst({ where: { owner: { email } } });
   if (!brand)
     return new Response(JSON.stringify({ error: "Brand not found" }), {

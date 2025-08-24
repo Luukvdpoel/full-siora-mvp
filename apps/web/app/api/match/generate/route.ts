@@ -61,8 +61,8 @@ export async function POST(req: Request) {
     const audienceFit01 = 1;
     const engagement01 = Math.max(0, Math.min(1, (c.engagement ?? 0) / 10));
 
-    const valuesOverlap = softSetOverlap(c.values || [], camp.desiredValues || []);
-    const semanticBoosted = Math.min(1, semantic01 * (1 + 0.15 * valuesOverlap));
+    const valuesOverlap01 = softSetOverlap(c.values || [], camp.desiredValues || []);
+    const semanticBoosted = Math.min(1, semantic01 * (1 + 0.15 * valuesOverlap01));
 
     const score = scoreMatch({
       semantic01: semanticBoosted,
@@ -72,7 +72,17 @@ export async function POST(req: Request) {
       engagement01,
     });
 
-    return { ...c, score };
+    return {
+      ...c,
+      score,
+      breakdown: {
+        toneMatch01,
+        nicheMatch01,
+        valuesOverlap01,
+        engagement01,
+        semanticHint: "Derived from pgvector; higher means closer",
+      },
+    };
   });
 
   scored.sort((a, b) => b.score - a.score);
