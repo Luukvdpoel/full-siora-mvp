@@ -1,20 +1,36 @@
 export default function Head() {
   return (
     <>
-      <title>Siora – Smarter Brand-Creator Matches</title>
+      <title>Siora — Collaborations for people and brands | usesiora.com</title>
       <meta
         name="description"
-        content="AI-powered brand-creator partnerships. Built for creators who value their worth."
+        content="Siora connects creators and brands to collaborate with clarity. Join the early access waitlist for usesiora.com."
       />
+      <link rel="canonical" href="https://usesiora.com/" />
       <meta
         property="og:title"
-        content="Siora – Smarter Brand-Creator Matches"
+        content="Siora — Collaborations for people and brands"
       />
       <meta
         property="og:description"
-        content="AI-powered brand-creator partnerships. Built for creators who value their worth."
+        content="Join the early access waitlist for usesiora.com and help shape the platform."
       />
-      <meta property="og:image" content="/siora-logo.svg" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Siora',
+            url: 'https://usesiora.com/',
+            potentialAction: {
+              '@type': 'SubscribeAction',
+              target: 'https://usesiora.com/#waitlist',
+              name: 'Join the Siora waitlist'
+            }
+          }),
+        }}
+      />
     </>
   );
 }
