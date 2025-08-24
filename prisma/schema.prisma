@@ -40,12 +40,34 @@ model Brand {
   stripeSubscriptionId String?
   currentPeriodEnd     DateTime?
 
+  credits    Int      @default(0)
+  usages     Usage[]
+
   campaigns  Campaign[]
   shortlists Shortlist[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
   @@index([ownerId])
+}
+
+model Usage {
+  id        String   @id @default(cuid())
+  brandId   String
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  type      UsageType
+  amount    Int
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([brandId, createdAt])
+}
+
+enum UsageType {
+  AI_ANALYZE
+  AI_MATCH
+  TOP_UP
+  ADJUST
 }
 
 enum Plan {
