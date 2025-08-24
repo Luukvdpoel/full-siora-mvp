@@ -90,11 +90,18 @@ model Creator {
   bio         String?
   tags        String[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  // NEW: AI analysis snapshots
+  analysisAt  DateTime?
+  keywords    String[]
+
+  // NEW: embeddings (unsupported type – handled via raw SQL)
+  embedding   Unsupported("vector")?
 
   matches     Match[]
   shortlists  ShortlistItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   @@index([platform])
   @@index([followers])
   @@fulltext([name, handle, bio])
@@ -116,10 +123,18 @@ model Campaign {
   niche      String?
   targetTone String?
 
+  // NEW: AI desired attributes
+  desiredValues   String[]
+  desiredKeywords String[]
+  analyzedAt      DateTime?
+
+  // NEW: embedding for semantic retrieval
+  embedding Unsupported("vector")?
+
+  matches    Match[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  matches    Match[]
   @@index([brandId])
 }
 
