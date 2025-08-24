@@ -190,5 +190,47 @@
     "type": "gpt-feature",
     "reason": "Uses OpenAI but not referenced",
     "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/dashboard/legacy/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/dashboard/recommended/page.tsx",
+    "type": "route",
+    "reason": "No navigation links found",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/components/FilterBarLegacy.tsx",
+    "type": "component",
+    "reason": "No imports found",
+    "suggested_action": "DELETE"
+  },
+  {
+    "path": "lib/gpt/persona.ts",
+    "type": "gpt-feature",
+    "reason": "Uses OpenAI but not referenced",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/app/pricing/page.tsx",
+    "type": "button",
+    "reason": "Button without click handler",
+    "suggested_action": "SURFACE"
+  },
+  {
+    "path": "apps/web/.env.local",
+    "type": "localhost-ref",
+    "reason": "References localhost URL",
+    "suggested_action": "KEEP"
+  },
+  {
+    "path": "apps/web/app/layout.tsx",
+    "type": "runtime-flag",
+    "reason": "window used in server component",
+    "suggested_action": "SURFACE"
   }
 ]
