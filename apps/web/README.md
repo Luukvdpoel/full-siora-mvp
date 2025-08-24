@@ -23,7 +23,14 @@ npm run dev:web
 
 ## Environment variables
 
-This app does not require any environment variables by default.
+Set the following variables in your `.env` files or Vercel project:
+
+- `DATABASE_URL` – PostgreSQL connection string (required)
+- `WAITLIST_BASELINE` – number added to live waitlist count (optional, default 50)
+- `SLACK_WEBHOOK_URL` – Slack webhook for new waitlist signups (optional)
+- `RESEND_API_KEY` and `RESEND_FROM` – to send confirmation emails (optional)
+- `POSTHOG_API_KEY` and `NEXT_PUBLIC_POSTHOG_KEY` – analytics keys (optional)
+- `IP_HASH_SALT` – random string used to hash IP addresses (optional)
 
 ## Useful commands
 

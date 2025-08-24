@@ -1,34 +1,36 @@
-'use client';
-import posthog from 'posthog-js';
+import type { Metadata } from 'next';
+import SiteNav from '@/components/marketing/SiteNav';
+import Hero from '@/components/marketing/Hero';
+import FeatureGrid from '@/components/marketing/FeatureGrid';
+import Testimonials from '@/components/marketing/Testimonials';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Siora – Smarter, fairer brand deals',
+  description: 'AI-powered brand-creator partnerships that value fit and fairness.',
+  openGraph: {
+    title: 'Siora – Smarter, fairer brand deals',
+    description: 'AI-powered brand-creator partnerships that value fit and fairness.',
+    images: [{ url: '/og.svg' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Siora – Smarter, fairer brand deals',
+    description: 'AI-powered brand-creator partnerships that value fit and fairness.',
+    images: ['/og.svg'],
+  },
+};
+
+export default function Page() {
   return (
-    <section className="grid min-h-[70vh] place-items-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">
-          Match brands & creators by <span className="text-white/70">tone</span> and <span className="text-white/70">values</span>.
-        </h1>
-        <p className="mt-4 text-white/70">
-          Not just follower count. Siora analyzes fit and outreach quality to help campaigns convert.
-        </p>
-        <div className="mt-8 flex items-center justify-center gap-3">
-          <a
-            href="/dashboard"
-            className="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/5"
-            onClick={() => posthog.capture('try_demo')}
-          >
-            Try the demo
-          </a>
-          <a
-            href="/pricing"
-            className="rounded-xl bg-white/90 px-4 py-2 text-gray-900 hover:bg-white"
-            onClick={() => posthog.capture('get_started')}
-          >
-            Get started
-          </a>
-        </div>
-      </div>
-    </section>
+    <div className="bg-[#0B0B0C] text-[#F5F7FB]">
+      <SiteNav />
+      <main>
+        <Hero />
+        <FeatureGrid />
+        <Testimonials />
+      </main>
+      <SiteFooter />
+    </div>
   );
 }
-

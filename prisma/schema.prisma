@@ -158,3 +158,25 @@ model ShortlistItem {
   @@unique([shortlistId, creatorId])
 }
 
+/// Waitlist signups for marketing site
+model WaitlistSignup {
+  id          String   @id @default(cuid())
+  email       String
+  role        String?
+  igHandle    String?
+  name        String?
+  company     String?
+  source      String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  referrer    String?
+  userAgent   String?
+  ipHash      String?
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
