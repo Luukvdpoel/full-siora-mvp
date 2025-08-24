@@ -1,5 +1,13 @@
 import "./globals.css";
 import Link from "next/link";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import PostHogProvider from "@/components/PostHogProvider";
 
 export const metadata = {
@@ -9,28 +17,39 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-gray-950 text-white">
-      <body className="min-h-screen antialiased">
-        <PostHogProvider />
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur">
-          <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-            <Link href="/" className="font-semibold tracking-tight">
-              Siora
-            </Link>
-            <div className="hidden gap-6 md:flex">
-              <NavLink href="/">Home</NavLink>
-              <NavLink href="/dashboard">Dashboard</NavLink>
-              <NavLink href="/pricing">Pricing</NavLink>
-            </div>
-            <MobileMenu />
-          </nav>
-        </header>
-        <main className="mx-auto max-w-7xl px-4">{children}</main>
-        <footer className="mx-auto max-w-7xl px-4 py-10 text-sm text-white/50">
-          © {new Date().getFullYear()} Siora — All rights reserved.
-        </footer>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="bg-gray-950 text-white">
+        <body className="min-h-screen antialiased">
+          <PostHogProvider />
+          <header className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur">
+            <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+              <Link href="/" className="font-semibold tracking-tight">
+                Siora
+              </Link>
+              <div className="hidden gap-6 md:flex">
+                <NavLink href="/">Home</NavLink>
+                <NavLink href="/dashboard">Dashboard</NavLink>
+                <NavLink href="/pricing">Pricing</NavLink>
+              </div>
+              <div className="flex items-center gap-2">
+                <SignedOut>
+                  <SignInButton />
+                  <SignUpButton />
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+                <MobileMenu />
+              </div>
+            </nav>
+          </header>
+          <main className="mx-auto max-w-7xl px-4">{children}</main>
+          <footer className="mx-auto max-w-7xl px-4 py-10 text-sm text-white/50">
+            © {new Date().getFullYear()} Siora — All rights reserved.
+          </footer>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
 
