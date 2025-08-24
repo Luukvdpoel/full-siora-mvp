@@ -1,140 +1,99 @@
-import { PrismaClient, Campaign, Application } from "@prisma/client";
-import { readJson } from "../tools/readJson.ts";
-
+import { PrismaClient, Role, Platform } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create a dummy user
-  const user = await prisma.user.upsert({
-    where: { email: "dummy@user.com" },
+  // Ensure one owner brand user
+  const owner = await prisma.user.upsert({
+    where: { email: "founder@siora.dev" },
     update: {},
-    create: {
-      email: "dummy@user.com",
-      name: "Dummy User",
-      role: "creator",
+    create: { email: "founder@siora.dev", name: "Siora Founder", role: Role.ADMIN },
+  });
+
+  const brand = await prisma.brand.upsert({
+    where: { id: "brand-1" },
+    update: {},
+    create: { id: "brand-1", ownerId: owner.id, name: "Acme Skincare", website: "https://acme.co", plan: "FREE" },
+  });
+
+  // Creators
+  const creators = await prisma.$transaction([
+    prisma.creator.upsert({
+      where: { handle: "@maya.moves" },
+      update: {},
+      create: {
+        name: "Maya Flores",
+        handle: "@maya.moves",
+        platform: Platform.INSTAGRAM,
+        niche: "Fitness",
+        tone: "Aspirational",
+        values: ["Consistency", "Body-positivity", "Discipline"],
+        followers: 182_000,
+        avgViews: 54_000,
+        engagement: 4.8,
+        location: "NL",
+        bio: "Fitness coach sharing daily routines and mindset.",
+        tags: ["workouts", "health", "discipline"],
+      },
+    }),
+    prisma.creator.upsert({
+      where: { handle: "@uri.tech" },
+      update: {},
+      create: {
+        name: "Tech with Uri",
+        handle: "@uri.tech",
+        platform: Platform.YOUTUBE,
+        niche: "Tech",
+        tone: "Educational",
+        values: ["Open-source", "Transparency"],
+        followers: 92_000,
+        avgViews: 27_000,
+        engagement: 3.2,
+        location: "DE",
+        bio: "Consumer tech reviews & tutorials.",
+        tags: ["reviews", "gadgets"],
+      },
+    }),
+    prisma.creator.upsert({
+      where: { handle: "@sienna.travels" },
+      update: {},
+      create: {
+        name: "Nomad Sienna",
+        handle: "@sienna.travels",
+        platform: Platform.TIKTOK,
+        niche: "Travel",
+        tone: "Playful",
+        values: ["Sustainability", "Local-first", "Curiosity"],
+        followers: 310_000,
+        avgViews: 120_000,
+        engagement: 2.4,
+        location: "ES",
+        bio: "Slow travel, local food, playful vlogs.",
+        tags: ["eco", "europe", "vlogs"],
+      },
+    }),
+  ]);
+
+  // One example campaign + matches
+  const campaign = await prisma.campaign.create({
+    data: {
+      brandId: brand.id,
+      title: "Eco-friendly Summer Launch",
+      brief: "Looking for playful/educational creators aligned with sustainability.",
+      budgetEUR: 5000,
+      niche: "Travel",
+      targetTone: "Playful",
     },
   });
 
-  // PERSONAS
-  const personasRaw = await readJson("personas.json");
-  if (personasRaw.length > 0) {
-    const personaData = personasRaw.map((p: any) => ({
-      userId: user.id,
-      title: p.title || "Dummy Persona",
-      data: {
-        name: p.name,
-        category: p.category,
-        audience: p.audience,
-      },
-    }));
+  await prisma.match.createMany({
+    data: [
+      { campaignId: campaign.id, creatorId: creators[2].id, matchScore: 86, rationale: "Playful tone + sustainability fit" },
+      { campaignId: campaign.id, creatorId: creators[0].id, matchScore: 72, rationale: "Aspirational tone; fitness x travel crossover" },
+    ],
+    skipDuplicates: true,
+  });
 
-    await prisma.persona.createMany({
-      data: personaData,
-      skipDuplicates: true,
-    });
-    // console.info(`Seeded ${personaData.length} personas`);
-  }
-
-  // REAL CREATORS
-  const realCreatorsRaw = await readJson("db/real_creators_seed.json");
-  if (realCreatorsRaw.length > 0) {
-    const creators = realCreatorsRaw.map((c: any) => ({
-      userId: user.id,
-      title: `${c.name} Persona`,
-      data: {
-        name: c.name,
-        instagramHandle: c.username,
-        category: c.category,
-        followers: c.followers,
-        platform: "Instagram",
-      },
-    }));
-
-    await prisma.persona.createMany({
-      data: creators,
-      skipDuplicates: true,
-    });
-
-    // console.info(`Seeded ${creators.length} real Instagram creators`);
-  }
-
-  // CAMPAIGNS
-  const campaignsRaw = await readJson("campaigns.json");
-  let campaignRecords: Campaign[] = [];
-
-  if (campaignsRaw.length > 0) {
-    campaignRecords = await Promise.all(
-      campaignsRaw.map((c: any) =>
-        prisma.campaign.create({
-          data: {
-            brandId: user.id,
-            title: c.title,
-            description: c.description,
-            deliverables: c.deliverables,
-            deadline: new Date(c.deadline),
-            platform: c.platform,
-            niche: c.niche,
-            budgetMin: c.budgetMin,
-            budgetMax: c.budgetMax,
-          },
-        }),
-      ),
-    );
-    // console.info(`Seeded ${campaignRecords.length} campaigns`);
-  }
-
-  // APPLICATIONS
-  const applicationsRaw = await readJson("applications.json");
-  let applicationRecords: Application[] = [];
-
-  if (applicationsRaw.length > 0 && campaignRecords.length > 0) {
-    applicationRecords = await Promise.all(
-      applicationsRaw.map((a: any, i: number) =>
-        prisma.application.create({
-          data: {
-            creatorId: user.id,
-            campaignId: campaignRecords[i % campaignRecords.length].id,
-            message: a.message,
-            status: a.status || "pending",
-          },
-        }),
-      ),
-    );
-    // console.info(`Seeded ${applicationRecords.length} applications`);
-  }
-
-  // MATCHES
-  const matchesRaw = await readJson("matches.json");
-  if (
-    matchesRaw.length > 0 &&
-    campaignRecords.length > 0 &&
-    applicationRecords.length > 0
-  ) {
-    const matchData = matchesRaw.map((m: any, i: number) => ({
-      campaignId: campaignRecords[i % campaignRecords.length].id,
-      creatorId: user.id,
-      applicationId: applicationRecords[i % applicationRecords.length].id,
-      brandId: user.id,
-      status: m.status || "new",
-      isShortlisted: false,
-    }));
-
-    await prisma.match.createMany({
-      data: matchData,
-      skipDuplicates: true,
-    });
-
-    // console.info(`Seeded ${matchesRaw.length} matches`);
-  }
-
-  // console.info('Done seeding.');
+  console.log("Seed complete");
 }
 
-main()
-  .catch((e) => {
-    console.error("❌ Seed error:", e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().finally(() => prisma.$disconnect());
