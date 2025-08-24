@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { useState } from "react";
-import CreatorCard from "@/components/CreatorCard";
+import CreatorCard from "@/components/CreatorCardLegacy";
 import type { Creator } from "@/app/data/creators";
 import { useSession } from "next-auth/react";
 import { useShortlist } from "@/lib/shortlist";

@@ -1,121 +1,186 @@
-'use client';
-import React from 'react';
+"use client";
 
-import { useState, useEffect } from "react";
+import * as React from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import { ChevronDown, RefreshCw } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useDebounce } from "@/hooks/useDebounce";
 
-type Props = {
-  onFilter: (filters: Record<string, string>) => void;
-  onSort?: (sort: string) => void;
+export type FilterState = {
+  q: string;
+  tone: string | "Any";
+  niche: string | "Any";
+  minFollowers: number;
+  maxFollowers: number;
+  verifiedOnly: boolean;
+  sort: "match" | "followers" | "engagement";
 };
 
-export default function FilterBar({ onFilter, onSort }: Props) {
-  const [platform, setPlatform] = useState("");
-  const [tone, setTone] = useState("");
-  const [audience, setAudience] = useState("");
-  const [minFollowers, setMinFollowers] = useState("");
-  const [maxFollowers, setMaxFollowers] = useState("");
-  const [minEngagement, setMinEngagement] = useState("");
-  const [maxEngagement, setMaxEngagement] = useState("");
-  const [sort, setSort] = useState("");
+const TONES = ["Playful", "Serious", "Bold", "Aspirational", "Educational"];
+const NICHES = ["Fitness", "Tech", "Beauty", "Travel", "Food", "Lifestyle"];
 
-  // automatically push filter updates up to the parent
-  useEffect(() => {
-    onFilter({
-      platform,
-      tone,
-      audience,
-      minFollowers,
-      maxFollowers,
-      minEngagement,
-      maxEngagement,
+export function FilterBar({
+  value,
+  onChange,
+  className,
+}: {
+  value: FilterState;
+  onChange: (next: FilterState) => void;
+  className?: string;
+}) {
+  const [internal, setInternal] = React.useState<FilterState>(value);
+
+  // Debounce text search
+  const debouncedQ = useDebounce(internal.q, 250);
+  React.useEffect(() => {
+    onChange({ ...internal, q: debouncedQ });
+  }, [debouncedQ, onChange, internal]);
+
+  // Instantly propagate other fields
+  React.useEffect(() => {
+    onChange(internal);
+  }, [internal, onChange]);
+
+  function reset() {
+    setInternal({
+      q: "",
+      tone: "Any",
+      niche: "Any",
+      minFollowers: 0,
+      maxFollowers: 1_000_000,
+      verifiedOnly: false,
+      sort: "match",
     });
-  }, [platform, tone, audience, minFollowers, maxFollowers, minEngagement, maxEngagement, onFilter]);
-
-  useEffect(() => {
-    onSort?.(sort);
-  }, [sort, onSort]);
+  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+    <div className={cn("rounded-2xl border border-white/10 bg-gray-900/80 p-4 backdrop-blur", className)}>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
+        <div className="md:col-span-4">
+          <Input
+            placeholder="Search creators by name or handle…"
+            value={internal.q}
+            onChange={(e) => setInternal((s) => ({ ...s, q: e.target.value }))}
+            className="bg-white/5 text-white placeholder:text-white/40"
+          />
+        </div>
 
-      <select
-        value={platform}
-        onChange={(e) => setPlatform(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      >
-        <option value="">All Platforms</option>
-        <option value="Instagram">Instagram</option>
-        <option value="TikTok">TikTok</option>
-        <option value="YouTube">YouTube</option>
-      </select>
+        <div className="md:col-span-2">
+          <Select
+            value={internal.tone}
+            onValueChange={(v) => setInternal((s) => ({ ...s, tone: v as any }))}
+          >
+            <SelectTrigger className="bg-white/5 text-white">
+              <SelectValue placeholder="Tone" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Any">Any tone</SelectItem>
+              {TONES.map((t) => (
+                <SelectItem key={t} value={t}>{t}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <input
-        value={tone}
-        onChange={(e) => setTone(e.target.value)}
-        placeholder="Tone"
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      />
+        <div className="md:col-span-2">
+          <Select
+            value={internal.niche}
+            onValueChange={(v) => setInternal((s) => ({ ...s, niche: v as any }))}
+          >
+            <SelectTrigger className="bg-white/5 text-white">
+              <SelectValue placeholder="Niche" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Any">Any niche</SelectItem>
+              {NICHES.map((t) => (
+                <SelectItem key={t} value={t}>{t}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <input
-        value={audience}
-        onChange={(e) => setAudience(e.target.value)}
-        placeholder="Audience"
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      />
+        <div className="md:col-span-3">
+          <div className="text-xs text-white/60">Min followers: {internal.minFollowers.toLocaleString()}</div>
+          <Slider
+            min={0}
+            max={1000000}
+            step={5000}
+            value={[internal.minFollowers]}
+            onValueChange={([v]) => setInternal((s) => ({ ...s, minFollowers: v }))}
+          />
+        </div>
 
-      <input
-        type="number"
-        placeholder="Min Followers"
-        value={minFollowers}
-        onChange={(e) => setMinFollowers(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      />
+        <div className="md:col-span-3 md:col-start-1">
+          <div className="text-xs text-white/60">Max followers: {internal.maxFollowers.toLocaleString()}</div>
+          <Slider
+            min={10000}
+            max={3000000}
+            step={10000}
+            value={[internal.maxFollowers]}
+            onValueChange={([v]) => setInternal((s) => ({ ...s, maxFollowers: v }))}
+          />
+        </div>
 
-      <input
-        type="number"
-        placeholder="Max Followers"
-        value={maxFollowers}
-        onChange={(e) => setMaxFollowers(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      />
+        <div className="flex items-center gap-2 md:col-span-2">
+          <Checkbox
+            id="verifiedOnly"
+            checked={internal.verifiedOnly}
+            onCheckedChange={(c) => setInternal((s) => ({ ...s, verifiedOnly: Boolean(c) }))}
+          />
+          <label htmlFor="verifiedOnly" className="text-sm text-white/80">Verified only</label>
+        </div>
 
-      <input
-        type="number"
-        step="0.1"
-        placeholder="Min ER%"
-        value={minEngagement}
-        onChange={(e) => setMinEngagement(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      />
+        <div className="flex items-center gap-2 md:col-span-3">
+          <SortSelect
+            value={internal.sort}
+            onChange={(sort) => setInternal((s) => ({ ...s, sort }))}
+          />
+          <Button variant="outline" className="border-white/15 bg-white/5 text-white hover:bg-white/10" onClick={reset}>
+            <RefreshCw className="mr-2 h-4 w-4" /> Reset
+          </Button>
+        </div>
+      </div>
 
-      <input
-        type="number"
-        step="0.1"
-        placeholder="Max ER%"
-        value={maxEngagement}
-        onChange={(e) => setMaxEngagement(e.target.value)}
-        className="bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-      />
-
-      <div className="flex flex-col sm:flex-row gap-2">
-        <select
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-          className="flex-1 bg-gray-100 dark:bg-Siora-light text-gray-900 dark:text-white p-2 rounded-lg border border-gray-300 dark:border-Siora-border focus:outline-none focus:ring-2 focus:ring-Siora-accent transition"
-        >
-          <option value="">Sort by</option>
-          <option value="followers-desc">Followers ↓</option>
-          <option value="followers-asc">Followers ↑</option>
-          <option value="engagement-desc">Engagement ↓</option>
-          <option value="engagement-asc">Engagement ↑</option>
-        </select>
+      <Separator className="my-3 bg-white/10" />
+      <div className="text-xs text-white/50">
+        Tip: type to search, then refine by tone, niche, and follower range.
       </div>
     </div>
   );
 }
 
+function SortSelect({
+  value,
+  onChange,
+}: {
+  value: FilterState["sort"];
+  onChange: (v: FilterState["sort"]) => void;
+}) {
+  const options: { value: FilterState["sort"]; label: string }[] = [
+    { value: "match", label: "Best match" },
+    { value: "followers", label: "Followers" },
+    { value: "engagement", label: "Engagement" },
+  ];
 
-
-
-
-
+  return (
+    <div className="inline-flex items-center gap-2">
+      <span className="text-sm text-white/70">Sort</span>
+      <Select value={value} onValueChange={(v) => onChange(v as any)}>
+        <SelectTrigger className="w-[160px] bg-white/5 text-white">
+          <SelectValue />
+          <ChevronDown className="ml-2 h-4 w-4 opacity-70" />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((o) => (
+            <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}

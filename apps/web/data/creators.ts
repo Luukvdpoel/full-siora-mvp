@@ -1,0 +1,43 @@
+import type { Creator } from "@/components/CreatorCard";
+
+export const creatorsMock: Creator[] = [
+  {
+    id: "1",
+    name: "Maya Flores",
+    handle: "@maya.moves",
+    niche: "Fitness",
+    followers: 182000,
+    tone: "Aspirational",
+    values: ["Consistency", "Body-positivity", "Discipline"],
+    avgViews: 54000,
+    er: 4.8,
+    location: "NL",
+    matchScore: 86,
+  },
+  {
+    id: "2",
+    name: "Tech with Uri",
+    handle: "@uri.tech",
+    niche: "Tech",
+    followers: 92000,
+    tone: "Educational",
+    values: ["Open-source", "Transparency"],
+    avgViews: 27000,
+    er: 3.2,
+    location: "DE",
+    matchScore: 72,
+  },
+  {
+    id: "3",
+    name: "Nomad Sienna",
+    handle: "@sienna.travels",
+    niche: "Travel",
+    followers: 310000,
+    tone: "Playful",
+    values: ["Sustainability", "Local-first", "Curiosity"],
+    avgViews: 120000,
+    er: 2.4,
+    location: "ES",
+    matchScore: 64,
+  },
+];
