@@ -120,6 +120,12 @@ export default function CampaignsPage() {
                     Apply as Creator
                   </button>
                   <FeedbackButton id={c.id} />
+                  <a
+                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm hover:bg-white/10"
+                    href={`/campaigns/${c.id}/matches`}
+                  >
+                    View Matches
+                  </a>
                 </div>
               </div>
             ))}

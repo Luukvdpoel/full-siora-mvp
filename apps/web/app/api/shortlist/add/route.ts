@@ -1,49 +1,37 @@
-import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { prisma } from "@/lib/prisma";
 
-interface ShortlistItem {
-  creatorId: string;
-  notes?: string;
-  tags?: string[];
-}
-
-type ShortlistDB = Record<string, ShortlistItem[]>;
-
-const DB_PATH = path.join(process.cwd(), '..', '..', 'db', 'shortlist.json');
-
-async function readData(): Promise<ShortlistDB> {
-  try {
-    const file = await fs.readFile(DB_PATH, 'utf8');
-    const data = JSON.parse(file);
-    return data && typeof data === 'object' ? (data as ShortlistDB) : {};
-  } catch {
-    return {};
-  }
-}
-
-async function writeData(data: ShortlistDB) {
-  await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
-}
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  try {
-    const { brandId, creatorId, notes, tags } = await req.json();
-    if (!brandId || !creatorId) {
-      return NextResponse.json({ error: 'brandId and creatorId required' }, { status: 400 });
-    }
-    const data = await readData();
-    const list = data[brandId] ?? [];
-    const existing = list.find(i => i.creatorId === creatorId);
-    if (existing) {
-      return NextResponse.json({ error: 'Creator already shortlisted' }, { status: 400 });
-    }
-    list.push({ creatorId, notes, tags });
-    data[brandId] = list;
-    await writeData(data);
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('shortlist ADD error', err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  const { userId } = auth();
+  if (!userId) return new Response("Unauthorized", { status: 401 });
+
+  const { creatorId } = await req.json();
+  if (!creatorId)
+    return new Response(JSON.stringify({ error: "creatorId required" }), {
+      status: 400,
+    });
+
+  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress!;
+  const brand = await prisma.brand.findFirst({ where: { owner: { email } } });
+  if (!brand)
+    return new Response(JSON.stringify({ error: "Brand not found" }), {
+      status: 404,
+    });
+
+  let shortlist = await prisma.shortlist.findFirst({ where: { brandId: brand.id } });
+  if (!shortlist) {
+    shortlist = await prisma.shortlist.create({
+      data: { brandId: brand.id, name: "My Shortlist" },
+    });
   }
+
+  await prisma.shortlistItem.upsert({
+    where: { shortlistId_creatorId: { shortlistId: shortlist.id, creatorId } },
+    update: {},
+    create: { shortlistId: shortlist.id, creatorId },
+  });
+
+  return Response.json({ ok: true });
 }
