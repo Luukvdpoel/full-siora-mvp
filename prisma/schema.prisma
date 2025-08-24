@@ -173,3 +173,29 @@ model ShortlistItem {
   @@unique([shortlistId, creatorId])
 }
 
+enum WaitlistRole {
+  CREATOR
+  BRAND
+}
+
+model WaitlistSignup {
+  id             String       @id @default(cuid())
+  email          String       @unique
+  role           WaitlistRole
+  igHandle       String?
+  referralCode   String       @unique
+  referredBy     String?
+  confirmToken   String?
+  confirmExpires DateTime?
+  confirmedAt    DateTime?
+  ipHash         String?
+  utmSource      String?
+  utmMedium      String?
+  utmCampaign    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([referralCode])
+  @@index([referredBy])
+}
+

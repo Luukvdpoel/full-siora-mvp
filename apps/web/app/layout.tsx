@@ -32,8 +32,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </header>
           <main className="mx-auto max-w-7xl px-4">{children}</main>
-          <footer className="mx-auto max-w-7xl px-4 py-10 text-sm text-white/50">
-            © {new Date().getFullYear()} Siora — All rights reserved.
+          <footer className="mx-auto max-w-7xl px-4 py-10 text-sm text-white/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <p>© {new Date().getFullYear()} Siora</p>
+            <nav className="flex gap-4">
+              <Link href="/about">About</Link>
+              <Link href="/contact">Contact</Link>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/terms">Terms</Link>
+            </nav>
           </footer>
         </body>
       </html>

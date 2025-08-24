@@ -1,20 +1,20 @@
-import { Briefcase, Search, BarChart3 } from "lucide-react";
+import { Mic2, ShieldCheck, WandSparkles } from "lucide-react";
 
 const features = [
   {
-    icon: Briefcase,
-    title: "Smart briefs",
-    desc: "Kick off collaborations with structured briefs that clarify goals, deliverables, timelines, and usage rights.",
+    icon: Mic2,
+    title: "Match by voice & values",
+    desc: "Reach partners who sound like you. Siora looks beyond audience stats to find true fit.",
   },
   {
-    icon: Search,
-    title: "Creator discovery",
-    desc: "Find the right fit with filters for audience, values, and performance — not just follower counts.",
+    icon: ShieldCheck,
+    title: "Creator-first fairness checks",
+    desc: "Our safeguards keep deals transparent and respectful for every creator.",
   },
   {
-    icon: BarChart3,
-    title: "Shared analytics",
-    desc: "Track content performance across channels with transparent, privacy-safe metrics both sides can trust.",
+    icon: WandSparkles,
+    title: "Briefs & personas generated for you",
+    desc: "AI drafts what you need so you can skip the busywork and start collaborating.",
   },
 ];
 
@@ -23,10 +23,10 @@ const Features = () => {
     <section id="features" className="py-16">
       <div className="text-center">
         <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-          Designed for people and brands to meet in the middle
+          Why Siora
         </h2>
         <p className="mt-3 text-white/70">
-          Reduce friction, increase signal, and collaborate with clarity.
+          Premium tools for campaigns that actually resonate.
         </p>
       </div>
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
