@@ -1,9 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const referredBy = searchParams.get("ref") || undefined;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -11,10 +15,14 @@ export default function SignupPage() {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, referredBy }),
       });
-      if (res.ok) setStatus("success");
-      else setStatus("error");
+      const json = await res.json();
+      if (res.ok && json.referralCode) {
+        router.push(`/waitlist/thank-you?code=${json.referralCode}`);
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }

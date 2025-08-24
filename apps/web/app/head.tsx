@@ -15,6 +15,7 @@ export default function Head() {
         property="og:description"
         content="Join the early access waitlist for usesiora.com and help shape the platform."
       />
+      <meta property="og:url" content="https://usesiora.com/" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
