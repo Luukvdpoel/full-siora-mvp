@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
-import markdownpdf from 'markdown-pdf'
-import path from 'path'
+import { markdownToPdf } from '@/lib/pdf'
 
 export async function POST(req: Request) {
   try {
@@ -9,16 +8,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Markdown string required' }, { status: 400 })
     }
 
-    const cssPath = path.join(process.cwd(), 'apps', 'brand', 'app', 'api', 'export-shortlist', 'pdf.css')
-
-    const buffer: Buffer = await new Promise((resolve, reject) => {
-      markdownpdf({ cssPath })
-        .from.string(markdown)
-        .to.buffer((err, buff) => {
-          if (err) reject(err)
-          else resolve(buff)
-        })
-    })
+    const buffer = await markdownToPdf(markdown)
 
     return new NextResponse(buffer, {
       status: 200,

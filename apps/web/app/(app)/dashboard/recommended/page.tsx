@@ -2,7 +2,7 @@ import React from 'react';
 import { creators, type Creator } from "@/app/data/creators";
 import { advancedMatch, type AdvancedBrand, type AdvancedCreator } from "@/lib/matching/advancedMatcher";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export default async function RecommendedPage() {
   const brand: AdvancedBrand = {
