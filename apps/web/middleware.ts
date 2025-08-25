@@ -9,7 +9,16 @@ const ratelimit = new Ratelimit({
 });
 
 export default authMiddleware({
-  publicRoutes: ["/", "/pricing", "/api/health"],
+  publicRoutes: [
+    "/",
+    "/pricing",
+    "/waitlist",
+    "/privacy",
+    "/terms",
+    "/s/(.*)",
+    "/api/health",
+    "/api/waitlist",
+  ],
   async beforeAuth(req) {
     const ref = req.nextUrl.searchParams.get("ref");
     if (ref) {
