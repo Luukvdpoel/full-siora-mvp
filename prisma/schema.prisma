@@ -84,7 +84,9 @@ enum UsageType {
 
 enum Plan {
   FREE
+  STARTER
   PRO
+  GROWTH
 }
 
 enum PipelineStatus {

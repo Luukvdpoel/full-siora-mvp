@@ -28,12 +28,15 @@ export async function POST(req: Request) {
           const brandId =
             (session.metadata?.brandId as string) ||
             (session.subscription && (await stripe.subscriptions.retrieve(session.subscription as string)).metadata?.brandId);
-          if (brandId && subId) {
+          const plan =
+            (session.metadata?.plan as string) ||
+            (subId ? (await stripe.subscriptions.retrieve(subId)).metadata?.plan : undefined);
+          if (brandId && subId && plan) {
             const sub = await stripe.subscriptions.retrieve(subId);
             await prisma.brand.update({
               where: { id: brandId },
               data: {
-                plan: "PRO",
+                plan: plan as any,
                 stripeSubscriptionId: sub.id,
                 currentPeriodEnd: new Date(sub.current_period_end * 1000),
               },
@@ -58,11 +61,12 @@ export async function POST(req: Request) {
       case "customer.subscription.created": {
         const sub = event.data.object as Stripe.Subscription;
         const brandId = sub.metadata?.brandId as string | undefined;
-        if (brandId) {
+        const plan = sub.metadata?.plan as string | undefined;
+        if (brandId && plan) {
           await prisma.brand.update({
             where: { id: brandId },
             data: {
-              plan: "PRO",
+              plan: plan as any,
               stripeSubscriptionId: sub.id,
               currentPeriodEnd: new Date(sub.current_period_end * 1000),
             },
