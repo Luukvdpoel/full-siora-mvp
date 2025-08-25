@@ -687,6 +687,9 @@ importers:
       axios:
         specifier: 1.10.0
         version: 1.10.0
+      canvas-confetti:
+        specifier: ^1.9.3
+        version: 1.9.3
       chart.js:
         specifier: ^4.4.1
         version: 4.5.0
@@ -4318,6 +4321,9 @@ packages:
 
   canonicalize@1.0.8:
     resolution: {integrity: sha512-0CNTVCLZggSh7bc5VkX5WWPWO+cyZbNd07IHIsSXLia/eAq+r836hgk+8BKoEh7949Mda87VUOitx5OddVj64A==}
+
+  canvas-confetti@1.9.3:
+    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
 
   canvg@3.0.11:
     resolution: {integrity: sha512-5ON+q7jCTgMp9cjpu4Jo6XbvfYwSB2Ow3kzHKfIyJfaCAOHLbdKPQqGKgfED/R5B+3TFFfe8pegYA+b423SRyA==}
@@ -11800,6 +11806,8 @@ snapshots:
   caniuse-lite@1.0.30001727: {}
 
   canonicalize@1.0.8: {}
+
+  canvas-confetti@1.9.3: {}
 
   canvg@3.0.11:
     dependencies:
