@@ -3,7 +3,7 @@
   "private": true,
   "packageManager": "pnpm@10.13.1",
   "engines": {
-    "node": "18.x"
+    "node": ">=18.17 <=22.x"
   },
   "workspaces": {
     "packages": [
@@ -23,6 +23,14 @@
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
     "generate": "prisma generate",
     "vercel-build": "npm run build --workspace=web"
+  },
+  "pnpm": {
+    "allowedScripts": {
+      "@sentry/cli": true,
+      "@swc/core": true,
+      "esbuild": true,
+      "protobufjs": true
+    }
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",

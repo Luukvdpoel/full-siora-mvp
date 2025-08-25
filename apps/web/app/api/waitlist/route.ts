@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import crypto from "crypto";
-import { Resend } from "resend";
+import { getResend } from "@/lib/resend";
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -71,8 +71,8 @@ export async function POST(req: Request) {
     }
 
     let emailed = false;
-    if (process.env.RESEND_API_KEY) {
-      const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = getResend();
+    if (resend) {
       await resend.emails.send({
         from: process.env.RESEND_FROM || "hello@usesiora.com",
         to: email,
