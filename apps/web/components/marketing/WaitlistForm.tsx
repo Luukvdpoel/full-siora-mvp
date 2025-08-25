@@ -1,40 +1,25 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { track } from "@/lib/analytics/track";
 import { toast } from "react-hot-toast";
 
 const schema = z.object({
   role: z.enum(["creator", "brand"]),
-  name: z.string().min(2, "Please enter your name"),
-  email: z.string().email("Enter a valid email"),
-  company: z.string().optional(),
-  website: z.string().url().optional().or(z.literal("")),
-  message: z.string().max(500).optional(),
-  source: z.string().optional(),
-  consent: z.boolean().refine((v) => v === true, { message: "Please accept to join the list" }),
+  email: z.string().email(),
+  website: z.string().optional(), // honeypot
 });
 
 type FormValues = z.infer<typeof schema>;
 
-const sources = [
-  { value: "twitter", label: "Twitter/X" },
-  { value: "linkedin", label: "LinkedIn" },
-  { value: "friend", label: "Friend/colleague" },
-  { value: "search", label: "Search" },
-  { value: "other", label: "Other" },
-];
-
-const WaitlistForm = () => {
-  const [loading, setLoading] = useState(false);
+export default function WaitlistForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
   const referredBy = searchParams.get("ref") || undefined;
   const utmSource = searchParams.get("utm_source") || undefined;
   const utmMedium = searchParams.get("utm_medium") || undefined;
@@ -42,22 +27,19 @@ const WaitlistForm = () => {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      role: "creator",
-      name: "",
-      email: "",
-      company: "",
-      website: "",
-      message: "",
-      source: "",
-      consent: true,
-    },
+    defaultValues: { role: "creator", email: "", website: "" },
   });
 
-  const isBrand = form.watch("role") === "brand";
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    track("waitlist_form_view");
+  }, []);
 
   const onSubmit = async (values: FormValues) => {
+    if (values.website) return; // honeypot
     setLoading(true);
+    track("waitlist_form_submit", { role: values.role, utmSource, utmMedium, utmCampaign });
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
@@ -65,110 +47,89 @@ const WaitlistForm = () => {
         body: JSON.stringify({
           email: values.email,
           role: values.role,
-          name: values.name,
-          company: values.company,
-          igHandle: values.website,
-          notes: values.message,
-          source: values.source,
           referredBy,
           utmSource,
           utmMedium,
           utmCampaign,
+          website: values.website,
         }),
       });
       const json = await res.json();
-      if (!res.ok || !json.referralCode) throw new Error("Signup failed");
+      if (!res.ok || !json.referralCode) throw new Error(json.error || "Signup failed");
+      if (referredBy) track("referral_signup", { referredBy });
       router.push(`/waitlist/thank-you?code=${json.referralCode}`);
     } catch (err) {
-      console.error("Waitlist submission failed:", err);
+      console.error(err);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
+  const role = form.watch("role");
+
   return (
     <section id="waitlist" className="py-16">
-      <div className="grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 mx-auto">
-        <div>
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Join the early access waitlist</h2>
-          <p className="mt-3 text-white/70">
-            Be first to try Siora. Whether you’re a creator or a brand, you’ll get updates and an invite when we open the doors.
-          </p>
-          <ul className="mt-6 space-y-3 text-sm text-white/70">
-            <li>• Zero spam — just meaningful updates.</li>
-            <li>• Priority invites for early sign-ups.</li>
-            <li>• Help shape the roadmap.</li>
-          </ul>
+      <h2 className="text-3xl font-semibold tracking-tight text-center">Join the early access list</h2>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mx-auto mt-8 max-w-md space-y-4 rounded-xl border border-zinc-800 bg-zinc-900/70 p-6"
+      >
+        <input type="text" className="hidden" {...form.register("website")} />
+        <div className="flex justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => form.setValue("role", "creator")}
+            className={`px-3 py-1 text-sm rounded-md ${role === "creator" ? "bg-indigo-600 text-white" : "bg-zinc-800 text-white/70"}`}
+          >
+            Creator
+          </button>
+          <button
+            type="button"
+            onClick={() => form.setValue("role", "brand")}
+            className={`px-3 py-1 text-sm rounded-md ${role === "brand" ? "bg-indigo-600 text-white" : "bg-zinc-800 text-white/70"}`}
+          >
+            Brand
+          </button>
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="rounded-xl border border-Siora-border bg-gray-900/50 p-6 shadow-sm">
-          <input type="hidden" name="referredBy" value={referredBy || ""} />
-          <div className="grid grid-cols-2 gap-3">
-            <div className="col-span-2">
-              <Label htmlFor="role">I am a</Label>
-              <div className="mt-2 inline-flex gap-2">
-                <Button type="button" variant={form.watch("role") === "creator" ? "brand" : "outline"} onClick={() => form.setValue("role", "creator")}>Creator</Button>
-                <Button type="button" variant={form.watch("role") === "brand" ? "brand" : "outline"} onClick={() => form.setValue("role", "brand")}>Brand</Button>
-              </div>
-            </div>
-            <div className="col-span-2">
-              <Label htmlFor="name">Full name</Label>
-              <Input id="name" placeholder="Alex Morgan" {...form.register("name")} />
-              {form.formState.errors.name && (
-                <p className="mt-1 text-xs text-red-500">{form.formState.errors.name.message}</p>
-              )}
-            </div>
-            <div className="col-span-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="you@domain.com" {...form.register("email")} />
-              {form.formState.errors.email && (
-                <p className="mt-1 text-xs text-red-500">{form.formState.errors.email.message}</p>
-              )}
-            </div>
-            {isBrand && (
-              <div className="col-span-2">
-                <Label htmlFor="company">Company</Label>
-                <Input id="company" placeholder="Brand or org" {...form.register("company")} />
-              </div>
-            )}
-            <div className="col-span-2">
-              <Label htmlFor="website">Website or profile</Label>
-              <Input id="website" placeholder="https://..." {...form.register("website")} />
-              {form.formState.errors.website && (
-                <p className="mt-1 text-xs text-red-500">Valid URL please</p>
-              )}
-            </div>
-            <div className="col-span-2">
-              <Label htmlFor="message">What would you use Siora for?</Label>
-              <Textarea id="message" rows={3} placeholder="Tell us a bit about your needs" {...form.register("message")} />
-            </div>
-            <div className="col-span-2">
-              <Label htmlFor="source">How did you hear about us?</Label>
-              <Select onValueChange={(v) => form.setValue("source", v)}>
-                <SelectTrigger id="source" className="w-full">
-                  <SelectValue placeholder="Select a source" />
-                </SelectTrigger>
-                <SelectContent>
-                  {sources.map((s) => (
-                    <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="col-span-2 mt-1 flex items-center gap-2">
-              <input id="consent" type="checkbox" className="size-4" {...form.register("consent")} />
-              <Label htmlFor="consent" className="text-sm text-white/70">I agree to receive early access updates</Label>
-            </div>
-            <div className="col-span-2 mt-2">
-              <Button type="submit" variant="brand" size="lg" disabled={loading} className="w-full">
-                {loading ? "Joining..." : "Join the waitlist"}
-              </Button>
-            </div>
+        <div>
+          <label htmlFor="email" className="block text-sm">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            className="mt-1 w-full rounded-md border border-zinc-700 bg-zinc-800 p-2 focus:ring-2 focus:ring-indigo-500"
+            {...form.register("email")}
+          />
+          {form.formState.errors.email && (
+            <p className="mt-1 text-xs text-red-500">{form.formState.errors.email.message}</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-lg bg-indigo-600 px-5 py-3 text-white hover:bg-indigo-700"
+        >
+          {loading ? "Joining..." : "Join"}
+        </button>
+        {session?.user ? (
+          <div className="text-center text-sm">
+            <a href="/dashboard" className="text-indigo-400 hover:underline">
+              Go to Dashboard
+            </a>
           </div>
-        </form>
-      </div>
+        ) : (
+          <div className="flex justify-center gap-4 text-sm">
+            <a href="/auth/login?role=brand" className="text-indigo-400 hover:underline">
+              Sign in as Brand
+            </a>
+            <a href="/instagram/login" className="text-indigo-400 hover:underline">
+              Sign in with Instagram
+            </a>
+          </div>
+        )}
+      </form>
     </section>
   );
-};
-
-export default WaitlistForm;
+}

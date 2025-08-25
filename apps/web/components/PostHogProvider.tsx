@@ -1,19 +1,12 @@
 'use client';
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import posthog from 'posthog-js'
-import { initPostHog } from '@/lib/posthog'
+import { track } from '@/lib/analytics/track'
 
 export default function PostHogProvider() {
   const pathname = usePathname()
   useEffect(() => {
-    initPostHog()
-  }, [])
-
-  useEffect(() => {
-    if (!posthog.__loaded) return
-    posthog.capture('$pageview')
+    track('$pageview')
   }, [pathname])
-
   return null
 }

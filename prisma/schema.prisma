@@ -244,6 +244,9 @@ model WaitlistSignup {
   userAgent   String?
   ipHash      String?
   notes       String?
+  confirmToken  String?
+  confirmExpires DateTime?
+  confirmedAt   DateTime?
   createdAt   DateTime  @default(now())
 
   referralCode String   @unique @default(uuid())
