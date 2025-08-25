@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { getBrandForUser } from "@/lib/guards";
 import { consumeCredits } from "@/lib/credits";
+import { assertCredits } from "@/lib/paywall";
 import { scoreMatch, oneIfEqual, softSetOverlap } from "@/lib/matchScore";
 
 export const runtime = "nodejs";
@@ -89,14 +90,16 @@ export async function POST(req: Request) {
   const top = scored.slice(0, topK);
 
   const needed = top.length;
+  try {
+    assertCredits(brand.credits ?? 0, needed);
+  } catch (err: any) {
+    return new Response(
+      JSON.stringify({ error: err.message, required: err.required, remaining: err.remaining }),
+      { status: 402 },
+    );
+  }
   if (needed > 0) {
-    const debit = await consumeCredits(brand.id, needed, "AI_MATCH", `Generate matches for ${campaignId} (${needed})`);
-    if (!debit.ok) {
-      return new Response(
-        JSON.stringify({ error: `Not enough credits for ${needed} matches`, required: needed, remaining: debit.remaining }),
-        { status: 402 },
-      );
-    }
+    await consumeCredits(brand.id, needed, "AI_MATCH", `Generate matches for ${campaignId} (${needed})`);
   }
 
   await prisma.$transaction(

@@ -23,8 +23,10 @@ export async function POST() {
   const brand = await prisma.brand.findFirst({ where: { ownerId: user.id } });
   if (!brand) {
     await prisma.brand.create({
-      data: { ownerId: user.id, name: `${name.split(" ")[0]}'s Brand`, plan: "FREE" },
+      data: { ownerId: user.id, name: `${name.split(" ")[0]}'s Brand`, plan: "FREE", credits: 20 },
     });
+  } else if ((brand.credits ?? 0) === 0 && brand.plan === "FREE") {
+    await prisma.brand.update({ where: { id: brand.id }, data: { credits: 20 } });
   }
 
   return Response.json({ ok: true });

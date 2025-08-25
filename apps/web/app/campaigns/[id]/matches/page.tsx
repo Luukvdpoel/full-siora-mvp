@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import MatchesClient from "./MatchesClient";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function MatchesPage({ params }: { params: { id: string } }) {
   const { userId } = auth();
   if (!userId) return null; // protected by middleware

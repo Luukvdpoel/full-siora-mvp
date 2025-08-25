@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import WaitlistForm from "./WaitlistForm";
 
 export default function Hero() {
@@ -26,7 +27,9 @@ export default function Hero() {
         </div>
       </div>
       <div className="w-full max-w-md">
-        <WaitlistForm source="hero-cta" />
+        <Suspense fallback={null}>
+          <WaitlistForm source="hero-cta" />
+        </Suspense>
       </div>
     </section>
   );
