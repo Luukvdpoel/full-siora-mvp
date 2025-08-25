@@ -75,6 +75,14 @@ enum Plan {
   PRO
 }
 
+enum PipelineStatus {
+  PROSPECT
+  CONTACTED
+  NEGOTIATING
+  WON
+  LOST
+}
+
 model Creator {
   id          String   @id @default(cuid())
   name        String
@@ -153,24 +161,72 @@ model Match {
 }
 
 model Shortlist {
-  id        String         @id @default(cuid())
+  id        String   @id @default(cuid())
   brandId   String
-  brand     Brand          @relation(fields: [brandId], references: [id])
-  name      String         @default("Shortlist")
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  name      String   @default("Shortlist")
+  shareId   String?  @unique
   items     ShortlistItem[]
-  createdAt DateTime       @default(now())
+  createdAt DateTime @default(now())
 }
 
 model ShortlistItem {
   id          String   @id @default(cuid())
   shortlistId String
   creatorId   String
+  campaignId  String?
   shortlist   Shortlist @relation(fields: [shortlistId], references: [id])
   creator     Creator   @relation(fields: [creatorId], references: [id])
+
+  status      PipelineStatus @default(PROSPECT)
   note        String?
-  createdAt   DateTime  @default(now())
+  lastContact DateTime?
+  createdAt   DateTime @default(now())
 
   @@unique([shortlistId, creatorId])
+}
+
+model ContactInfo {
+  id        String   @id @default(cuid())
+  creatorId String   @unique
+  email     String?
+  igDm      String?
+  ytEmail   String?
+  website   String?
+  createdAt DateTime @default(now())
+}
+
+model Outreach {
+  id          String   @id @default(cuid())
+  brandId     String
+  creatorId   String
+  campaignId  String?
+  channel     String
+  subject     String?
+  body        String
+  sentAt      DateTime?
+  replyAt     DateTime?
+  status      String   @default("draft")
+  createdAt   DateTime @default(now())
+
+  @@index([brandId, creatorId, campaignId])
+}
+
+model DealEval {
+  id          String   @id @default(cuid())
+  brandId     String
+  creatorId   String
+  campaignId  String?
+  // inputs
+  deliverables String
+  rights       String?
+  priceEUR     Int
+  notes        String?
+  // AI assessment
+  fairnessScore Int?
+  risks         String?
+  suggestion    String?
+  createdAt     DateTime @default(now())
 }
 
 model WaitlistSignup {
