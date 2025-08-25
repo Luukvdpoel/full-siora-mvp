@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import * as React from "react";
+import { useSearchParams } from "next/navigation";
+import posthog from "posthog-js";
+import toast from "react-hot-toast";
 import {
   Dialog,
   DialogContent,
@@ -46,20 +49,44 @@ export default function MatchesClient({
     plan: "FREE" | "PRO";
   };
   initialMatches: CreatorRow[];
-}) {
-  const [matches, setMatches] = React.useState<CreatorRow[]>(initialMatches);
-  const [loading, setLoading] = React.useState<null | string>(null);
-  const [error, setError] = React.useState<string>("");
-  const [autoMsg, setAutoMsg] = React.useState<string>("");
-  const [selected, setSelected] = React.useState<string[]>([]);
+  }) {
+    const [matches, setMatches] = React.useState<CreatorRow[]>(initialMatches);
+    const [loading, setLoading] = React.useState<null | string>(null);
+    const [error, setError] = React.useState<string>("");
+    const [autoMsg, setAutoMsg] = React.useState<string>("");
+    const [selected, setSelected] = React.useState<string[]>([]);
+    const search = useSearchParams();
 
-  function toggleSelect(id: string) {
+    function toggleSelect(id: string) {
     setSelected((sel) =>
       sel.includes(id) ? sel.filter((x) => x !== id) : [...sel, id].slice(-3)
     );
   }
 
-  const estimatedCost = (!campaign.analyzedAt ? 1 : 0) + 20;
+    const estimatedCost = (!campaign.analyzedAt ? 1 : 0) + 20;
+
+    React.useEffect(() => {
+      if (search.get("auto") === "1" && !initialMatches.length) {
+        fetch("/api/match/auto", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ campaignId: campaign.id, topK: 10 }),
+        })
+          .then((r) => r.json().catch(() => ({})))
+          .then((j) => {
+            if (j?.data) {
+              setMatches(j.data);
+              posthog.capture("first_matches_generated", { campaignId: campaign.id });
+              toast.success(
+                "Your first matches are ready 🎉 — add the best to your shortlist.",
+              );
+              import("canvas-confetti").then((m) =>
+                m.default({ spread: 70, origin: { y: 0.6 } }),
+              );
+            }
+          });
+      }
+    }, [search, campaign.id, initialMatches.length]);
 
   async function analyzeCampaign() {
     setLoading("analyze");

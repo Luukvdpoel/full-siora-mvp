@@ -33,6 +33,8 @@ model Brand {
   name       String
   website    String?
   plan       Plan      @default(FREE)
+  niche      String?
+  goal       String?
 
   stripeCustomerId     String?  @unique
   stripeSubscriptionId String?
