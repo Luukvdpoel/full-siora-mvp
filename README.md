@@ -510,3 +510,14 @@ The site runs at http://localhost:3000.
 
 Vercel automatically builds using `pnpm build` and outputs `apps/web/.next` as configured in `vercel.json`.
 
+## Environment Variables
+
+The waitlist feature relies on the following environment variables. Add them to your `.env` file or hosting provider:
+
+- `DATABASE_URL` (required)
+- `WAITLIST_BASELINE` – starting count for the landing page (e.g., `87`)
+- `SLACK_WEBHOOK_URL` – Slack notifications (optional)
+- `RESEND_API_KEY` and `RESEND_FROM` – send confirmation emails (optional)
+- `POSTHOG_API_KEY` / `NEXT_PUBLIC_POSTHOG_KEY` – analytics (optional)
+- `IP_HASH_SALT` – salt for hashing IP addresses
+

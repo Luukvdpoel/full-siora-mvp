@@ -10,7 +10,8 @@ export async function POST(req: Request) {
   const { userId } = auth(); if (!userId) return new Response("Unauthorized", { status: 401 });
   const { creatorId, campaignId, tone = "friendly" } = await req.json();
 
-  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress!;
+  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress;
+  if (!email) return new Response("Unauthorized", { status: 401 });
   const brand = await prisma.brand.findFirst({ where: { owner: { email } } });
   if (!brand) return new Response("Brand not found", { status: 404 });
 
