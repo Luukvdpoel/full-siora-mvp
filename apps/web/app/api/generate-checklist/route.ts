@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
-import markdownpdf from 'markdown-pdf'
-import path from 'path'
+import { markdownToPdf } from '@/lib/pdf'
 
 interface ChecklistRequest {
   creatorName: string
@@ -26,23 +25,7 @@ export async function POST(req: Request) {
       .join('\n')
 
     if (format === 'pdf') {
-      const cssPath = path.join(
-        process.cwd(),
-        'apps',
-        'brand',
-        'app',
-        'api',
-        'generate-checklist',
-        'pdf.css',
-      )
-      const buffer: Buffer = await new Promise((resolve, reject) => {
-        markdownpdf({ cssPath })
-          .from.string(markdown)
-          .to.buffer((err, buff) => {
-            if (err) reject(err)
-            else resolve(buff)
-          })
-      })
+      const buffer = await markdownToPdf(markdown)
       return new NextResponse(buffer, {
         status: 200,
         headers: {
