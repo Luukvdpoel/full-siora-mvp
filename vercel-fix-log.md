@@ -9,6 +9,7 @@
 - Verified Prisma generate runs in postinstall.
 - Ran `pnpm install` and `pnpm build --filter=web` to ensure `next build` succeeds.
 - Attempted `vercel link` which failed due to missing credentials.
+- Corrected `outputDirectory` to `apps/web/.next` in `vercel.json`.
 
 ## Test Commands
 ```
