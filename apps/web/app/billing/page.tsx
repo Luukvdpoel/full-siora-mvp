@@ -1,4 +1,5 @@
 import CreditBadge from "../(components)/CreditBadge";
+import ReferralLink from "../(components)/ReferralLink";
 import { BuyCredits } from "@/components/BuyCredits";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
@@ -17,6 +18,9 @@ export default function BillingPage() {
           </button>
         </form>
       </div>
+
+      {/* @ts-expect-error Server Component */}
+      <ReferralLink />
 
       <div className="mt-8">
         <h2 className="text-xl font-semibold">Buy credits</h2>

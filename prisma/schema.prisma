@@ -244,6 +244,15 @@ model DealEval {
   createdAt     DateTime @default(now())
 }
 
+model Referral {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  referrerId      String
+  referredBrandId String?
+  rewarded        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+}
+
 model WaitlistSignup {
   id           String   @id @default(cuid())
   email        String

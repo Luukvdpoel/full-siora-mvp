@@ -41,6 +41,13 @@ export async function POST(req: Request) {
                 currentPeriodEnd: new Date(sub.current_period_end * 1000),
               },
             });
+            const referral = await prisma.referral.findFirst({
+              where: { referredBrandId: brandId, rewarded: false },
+            });
+            if (referral) {
+              await addCredits(referral.referrerId, 200, "Referral reward");
+              await prisma.referral.update({ where: { id: referral.id }, data: { rewarded: true } });
+            }
           }
         }
 
@@ -53,6 +60,13 @@ export async function POST(req: Request) {
           else if (pack === "2000") credits = 2000;
           if (brandId && credits > 0) {
             await addCredits(brandId, credits, `Stripe payment ${session.id}`);
+            const referral = await prisma.referral.findFirst({
+              where: { referredBrandId: brandId, rewarded: false },
+            });
+            if (referral) {
+              await addCredits(referral.referrerId, 200, "Referral reward");
+              await prisma.referral.update({ where: { id: referral.id }, data: { rewarded: true } });
+            }
           }
         }
         break;

@@ -1,6 +1,7 @@
 import { authMiddleware } from "@clerk/nextjs";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { NextResponse } from "next/server";
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -9,6 +10,14 @@ const ratelimit = new Ratelimit({
 
 export default authMiddleware({
   publicRoutes: ["/", "/pricing", "/api/health"],
+  async beforeAuth(req) {
+    const ref = req.nextUrl.searchParams.get("ref");
+    if (ref) {
+      const res = NextResponse.next();
+      res.cookies.set("referral", ref, { maxAge: 60 * 60 * 24 * 30 });
+      return res;
+    }
+  },
   async afterAuth(auth, req) {
     const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
     const { success } = await ratelimit.limit(ip);
