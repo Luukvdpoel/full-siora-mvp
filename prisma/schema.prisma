@@ -63,6 +63,17 @@ model Usage {
   @@index([brandId, createdAt])
 }
 
+model CreditLog {
+  id        String   @id @default(cuid())
+  brandId   String
+  action    String
+  amount    Int
+  createdAt DateTime @default(now())
+  meta      Json?
+
+  @@index([brandId, createdAt])
+}
+
 enum UsageType {
   AI_ANALYZE
   AI_MATCH

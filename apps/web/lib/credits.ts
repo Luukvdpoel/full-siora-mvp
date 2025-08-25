@@ -16,6 +16,14 @@ export async function addCredits(brandId: string, amount: number, note?: string)
     await tx.usage.create({
       data: { brandId, type: "TOP_UP", amount, note },
     });
+    await tx.creditLog.create({
+      data: {
+        brandId,
+        action: "TOP_UP",
+        amount,
+        meta: note ? { note } : undefined,
+      },
+    });
     return b;
   });
   return updated.credits;
@@ -41,9 +49,16 @@ export async function consumeCredits(
       where: { id: brandId },
       data: { credits: { decrement: amount } },
     });
-
     await tx.usage.create({
       data: { brandId, type, amount, note },
+    });
+    await tx.creditLog.create({
+      data: {
+        brandId,
+        action: type,
+        amount: -amount,
+        meta: note ? { note } : undefined,
+      },
     });
 
     return { ok: true, remaining: updated.credits } as const;
