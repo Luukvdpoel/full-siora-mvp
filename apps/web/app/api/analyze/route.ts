@@ -2,12 +2,13 @@ import { requirePro, getBrandForUser } from "@/lib/guards";
 import { consumeCredits } from "@/lib/credits";
 import OpenAI from "openai";
 import { auth } from "@clerk/nextjs/server";
+import { withErrorCapture } from "@/lib/sentry";
 
 export const runtime = "nodejs";
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
-export async function POST(req: Request) {
+export const POST = withErrorCapture(async (req: Request) => {
   const { userId } = auth();
   if (!userId) return new Response("Unauthorized", { status: 401 });
 
@@ -29,4 +30,4 @@ export async function POST(req: Request) {
   });
 
   return Response.json({ analysis: res.choices[0]?.message?.content ?? "", remaining: debit.remaining });
-}
+});

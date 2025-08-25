@@ -1,8 +1,8 @@
 import "./globals.css";
 import Link from "next/link";
 import { ClerkProvider } from "@clerk/nextjs";
-import PostHogProvider from "@/components/PostHogProvider";
 import { AuthControls } from "@/components/AuthControls";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Siora",
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider>
       <html lang="en" className="bg-gray-950 text-white">
         <body className="min-h-screen antialiased">
-          <PostHogProvider />
+          <Providers>
           <header className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur">
             <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
               <Link href="/" className="font-semibold tracking-tight">
@@ -35,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer className="mx-auto max-w-7xl px-4 py-10 text-sm text-white/50">
             © {new Date().getFullYear()} Siora — All rights reserved.
           </footer>
+          </Providers>
         </body>
       </html>
     </ClerkProvider>

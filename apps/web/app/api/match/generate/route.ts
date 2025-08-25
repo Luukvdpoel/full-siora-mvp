@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getBrandForUser } from "@/lib/guards";
 import { consumeCredits } from "@/lib/credits";
 import { scoreMatch, oneIfEqual, softSetOverlap } from "@/lib/matchScore";
+import { withErrorCapture } from "@/lib/sentry";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,7 +22,7 @@ type Row = {
   dist: number;
 };
 
-export async function POST(req: Request) {
+export const POST = withErrorCapture(async (req: Request) => {
   const { userId } = auth();
   if (!userId) return new Response("Unauthorized", { status: 401 });
 
@@ -109,12 +110,24 @@ export async function POST(req: Request) {
     ),
   );
 
+  if (process.env.POSTHOG_KEY) {
+    await fetch("https://app.posthog.com/capture/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        api_key: process.env.POSTHOG_KEY,
+        event: "match_generated",
+        properties: { campaignId, count: top.length },
+      }),
+    });
+  }
+
   return Response.json({
     ok: true,
     count: top.length,
     data: top.map(({ dist, ...rest }) => rest),
   });
-}
+});
 
 function rationaleText(c: Row, camp: any) {
   const bits = [] as string[];

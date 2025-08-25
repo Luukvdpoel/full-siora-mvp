@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { withRetry } from "./retry";
 
 export const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
@@ -12,15 +13,17 @@ Return JSON with:
 
   const user = `TEXT:\n${text}\n\nReturn ONLY JSON.`;
 
-  const chat = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    response_format: { type: "json_object" },
-    messages: [
-      { role: "system", content: sys },
-      { role: "user", content: user },
-    ],
-    temperature: 0.2,
-  });
+  const chat = await withRetry(() =>
+    openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: sys },
+        { role: "user", content: user },
+      ],
+      temperature: 0.2,
+    }),
+  );
 
   const raw = chat.choices[0]?.message?.content || "{}";
   const parsed = JSON.parse(raw);
@@ -33,10 +36,12 @@ Return JSON with:
 
 // Create 1536-dim embedding
 export async function embed(text: string) {
-  const res = await openai.embeddings.create({
-    model: "text-embedding-3-large",
-    input: text,
-  });
+  const res = await withRetry(() =>
+    openai.embeddings.create({
+      model: "text-embedding-3-large",
+      input: text,
+    }),
+  );
   return res.data[0].embedding; // number[]
 }
 

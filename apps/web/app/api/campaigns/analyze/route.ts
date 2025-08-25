@@ -3,11 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { analyzeTextProfile, embed } from "@/lib/ai";
 import { getBrandForUser } from "@/lib/guards";
 import { consumeCredits } from "@/lib/credits";
+import { withErrorCapture } from "@/lib/sentry";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function POST(req: Request) {
+export const POST = withErrorCapture(async (req: Request) => {
   const { userId } = auth();
   if (!userId) return new Response("Unauthorized", { status: 401 });
 
@@ -36,4 +37,4 @@ export async function POST(req: Request) {
   );
 
   return Response.json({ ok: true, tone, values, keywords });
-}
+});

@@ -173,6 +173,17 @@ model ShortlistItem {
   @@unique([shortlistId, creatorId])
 }
 
+model CreditLog {
+  id        String   @id @default(cuid())
+  brandId   String
+  action    String
+  amount    Int
+  createdAt DateTime @default(now())
+  meta      Json?
+
+  @@index([brandId])
+}
+
 model WaitlistSignup {
   id          String   @id @default(cuid())
   email       String   @unique
