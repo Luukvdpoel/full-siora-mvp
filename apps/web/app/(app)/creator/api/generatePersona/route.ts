@@ -1,5 +1,5 @@
 import { safeJson } from 'shared-utils';
-import { generatePersona } from '../../../../../../lib/gpt';
+import { generatePersona } from '../../../../../../../lib/gpt';
 
 export async function POST(req: Request) {
   try {

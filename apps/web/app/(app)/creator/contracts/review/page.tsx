@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import fairTemplates from '../../data/fairContractTemplates';
+import fairTemplates from '@/app/creator/data/fairContractTemplates';
 import { detectContractRedFlags, ContractWarning } from 'shared-utils';
 import ReactMarkdown from 'react-markdown';
 

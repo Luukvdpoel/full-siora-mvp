@@ -1,5 +1,5 @@
-import CreditBadge from "../(components)/CreditBadge";
-import ReferralLink from "../(components)/ReferralLink";
+import CreditBadge from "@/app/(components)/CreditBadge";
+import ReferralLink from "@/app/(components)/ReferralLink";
 import { BuyCredits } from "@/components/BuyCredits";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 

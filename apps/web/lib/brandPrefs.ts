@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import type { BrandProfile } from '../../packages/shared-utils/src/fitScoreEngine';
+import type { BrandProfile } from 'shared-utils';
 
 export function useBrandPrefs() {
   const [prefs, setPrefs] = useState<BrandProfile | null>(null);
