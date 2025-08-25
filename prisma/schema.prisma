@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -17,7 +16,6 @@ model User {
   role      Role     @default(BRAND)
 
   brands    Brand[]
-  creators  Creator[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -126,7 +124,6 @@ model Creator {
 
   @@index([platform])
   @@index([followers])
-  @@fulltext([name, handle, bio])
 }
 
 enum Platform {
