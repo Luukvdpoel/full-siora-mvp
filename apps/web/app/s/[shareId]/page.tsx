@@ -1,10 +1,16 @@
 import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function SharedShortlist({ params }: { params: { shareId: string } }) {
   const sl = await prisma.shortlist.findFirst({
     where: { shareId: params.shareId },
     include: { items: { include: { creator: true } } },
   });
   if (!sl) return <div className="p-8">Share not found.</div>;
+  const brand = await prisma.brand.findUnique({ where: { id: sl.brandId }, select: { plan: true } });
+  const isFree = brand?.plan !== "PRO";
   return (
     <section className="mx-auto max-w-4xl py-8">
       <h1 className="text-2xl font-semibold">{sl.name}</h1>
@@ -16,6 +22,11 @@ export default async function SharedShortlist({ params }: { params: { shareId: s
           </div>
         ))}
       </div>
+      {isFree && (
+        <div className="mt-6 text-center text-xs text-white/50">
+          Powered by <a href="/" className="underline">Siora</a>
+        </div>
+      )}
     </section>
   );
 }

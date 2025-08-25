@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/prisma";
+import { LowCreditBanner } from "@/components/LowCreditBanner";
 
 export default async function ShortlistBoard() {
   const sl = await prisma.shortlist.findFirst({
@@ -8,9 +9,12 @@ export default async function ShortlistBoard() {
   });
   if (!sl) return <div className="p-8">No shortlist yet.</div>;
 
+  const brand = await prisma.brand.findUnique({ where: { id: sl.brandId }, select: { credits: true } });
+
   const cols = ["PROSPECT","CONTACTED","NEGOTIATING","WON","LOST"] as const;
   return (
     <section className="mx-auto max-w-6xl py-8">
+      <LowCreditBanner remaining={brand?.credits ?? 0} />
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">{sl.name}</h1>
         <form action="/api/shortlist/share" method="POST">

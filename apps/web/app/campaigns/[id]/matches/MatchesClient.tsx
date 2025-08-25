@@ -11,6 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { LowCreditBanner } from "@/components/LowCreditBanner";
+import { UpgradeModal } from "@/components/UpgradeModal";
 
 type CreatorRow = {
   id: string;
@@ -37,11 +39,11 @@ type CreatorRow = {
 export default function MatchesClient({
   campaign,
   initialMatches,
-}: {
-  campaign: {
-    id: string;
-    title: string;
-    brief: string;
+  }: {
+    campaign: {
+      id: string;
+      title: string;
+      brief: string;
     niche: string;
     targetTone: string;
     analyzedAt: string | null;
@@ -55,6 +57,9 @@ export default function MatchesClient({
     const [error, setError] = React.useState<string>("");
     const [autoMsg, setAutoMsg] = React.useState<string>("");
     const [selected, setSelected] = React.useState<string[]>([]);
+    const [showUpgrade, setShowUpgrade] = React.useState(false);
+    const [needed, setNeeded] = React.useState<number | undefined>();
+    const [remaining, setRemaining] = React.useState<number | undefined>();
     const search = useSearchParams();
 
     function toggleSelect(id: string) {
@@ -98,7 +103,15 @@ export default function MatchesClient({
     });
     const j = await r.json().catch(() => ({}));
     setLoading(null);
-    if (!r.ok) return setError(j?.error || "Failed to analyze campaign");
+    if (!r.ok) {
+      if (r.status === 402) {
+        setNeeded(j?.required);
+        setRemaining(j?.remaining);
+        setShowUpgrade(true);
+        return;
+      }
+      return setError(j?.error || "Failed to analyze campaign");
+    }
     alert(`Analyzed: tone ${j.tone}`);
     // no hard reload needed; user can now generate matches
   }
@@ -115,7 +128,10 @@ export default function MatchesClient({
     setLoading(null);
     if (!r.ok) {
       if (r.status === 402) {
-        return setError(j?.error || "Not enough credits. Buy credits in Billing.");
+        setNeeded(j?.required);
+        setRemaining(j?.remaining);
+        setShowUpgrade(true);
+        return;
       }
       return setError(j?.error || "Failed to generate matches");
     }
@@ -135,7 +151,12 @@ export default function MatchesClient({
     setLoading(null);
 
     if (!r.ok) {
-      if (r.status === 402) return setError(j?.error || "Not enough credits.");
+      if (r.status === 402) {
+        setNeeded(j?.required);
+        setRemaining(j?.remaining);
+        setShowUpgrade(true);
+        return;
+      }
       return setError(j?.error || "Failed to run auto match");
     }
 
@@ -144,33 +165,39 @@ export default function MatchesClient({
   }
 
   function exportCSV() {
+    const header = [
+      "Score",
+      "Name",
+      "Handle",
+      "Niche",
+      "Tone",
+      "Values",
+      "Followers",
+      "AvgViews",
+      "Engagement",
+      "Location",
+      "Rationale",
+    ];
+    if (campaign.plan !== "PRO") header.push("GeneratedWith");
     const rows = [
-      [
-        "Score",
-        "Name",
-        "Handle",
-        "Niche",
-        "Tone",
-        "Values",
-        "Followers",
-        "AvgViews",
-        "Engagement",
-        "Location",
-        "Rationale",
-      ],
-      ...matches.map((m) => [
-        m.score,
-        m.name,
-        m.handle,
-        m.niche ?? "",
-        m.tone ?? "",
-        (m.values ?? []).join("; "),
-        m.followers,
-        m.avgViews,
-        m.engagement ?? "",
-        m.location ?? "",
-        m.rationale.replaceAll("\n", " ").replaceAll(",", ";"),
-      ]),
+      header,
+      ...matches.map((m) => {
+        const row = [
+          m.score,
+          m.name,
+          m.handle,
+          m.niche ?? "",
+          m.tone ?? "",
+          (m.values ?? []).join("; "),
+          m.followers,
+          m.avgViews,
+          m.engagement ?? "",
+          m.location ?? "",
+          m.rationale.replaceAll("\n", " ").replaceAll(",", ";"),
+        ];
+        if (campaign.plan !== "PRO") row.push("Siora (Free)");
+        return row;
+      }),
     ];
     const csv = rows
       .map((r) => r.map((field) => `"${String(field).replaceAll('"', '""')}"`).join(","))
@@ -201,6 +228,7 @@ export default function MatchesClient({
 
   return (
     <section className="py-8">
+      <LowCreditBanner remaining={campaign.credits} />
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">{campaign.title}</h1>
@@ -359,6 +387,12 @@ export default function MatchesClient({
           </div>
         )}
       </div>
+      <UpgradeModal
+        open={showUpgrade}
+        onClose={() => setShowUpgrade(false)}
+        needed={needed}
+        remaining={remaining}
+      />
     </section>
   );
 }
