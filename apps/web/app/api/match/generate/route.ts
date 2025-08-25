@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getBrandForUser } from "@/lib/guards";
 import { consumeCredits } from "@/lib/credits";
 import { scoreMatch, oneIfEqual, softSetOverlap } from "@/lib/matchScore";
+import * as Sentry from "@sentry/nextjs";
+import { trackServer } from "@/lib/analytics/server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,22 +24,23 @@ type Row = {
 };
 
 export async function POST(req: Request) {
-  const { userId } = auth();
-  if (!userId) return new Response("Unauthorized", { status: 401 });
+  try {
+    const { userId } = auth();
+    if (!userId) return new Response("Unauthorized", { status: 401 });
 
-  const { campaignId, topK = 20, minFollowers = 1000, maxFollowers = 2_000_000 } = await req.json();
-  if (!campaignId) return new Response("campaignId required", { status: 400 });
+    const { campaignId, topK = 20, minFollowers = 1000, maxFollowers = 2_000_000 } = await req.json();
+    if (!campaignId) return new Response("campaignId required", { status: 400 });
 
-  const brand = await getBrandForUser();
-  if (!brand) return new Response("Brand not found", { status: 404 });
+    const brand = await getBrandForUser();
+    if (!brand) return new Response("Brand not found", { status: 404 });
 
-  const camp = await prisma.campaign.findUnique({
-    where: { id: campaignId },
-    select: { id: true, embedding: true, targetTone: true, desiredValues: true, niche: true },
-  });
-  if (!camp?.embedding) return new Response("Campaign not analyzed yet", { status: 400 });
+    const camp = await prisma.campaign.findUnique({
+      where: { id: campaignId },
+      select: { id: true, embedding: true, targetTone: true, desiredValues: true, niche: true },
+    });
+    if (!camp?.embedding) return new Response("Campaign not analyzed yet", { status: 400 });
 
-  const rows: Row[] = await prisma.$queryRawUnsafe(
+    const rows: Row[] = await prisma.$queryRawUnsafe(
     `
     select
       c.id, c.name, c.handle, c.niche, c.tone, c.values, c."followers", c."avgViews", c."engagement", c."location",
@@ -54,7 +57,7 @@ export async function POST(req: Request) {
     Math.min(topK * 3, 200),
   );
 
-  const scored = rows.map((c) => {
+    const scored = rows.map((c) => {
     const semantic01 = 1 - Math.max(0, Math.min(1, c.dist));
     const toneMatch01 = oneIfEqual(c.tone, camp.targetTone);
     const nicheMatch01 = oneIfEqual(c.niche, camp.niche);
@@ -85,35 +88,41 @@ export async function POST(req: Request) {
     };
   });
 
-  scored.sort((a, b) => b.score - a.score);
-  const top = scored.slice(0, topK);
+    scored.sort((a, b) => b.score - a.score);
+    const top = scored.slice(0, topK);
 
-  const needed = top.length;
-  if (needed > 0) {
-    const debit = await consumeCredits(brand.id, needed, "AI_MATCH", `Generate matches for ${campaignId} (${needed})`);
-    if (!debit.ok) {
-      return new Response(
-        JSON.stringify({ error: `Not enough credits for ${needed} matches`, required: needed, remaining: debit.remaining }),
-        { status: 402 },
-      );
+    const needed = top.length;
+    if (needed > 0) {
+      const debit = await consumeCredits(brand.id, needed, "AI_MATCH", `Generate matches for ${campaignId} (${needed})`);
+      if (!debit.ok) {
+        return new Response(
+          JSON.stringify({ error: `Not enough credits for ${needed} matches`, required: needed, remaining: debit.remaining }),
+          { status: 402 },
+        );
+      }
     }
+
+    await prisma.$transaction(
+      top.map((m) =>
+        prisma.match.upsert({
+          where: { campaignId_creatorId: { campaignId, creatorId: m.id } },
+          update: { matchScore: m.score, rationale: rationaleText(m, camp) },
+          create: { campaignId, creatorId: m.id, matchScore: m.score, rationale: rationaleText(m, camp) },
+        }),
+      ),
+    );
+
+    await trackServer("match_generated", { campaignId, count: top.length, brandId: brand.id });
+
+    return Response.json({
+      ok: true,
+      count: top.length,
+      data: top.map(({ dist, ...rest }) => rest),
+    });
+  } catch (err) {
+    Sentry.captureException(err);
+    return new Response("Internal error", { status: 500 });
   }
-
-  await prisma.$transaction(
-    top.map((m) =>
-      prisma.match.upsert({
-        where: { campaignId_creatorId: { campaignId, creatorId: m.id } },
-        update: { matchScore: m.score, rationale: rationaleText(m, camp) },
-        create: { campaignId, creatorId: m.id, matchScore: m.score, rationale: rationaleText(m, camp) },
-      }),
-    ),
-  );
-
-  return Response.json({
-    ok: true,
-    count: top.length,
-    data: top.map(({ dist, ...rest }) => rest),
-  });
 }
 
 function rationaleText(c: Row, camp: any) {

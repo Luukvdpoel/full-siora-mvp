@@ -1,6 +1,7 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 import { createContext, useState, useEffect, ReactNode } from "react";
+import posthog from "posthog-js";
 
 export type Theme = "light" | "dark";
 
@@ -31,4 +32,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   );
+}
+
+export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    if (!key) return;
+    posthog.init(key, { api_host: "https://app.posthog.com" });
+  }, []);
+  return <>{children}</>;
 }

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { addCredits } from "@/lib/credits";
 import Stripe from "stripe";
+import * as Sentry from "@sentry/nextjs";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,6 +16,7 @@ export async function POST(req: Request) {
   try {
     event = stripe.webhooks.constructEvent(text, sig, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (err: any) {
+    Sentry.captureException(err);
     return new Response(`Webhook signature verification failed: ${err.message}`, { status: 400 });
   }
 
@@ -89,6 +91,7 @@ export async function POST(req: Request) {
         break;
     }
   } catch (e: any) {
+    Sentry.captureException(e);
     return new Response(`Webhook handler error: ${e.message}`, { status: 500 });
   }
 
