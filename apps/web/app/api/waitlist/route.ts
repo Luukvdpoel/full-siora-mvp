@@ -1,80 +1,111 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
+import { z } from 'zod';
+
+const bodySchema = z.object({
+  email: z.string().email(),
+  role: z.string().optional(),
+  igHandle: z.string().optional(),
+  source: z.string().optional(),
+});
+
+const rateLimit = new Map<string, number>();
 
 export async function POST(req: Request) {
+  if (req.method !== 'POST') {
+    return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+  }
+
   try {
     const body = await req.json();
-    const {
+    const parse = bodySchema.safeParse(body);
+    if (!parse.success) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+    const { email, role, igHandle, source } = parse.data;
+
+    const now = Date.now();
+    const last = rateLimit.get(email);
+    if (last && now - last < 60_000) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+    rateLimit.set(email, now);
+
+    const url = new URL(req.url);
+    const utmSource = url.searchParams.get('utm_source') || undefined;
+    const utmMedium = url.searchParams.get('utm_medium') || undefined;
+    const utmCampaign = url.searchParams.get('utm_campaign') || undefined;
+
+    const referrer = req.headers.get('referer') || undefined;
+    const userAgent = req.headers.get('user-agent') || undefined;
+    const ip = (req.headers.get('x-forwarded-for') || '').split(',')[0]?.trim();
+    const ipHash = ip
+      ? crypto
+          .createHash('sha256')
+          .update(ip + (process.env.IP_HASH_SALT || ''))
+          .digest('hex')
+      : undefined;
+
+    const data = {
       email,
       role,
       igHandle,
-      name,
-      company,
       source,
       utmSource,
       utmMedium,
       utmCampaign,
-      referredBy,
-      notes,
-    } = body;
+      referrer,
+      userAgent,
+      ipHash,
+    };
 
-    if (!email || typeof email !== 'string') {
-      return NextResponse.json({ error: 'Email required' }, { status: 400 });
-    }
+    await prisma.waitlistSignup.upsert({
+      where: { email },
+      update: data,
+      create: data,
+    });
 
-    let signup = await prisma.waitlistSignup.findUnique({ where: { email } });
-    if (!signup) {
-      const referralCode = crypto.randomUUID();
-      const ua = req.headers.get('user-agent') || undefined;
-      const referrer = req.headers.get('referer') || undefined;
-      const ip = (req.headers.get('x-forwarded-for') || '').split(',')[0]?.trim();
-      const ipHash = ip ? crypto.createHash('sha256').update(ip + (ua || '')).digest('hex') : undefined;
-
-      let inviterCode: string | undefined = typeof referredBy === 'string' ? referredBy : undefined;
-      if (inviterCode === referralCode) inviterCode = undefined;
-
-      signup = await prisma.waitlistSignup.create({
-        data: {
-          email,
-          role,
-          igHandle,
-          name,
-          company,
-          source,
-          utmSource,
-          utmMedium,
-          utmCampaign,
-          referrer,
-          userAgent: ua,
-          ipHash,
-          notes,
-          referralCode,
-          referredBy: inviterCode,
-        },
+    if (process.env.SLACK_WEBHOOK_URL) {
+      const text = `New waitlist: ${email}${role ? ` (${role})` : ''} – ${utmSource || 'direct'}/${
+        utmCampaign || ''
+      } – ${igHandle || ''}`;
+      await fetch(process.env.SLACK_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
       });
-
-      if (inviterCode) {
-        await prisma.waitlistSignup.update({
-          where: { referralCode: inviterCode },
-          data: { referrals: { increment: 1 } },
-        });
-
-        if (process.env.SLACK_WEBHOOK_URL) {
-          const inviter = await prisma.waitlistSignup.findUnique({
-            where: { referralCode: inviterCode },
-          });
-          const inviterLabel = inviter?.email || inviterCode;
-          await fetch(process.env.SLACK_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: `Referral: ${email} was invited by ${inviterLabel}` }),
-          });
-        }
-      }
     }
 
-    return NextResponse.json({ referralCode: signup.referralCode });
+    if (process.env.RESEND_API_KEY) {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: process.env.RESEND_FROM || 'hello@usesiora.com',
+          to: email,
+          subject: 'Welcome to Siora waitlist',
+          html: '<p>Thanks for joining the Siora waitlist.</p>',
+        }),
+      });
+    }
+
+    if (process.env.POSTHOG_API_KEY) {
+      await fetch('https://app.posthog.com/capture/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: process.env.POSTHOG_API_KEY,
+          event: 'waitlist_signup',
+          properties: { email, role, source, utmSource, utmMedium, utmCampaign },
+        }),
+      });
+    }
+
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error('waitlist POST error', err);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });

@@ -175,7 +175,7 @@ model ShortlistItem {
 
 model WaitlistSignup {
   id          String   @id @default(cuid())
-  email       String   @unique
+  email       String
   role        String?
   igHandle    String?
   name        String?
@@ -190,11 +190,7 @@ model WaitlistSignup {
   notes       String?
   createdAt   DateTime  @default(now())
 
-  referralCode String   @unique @default(uuid())
-  referredBy   String?
-  referrals    Int      @default(0)
-
-  @@index([referralCode])
-  @@index([referredBy])
+  @@index([email])
+  @@index([createdAt])
 }
 

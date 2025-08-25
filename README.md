@@ -510,3 +510,13 @@ The site runs at http://localhost:3000.
 
 Vercel automatically builds using `pnpm build` and outputs `apps/web/.next` as configured in `vercel.json`.
 
+
+## Environment variables
+
+- `DATABASE_URL` (required)
+- `WAITLIST_BASELINE` (optional, defaults to 50)
+- `SLACK_WEBHOOK_URL` (optional)
+- `RESEND_API_KEY` (optional)
+- `RESEND_FROM` (optional, defaults to hello@usesiora.com)
+- `POSTHOG_API_KEY` / `NEXT_PUBLIC_POSTHOG_KEY` (optional)
+- `IP_HASH_SALT` (optional)

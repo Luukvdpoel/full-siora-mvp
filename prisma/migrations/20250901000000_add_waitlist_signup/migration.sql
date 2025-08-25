@@ -1,0 +1,2 @@
+-- Stub migration for WaitlistSignup model
+-- Run `pnpm prisma migrate dev --name add_waitlist_signup` to apply
