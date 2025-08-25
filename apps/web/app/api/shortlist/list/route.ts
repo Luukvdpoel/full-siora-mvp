@@ -2,7 +2,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress!;
+  const email = (await currentUser())?.emailAddresses?.[0]?.emailAddress;
+  if (!email) return new Response("Unauthorized", { status: 401 });
   const brand = await prisma.brand.findFirst({ where: { owner: { email } } });
   if (!brand) return new Response("Brand not found", { status: 404 });
 

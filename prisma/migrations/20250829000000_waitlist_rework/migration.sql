@@ -1,0 +1,2 @@
+-- Placeholder migration for WaitlistSignup changes.
+-- Run `pnpm prisma migrate dev --name waitlist_rework` after pulling.
