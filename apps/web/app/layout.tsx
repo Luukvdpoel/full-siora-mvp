@@ -23,6 +23,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="hidden gap-6 md:flex">
                 <NavLink href="/">Home</NavLink>
                 <NavLink href="/dashboard">Dashboard</NavLink>
+                <NavLink href="/shortlist">Shortlist</NavLink>
+                <NavLink href="/billing">Billing & Credits</NavLink>
                 <NavLink href="/pricing">Pricing</NavLink>
               </div>
               <div className="flex items-center gap-2">
@@ -68,6 +70,12 @@ function MobileMenu() {
         </Link>
         <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/dashboard">
           Dashboard
+        </Link>
+        <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/shortlist">
+          Shortlist
+        </Link>
+        <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/billing">
+          Billing & Credits
         </Link>
         <Link className="rounded-lg px-2 py-2 hover:bg-white/5" href="/pricing">
           Pricing
