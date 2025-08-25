@@ -1,9 +1,8 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY || "");
+import { getResend } from "@/lib/resend";
 
 export async function sendEmail(to: string, subject: string, html: string) {
-  if (!process.env.RESEND_API_KEY) return;
+  const resend = getResend();
+  if (!resend) return;
   await resend.emails.send({
     from: "Siora <hello@usesiora.com>",
     to,

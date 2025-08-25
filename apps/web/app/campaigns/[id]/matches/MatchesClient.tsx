@@ -71,26 +71,30 @@ export default function MatchesClient({
     const estimatedCost = (!campaign.analyzedAt ? 1 : 0) + 20;
 
     React.useEffect(() => {
-      if (search.get("auto") === "1" && !initialMatches.length) {
-        fetch("/api/match/auto", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ campaignId: campaign.id, topK: 10 }),
-        })
-          .then((r) => r.json().catch(() => ({})))
-          .then((j) => {
-            if (j?.data) {
-              setMatches(j.data);
-              posthog.capture("first_matches_generated", { campaignId: campaign.id });
-              toast.success(
-                "Your first matches are ready 🎉 — add the best to your shortlist.",
-              );
-              import("canvas-confetti").then((m) =>
-                m.default({ spread: 70, origin: { y: 0.6 } }),
-              );
-            }
+      let mounted = true;
+      async function loadMatches() {
+        if (search.get("auto") === "1" && !initialMatches.length) {
+          const r = await fetch("/api/match/auto", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ campaignId: campaign.id, topK: 10 }),
           });
+          const j = await r.json().catch(() => ({}));
+          if (mounted && j?.data) {
+            setMatches(j.data);
+            posthog.capture("first_matches_generated", { campaignId: campaign.id });
+            toast.success(
+              "Your first matches are ready 🎉 — add the best to your shortlist.",
+            );
+            const confetti = (await import("canvas-confetti")).default;
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+          }
+        }
       }
+      loadMatches();
+      return () => {
+        mounted = false;
+      };
     }, [search, campaign.id, initialMatches.length]);
 
   async function analyzeCampaign() {
