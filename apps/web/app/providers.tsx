@@ -2,6 +2,7 @@
 import React from 'react';
 import { createContext, useState, useEffect, ReactNode } from "react";
 import posthog from "posthog-js";
+import { SessionProvider } from "next-auth/react";
 
 export type Theme = "light" | "dark";
 
@@ -40,5 +41,6 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
       api_host: "https://app.posthog.com",
     });
   }, []);
-  return <>{children}</>;
+
+  return <SessionProvider>{children}</SessionProvider>;
 }
