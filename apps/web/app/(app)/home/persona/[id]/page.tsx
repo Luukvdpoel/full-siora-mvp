@@ -1,5 +1,5 @@
 import React from 'react';
-import personas from '../../../../../../data/personas.json';
+import personas from '@/data/personas.json';
 
 interface Persona {
   id: string;

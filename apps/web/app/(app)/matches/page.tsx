@@ -6,8 +6,8 @@ import Link from "next/link";
 import creators from "@/app/data/mock_creators_200.json";
 import { useShortlist } from "@/lib/shortlist";
 import { useBrandUser } from "@/lib/brandUser";
-import type { BrandProfile, CreatorPersona } from "../../../../packages/shared-utils/src";
-import { getFitScore, generateMatchExplanation } from "../../../../packages/shared-utils/src";
+import type { BrandProfile, CreatorPersona } from "shared-utils";
+import { getFitScore, generateMatchExplanation } from "shared-utils";
 import posthog from 'posthog-js'
 
 export default function MatchesPage() {
