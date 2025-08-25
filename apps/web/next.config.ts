@@ -35,16 +35,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.usesiora.com" }],
-        destination: "https://usesiora.com/:path*",
-        permanent: true,
-      },
-    ];
-  },
   async rewrites() {
     const creatorUrl = process.env.CREATOR_APP_URL;
     if (creatorUrl) {
