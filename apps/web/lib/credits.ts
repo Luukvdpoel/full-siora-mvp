@@ -46,6 +46,15 @@ export async function consumeCredits(
       data: { brandId, type, amount, note },
     });
 
+    await tx.creditLog.create({
+      data: {
+        brandId,
+        action: type,
+        amount: -amount,
+        meta: note ? { note } : undefined,
+      },
+    });
+
     return { ok: true, remaining: updated.credits } as const;
   });
 

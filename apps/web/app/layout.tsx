@@ -1,6 +1,6 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import PostHogProvider from "@/components/PostHogProvider";
+import { AnalyticsProvider } from "./providers";
 
 export const metadata = {
   title: "Siora",
@@ -12,8 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider>
       <html lang="en" className="bg-gray-950 text-white">
         <body className="min-h-screen antialiased">
-          <PostHogProvider />
-          {children}
+          <AnalyticsProvider>{children}</AnalyticsProvider>
         </body>
       </html>
     </ClerkProvider>

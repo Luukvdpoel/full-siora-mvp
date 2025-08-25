@@ -43,6 +43,8 @@ model Brand {
   credits    Int      @default(0)
   usages     Usage[]
 
+  creditLogs CreditLog[]
+
   campaigns  Campaign[]
   shortlists Shortlist[]
   createdAt  DateTime  @default(now())
@@ -59,6 +61,18 @@ model Usage {
   amount    Int
   note      String?
   createdAt DateTime @default(now())
+
+  @@index([brandId, createdAt])
+}
+
+model CreditLog {
+  id        String   @id @default(cuid())
+  brandId   String
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  action    String
+  amount    Int
+  createdAt DateTime @default(now())
+  meta      Json?
 
   @@index([brandId, createdAt])
 }
