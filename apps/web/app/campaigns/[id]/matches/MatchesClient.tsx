@@ -46,7 +46,7 @@ export default function MatchesClient({
     targetTone: string;
     analyzedAt: string | null;
     credits: number;
-    plan: "FREE" | "PRO";
+    plan: "FREE" | "STARTER" | "PRO" | "GROWTH";
   };
   initialMatches: CreatorRow[];
   }) {
