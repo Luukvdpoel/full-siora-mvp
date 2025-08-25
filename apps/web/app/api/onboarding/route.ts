@@ -1,5 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export async function POST(req: Request) {
   const { userId } = auth();
@@ -38,6 +39,9 @@ export async function POST(req: Request) {
       niche,
     },
   });
+
+  // fire and forget welcome email
+  sendWelcomeEmail(email, brand.name).catch(() => {});
 
   return Response.json({ campaignId: campaign.id });
 }
